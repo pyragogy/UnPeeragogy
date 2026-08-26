@@ -9,11 +9,24 @@ export interface Props {
 const { section } = Astro.props;
 const allEntries = await getCollection("peeragogy");
 
-const sectionEntries = allEntries
-  .filter((e) => e.data.section === section)
-  .sort((a, b) => (a.data.order || 99) - (b.data.order || 99));
+// Section order from the original ToC — this controls sidebar ordering
+const SECTION_ORDER = [
+  "Introduction",
+  "Motivation",
+  "Peeragogy in Practice",
+  "Convening a Group",
+  "Organizing a Learning Context",
+  "Cooperation",
+  "Assessment",
+  "Technologies, Services, and Platforms",
+  "Resources",
+];
 
-const sections = [...new Set(allEntries.map((e) => e.data.section).filter(Boolean))];
+// Collect sections preserving ToC order
+const sectionSet = new Set(allEntries.map((e) => e.data.section).filter(Boolean));
+const sections = SECTION_ORDER.filter((s) => sectionSet.has(s));
+// Add any extra sections not in order at the end
+sectionSet.forEach((s) => { if (!SECTION_ORDER.includes(s)) sections.push(s); });
 ---
 
 <nav class="space-y-6">
