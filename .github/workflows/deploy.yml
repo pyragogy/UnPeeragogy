@@ -5,12 +5,22 @@ on:
     branches: [ main ]
 
 jobs:
-  deploy:
+  deploy-web:
     runs-on: ubuntu-latest
     steps:
-      - name: Trigger Coolify deployment
+      - name: Trigger Coolify web deployment
         run: |
           curl -s -X POST \
             "https://console.pyragogy.org/api/v1/deploy?uuid=t3l7qmqcs7ay6d836h72joty" \
+            -H "Authorization: Bearer ${{ secrets.COOLIFY_API_TOKEN }}" \
+            -H "Content-Type: application/json"
+
+  deploy-mcp:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Coolify MCP deployment
+        run: |
+          curl -s -X POST \
+            "https://console.pyragogy.org/api/v1/deploy?uuid=lg5869dbqmfhoggibuap6mvx" \
             -H "Authorization: Bearer ${{ secrets.COOLIFY_API_TOKEN }}" \
             -H "Content-Type: application/json"
