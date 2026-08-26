@@ -184,11 +184,19 @@ for (const s of sectionOrder) {
     const container = document.getElementById("force-graph");
     if (!container || graph) return;
 
+    // Guard: skip if container has no dimensions (hidden or not rendered)
+    var w = container.clientWidth;
+    var h = container.clientHeight;
+    if (w === 0 || h === 0) {
+      // Retry after a short delay when container becomes visible
+      setTimeout(initGraph, 500);
+      return;
+    }
+
     var vaultData = JSON.parse(document.getElementById("vault-data").textContent);
     var nodes = vaultData.nodes;
     var links = vaultData.links;
 
-    // 3D-force-graph expects { nodes: [...], links: [...] }
     const graphData = {
       nodes: nodes.map(n => ({
         id: n.id,
@@ -205,34 +213,56 @@ for (const s of sectionOrder) {
     };
 
     // Read theme colors from CSS variables at runtime
-    const style = getComputedStyle(document.body);
-    const bgColor = style.getPropertyValue('--color-bg').trim() || '#ffffff';
-    const linkColor = style.getPropertyValue('--border-default').trim() || '#e4e4e7';
+    var style = getComputedStyle(document.body);
+    var bgColor = style.getPropertyValue('--color-bg').trim() || '#ffffff';
+    var linkColor = style.getPropertyValue('--border-default').trim() || '#e4e4e7';
 
     graph = ForceGraph()(container)
       .graphData(graphData)
-      .nodeColor(node => {
+      .nodeColor(function(node) {
         if (node.group === "unpeeragogy" || node.group === "unpeeragogy-only") return "#ef4444";
         return "#4a8fe7";
       })
-      .nodeLabel(node => `${node.name}${node.tension !== null ? ` [T:${node.tension.toFixed(1)}]` : ""}`)
+      .nodeLabel(function(node) {
+        var label = node.name;
+        if (node.tension !== null) label += ' [T:' + node.tension.toFixed(1) + ']';
+        return label;
+      })
       .nodeRelSize(6)
-      .linkColor(() => linkColor)
+      .linkColor(function() { return linkColor; })
       .linkWidth(0.5)
       .backgroundColor(bgColor)
-      .onNodeClick(node => {
-        window.location.href = `/${node.id}/`;
+      .onNodeClick(function(node) {
+        window.location.href = '/' + node.id + '/';
       })
-      .width(container.clientWidth)
-      .height(container.clientHeight);
+      .width(w)
+      .height(h);
 
-    // Resize handler
-    window.addEventListener("resize", () => {
-      if (container && graph) {
-        graph.width(container.clientWidth);
-        graph.height(container.clientHeight);
-      }
-    });
+    // Use ResizeObserver for responsive sizing (handles layout shifts, tab switches)
+    if (window.ResizeObserver) {
+      var ro = new ResizeObserver(function() {
+        if (container && graph) {
+          var cw = container.clientWidth;
+          var ch = container.clientHeight;
+          if (cw > 0 && ch > 0) {
+            graph.width(cw).height(ch);
+          }
+        }
+      });
+      ro.observe(container);
+      // Store observer reference to cleanup later
+      container._ro = ro;
+    } else {
+      window.addEventListener("resize", function() {
+        if (container && graph) {
+          var cw = container.clientWidth;
+          var ch = container.clientHeight;
+          if (cw > 0 && ch > 0) {
+            graph.width(cw).height(ch);
+          }
+        }
+      });
+    }
   }
 
   // --- View switching ---
