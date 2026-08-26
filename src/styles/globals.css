@@ -5,10 +5,22 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --color-bg: #fafaf9;
-  --color-text: #1c1917;
-  --color-accent: #0f766e;
+  --color-bg: #ffffff;
+  --color-text: #18181b;
+  --color-accent: #0d9488;
   --color-accent-light: #14b8a6;
+  --surface-bg: #fafafa;
+  --surface-raised: #ffffff;
+  --surface-hover: #f4f4f5;
+  --border-default: #e4e4e7;
+  --border-light: #f0f0f1;
+  --text-secondary: #52525b;
+  --text-muted: #a1a1aa;
+  --red-bg: rgba(239, 68, 68, 0.06);
+  --red-border: rgba(239, 68, 68, 0.2);
+  --red-text: #dc2626;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.05);
 }
 
 .dark {
@@ -83,17 +95,17 @@ body {
 /* No x-cloak CSS — Pagefind must see all content for indexing.
    Alpine handles x-show visibility via inline styles when JS loads. */
 
-/* === Dark Utility Classes (Deep Navy theme tokens) === */
-.dark .d-surface  { background: var(--surface-bg); }
-.dark .d-raised   { background: var(--surface-raised); }
-.dark .d-hover:hover { background: var(--surface-hover); }
-.dark .d-text-sec { color: var(--text-secondary); }
-.dark .d-text-dim { color: var(--text-muted); }
-.dark .d-border   { border-color: var(--border-default); }
-.dark .d-border-l { border-color: var(--border-light); }
-.dark .d-red-bg   { background: var(--red-bg); }
-.dark .d-red-bdr  { border-color: var(--red-border); }
-.dark .d-red-txt  { color: var(--red-text); }
+/* === Utility Classes — work in both light and dark === */
+.d-surface  { background: var(--surface-bg); }
+.d-raised   { background: var(--surface-raised); }
+.d-hover:hover { background: var(--surface-hover); }
+.d-text-sec { color: var(--text-secondary); }
+.d-text-dim { color: var(--text-muted); }
+.d-border   { border-color: var(--border-default); }
+.d-border-l { border-color: var(--border-light); }
+.d-red-bg   { background: var(--red-bg); }
+.d-red-bdr  { border-color: var(--red-border); }
+.d-red-txt  { color: var(--red-text); }
 /* === Scrollbar Custom — tono su tono === */
 
 /* Webkit (Chrome, Edge, Safari) */
