@@ -5,7 +5,7 @@ Fork of the Peeragogy Handbook project — a modern Astro 5 site for reimagining
 This project will evolve independently from the original Peeragogy Handbook.
 
 ## Critical Rules
-- **LOCAL WORK ONLY**: Under NO circumstances execute `git push` or push changes to remote repositories. All development, testing, builds, and previews must take place 100% locally until further notice.
+- **Git Remote**: `origin` → `git@github.com:pyragogy/unpeeragogy.git` (branch `main`)
 - **Voice / Tone**: Clear, educational, experimental, collaborative.
 
 ## Tech Stack
@@ -15,9 +15,10 @@ This project will evolve independently from the original Peeragogy Handbook.
 - **Discussions**: Giscus component per main section/chapter (`src/components/SectionDiscussion.astro`).
 - **Search**: Pagefind client-side search.
 
-## Upcoming
-- GitHub repo under `pyragogy` organization on GitHub.
-- Separate development path from the original Peeragogy Handbook.
+## Repository
+- **GitHub**: `github.com/pyragogy/unpeeragogy` (public)
+- **Remote**: `origin` → `git@github.com:pyragogy/unpeeragogy.git`
+- **Branch**: `main`
 
 ## Build & Preview
 - `npm run dev` — Start local dev server
