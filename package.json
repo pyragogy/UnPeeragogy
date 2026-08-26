@@ -5,9 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "start": "astro dev",
+    "start": "npx -y serve dist --listen 80",
     "build": "astro build && npx -y pagefind --site dist",
-    "preview": "astro preview",
+    "preview": "npx -y serve dist --listen 4321",
     "astro": "astro",
     "convert-org": "node scripts/convert-org.js",
     "seed-unpeeragogy": "node scripts/seed-unpeeragogy.js"
