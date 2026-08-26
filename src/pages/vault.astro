@@ -176,7 +176,7 @@ for (const s of sectionOrder) {
 </BaseLayout>
 
 <script>
-  import ForceGraph3D from "3d-force-graph";
+  import ForceGraph from "force-graph";
 
   let graph = null;
 
@@ -204,18 +204,22 @@ for (const s of sectionOrder) {
       })),
     };
 
-    graph = ForceGraph3D()(container)
+    // Read theme colors from CSS variables at runtime
+    const style = getComputedStyle(document.body);
+    const bgColor = style.getPropertyValue('--color-bg').trim() || '#ffffff';
+    const linkColor = style.getPropertyValue('--border-default').trim() || '#e4e4e7';
+
+    graph = ForceGraph()(container)
       .graphData(graphData)
       .nodeColor(node => {
         if (node.group === "unpeeragogy" || node.group === "unpeeragogy-only") return "#ef4444";
         return "#4a8fe7";
       })
       .nodeLabel(node => `${node.name}${node.tension !== null ? ` [T:${node.tension.toFixed(1)}]` : ""}`)
-      .nodeRelSize(4)
-      .linkColor(() => "#202d4a")
+      .nodeRelSize(6)
+      .linkColor(() => linkColor)
       .linkWidth(0.5)
-      .backgroundColor("transparent")
-      .controlType("orbit")
+      .backgroundColor(bgColor)
       .onNodeClick(node => {
         window.location.href = `/${node.id}/`;
       })
@@ -317,6 +321,10 @@ for (const s of sectionOrder) {
   .vault-section-header span:last-child { transition: transform 0.2s; }
   .vault-entry { text-decoration: none; color: inherit; }
   .vault-entry:hover { text-decoration: none; }
-  /* 3D-force-graph adapts to container */
+  /* Force-graph canvas fills container */
   #force-graph canvas { display: block; width: 100% !important; height: 100% !important; }
+  /* Ensure SVG tooltip doesn't overflow */
+  #force-graph svg { overflow: visible !important; }
+  /* Zoom controls always visible */
+  .graph-tooltip { background: var(--surface-raised); color: var(--color-text); border: 1px solid var(--border-default); border-radius: 6px; padding: 6px 10px; font-size: 13px; pointer-events: none; box-shadow: var(--shadow-sm); }
 </style>
