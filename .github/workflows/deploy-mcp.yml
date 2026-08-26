@@ -1,0 +1,19 @@
+name: Deploy MCP Server to Coolify
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'packages/mcp-server/**'
+      - 'src/content/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Coolify MCP deployment
+        run: |
+          curl -s -X POST \
+            "https://console.pyragogy.org/api/v1/deploy?uuid=${{ secrets.COOLIFY_MCP_UUID }}" \
+            -H "Authorization: Bearer ${{ secrets.COOLIFY_API_TOKEN }}" \
+            -H "Content-Type: application/json"
