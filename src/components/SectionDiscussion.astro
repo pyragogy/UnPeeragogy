@@ -20,26 +20,30 @@ const { slug, title } = Astro.props;
     </div>
   </div>
 
-  <script>
-    if (window.location.hostname !== "localhost" && window.location.hostname !== "127.0.0.1") {
-      const script = document.createElement("script");
-      script.src = "https://giscus.app/client.js";
-      script.setAttribute("data-repo", "pyragogy/unpeeragogy");
-      script.setAttribute("data-repo-id", "");
-      script.setAttribute("data-category", "Announcements");
-      script.setAttribute("data-category-id", "");
-      script.setAttribute("data-mapping", "specific");
-      script.setAttribute("data-term", `section: ${slug}`);
-      script.setAttribute("data-strict", "0");
-      script.setAttribute("data-reactions-enabled", "1");
-      script.setAttribute("data-emit-metadata", "0");
-      script.setAttribute("data-input-position", "top");
-      script.setAttribute("data-theme", "preferred_color_scheme");
-      script.setAttribute("data-lang", "en");
-      script.setAttribute("crossorigin", "anonymous");
-      script.setAttribute("async", "");
-      document.getElementById("giscus-container")?.appendChild(script);
-    }
+  <script define:vars={{ slug }}>
+    (function() {
+      var giscusContainer = document.getElementById("giscus-container");
+      var pageSlug = slug;
+      if (window.location.hostname !== "localhost" && window.location.hostname !== "127.0.0.1") {
+        var script = document.createElement("script");
+        script.src = "https://giscus.app/client.js";
+        script.setAttribute("data-repo", "pyragogy/unpeeragogy");
+        script.setAttribute("data-repo-id", "");
+        script.setAttribute("data-category", "Announcements");
+        script.setAttribute("data-category-id", "");
+        script.setAttribute("data-mapping", "specific");
+        script.setAttribute("data-term", "section: " + pageSlug);
+        script.setAttribute("data-strict", "0");
+        script.setAttribute("data-reactions-enabled", "1");
+        script.setAttribute("data-emit-metadata", "0");
+        script.setAttribute("data-input-position", "top");
+        script.setAttribute("data-theme", "preferred_color_scheme");
+        script.setAttribute("data-lang", "en");
+        script.setAttribute("crossorigin", "anonymous");
+        script.setAttribute("async", "");
+        if (giscusContainer) giscusContainer.appendChild(script);
+      }
+    })();
   </script>
 </section>
 

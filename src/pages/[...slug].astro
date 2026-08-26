@@ -91,7 +91,7 @@ const next = currentIndex < sorted.length - 1 ? sorted[currentIndex + 1] : null;
         x-transition:enter-end="opacity-100"
         class="scroll-sync peeragogy-col overflow-y-auto max-h-[calc(100vh-12rem)] pr-4"
         :class="view === 'dual' ? 'border-r border-stone-200 d-border' : ''"
-        @scroll.throttle="if (scrollSync && view === 'dual') { $el.closest('div').querySelector('.unpeeragogy-col').scrollTop = $el.scrollTop }"
+        @scroll.throttle="if (scrollSync && view === 'dual') { var el = $el.closest('div').querySelector('.unpeeragogy-col'); if (el) el.scrollTop = $el.scrollTop }"
       >
         {PeeragogyContent ? (
           <article>
@@ -131,7 +131,7 @@ const next = currentIndex < sorted.length - 1 ? sorted[currentIndex + 1] : null;
         x-transition:enter-end="opacity-100"
         class="scroll-sync unpeeragogy-col overflow-y-auto max-h-[calc(100vh-12rem)]"
         :class="view === 'dual' ? 'pl-2' : ''"
-        @scroll.throttle="if (scrollSync && view === 'dual') { $el.closest('div').querySelector('.peeragogy-col').scrollTop = $el.scrollTop }"
+        @scroll.throttle="if (scrollSync && view === 'dual') { var el = $el.closest('div').querySelector('.peeragogy-col'); if (el) el.scrollTop = $el.scrollTop }"
       >
         {UnpeeragogyContent ? (
           <article>
