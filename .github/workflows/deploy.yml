@@ -11,6 +11,6 @@ jobs:
       - name: Trigger Coolify deployment
         run: |
           curl -s -X POST \
-            "https://console.pyragogy.org/api/v1/deploy?uuid=apbzqyq8jjatw36mkh6ktuut" \
+            "https://console.pyragogy.org/api/v1/deploy?uuid=t3l7qmqcs7ay6d836h72joty" \
             -H "Authorization: Bearer ${{ secrets.COOLIFY_API_TOKEN }}" \
             -H "Content-Type: application/json"
