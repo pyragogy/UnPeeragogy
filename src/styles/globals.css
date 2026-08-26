@@ -1,0 +1,53 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* Color scheme */
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --color-bg: #fafaf9;
+  --color-text: #1c1917;
+  --color-accent: #0f766e;
+  --color-accent-light: #14b8a6;
+}
+
+.dark {
+  --color-bg: #0c0a09;
+  --color-text: #e7e5e4;
+  --color-accent: #5eead4;
+  --color-accent-light: #2dd4bf;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Prose overrides for readability */
+.prose {
+  max-width: 72ch;
+  font-size: 1.05rem;
+  line-height: 1.75;
+}
+
+.prose h1, .prose h2, .prose h3, .prose h4 {
+  scroll-margin-top: 5rem;
+}
+
+/* Sidebar scrollspy active link */
+.toc-link-active {
+  color: var(--color-accent) !important;
+  border-left-color: var(--color-accent) !important;
+  font-weight: 600;
+}
+
+/* Pattern cards */
+.pattern-card {
+  @apply border border-stone-200 dark:border-stone-700 rounded-lg p-6 
+         hover:shadow-md transition-shadow bg-white dark:bg-stone-800;
+}

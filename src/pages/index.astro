@@ -1,0 +1,70 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Peeragogy Handbook" description="The Peeragogy Handbook — learning together, making learning available to others.">
+  <section class="py-16 text-center" data-pagefind-body>
+    <h1 class="text-4xl font-extrabold tracking-tight sm:text-5xl">
+      Peeragogy Handbook
+    </h1>
+    <p class="mt-4 text-lg text-stone-600 dark:text-stone-400 max-w-2xl mx-auto">
+      Learning together and making that learning available to others.
+      A practical guide for anyone who wants to learn or create something <em>with</em> a group.
+    </p>
+
+    <div class="mt-8 flex flex-wrap justify-center gap-4">
+      <a href="/introduction/" class="rounded-lg bg-(--color-accent) px-6 py-3 text-white font-semibold hover:bg-(--color-accent-light) transition-colors">
+        Start Reading
+      </a>
+      <a href="https://groups.google.com/forum/#!forum/peeragogy" target="_blank" class="rounded-lg border border-stone-300 dark:border-stone-600 px-6 py-3 font-semibold hover:bg-stone-100 dark:hover:bg-stone-800 transition-colors">
+        Join the Mailing List
+      </a>
+    </div>
+  </section>
+
+  <section class="py-12">
+    <h2 class="text-2xl font-bold mb-8">Main Sections</h2>
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <a href="/introduction/" class="pattern-card">
+        <h3 class="text-lg font-semibold text-(--color-accent)">Introduction</h3>
+        <p class="mt-2 text-sm text-stone-600 dark:text-stone-400">Welcome to the Peeragogy Workbook — getting started with peer learning.</p>
+      </a>
+      <a href="/motivation/" class="pattern-card">
+        <h3 class="text-lg font-semibold text-(--color-accent)">Motivation</h3>
+        <p class="mt-2 text-sm text-stone-600 dark:text-stone-400">What drives people to learn together? 5PH1NX and more.</p>
+      </a>
+      <a href="/patterns/" class="pattern-card">
+        <h3 class="text-lg font-semibold text-(--color-accent)">Peeragogy in Practice</h3>
+        <p class="mt-2 text-sm text-stone-600 dark:text-stone-400">Patterns, roadmaps, and practical co-learning techniques.</p>
+      </a>
+      <a href="/convening/" class="pattern-card">
+        <h3 class="text-lg font-semibold text-(--color-accent)">Convening a Group</h3>
+        <p class="mt-2 text-sm text-stone-600 dark:text-stone-400">Play, SOLE, and how to bring people together.</p>
+      </a>
+      <a href="/organizing/" class="pattern-card">
+        <h3 class="text-lg font-semibold text-(--color-accent)">Organizing a Learning Context</h3>
+        <p class="mt-2 text-sm text-stone-600 dark:text-stone-400">Adding structure, student syllabus, collaborative explorations.</p>
+      </a>
+      <a href="/cooperation/" class="pattern-card">
+        <h3 class="text-lg font-semibold text-(--color-accent)">Cooperation</h3>
+        <p class="mt-2 text-sm text-stone-600 dark:text-stone-400">Cofacilitation, workscape, participation, coworking.</p>
+      </a>
+    </div>
+  </section>
+
+  <section class="py-12 border-t border-stone-200 dark:border-stone-700">
+    <h2 class="text-2xl font-bold mb-4">About the Project</h2>
+    <p class="prose max-w-3xl">
+      The Peeragogy project was convened by Howard Rheingold in 2012. 
+      The handbook collects the results of our investigations into learning 
+      <em>without</em> teachers — making that learning available to others. 
+      Published directly into the public domain via CC Zero waiver. Currently 
+      working on the 4th Edition.
+    </p>
+    <div class="mt-6 flex flex-wrap gap-4 text-sm">
+      <span class="rounded-full bg-stone-100 dark:bg-stone-800 px-3 py-1">CC Zero — Public Domain</span>
+      <span class="rounded-full bg-stone-100 dark:bg-stone-800 px-3 py-1">3rd Edition (2016)</span>
+      <span class="rounded-full bg-stone-100 dark:bg-stone-800 px-3 py-1">Open Source</span>
+    </div>
+  </section>
+</BaseLayout>

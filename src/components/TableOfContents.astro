@@ -1,0 +1,58 @@
+---
+import { getCollection } from "astro:content";
+
+export interface Props {
+  slug: string;
+  section?: string;
+}
+
+const { section } = Astro.props;
+const allEntries = await getCollection("handbook");
+
+// Get all entries for this section
+const sectionEntries = allEntries
+  .filter((e) => e.data.section === section)
+  .sort((a, b) => (a.data.order || 99) - (b.data.order || 99));
+
+// Get all sections for the broader nav
+const sections = [...new Set(allEntries.map((e) => e.data.section).filter(Boolean))];
+---
+
+<nav class="space-y-6">
+  <div class="mb-4">
+    <h3 class="text-xs font-semibold uppercase tracking-wider text-stone-500">Sections</h3>
+  </div>
+
+  <!-- All sections list -->
+  <ul class="space-y-1">
+    {sections.map((s) => {
+      const entries = allEntries.filter((e) => e.data.section === s).sort((a, b) => (a.data.order || 99) - (b.data.order || 99));
+      const isActive = s === section;
+      return (
+        <li>
+          <details open={isActive}>
+            <summary class="cursor-pointer rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-stone-100 dark:hover:bg-stone-800">
+              {s}
+            </summary>
+            <ul class="ml-3 mt-1 space-y-0.5 border-l border-stone-200 dark:border-stone-700 pl-3">
+              {entries.map((e) => (
+                <li>
+                  <a
+                    href={`/${e.slug}/`}
+                    class={`block rounded-md px-3 py-1.5 text-sm transition-colors ${
+                      e.slug === Astro.props.slug
+                        ? "toc-link-active border-l-2 border-(--color-accent) -ml-[14px] pl-[10px]"
+                        : "text-stone-600 dark:text-stone-400 hover:text-(--color-text) hover:bg-stone-100 dark:hover:bg-stone-800"
+                    }`}
+                  >
+                    {e.data.title}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </details>
+        </li>
+      );
+    })}
+  </ul>
+</nav>

@@ -1,0 +1,14 @@
+#+TITLE: Cooperation
+#+roam_tags: SEC
+
+This section right now is pretty spare, insofar as most of the case
+studies have been moved elsewhere.
+
+* Contents
+
+- [[file:coworking.org][Coworking]]
+- [[file:participation.org][Participation]]
+- [[file:cofac.org][Cofacilitation]]
+
+* Next steps
+** What can we learn from reviewer comments that would improve things for our next submission(s)? :paper:

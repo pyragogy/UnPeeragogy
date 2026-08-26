@@ -1,0 +1,153 @@
+---
+title: "Wrapper"
+section: "Peeragogy in Practice"
+order: 13
+readingTime: 6
+tags: ["PAT"]
+---
+
+# Motivation
+This pattern suggests to find at least one person to fill an important
+role managing the project's public interface, and keeping participants
+up to date about activities.
+
+# Context
+You are part of an active, long-running, and possibly quite complex
+project with more than a handful of participants. How do you manage?
+(If you have a project with many aspects, people won’t need to know the details
+of everything…)
+
+# Forces
+> [[file:static/images/interface.png]] *Interface*: the project shows people
+> how they can use it.
+> 
+> [[file:static/images/familiar.png]] *Familiarity*: the leader/follower
+> dichotomy is easy to understand.
+> 
+> [[file:static/images/equity.png]] *Equity*: peeragogy aims for fairness.
+
+# Problem
+In an active project, it can be effectively impossible to stay up to
+date with all of the details. Not everyone will be able to attend every
+meeting (see Heartbeat) or read every email. Project participants can
+easily get lost and drift away. The experience can be much more
+difficult for Newcomers: joining an existing project can feel like
+trying to climb aboard a rapidly moving vehicle. Information overload is
+not the only concern: there is also a problem with missing information.
+If key skills are not shared, they can quickly become bottlenecks (see
+Carrying capacity).
+
+[file:static/images/dashboard_design.jpg](file:static/images/dashboard_design.jpg) /Design for a Peeragogy project
+dashboard (sketch by Amanda Lyons, prototype by Fabrizio Terzi)./
+
+# Solution
+Someone involved with the project should regularly create a wrap-up
+summary, distinct from other project communications, that makes current
+activities comprehensible to people who may not have been following all
+of the details. In addition, project members should keep other
+informative resources like the landing page, Roadmap, and documentation
+up to date. Check empirically to see if they really show interested
+parties how they can get involved. Building on the idea of a "project
+dashboard," we can guide potential contributors to live help; we can
+then see what questions they ask.[fn:1] Wrapper is both a role, and,
+sometimes, an artifact. Our *Handbook*'s cover literally wraps up its
+contents; the collaboratively written chat notes from our weekly
+Hangouts give a collaboratively-written overview of what was discussed
+in the meeting. Meetings themselves can be structured to give people a
+chance to sum up what they've accomplished during the week, as well as
+any problems they are running into. Between meetings, each participant
+is advised to maintain some sort of "learning log" in the form of a
+personal [Scrapbook](/scrapbook/), so that outstanding concerns are surfaced and
+available to discuss.
+
+# Rationale
+According to the theory proposed by Yochai Benkler, for free/open
+"commons-based" projects to work, it is important for participants to be
+able to contribute small pieces, and for the project to have a way to
+stitch those pieces together [1]. The Wrapper helps perform this
+integrative stitching function. If you value participation, you may have
+to do some serious work to facilitate access to process.
+
+# Resolution
+Well-maintained records chronicle the project's history; up-to-date
+documentation makes the project more robust; a coherent look-and-feel
+offers an accessible *interface* to the outside world. Regularly
+circulated summaries can help to engage or re-engage members of a
+project, and can give an emotional boost to peeragogues who see their
+contributions and concerns mentioned, giving less engaged participants
+the *familiar* experience of "following" someone else's updates. People
+will judge from experience whether the project strives for *equity* or
+strives to maintain hidden power differentials.
+
+# Example 1
+There are many data streams around the Wikimedia project. They comprise
+an elaborate Wrapper function for the project, with components that
+range from Today's Featured Article, which appears on the front page of
+Wikipedia, to formal annual reports from the nonprofit.[fn:2],[fn:3]
+
+```
+In the Peeragogy project we maintain a wrap at 
+https://github.com/Peeragogy/PeeragogyMonthlyWrap
+(This will now show up in the margin of the Tufte formatted Handbook online or in print.)
+```
+
+> The biggest journey begins with a single step.
+
+# Example 2
+In-person meetings are just as relevant for contemporary humans as they
+were a century ago, even though we have learned more about how to
+assemble on the fly [2]. Getting together for conventions, dance
+parties, and commencement ceremonies could comprise an important part of
+the future university's Wrapper function, even if these events do not
+always take place in one specific Assembly Hall.
+
+# What's Next in the Peeragogy Project
+- Let's make sure we have protocols in place that enable us to share progress, and to revise our "next steps" if people are getting stuck. Let's improve the interaction design for peeragogy.org so that it's clear how people can get involved.
+- [Talk with Cicolab contacts](/talk_with_cicolab_contacts/)
+
+## BACK Blog about progress? — share Sacha's guide and start doing it! Joe :website:
+- This is closely related to the concept of the Wrap
+- PARs have been helpful
+- Maybe starting by circulating info about when the meetings are.
+## PATT Podcast outreach + other outreach                           :podcast:
+## PATT Meetings for those who want to show up for sourcing guests, doing promotions, include Arlington Media :podcast:
+## BACK Podcast checklist can become a Handbook chapter           :podcast:handbook:
+## BACK Revive existing dashboard                                  :website:
+- how to fill it with data fill with one-time update based on meeting list survey;
+- then update from semantic sources or as part of existing workflow
+- what is best link to existing dashboard?
+## BACK Vitor has been working on a Google Site: needs review to be made public :website:
+## BACK https:/*peeragogy.org* needs to get a graphical frontend UX review - what is peeragogy (2 sentences)? :website:
+- new name, but it's not new,
+- do it all time, but didn’t always have a name for it?
+- What're we doing, how're we studying ?
+- Programmer / business person short video?
+- / comics
+- Joe to do web programming + Charlie + FT? + LN? + Amanda or someone else who wants to do graphic design?
+## BACK Quick guide (text, graphics, video?) This is what it is, this is why it's important :website:
+Lisa's existing doc → 150 words or less 1*1*21 0%
+
+# References
+1. Y. Benkler. 2002. Coase's Penguin, or Linux and the Nature of the
+   Firm. *Yale Law Journal* 112: 369.
+
+2. Howard Rheingold. 2007. *Smart mobs: The next social revolution*.
+   Basic books.
+
+--------------
+
+[fn:1] [https://gitter.im/orgs/Peeragogy/rooms](https://gitter.im/orgs/Peeragogy/rooms)
+
+[fn:2] [https://en.wikipedia.org/wiki/Wikipedia:Today%27s_featured_article](https://en.wikipedia.org/wiki/Wikipedia:Today%27s_featured_article)
+
+[fn:3] [https://wikimediafoundation.org/wiki/Annual_Report](https://wikimediafoundation.org/wiki/Annual_Report)
+
+
+#+begin_src emacs-lisp
+(defun this-is-a-function ()
+  (+ 1 1 ))
+#+end_src
+
+```markdown
+This [link](http://google.com)
+```

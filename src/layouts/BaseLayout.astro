@@ -1,0 +1,80 @@
+---
+import "../styles/globals.css";
+import ThemeToggle from "../components/ThemeToggle.astro";
+
+export interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class="">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title} — Peeragogy Handbook</title>
+    {description && <meta name="description" content={description} />}
+    <script is:inline>
+      // Dark mode initialisation (prevent flash)
+      const theme = localStorage.getItem("theme");
+      if (theme === "dark" || (!theme && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+        document.documentElement.classList.add("dark");
+      }
+    </script>
+  </head>
+  <body class="min-h-screen bg-(--color-bg) text-(--color-text) antialiased">
+    <header class="sticky top-0 z-40 border-b border-stone-200 dark:border-stone-700 bg-(--color-bg)/95 backdrop-blur supports-[backdrop-filter]:bg-(--color-bg)/80">
+      <nav class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
+        <a href="/" class="text-lg font-bold tracking-tight hover:text-(--color-accent) transition-colors">
+          ⧩ Peeragogy Handbook
+        </a>
+        <div class="flex items-center gap-4">
+          <a href="/" class="text-sm hover:text-(--color-accent) transition-colors">Home</a>
+          <button id="search-toggle" class="cursor-pointer rounded-md p-2 text-sm hover:bg-stone-200 dark:hover:bg-stone-700 transition-colors" aria-label="Search">
+            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </button>
+          <ThemeToggle />
+        </div>
+      </nav>
+    </header>
+
+    <main class="mx-auto max-w-6xl px-4 py-8">
+      <div id="search" class="hidden mb-8"></div>
+      <slot />
+    </main>
+
+    <footer class="border-t border-stone-200 dark:border-stone-700 py-6 text-center text-sm text-stone-500">
+      <p>
+        Peeragogy Handbook — Public Domain (<a href="https://creativecommons.org/publicdomain/zero/1.0/" class="underline hover:text-(--color-accent)">CC Zero</a>)
+      </p>
+    </footer>
+  </body>
+</html>
+
+<script>
+  // Search toggle
+  document.getElementById("search-toggle")?.addEventListener("click", () => {
+    // Pagefind UI
+    if (window.PagefindUI) {
+      // Already loaded
+    } else {
+      const script = document.createElement("script");
+      script.src = "/pagefind/pagefind-ui.js";
+      script.onload = () => {
+        new window.PagefindUI({ element: "#search", showSubResults: true, resetStyles: false });
+        document.getElementById("search")?.classList.remove("hidden");
+      };
+      document.body.appendChild(script);
+      const link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.href = "/pagefind/pagefind-ui.css";
+      document.head.appendChild(link);
+    }
+    document.getElementById("search")?.classList.toggle("hidden");
+  });
+</script>

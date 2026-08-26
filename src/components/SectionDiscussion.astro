@@ -1,0 +1,50 @@
+---
+export interface Props {
+  slug: string;
+  title: string;
+}
+
+const { slug, title } = Astro.props;
+---
+
+<section class="mt-16 border-t border-stone-200 dark:border-stone-700 pt-8">
+  <h2 class="text-xl font-bold mb-4">Discussion: {title}</h2>
+
+  <!-- Giscus Integration (only when deployed with GitHub Discussions enabled) -->
+  <div id="giscus-container" class="min-h-[200px] flex items-center justify-center">
+    <div class="text-center text-stone-500 text-sm">
+      <p class="mb-2">💬 Join the conversation about this section.</p>
+      <p class="text-xs">Discussions powered by Giscus (GitHub Discussions) — available when deployed.</p>
+    </div>
+  </div>
+
+  <!-- Giscus script (loaded only when deployed on peeragogy.org) -->
+  <script>
+    // Only load Giscus if we're on the production domain
+    if (window.location.hostname === "peeragogy.org") {
+      const script = document.createElement("script");
+      script.src = "https://giscus.app/client.js";
+      script.setAttribute("data-repo", "Peeragogy/Peeragogy.github.io");
+      script.setAttribute("data-repo-id", "");
+      script.setAttribute("data-category", "Announcements");
+      script.setAttribute("data-category-id", "");
+      script.setAttribute("data-mapping", "specific");
+      script.setAttribute("data-term", `section: ${slug}`);
+      script.setAttribute("data-strict", "0");
+      script.setAttribute("data-reactions-enabled", "1");
+      script.setAttribute("data-emit-metadata", "0");
+      script.setAttribute("data-input-position", "top");
+      script.setAttribute("data-theme", "preferred_color_scheme");
+      script.setAttribute("data-lang", "en");
+      script.setAttribute("crossorigin", "anonymous");
+      script.setAttribute("async", "");
+      document.getElementById("giscus-container")?.appendChild(script);
+    }
+  </script>
+</section>
+
+<style>
+  section {
+    scroll-margin-top: 5rem;
+  }
+</style>
