@@ -4,9 +4,9 @@ import { fileURLToPath } from "node:url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-// Paths relative to packages/mcp-server/src/lib/loader.ts
-// We go up 3 levels to reach project root, then into src/content/
-const CONTENT_ROOT = path.resolve(__dirname, "..", "..", "..", "..", "src", "content");
+// CONTENT_ROOT env var overrides the content path (for Docker/production)
+// Fall back to relative path from packages/mcp-server/src/lib/loader.ts
+const CONTENT_ROOT = process.env.CONTENT_ROOT || path.resolve(__dirname, "..", "..", "..", "..", "src", "content");
 
 export interface EntryFrontmatter {
   title: string;

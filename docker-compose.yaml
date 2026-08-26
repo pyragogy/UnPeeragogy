@@ -1,0 +1,37 @@
+# Unpeeragogy — Docker Compose
+# Avvia sia il sito statico che il server MCP
+#
+# Usage:
+#   docker compose up -d          # avvia tutto
+#   docker compose up -d mcp      # solo MCP server
+#   docker compose up -d web      # solo sito statico
+
+services:
+  # Sito statico Astro + nginx
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    ports:
+      - "80:80"
+    restart: unless-stopped
+    depends_on:
+      - mcp
+
+  # Server MCP (Model Context Protocol)
+  mcp:
+    build:
+      context: ./packages/mcp-server
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+    environment:
+      - MCP_AUTH_TOKEN=${MCP_AUTH_TOKEN:-change-me}
+      - MCP_FRICTION_MODE=${MCP_FRICTION_MODE:-soft}
+      # CONTENT_ROOT punta al volume condiviso delle content collections
+      - CONTENT_ROOT=/app/content
+      - PORT=3001
+    volumes:
+      # Monteggia il contenuto del repo per accesso live ai file MDX
+      - ./src/content:/app/content:ro
+    restart: unless-stopped
