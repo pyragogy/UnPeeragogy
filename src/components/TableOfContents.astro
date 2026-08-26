@@ -7,14 +7,12 @@ export interface Props {
 }
 
 const { section } = Astro.props;
-const allEntries = await getCollection("handbook");
+const allEntries = await getCollection("peeragogy");
 
-// Get all entries for this section
 const sectionEntries = allEntries
   .filter((e) => e.data.section === section)
   .sort((a, b) => (a.data.order || 99) - (b.data.order || 99));
 
-// Get all sections for the broader nav
 const sections = [...new Set(allEntries.map((e) => e.data.section).filter(Boolean))];
 ---
 
@@ -23,7 +21,6 @@ const sections = [...new Set(allEntries.map((e) => e.data.section).filter(Boolea
     <h3 class="text-xs font-semibold uppercase tracking-wider text-stone-500">Sections</h3>
   </div>
 
-  <!-- All sections list -->
   <ul class="space-y-1">
     {sections.map((s) => {
       const entries = allEntries.filter((e) => e.data.section === s).sort((a, b) => (a.data.order || 99) - (b.data.order || 99));

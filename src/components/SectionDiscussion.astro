@@ -7,24 +7,24 @@ export interface Props {
 const { slug, title } = Astro.props;
 ---
 
-<section class="mt-16 border-t border-stone-200 dark:border-stone-700 pt-8">
-  <h2 class="text-xl font-bold mb-4">Discussion: {title}</h2>
+<section class="mt-12 border-t border-red-200 dark:border-red-800 pt-8">
+  <h2 class="text-lg font-bold mb-4 flex items-center gap-2">
+    <span>💬</span> Discussione: {title}
+  </h2>
+  <p class="text-sm text-stone-500 mb-4">Questa discussione è ancorata al piano della realtà operativa. Niente teoria — solo esperienze, fallimenti, e verità scomode.</p>
 
-  <!-- Giscus Integration (only when deployed with GitHub Discussions enabled) -->
   <div id="giscus-container" class="min-h-[200px] flex items-center justify-center">
     <div class="text-center text-stone-500 text-sm">
-      <p class="mb-2">💬 Join the conversation about this section.</p>
-      <p class="text-xs">Discussions powered by Giscus (GitHub Discussions) — available when deployed.</p>
+      <p class="mb-2">💬 Le discussioni sono attive su GitHub Discussions.</p>
+      <p class="text-xs">Disponibile quando deployato su un dominio pubblico con Giscus configurato.</p>
     </div>
   </div>
 
-  <!-- Giscus script (loaded only when deployed on peeragogy.org) -->
   <script>
-    // Only load Giscus if we're on the production domain
-    if (window.location.hostname === "peeragogy.org") {
+    if (window.location.hostname !== "localhost" && window.location.hostname !== "127.0.0.1") {
       const script = document.createElement("script");
       script.src = "https://giscus.app/client.js";
-      script.setAttribute("data-repo", "Peeragogy/Peeragogy.github.io");
+      script.setAttribute("data-repo", "pyragogy/unpeeragogy");
       script.setAttribute("data-repo-id", "");
       script.setAttribute("data-category", "Announcements");
       script.setAttribute("data-category-id", "");

@@ -9,7 +9,8 @@
     "build": "astro build && npx -y pagefind --site dist",
     "preview": "astro preview",
     "astro": "astro",
-    "convert-org": "node scripts/convert-org.js"
+    "convert-org": "node scripts/convert-org.js",
+    "seed-unpeeragogy": "node scripts/seed-unpeeragogy.js"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.1.0",

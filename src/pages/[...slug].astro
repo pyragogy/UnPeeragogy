@@ -5,111 +5,186 @@ import TableOfContents from "../components/TableOfContents.astro";
 import SectionDiscussion from "../components/SectionDiscussion.astro";
 
 export async function getStaticPaths() {
-  const entries = await getCollection("handbook");
-  return entries.map((entry) => ({
-    params: { slug: entry.slug },
-    props: { entry },
-  }));
+  const peeragogyEntries = await getCollection("peeragogy");
+  const unpeeragogyEntries = await getCollection("unpeeragogy");
+  const allSlugs = new Set([
+    ...peeragogyEntries.map((e) => e.slug),
+    ...unpeeragogyEntries.map((e) => e.slug),
+  ]);
+  return Array.from(allSlugs).map((slug) => {
+    const pEntry = peeragogyEntries.find((e) => e.slug === slug);
+    const uEntry = unpeeragogyEntries.find((e) => e.slug === slug);
+    return {
+      params: { slug },
+      props: { peeragogyEntry: pEntry || null, unpeeragogyEntry: uEntry || null },
+    };
+  });
 }
 
-const { entry } = Astro.props;
-const { Content } = await entry.render();
+const { peeragogyEntry, unpeeragogyEntry } = Astro.props;
+const title = peeragogyEntry?.data?.title || unpeeragogyEntry?.data?.title || "Untitled";
 
-// Get adjacent entries for prev/next navigation
-const allEntries = await getCollection("handbook");
-const sorted = allEntries.sort((a, b) => (a.data.order || 99) - (b.data.order || 99));
-const currentIndex = sorted.findIndex((e) => e.slug === entry.slug);
+// NOTE: Astro requires PascalCase for component variables in templates.
+// We use the destructured Content directly with uppercase.
+let PeeragogyContent = null;
+if (peeragogyEntry) {
+  const { Content } = await peeragogyEntry.render();
+  PeeragogyContent = Content;
+}
+
+let UnpeeragogyContent = null;
+if (unpeeragogyEntry) {
+  const { Content } = await unpeeragogyEntry.render();
+  UnpeeragogyContent = Content;
+}
+
+// Prev/Next from peeragogy collection
+const allPeeragogy = await getCollection("peeragogy");
+const sorted = allPeeragogy.sort((a, b) => (a.data.order || 99) - (b.data.order || 99));
+const currentIndex = sorted.findIndex((e) => e.slug === peeragogyEntry?.slug);
 const prev = currentIndex > 0 ? sorted[currentIndex - 1] : null;
 const next = currentIndex < sorted.length - 1 ? sorted[currentIndex + 1] : null;
 ---
 
-<BaseLayout title={entry.data.title} description={entry.data.description}>
+<BaseLayout title={title} description={peeragogyEntry?.data?.description || unpeeragogyEntry?.data?.description}>
+  <!-- View Toggle -->
+  <div class="flex items-center justify-center gap-2 mb-6 p-2 bg-stone-100 dark:bg-stone-800 rounded-lg w-fit mx-auto">
+    <button
+      @click="view = 'dual'"
+      :class="view === 'dual' ? 'bg-white dark:bg-stone-700 shadow-sm font-semibold text-(--color-accent)' : 'text-stone-600 dark:text-stone-400 hover:text-(--color-text)'"
+      class="rounded-md px-4 py-2 text-sm transition-all"
+    >
+      ⿻ Dual
+    </button>
+    <button
+      @click="view = 'peeragogy'"
+      :class="view === 'peeragogy' ? 'bg-white dark:bg-stone-700 shadow-sm font-semibold text-(--color-accent)' : 'text-stone-600 dark:text-stone-400 hover:text-(--color-text)'"
+      class="rounded-md px-4 py-2 text-sm transition-all"
+    >
+      📖 Teoria
+    </button>
+    <button
+      @click="view = 'unpeeragogy'"
+      :class="view === 'unpeeragogy' ? 'bg-white dark:bg-stone-700 shadow-sm font-semibold text-(--color-accent)' : 'text-stone-600 dark:text-stone-400 hover:text-(--color-text)'"
+      class="rounded-md px-4 py-2 text-sm transition-all"
+    >
+      ⚡ Realtà
+    </button>
+  </div>
+
   <div class="flex gap-8">
     <!-- Sidebar TOC -->
     <aside class="hidden lg:block w-64 shrink-0">
       <div class="sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto">
-        <TableOfContents slug={entry.slug} section={entry.data.section} />
+        <TableOfContents slug={peeragogyEntry?.slug || unpeeragogyEntry?.slug} section={peeragogyEntry?.data?.section || unpeeragogyEntry?.data?.section} />
       </div>
     </aside>
 
-    <!-- Main content -->
-    <article class="min-w-0 flex-1" data-pagefind-body>
-      <header class="mb-8">
-        <p class="text-sm font-medium text-(--color-accent)">{entry.data.section}</p>
-        <h1 class="text-3xl font-bold tracking-tight mt-1">{entry.data.title}</h1>
-        {entry.data.description && (
-          <p class="mt-2 text-stone-600 dark:text-stone-400">{entry.data.description}</p>
-        )}
-        <div class="mt-2 flex items-center gap-3 text-sm text-stone-500">
-          <span>⏱ {entry.data.readingTime} min read</span>
-          {entry.data.tags && entry.data.tags.length > 0 && (
-            <span class="flex gap-1">
-              {entry.data.tags.map((tag) => (
-                <span class="rounded-full bg-stone-100 dark:bg-stone-800 px-2 py-0.5 text-xs">{tag}</span>
-              ))}
-            </span>
-          )}
-        </div>
-      </header>
+    <!-- Dual Column Layout -->
+    <div class="min-w-0 flex-1 grid grid-cols-1 lg:grid-cols-2 gap-6" data-pagefind-body>
 
-      <div class="prose dark:prose-invert max-w-none">
-        <Content />
+      <!-- LEFT COLUMN: Peeragogy (theory) -->
+      <div
+        x-show="view === 'dual' || view === 'peeragogy'"
+        x-transition:enter="transition ease-out duration-300"
+        x-transition:enter-start="opacity-0"
+        x-transition:enter-end="opacity-100"
+        class="scroll-sync peeragogy-col overflow-y-auto max-h-[calc(100vh-12rem)] pr-4 border-r border-stone-200 dark:border-stone-700"
+        @scroll.throttle="if (scrollSync && view === 'dual') { $el.closest('.grid').querySelector('.unpeeragogy-col').scrollTop = $el.scrollTop }"
+      >
+        {PeeragogyContent ? (
+          <article>
+            <header class="mb-6">
+              <p class="text-sm font-medium text-(--color-accent)">{peeragogyEntry.data.section}</p>
+              <h1 class="text-2xl font-bold tracking-tight mt-1">{peeragogyEntry.data.title}</h1>
+              {peeragogyEntry.data.description && (
+                <p class="mt-2 text-sm text-stone-600 dark:text-stone-400">{peeragogyEntry.data.description}</p>
+              )}
+              <div class="mt-2 flex items-center gap-3 text-xs text-stone-500">
+                <span>⏱ {peeragogyEntry.data.readingTime} min</span>
+                {peeragogyEntry.data.tags?.length > 0 && (
+                  <span class="flex gap-1">
+                    {peeragogyEntry.data.tags.map((tag) => (
+                      <span class="rounded-full bg-stone-100 dark:bg-stone-800 px-2 py-0.5">{tag}</span>
+                    ))}
+                  </span>
+                )}
+              </div>
+            </header>
+            <div class="prose dark:prose-invert max-w-none prose-sm">
+              <PeeragogyContent />
+            </div>
+          </article>
+        ) : (
+          <div class="flex items-center justify-center h-64 text-stone-400 italic">
+            <p>Nessun contenuto Peeragogy per questa sezione.</p>
+          </div>
+        )}
       </div>
 
-      <!-- Section Discussion -->
-      <SectionDiscussion slug={entry.slug} title={entry.data.title} />
+      <!-- RIGHT COLUMN: Unpeeragogy (decostruction) -->
+      <div
+        x-show="view === 'dual' || view === 'unpeeragogy'"
+        x-transition:enter="transition ease-out duration-300"
+        x-transition:enter-start="opacity-0"
+        x-transition:enter-end="opacity-100"
+        class="scroll-sync unpeeragogy-col overflow-y-auto max-h-[calc(100vh-12rem)] pl-2"
+        @scroll.throttle="if (scrollSync && view === 'dual') { $el.closest('.grid').querySelector('.peeragogy-col').scrollTop = $el.scrollTop }"
+      >
+        {UnpeeragogyContent ? (
+          <article>
+            <header class="mb-6">
+              <p class="text-sm font-medium text-red-500">⚡ Unpeeragogy</p>
+              <h1 class="text-2xl font-bold tracking-tight mt-1">{unpeeragogyEntry.data.title}</h1>
+              <div class="mt-2 flex items-center gap-3 text-xs text-stone-500">
+                <span>⏱ {unpeeragogyEntry.data.readingTime} min</span>
+                {unpeeragogyEntry.data.tags?.length > 0 && (
+                  <span class="flex gap-1">
+                    {unpeeragogyEntry.data.tags.map((tag) => (
+                      <span class="rounded-full bg-red-50 text-red-600 dark:bg-red-900/30 dark:text-red-400 px-2 py-0.5">{tag}</span>
+                    ))}
+                  </span>
+                )}
+              </div>
+            </header>
+            <div class="prose dark:prose-invert max-w-none prose-sm prose-red">
+              <UnpeeragogyContent />
+            </div>
 
-      <!-- Prev/Next navigation -->
-      <nav class="mt-12 flex items-center justify-between border-t border-stone-200 dark:border-stone-700 pt-6">
-        <div>
-          {prev && (
-            <a
-              href={`/${prev.slug}/`}
-              class="group flex flex-col"
-            >
-              <span class="text-sm text-stone-500">← Previous</span>
-              <span class="font-medium group-hover:text-(--color-accent) transition-colors">{prev.data.title}</span>
-            </a>
-          )}
-        </div>
-        <div class="text-right">
-          {next && (
-            <a
-              href={`/${next.slug}/`}
-              class="group flex flex-col"
-            >
-              <span class="text-sm text-stone-500">Next →</span>
-              <span class="font-medium group-hover:text-(--color-accent) transition-colors">{next.data.title}</span>
-            </a>
-          )}
-        </div>
-      </nav>
-    </article>
+            <!-- Giscus on Unpeeragogy column only -->
+            <SectionDiscussion slug={unpeeragogyEntry.slug} title={unpeeragogyEntry.data.title} />
+          </article>
+        ) : (
+          <div class="flex items-center justify-center h-64 text-stone-400 italic">
+            <p>Nessuna contro-analisi Unpeeragogy ancora scritta. Il Pattern Disruptor tace — per ora.</p>
+          </div>
+        )}
+      </div>
+    </div>
   </div>
+
+  <!-- Prev/Next navigation -->
+  <nav class="mt-8 flex items-center justify-between border-t border-stone-200 dark:border-stone-700 pt-6">
+    <div>
+      {prev && (
+        <a href={`/${prev.slug}/`} class="group flex flex-col">
+          <span class="text-sm text-stone-500">← Previous</span>
+          <span class="font-medium group-hover:text-(--color-accent) transition-colors">{prev.data.title}</span>
+        </a>
+      )}
+    </div>
+    <div class="text-right">
+      {next && (
+        <a href={`/${next.slug}/`} class="group flex flex-col">
+          <span class="text-sm text-stone-500">Next →</span>
+          <span class="font-medium group-hover:text-(--color-accent) transition-colors">{next.data.title}</span>
+        </a>
+      )}
+    </div>
+  </nav>
 </BaseLayout>
 
 <style>
-  .prose {
-    word-wrap: break-word;
-  }
-  .prose :deep(img) {
-    border-radius: 0.5rem;
-  }
-  .prose :deep(blockquote) {
-    border-left-color: var(--color-accent);
-    font-style: italic;
-  }
-  .prose :deep(code) {
-    font-size: 0.875em;
-    background: #f5f5f4;
-    padding: 0.2em 0.4em;
-    border-radius: 0.25rem;
-  }
-  .dark .prose :deep(code) {
-    background: #292524;
-  }
-  .prose :deep(pre code) {
-    background: none;
-    padding: 0;
-  }
+  .scroll-sync { scroll-behavior: smooth; }
+  .prose-red :deep(blockquote) { border-left-color: #ef4444; }
 </style>
