@@ -21,20 +21,9 @@ for (const [, entries] of sections) {
 }
 
 // Build tag index
-const allTags = new Map();
+const allTags = new Set();
 for (const entry of [...peeragogyEntries, ...unpeeragogyEntries]) {
-  if (entry.data.tags) {
-    for (const tag of entry.data.tags) {
-      if (!allTags.has(tag)) allTags.set(tag, []);
-      allTags.get(tag).push(entry.slug);
-    }
-  }
-}
-
-// Build tags per slug for client-side filter
-const tagsPerSlug = new Map();
-for (const entry of [...peeragogyEntries, ...unpeeragogyEntries]) {
-  tagsPerSlug.set(entry.slug, entry.data.tags || []);
+  if (entry.data.tags) entry.data.tags.forEach(t => allTags.add(t));
 }
 
 // Sections sorted by min order
@@ -44,57 +33,87 @@ const sectionOrder = Array.from(sections.keys()).sort((a, b) => {
   return aMin - bMin;
 });
 
-// Graph nodes
-const graphNodes = [];
-const seen = new Set();
-for (const e of peeragogyEntries) {
-  seen.add(e.slug);
-  graphNodes.push({
-    id: e.slug,
-    label: e.data.title || e.slug,
-    group: "peeragogy",
-    section: e.data.section || "",
-  });
-}
-for (const e of unpeeragogyEntries) {
-  if (!seen.has(e.slug)) {
-    graphNodes.push({
-      id: e.slug,
-      label: e.data.title || e.slug,
-      group: "unpeeragogy",
-      section: e.data.section || "",
+// Build entries JSON for the client — all data in one structure
+const entriesData = peeragogyEntries.map(pe => {
+  const ue = unpeeragogyEntries.find(e => e.slug === pe.slug);
+  return {
+    slug: pe.slug,
+    title: pe.data.title || pe.slug,
+    section: pe.data.section || "Altri",
+    order: pe.data.order ?? 99,
+    tension: ue?.data?.tension_index ?? null,
+    readingTime: pe.data.readingTime ?? 0,
+    hasUnpeeragogy: !!ue,
+    tags: pe.data.tags || [],
+  };
+});
+// Add unpeeragogy-only entries
+for (const ue of unpeeragogyEntries) {
+  if (!peeragogyEntries.find(e => e.slug === ue.slug)) {
+    entriesData.push({
+      slug: ue.slug,
+      title: ue.data.title || ue.slug,
+      section: ue.data.section || "Altri",
+      order: ue.data.order ?? 99,
+      tension: ue.data.tension_index ?? null,
+      readingTime: ue.data.readingTime ?? 0,
+      hasUnpeeragogy: true,
+      tags: ue.data.tags || [],
     });
   }
 }
 
-// Graph edges
-const graphEdges = [];
+// Graph edges: within section ordering + peeragogy↔unpeeragogy
+const edgesData = [];
 for (const [, entries] of sections) {
   for (let i = 0; i < entries.length - 1; i++) {
-    graphEdges.push({ from: entries[i].slug, to: entries[i + 1].slug });
+    edgesData.push({ from: entries[i].slug, to: entries[i + 1].slug });
   }
 }
 for (const pe of peeragogyEntries) {
   if (unpeeragogyEntries.find(e => e.slug === pe.slug)) {
-    graphEdges.push({ from: pe.slug, to: pe.slug, dashes: true });
+    edgesData.push({ from: pe.slug, to: pe.slug, dashes: true });
   }
 }
----
 
+// All tags sorted
+const tagsSorted = Array.from(allTags).sort();
+const sectionNames = sectionOrder;
+const entriesBySection = {};
+for (const s of sectionNames) {
+  entriesBySection[s] = sections.get(s).map(pe => {
+    const ue = unpeeragogyEntries.find(e => e.slug === pe.slug);
+    return {
+      slug: pe.slug,
+      title: pe.data.title || pe.slug,
+      tension: ue?.data?.tension_index ?? null,
+      readingTime: pe.data.readingTime ?? 0,
+      tags: pe.data.tags || [],
+      hasUnpeeragogy: !!ue,
+    };
+  });
+}
+const peerCountBySection = {};
+const unpeerCountBySection = {};
+for (const s of sectionNames) {
+  const entries = sections.get(s);
+  peerCountBySection[s] = entries.length;
+  unpeerCountBySection[s] = unpeeragogyEntries.filter(e => entries.some(pe => pe.slug === e.slug)).length;
+}
+---  
 <BaseLayout title="Vault — Unpeeragogy Knowledge Base" description="Visualizzazione a grafo e navigazione ad albero della Knowledge Base Unpeeragogy.">
   <section class="py-8">
     <div class="flex items-center gap-4 mb-6">
       <h1 class="text-3xl font-extrabold tracking-tight">🗂️ Knowledge Base</h1>
-      <span class="rounded-full bg-stone-100 dark:d-surface px-3 py-1 text-sm">{graphNodes.length} nodi</span>
+      <span class="rounded-full bg-stone-100 dark:d-surface px-3 py-1 text-sm">{entriesData.length} nodi · {edgesData.length} connessioni</span>
     </div>
 
-    <!-- View toggle -->
     <div class="flex items-center gap-2 mb-6 p-2 bg-stone-100 dark:d-surface rounded-lg w-fit">
       <button id="view-graph-btn" class="rounded-md px-4 py-2 text-sm transition-all bg-white dark:d-raised shadow-sm font-semibold text-(--color-accent)">🕸️ Grafo</button>
       <button id="view-tree-btn" class="rounded-md px-4 py-2 text-sm transition-all text-stone-600 dark:d-text-sec hover:text-(--color-text)">🌲 Albero</button>
     </div>
 
-    <!-- GRAPH VIEW -->
+    <!-- GRAPH -->
     <div id="vault-graph" class="w-full rounded-lg border border-stone-200 dark:d-border overflow-hidden" style="height:600px;position:relative;">
       <div id="vis-network" style="width:100%;height:100%;"></div>
       <div id="graph-legend" class="absolute bottom-4 left-4 flex gap-3 text-xs bg-white/90 dark:bg-[var(--surface-bg)]/90 px-3 py-2 rounded-lg shadow-sm dark:d-border backdrop-blur-sm">
@@ -103,143 +122,148 @@ for (const pe of peeragogyEntries) {
       </div>
     </div>
 
-    <!-- TREE VIEW (hidden by default) -->
+    <!-- TREE -->
     <div id="vault-tree" class="hidden">
       <div class="mb-4 flex flex-wrap gap-3 items-center">
-        <input id="vault-search" type="text" placeholder="Cerca tra i nodi..." class="rounded-lg border border-stone-200 dark:d-border bg-white dark:surface-bg px-4 py-2 text-sm flex-1 max-w-xs" />
+        <input id="vault-search" type="text" placeholder="Cerca tra i nodi..." class="rounded-lg border border-stone-200 dark:d-border bg-white dark:[background:var(--surface-bg)] px-4 py-2 text-sm flex-1 max-w-xs" />
         <div class="flex flex-wrap gap-2" id="tag-filters">
           <button class="tag-filter active rounded-full px-3 py-1 text-xs font-medium bg-(--color-accent) text-white" data-tag="all">Tutti</button>
-          {Array.from(allTags.keys()).sort().slice(0, 15).map(tag => (
-            <button class="tag-filter rounded-full px-3 py-1 text-xs font-medium bg-stone-100 dark:d-surface text-stone-600 dark:d-text-sec hover:bg-stone-200 dark:d-hover transition-colors" data-tag={tag}>#{tag}</button>
-          ))}
+          {tagsSorted.slice(0, 20).map(tag => <button class="tag-filter rounded-full px-3 py-1 text-xs font-medium bg-stone-100 dark:d-surface text-stone-600 dark:d-text-sec hover:bg-stone-200 dark:d-hover transition-colors" data-tag={tag}>#{tag}</button>)}
         </div>
       </div>
 
-      <div class="space-y-2">
-        {sectionOrder.map(section => {
-          const entries = sections.get(section);
-          const peerCount = entries.length;
-          const unpeerCount = unpeeragogyEntries.filter(e => entries.some(pe => pe.slug === e.slug)).length;
-          return (
-            <div class="vault-section border border-stone-200 dark:d-border rounded-lg overflow-hidden">
-              <button class="vault-section-header w-full flex items-center justify-between px-4 py-3 bg-stone-50 dark:d-surface hover:bg-stone-100 dark:d-hover transition-colors text-left font-medium">
-                <span class="flex items-center gap-2">
-                  <span class="text-sm">{section}</span>
-                  <span class="text-xs text-stone-500 dark:d-text-dim">({peerCount} · {unpeerCount})</span>
-                </span>
-                <span class="text-xs text-stone-400">▼</span>
-              </button>
-              <div class="vault-section-body divide-y divide-stone-100 dark:d-border">
-                {entries.map(pe => {
-                  const ue = unpeeragogyEntries.find(e => e.slug === pe.slug);
-                  const tension = ue?.data?.tension_index;
-                  const tags = pe.data.tags || [];
-                  return (
-                    <a href="/{pe.slug}/" class="vault-entry flex items-center gap-3 px-4 py-2.5 hover:bg-stone-50 dark:d-hover transition-colors text-sm group" data-slug={pe.slug} data-tags={tags.join(",")}>
-                      <span class="w-2 h-2 rounded-full shrink-0" style={ue ? "background:#ef4444" : "background:#4a8fe7"}></span>
-                      <span class="flex-1 font-medium truncate">{pe.data.title || pe.slug}</span>
-                      {tension !== undefined && (
-                        <span class="tension-badge text-xs px-2 py-0.5 rounded-full shrink-0" style={tension >= 1.0 ? "background:rgba(239,68,68,0.15);color:#f87171" : tension >= 0.6 ? "background:rgba(249,115,22,0.15);color:#fb923c" : "background:rgba(74,143,231,0.15);color:#4a8fe7"}>
-                          T:{tension.toFixed(1)}
-                        </span>
-                      )}
-                      <span class="text-xs text-stone-400 dark:d-text-dim">{pe.data.readingTime || "?"}m</span>
-                      <span class="text-stone-300 dark:text-stone-600 group-hover:translate-x-0.5 transition-transform">→</span>
-                    </a>
-                  );
-                })}
-              </div>
+      <div class="space-y-2" id="vault-tree-sections">
+        {sectionNames.map(s => (
+          <div class="vault-section border border-stone-200 dark:d-border rounded-lg overflow-hidden" data-section={s}>
+            <button class="vault-section-header w-full flex items-center justify-between px-4 py-3 bg-stone-50 dark:d-surface hover:bg-stone-100 dark:d-hover transition-colors text-left font-medium">
+              <span class="flex items-center gap-2">
+                <span class="text-sm">{s}</span>
+                <span class="text-xs text-stone-500 dark:d-text-dim">({peerCountBySection[s]} · {unpeerCountBySection[s]})</span>
+              </span>
+              <span class="text-xs text-stone-400">▼</span>
+            </button>
+            <div class="vault-section-body divide-y divide-stone-100 dark:d-border">
+              {entriesBySection[s].map(e => (
+                <a href="/{e.slug}/" class="vault-entry flex items-center gap-3 px-4 py-2.5 hover:bg-stone-50 dark:d-hover transition-colors text-sm group" data-slug={e.slug} data-tags={e.tags.join(",")}>
+                  <span class="w-2 h-2 rounded-full shrink-0" style={e.hasUnpeeragogy ? "background:#ef4444" : "background:#4a8fe7"}></span>
+                  <span class="flex-1 font-medium truncate">{e.title}</span>
+                  {e.tension !== null && (
+                    <span class="tension-badge text-xs px-2 py-0.5 rounded-full shrink-0" style={e.tension >= 1.0 ? "background:rgba(239,68,68,0.15);color:#f87171" : e.tension >= 0.6 ? "background:rgba(249,115,22,0.15);color:#fb923c" : "background:rgba(74,143,231,0.15);color:#4a8fe7"}>
+                      T:{e.tension.toFixed(1)}
+                    </span>
+                  )}
+                  <span class="text-xs text-stone-400 dark:d-text-dim">{e.readingTime}m</span>
+                  <span class="text-stone-300 dark:text-stone-600 group-hover:translate-x-0.5 transition-transform">→</span>
+                </a>
+              ))}
             </div>
-          );
-        })}
+          </div>
+        ))}
       </div>
     </div>
   </section>
 </BaseLayout>
 
 <script>
-  import vis from "vis-network";
+  import { Network } from "vis-network";
+  import { DataSet } from "vis-data";
 
-  const nodesData = JSON.parse('{JSON.stringify(graphNodes)}');
-  const edgesData = JSON.parse('{JSON.stringify(graphEdges)}');
+  // Serialized data from Astro frontmatter
+  const nodesData = {nodes: JSON.parse('{JSON.stringify(entriesData)}'), edges: JSON.parse('{JSON.stringify(edgesData)}')};
   let network = null;
 
   function initGraph() {
     const container = document.getElementById("vis-network");
     if (!container || network) return;
-    const visNodes = new vis.DataSet(nodesData.map(n => ({
-      id: n.id, label: n.label.length > 22 ? n.label.slice(0, 20) + "…" : n.label,
-      group: n.group,
-      color: n.group === "unpeeragogy"
+
+    const visNodes = new DataSet(nodesData.nodes.map(n => ({
+      id: n.slug,
+      label: n.title.length > 22 ? n.title.slice(0,20) + "..." : n.title,
+      group: n.hasUnpeeragogy ? "unpeeragogy" : "peeragogy",
+      color: n.hasUnpeeragogy
         ? { background: "#ef4444", border: "#dc2626", highlight: { background: "#f87171", border: "#ef4444" } }
         : { background: "#4a8fe7", border: "#3b82f6", highlight: { background: "#6bace8", border: "#4a8fe7" } },
-      size: n.group === "unpeeragogy" ? 15 : 12,
+      size: n.hasUnpeeragogy ? 15 : 12,
       font: { color: "#7b89b3", size: 11, strokeWidth: 0 },
-      borderWidth: n.group === "unpeeragogy" ? 2 : 1,
+      borderWidth: n.hasUnpeeragogy ? 2 : 1,
+      title: n.title + (n.tension !== null ? " [T:" + n.tension.toFixed(1) + "]" : ""),
     })));
-    const visEdges = new vis.DataSet(edgesData.map(e => ({
+
+    const visEdges = new DataSet(nodesData.edges.map(e => ({
       from: e.from, to: e.to,
       color: e.dashes ? "#7b89b3" : "#202d4a",
       dashes: e.dashes || false, width: e.dashes ? 1 : 1.5,
     })));
-    network = new vis.Network(container, { nodes: visNodes, edges: visEdges }, {
+
+    network = new Network(container, { nodes: visNodes, edges: visEdges }, {
       physics: { solver: "forceAtlas2Based", forceAtlas2Based: { gravitationalConstant: -40, centralGravity: 0.005, springLength: 200, springConstant: 0.02, damping: 0.4 }, stabilization: { iterations: 150 } },
       interaction: { hover: true, tooltipDelay: 200, navigationButtons: true },
       groups: { peeragogy: { shape: "dot" }, unpeeragogy: { shape: "dot" } },
     });
-    network.on("click", function (p) { if (p.nodes.length > 0) window.location.href = "/" + p.nodes[0] + "/"; });
-  }
 
-  function switchVaultView(v) {
-    const graph = document.getElementById("vault-graph"), tree = document.getElementById("vault-tree");
-    const gBtn = document.getElementById("view-graph-btn"), tBtn = document.getElementById("view-tree-btn");
-    if (v === "graph") {
-      graph.classList.remove("hidden"); tree.classList.add("hidden");
-      gBtn.className = "rounded-md px-4 py-2 text-sm transition-all bg-white dark:d-raised shadow-sm font-semibold text-(--color-accent)";
-      tBtn.className = "rounded-md px-4 py-2 text-sm transition-all text-stone-600 dark:d-text-sec";
-      initGraph();
-    } else {
-      graph.classList.add("hidden"); tree.classList.remove("hidden");
-      tBtn.className = "rounded-md px-4 py-2 text-sm transition-all bg-white dark:d-raised shadow-sm font-semibold text-(--color-accent)";
-      gBtn.className = "rounded-md px-4 py-2 text-sm transition-all text-stone-600 dark:d-text-sec";
-    }
-  }
-
-  function filterVaultTree(q) {
-    q = q.toLowerCase();
-    document.querySelectorAll(".vault-entry").forEach(el => el.style.display = el.textContent.toLowerCase().includes(q) ? "" : "none");
-    document.querySelectorAll(".vault-section").forEach(el => {
-      el.style.display = Array.from(el.querySelectorAll(".vault-entry")).some(e => e.style.display !== "none") ? "" : "none";
+    network.on("click", function(p) {
+      if (p.nodes.length > 0) window.location.href = "/" + p.nodes[0] + "/";
     });
   }
 
-  function filterByTag(tag) {
-    document.querySelectorAll(".tag-filter").forEach(btn => {
-      btn.className = btn.dataset.tag === tag
-        ? "tag-filter active rounded-full px-3 py-1 text-xs font-medium bg-(--color-accent) text-white"
-        : "tag-filter rounded-full px-3 py-1 text-xs font-medium bg-stone-100 dark:d-surface text-stone-600 dark:d-text-sec hover:bg-stone-200 dark:d-hover transition-colors";
-    });
-    document.querySelectorAll(".vault-entry").forEach(el => {
-      el.style.display = tag === "all" ? "" : (el.dataset.tags || "").includes(tag) ? "" : "none";
-    });
-    document.querySelectorAll(".vault-section").forEach(el => {
-      el.style.display = Array.from(el.querySelectorAll(".vault-entry")).some(e => e.style.display !== "none") ? "" : "none";
-    });
-  }
-
-  document.addEventListener("DOMContentLoaded", () => {
-    // Wire toggle buttons
-    document.getElementById("view-graph-btn")?.addEventListener("click", () => switchVaultView("graph"));
-    document.getElementById("view-tree-btn")?.addEventListener("click", () => switchVaultView("tree"));
-    // Wire search
-    document.getElementById("vault-search")?.addEventListener("input", e => filterVaultTree(e.target.value));
-    // Wire tag filters
-    document.querySelectorAll(".tag-filter").forEach(btn => btn.addEventListener("click", () => filterByTag(btn.dataset.tag)));
-    // Wire accordion
-    document.querySelectorAll(".vault-section-header").forEach(btn => btn.addEventListener("click", function () { this.closest(".vault-section").classList.toggle("collapsed"); }));
-    // Init graph
-    setTimeout(initGraph, 300);
+  // --- View switching ---
+  document.getElementById("view-graph-btn").addEventListener("click", function() {
+    document.getElementById("vault-graph").classList.remove("hidden");
+    document.getElementById("vault-tree").classList.add("hidden");
+    this.className = "rounded-md px-4 py-2 text-sm transition-all bg-white dark:d-raised shadow-sm font-semibold text-(--color-accent)";
+    document.getElementById("view-tree-btn").className = "rounded-md px-4 py-2 text-sm transition-all text-stone-600 dark:d-text-sec";
+    initGraph();
   });
+
+  document.getElementById("view-tree-btn").addEventListener("click", function() {
+    document.getElementById("vault-graph").classList.add("hidden");
+    document.getElementById("vault-tree").classList.remove("hidden");
+    this.className = "rounded-md px-4 py-2 text-sm transition-all bg-white dark:d-raised shadow-sm font-semibold text-(--color-accent)";
+    document.getElementById("view-graph-btn").className = "rounded-md px-4 py-2 text-sm transition-all text-stone-600 dark:d-text-sec";
+  });
+
+  // --- Accordion ---
+  document.querySelectorAll(".vault-section-header").forEach(function(btn) {
+    btn.addEventListener("click", function() {
+      this.closest(".vault-section").classList.toggle("collapsed");
+    });
+  });
+
+  // --- Search ---
+  document.getElementById("vault-search").addEventListener("input", function() {
+    var q = this.value.toLowerCase();
+    document.querySelectorAll(".vault-entry").forEach(function(el) {
+      el.style.display = el.textContent.toLowerCase().includes(q) ? "" : "none";
+    });
+    document.querySelectorAll(".vault-section").forEach(function(el) {
+      var visible = false;
+      el.querySelectorAll(".vault-entry").forEach(function(e) { if (e.style.display !== "none") visible = true; });
+      el.style.display = visible ? "" : "none";
+    });
+  });
+
+  // --- Tag filter ---
+  document.querySelectorAll(".tag-filter").forEach(function(btn) {
+    btn.addEventListener("click", function() {
+      var tag = this.dataset.tag;
+      document.querySelectorAll(".tag-filter").forEach(function(b) {
+        b.className = b.dataset.tag === tag
+          ? "tag-filter active rounded-full px-3 py-1 text-xs font-medium bg-(--color-accent) text-white"
+          : "tag-filter rounded-full px-3 py-1 text-xs font-medium bg-stone-100 dark:d-surface text-stone-600 dark:d-text-sec hover:bg-stone-200 dark:d-hover transition-colors";
+      });
+      document.querySelectorAll(".vault-entry").forEach(function(el) {
+        el.style.display = tag === "all" ? "" : (el.dataset.tags || "").includes(tag) ? "" : "none";
+      });
+      document.querySelectorAll(".vault-section").forEach(function(el) {
+        var visible = false;
+        el.querySelectorAll(".vault-entry").forEach(function(e) { if (e.style.display !== "none") visible = true; });
+        el.style.display = visible ? "" : "none";
+      });
+    });
+  });
+
+  // Init graph
+  setTimeout(initGraph, 300);
 </script>
 
 <style is:global>
