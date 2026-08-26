@@ -12,10 +12,10 @@
 }
 
 .dark {
-  --color-bg: #0c0a09;
-  --color-text: #e7e5e4;
-  --color-accent: #5eead4;
-  --color-accent-light: #2dd4bf;
+  --color-bg: #0f172a; /* Slate 900 - Blu scuro professionale */
+  --color-text: #f1f5f9; /* Slate 100 - Leggibilità massima */
+  --color-accent: #38bdf8; /* Sky 400 - Accento fresco */
+  --color-accent-light: #7dd3fc;
 }
 
 html {
