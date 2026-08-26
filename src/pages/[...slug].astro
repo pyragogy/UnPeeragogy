@@ -81,16 +81,20 @@ const next = currentIndex < sorted.length - 1 ? sorted[currentIndex + 1] : null;
     </aside>
 
     <!-- Dual Column Layout -->
-    <div class="min-w-0 flex-1 grid grid-cols-1 lg:grid-cols-2 gap-6" data-pagefind-body>
-
+    <div
+      class="min-w-0 flex-1"
+      :class="view === 'dual' ? 'grid grid-cols-1 lg:grid-cols-2 gap-6' : 'max-w-3xl mx-auto'"
+      data-pagefind-body
+    >
       <!-- LEFT COLUMN: Peeragogy (theory) -->
       <div
         x-show="view === 'dual' || view === 'peeragogy'"
         x-transition:enter="transition ease-out duration-300"
         x-transition:enter-start="opacity-0"
         x-transition:enter-end="opacity-100"
-        class="scroll-sync peeragogy-col overflow-y-auto max-h-[calc(100vh-12rem)] pr-4 border-r border-stone-200 dark:border-stone-700"
-        @scroll.throttle="if (scrollSync && view === 'dual') { $el.closest('.grid').querySelector('.unpeeragogy-col').scrollTop = $el.scrollTop }"
+        class="scroll-sync peeragogy-col overflow-y-auto max-h-[calc(100vh-12rem)] pr-4"
+        :class="view === 'dual' ? 'border-r border-stone-200 dark:border-stone-700' : ''"
+        @scroll.throttle="if (scrollSync && view === 'dual') { $el.closest('div').querySelector('.unpeeragogy-col').scrollTop = $el.scrollTop }"
       >
         {PeeragogyContent ? (
           <article>
@@ -128,8 +132,9 @@ const next = currentIndex < sorted.length - 1 ? sorted[currentIndex + 1] : null;
         x-transition:enter="transition ease-out duration-300"
         x-transition:enter-start="opacity-0"
         x-transition:enter-end="opacity-100"
-        class="scroll-sync unpeeragogy-col overflow-y-auto max-h-[calc(100vh-12rem)] pl-2"
-        @scroll.throttle="if (scrollSync && view === 'dual') { $el.closest('.grid').querySelector('.peeragogy-col').scrollTop = $el.scrollTop }"
+        class="scroll-sync unpeeragogy-col overflow-y-auto max-h-[calc(100vh-12rem)]"
+        :class="view === 'dual' ? 'pl-2' : ''"
+        @scroll.throttle="if (scrollSync && view === 'dual') { $el.closest('div').querySelector('.peeragogy-col').scrollTop = $el.scrollTop }"
       >
         {UnpeeragogyContent ? (
           <article>
