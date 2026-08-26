@@ -151,7 +151,7 @@ for (const s of sectionOrder) {
                   <span class="rounded-full bg-[#ef4444]/15 text-[#ef4444] px-2 py-0.5">{unpeerCountBySection[s]} realtà</span>
                 </span>
               </span>
-              <span class="text-xs text-stone-400 transition-transform">▼</span>
+              <span class="text-xs d-text-dim transition-transform">▼</span>
             </button>
             <div class="vault-section-body divide-y divide-stone-100 dark:d-border">
               {entriesBySection[s].map(e => (
@@ -163,8 +163,8 @@ for (const s of sectionOrder) {
                       T {e.tension.toFixed(1)}
                     </span>
                   )}
-                  <span class="text-xs text-stone-400 d-text-dim w-8 text-right shrink-0">{e.readingTime}m</span>
-                  <span class="text-stone-300 dark:text-stone-600 group-hover:translate-x-1 transition-transform shrink-0">→</span>
+                  <span class="text-xs d-text-dim w-8 text-right shrink-0">{e.readingTime}m</span>
+                  <span class="d-text-dim group-hover:translate-x-1 transition-transform shrink-0">→</span>
                 </a>
               ))}
             </div>
@@ -241,7 +241,7 @@ for (const s of sectionOrder) {
         document.getElementById("vault-tree").classList.add("hidden");
         this.className = "rounded-md px-4 py-2 text-sm transition-all bg-white dark:d-raised shadow-sm font-semibold text-(--color-accent)";
         var other = document.getElementById("view-tree-btn");
-        if (other) other.className = "rounded-md px-4 py-2 text-sm transition-all text-stone-600 dark:d-text-sec";
+        if (other) other.className = "rounded-md px-4 py-2 text-sm transition-all d-text-sec";
         initGraph();
       });
     }
@@ -251,7 +251,7 @@ for (const s of sectionOrder) {
         document.getElementById("vault-tree").classList.remove("hidden");
         this.className = "rounded-md px-4 py-2 text-sm transition-all bg-white dark:d-raised shadow-sm font-semibold text-(--color-accent)";
         var other = document.getElementById("view-graph-btn");
-        if (other) other.className = "rounded-md px-4 py-2 text-sm transition-all text-stone-600 dark:d-text-sec";
+        if (other) other.className = "rounded-md px-4 py-2 text-sm transition-all d-text-sec";
       });
     }
   });
@@ -291,7 +291,7 @@ for (const s of sectionOrder) {
         document.querySelectorAll(".tag-filter").forEach(function(b) {
           b.className = b.dataset.tag === tag
             ? "tag-filter active rounded-full px-3 py-1 text-xs font-medium bg-(--color-accent) text-white"
-            : "tag-filter rounded-full px-3 py-1 text-xs font-medium bg-stone-100 dark:d-surface text-stone-600 dark:d-text-sec hover:bg-stone-200 dark:d-hover transition-colors";
+            : "tag-filter rounded-full px-3 py-1 text-xs font-medium bg-stone-100 dark:d-surface d-text-sec hover:bg-stone-200 dark:d-hover transition-colors";
         });
         document.querySelectorAll(".vault-entry").forEach(function(el) {
           el.style.display = tag === "all" ? "" : (el.dataset.tags || "").includes(tag) ? "" : "none";

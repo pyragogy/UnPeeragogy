@@ -24,8 +24,6 @@ export async function getStaticPaths() {
 const { peeragogyEntry, unpeeragogyEntry } = Astro.props;
 const title = peeragogyEntry?.data?.title || unpeeragogyEntry?.data?.title || "Untitled";
 
-// NOTE: Astro requires PascalCase for component variables in templates.
-// We use the destructured Content directly with uppercase.
 let PeeragogyContent = null;
 if (peeragogyEntry) {
   const { Content } = await peeragogyEntry.render();
@@ -38,7 +36,6 @@ if (unpeeragogyEntry) {
   UnpeeragogyContent = Content;
 }
 
-// Prev/Next from peeragogy collection
 const allPeeragogy = await getCollection("peeragogy");
 const sorted = allPeeragogy.sort((a, b) => (a.data.order || 99) - (b.data.order || 99));
 const currentIndex = sorted.findIndex((e) => e.slug === peeragogyEntry?.slug);
@@ -51,21 +48,21 @@ const next = currentIndex < sorted.length - 1 ? sorted[currentIndex + 1] : null;
   <div class="flex items-center justify-center gap-2 mb-6 p-2 bg-stone-100 d-surface rounded-lg w-fit mx-auto">
     <button
       @click="view = 'dual'"
-      :class="view === 'dual' ? 'bg-white d-raised shadow-sm font-semibold text-(--color-accent)' : 'text-stone-600 d-text-sec hover:text-(--color-text)'"
+      :class="view === 'dual' ? 'bg-white d-raised shadow-sm font-semibold text-(--color-accent)' : 'd-text-sec hover:text-(--color-text)'"
       class="rounded-md px-4 py-2 text-sm transition-all"
     >
       ⿻ Dual
     </button>
     <button
       @click="view = 'peeragogy'"
-      :class="view === 'peeragogy' ? 'bg-white d-raised shadow-sm font-semibold text-(--color-accent)' : 'text-stone-600 d-text-sec hover:text-(--color-text)'"
+      :class="view === 'peeragogy' ? 'bg-white d-raised shadow-sm font-semibold text-(--color-accent)' : 'd-text-sec hover:text-(--color-text)'"
       class="rounded-md px-4 py-2 text-sm transition-all"
     >
       📖 Teoria
     </button>
     <button
       @click="view = 'unpeeragogy'"
-      :class="view === 'unpeeragogy' ? 'bg-white d-raised shadow-sm font-semibold text-(--color-accent)' : 'text-stone-600 d-text-sec hover:text-(--color-text)'"
+      :class="view === 'unpeeragogy' ? 'bg-white d-raised shadow-sm font-semibold text-(--color-accent)' : 'd-text-sec hover:text-(--color-text)'"
       class="rounded-md px-4 py-2 text-sm transition-all"
     >
       ⚡ Realtà
@@ -86,7 +83,7 @@ const next = currentIndex < sorted.length - 1 ? sorted[currentIndex + 1] : null;
       :class="view === 'dual' ? 'grid grid-cols-1 lg:grid-cols-2 gap-6' : 'max-w-3xl mx-auto'"
       data-pagefind-body
     >
-      <!-- LEFT COLUMN: Peeragogy (theory) -->
+      <!-- LEFT COLUMN: Peeragogy -->
       <div
         x-show="view === 'dual' || view === 'peeragogy'"
         x-transition:enter="transition ease-out duration-300"
@@ -102,9 +99,9 @@ const next = currentIndex < sorted.length - 1 ? sorted[currentIndex + 1] : null;
               <p class="text-sm font-medium text-(--color-accent)">{peeragogyEntry.data.section}</p>
               <h1 class="text-2xl font-bold tracking-tight mt-1">{peeragogyEntry.data.title}</h1>
               {peeragogyEntry.data.description && (
-                <p class="mt-2 text-sm text-stone-600 d-text-sec">{peeragogyEntry.data.description}</p>
+                <p class="mt-2 text-sm d-text-sec">{peeragogyEntry.data.description}</p>
               )}
-              <div class="mt-2 flex items-center gap-3 text-xs text-stone-500">
+              <div class="mt-2 flex items-center gap-3 text-xs d-text-dim">
                 <span>⏱ {peeragogyEntry.data.readingTime} min</span>
                 {peeragogyEntry.data.tags?.length > 0 && (
                   <span class="flex gap-1">
@@ -120,13 +117,13 @@ const next = currentIndex < sorted.length - 1 ? sorted[currentIndex + 1] : null;
             </div>
           </article>
         ) : (
-          <div class="flex items-center justify-center h-64 text-stone-400 italic">
+          <div class="flex items-center justify-center h-64 d-text-dim italic">
             <p>Nessun contenuto Peeragogy per questa sezione.</p>
           </div>
         )}
       </div>
 
-      <!-- RIGHT COLUMN: Unpeeragogy (decostruction) -->
+      <!-- RIGHT COLUMN: Unpeeragogy -->
       <div
         x-show="view === 'dual' || view === 'unpeeragogy'"
         x-transition:enter="transition ease-out duration-300"
@@ -141,7 +138,7 @@ const next = currentIndex < sorted.length - 1 ? sorted[currentIndex + 1] : null;
             <header class="mb-6">
               <p class="text-sm font-medium text-red-500">⚡ Unpeeragogy</p>
               <h1 class="text-2xl font-bold tracking-tight mt-1">{unpeeragogyEntry.data.title}</h1>
-              <div class="mt-2 flex items-center gap-3 text-xs text-stone-500">
+              <div class="mt-2 flex items-center gap-3 text-xs d-text-dim">
                 <span>⏱ {unpeeragogyEntry.data.readingTime} min</span>
                 {unpeeragogyEntry.data.tags?.length > 0 && (
                   <span class="flex gap-1">
@@ -155,12 +152,10 @@ const next = currentIndex < sorted.length - 1 ? sorted[currentIndex + 1] : null;
             <div class="prose prose-invert max-w-none prose-sm prose-red">
               <UnpeeragogyContent />
             </div>
-
-            <!-- Giscus on Unpeeragogy column only -->
             <SectionDiscussion slug={unpeeragogyEntry.slug} title={unpeeragogyEntry.data.title} />
           </article>
         ) : (
-          <div class="flex items-center justify-center h-64 text-stone-400 italic">
+          <div class="flex items-center justify-center h-64 d-text-dim italic">
             <p>Nessuna contro-analisi Unpeeragogy ancora scritta. Il Pattern Disruptor tace — per ora.</p>
           </div>
         )}
@@ -173,7 +168,7 @@ const next = currentIndex < sorted.length - 1 ? sorted[currentIndex + 1] : null;
     <div>
       {prev && (
         <a href={`/${prev.slug}/`} class="group flex flex-col">
-          <span class="text-sm text-stone-500">← Previous</span>
+          <span class="text-sm d-text-dim">← Previous</span>
           <span class="font-medium group-hover:text-(--color-accent) transition-colors">{prev.data.title}</span>
         </a>
       )}
@@ -181,7 +176,7 @@ const next = currentIndex < sorted.length - 1 ? sorted[currentIndex + 1] : null;
     <div class="text-right">
       {next && (
         <a href={`/${next.slug}/`} class="group flex flex-col">
-          <span class="text-sm text-stone-500">Next →</span>
+          <span class="text-sm d-text-dim">Next →</span>
           <span class="font-medium group-hover:text-(--color-accent) transition-colors">{next.data.title}</span>
         </a>
       )}
