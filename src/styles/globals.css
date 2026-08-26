@@ -94,6 +94,35 @@ body {
 .dark .d-red-bg   { background: var(--red-bg); }
 .dark .d-red-bdr  { border-color: var(--red-border); }
 .dark .d-red-txt  { color: var(--red-text); }
+/* === Scrollbar Custom — tono su tono === */
+
+/* Webkit (Chrome, Edge, Safari) */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-default);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-default) transparent;
+}
+
+/* ================================ */
+
 /* Force prose-invert in dark mode (Tailwind plugin compatibility) */
 .dark .prose-invert {
   --tw-prose-body: var(--color-text);
