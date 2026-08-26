@@ -102,6 +102,7 @@ for (const s of sectionNames) {
 }
 ---  
 <BaseLayout title="Vault — Unpeeragogy Knowledge Base" description="Visualizzazione a grafo e navigazione ad albero della Knowledge Base Unpeeragogy.">
+  <script set:html={JSON.stringify({nodes: entriesData, edges: edgesData})} id="vault-data" type="application/json"></script>
   <section class="py-8">
     <div class="flex items-center gap-4 mb-6">
       <h1 class="text-3xl font-extrabold tracking-tight">🗂️ Knowledge Base</h1>
@@ -114,7 +115,7 @@ for (const s of sectionNames) {
     </div>
 
     <!-- GRAPH -->
-    <div id="vault-graph" class="w-full rounded-lg border border-stone-200 dark:d-border overflow-hidden" style="height:600px;position:relative;" data-nodes={JSON.stringify(entriesData)} data-edges={JSON.stringify(edgesData)}>
+    <div id="vault-graph" class="w-full rounded-lg border border-stone-200 dark:d-border overflow-hidden" style="height:600px;position:relative;">
       <div id="vis-network" style="width:100%;height:100%;"></div>
       <div id="graph-legend" class="absolute bottom-4 left-4 flex gap-3 text-xs bg-white/90 dark:bg-[var(--surface-bg)]/90 px-3 py-2 rounded-lg shadow-sm dark:d-border backdrop-blur-sm">
         <span class="flex items-center gap-1"><span class="w-3 h-3 rounded-full inline-block bg-[#4a8fe7]"></span> Peeragogy</span>
@@ -124,36 +125,39 @@ for (const s of sectionNames) {
 
     <!-- TREE -->
     <div id="vault-tree" class="hidden">
-      <div class="mb-4 flex flex-wrap gap-3 items-center">
-        <input id="vault-search" type="text" placeholder="Cerca tra i nodi..." class="rounded-lg border border-stone-200 dark:d-border bg-white dark:[background:var(--surface-bg)] px-4 py-2 text-sm flex-1 max-w-xs" />
+      <div class="mb-6 flex flex-wrap gap-3 items-center">
+        <input id="vault-search" type="text" placeholder="Cerca capitolo..." class="rounded-lg border border-stone-200 dark:d-border bg-white dark:[background:var(--surface-bg)] px-4 py-2.5 text-sm flex-1 max-w-sm" />
         <div class="flex flex-wrap gap-2" id="tag-filters">
           <button class="tag-filter active rounded-full px-3 py-1 text-xs font-medium bg-(--color-accent) text-white" data-tag="all">Tutti</button>
           {tagsSorted.slice(0, 20).map(tag => <button class="tag-filter rounded-full px-3 py-1 text-xs font-medium bg-stone-100 dark:d-surface text-stone-600 dark:d-text-sec hover:bg-stone-200 dark:d-hover transition-colors" data-tag={tag}>#{tag}</button>)}
         </div>
       </div>
 
-      <div class="space-y-2" id="vault-tree-sections">
+      <div class="space-y-4" id="vault-tree-sections">
         {sectionNames.map(s => (
-          <div class="vault-section border border-stone-200 dark:d-border rounded-lg overflow-hidden" data-section={s}>
-            <button class="vault-section-header w-full flex items-center justify-between px-4 py-3 bg-stone-50 dark:d-surface hover:bg-stone-100 dark:d-hover transition-colors text-left font-medium">
-              <span class="flex items-center gap-2">
-                <span class="text-sm">{s}</span>
-                <span class="text-xs text-stone-500 dark:d-text-dim">({peerCountBySection[s]} · {unpeerCountBySection[s]})</span>
+          <div class="vault-section border border-stone-200 dark:d-border rounded-xl overflow-hidden" data-section={s}>
+            <button class="vault-section-header w-full flex items-center justify-between px-5 py-4 bg-stone-50 dark:d-surface hover:bg-stone-100 dark:d-hover transition-colors text-left text-base font-semibold">
+              <span class="flex items-center gap-3">
+                <span>{s}</span>
+                <span class="inline-flex items-center gap-1.5 text-xs font-normal">
+                  <span class="rounded-full bg-[#4a8fe7]/15 text-[#4a8fe7] px-2 py-0.5">{peerCountBySection[s]} teoria</span>
+                  <span class="rounded-full bg-[#ef4444]/15 text-[#ef4444] px-2 py-0.5">{unpeerCountBySection[s]} realtà</span>
+                </span>
               </span>
-              <span class="text-xs text-stone-400">▼</span>
+              <span class="text-xs text-stone-400 transition-transform">▼</span>
             </button>
             <div class="vault-section-body divide-y divide-stone-100 dark:d-border">
               {entriesBySection[s].map(e => (
-                <a href="/{e.slug}/" class="vault-entry flex items-center gap-3 px-4 py-2.5 hover:bg-stone-50 dark:d-hover transition-colors text-sm group" data-slug={e.slug} data-tags={e.tags.join(",")}>
-                  <span class="w-2 h-2 rounded-full shrink-0" style={e.hasUnpeeragogy ? "background:#ef4444" : "background:#4a8fe7"}></span>
-                  <span class="flex-1 font-medium truncate">{e.title}</span>
+                <a href={`/${e.slug}/`} class="vault-entry flex items-center gap-4 px-5 py-3.5 hover:bg-stone-50 dark:d-hover transition-colors text-sm group" data-slug={e.slug} data-tags={e.tags.join(",")}>
+                  <span class="w-3 h-3 rounded-full shrink-0" style={e.hasUnpeeragogy ? "background:#ef4444" : "background:#4a8fe7"}></span>
+                  <span class="flex-1 font-medium text-[15px]">{e.title}</span>
                   {e.tension !== null && (
-                    <span class="tension-badge text-xs px-2 py-0.5 rounded-full shrink-0" style={e.tension >= 1.0 ? "background:rgba(239,68,68,0.15);color:#f87171" : e.tension >= 0.6 ? "background:rgba(249,115,22,0.15);color:#fb923c" : "background:rgba(74,143,231,0.15);color:#4a8fe7"}>
-                      T:{e.tension.toFixed(1)}
+                    <span class="tension-badge text-xs px-2 py-1 rounded-full shrink-0 font-medium" style={e.tension >= 1.0 ? "background:rgba(239,68,68,0.15);color:#f87171" : e.tension >= 0.6 ? "background:rgba(249,115,22,0.15);color:#fb923c" : "background:rgba(74,143,231,0.15);color:#4a8fe7"}>
+                      T {e.tension.toFixed(1)}
                     </span>
                   )}
-                  <span class="text-xs text-stone-400 dark:d-text-dim">{e.readingTime}m</span>
-                  <span class="text-stone-300 dark:text-stone-600 group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span class="text-xs text-stone-400 dark:d-text-dim w-8 text-right shrink-0">{e.readingTime}m</span>
+                  <span class="text-stone-300 dark:text-stone-600 group-hover:translate-x-1 transition-transform shrink-0">→</span>
                 </a>
               ))}
             </div>
@@ -165,7 +169,9 @@ for (const s of sectionNames) {
 </BaseLayout>
 
 <script>
+  // @ts-ignore - vis-network bundled by Astro
   import { Network } from "vis-network";
+  // @ts-ignore - vis-data bundled by Astro
   import { DataSet } from "vis-data";
 
   let network = null;
@@ -174,11 +180,10 @@ for (const s of sectionNames) {
     const container = document.getElementById("vis-network");
     if (!container || network) return;
 
-    // Read data from HTML attribute
-    const graphEl = document.getElementById("vault-graph");
-    if (!graphEl) return;
-    const nodesList = JSON.parse(graphEl.dataset.nodes);
-    const edgesList = JSON.parse(graphEl.dataset.edges);
+    // Read data from JSON script tag
+    var vaultData = JSON.parse(document.getElementById("vault-data").textContent);
+    var nodesList = vaultData.nodes;
+    var edgesList = vaultData.edges;
 
     const visNodes = new DataSet(nodesList.map(n => ({
       id: n.slug,
@@ -211,63 +216,83 @@ for (const s of sectionNames) {
   }
 
   // --- View switching ---
-  document.getElementById("view-graph-btn").addEventListener("click", function() {
-    document.getElementById("vault-graph").classList.remove("hidden");
-    document.getElementById("vault-tree").classList.add("hidden");
-    this.className = "rounded-md px-4 py-2 text-sm transition-all bg-white dark:d-raised shadow-sm font-semibold text-(--color-accent)";
-    document.getElementById("view-tree-btn").className = "rounded-md px-4 py-2 text-sm transition-all text-stone-600 dark:d-text-sec";
-    initGraph();
-  });
-
-  document.getElementById("view-tree-btn").addEventListener("click", function() {
-    document.getElementById("vault-graph").classList.add("hidden");
-    document.getElementById("vault-tree").classList.remove("hidden");
-    this.className = "rounded-md px-4 py-2 text-sm transition-all bg-white dark:d-raised shadow-sm font-semibold text-(--color-accent)";
-    document.getElementById("view-graph-btn").className = "rounded-md px-4 py-2 text-sm transition-all text-stone-600 dark:d-text-sec";
+  document.addEventListener("DOMContentLoaded", function() {
+    var gBtn = document.getElementById("view-graph-btn");
+    var tBtn = document.getElementById("view-tree-btn");
+    if (gBtn) {
+      gBtn.addEventListener("click", function() {
+        document.getElementById("vault-graph").classList.remove("hidden");
+        document.getElementById("vault-tree").classList.add("hidden");
+        this.className = "rounded-md px-4 py-2 text-sm transition-all bg-white dark:d-raised shadow-sm font-semibold text-(--color-accent)";
+        var other = document.getElementById("view-tree-btn");
+        if (other) other.className = "rounded-md px-4 py-2 text-sm transition-all text-stone-600 dark:d-text-sec";
+        initGraph();
+      });
+    }
+    if (tBtn) {
+      tBtn.addEventListener("click", function() {
+        document.getElementById("vault-graph").classList.add("hidden");
+        document.getElementById("vault-tree").classList.remove("hidden");
+        this.className = "rounded-md px-4 py-2 text-sm transition-all bg-white dark:d-raised shadow-sm font-semibold text-(--color-accent)";
+        var other = document.getElementById("view-graph-btn");
+        if (other) other.className = "rounded-md px-4 py-2 text-sm transition-all text-stone-600 dark:d-text-sec";
+      });
+    }
   });
 
   // --- Accordion ---
-  document.querySelectorAll(".vault-section-header").forEach(function(btn) {
-    btn.addEventListener("click", function() {
-      this.closest(".vault-section").classList.toggle("collapsed");
+  document.addEventListener("DOMContentLoaded", function() {
+    document.querySelectorAll(".vault-section-header").forEach(function(btn) {
+      btn.addEventListener("click", function() {
+        this.closest(".vault-section").classList.toggle("collapsed");
+      });
     });
   });
 
   // --- Search ---
-  document.getElementById("vault-search").addEventListener("input", function() {
-    var q = this.value.toLowerCase();
-    document.querySelectorAll(".vault-entry").forEach(function(el) {
-      el.style.display = el.textContent.toLowerCase().includes(q) ? "" : "none";
-    });
-    document.querySelectorAll(".vault-section").forEach(function(el) {
-      var visible = false;
-      el.querySelectorAll(".vault-entry").forEach(function(e) { if (e.style.display !== "none") visible = true; });
-      el.style.display = visible ? "" : "none";
-    });
+  document.addEventListener("DOMContentLoaded", function() {
+    var searchInput = document.getElementById("vault-search");
+    if (searchInput) {
+      searchInput.addEventListener("input", function() {
+        var q = this.value.toLowerCase();
+        document.querySelectorAll(".vault-entry").forEach(function(el) {
+          el.style.display = el.textContent.toLowerCase().includes(q) ? "" : "none";
+        });
+        document.querySelectorAll(".vault-section").forEach(function(el) {
+          var visible = false;
+          el.querySelectorAll(".vault-entry").forEach(function(e) { if (e.style.display !== "none") visible = true; });
+          el.style.display = visible ? "" : "none";
+        });
+      });
+    }
   });
 
   // --- Tag filter ---
-  document.querySelectorAll(".tag-filter").forEach(function(btn) {
-    btn.addEventListener("click", function() {
-      var tag = this.dataset.tag;
-      document.querySelectorAll(".tag-filter").forEach(function(b) {
-        b.className = b.dataset.tag === tag
-          ? "tag-filter active rounded-full px-3 py-1 text-xs font-medium bg-(--color-accent) text-white"
-          : "tag-filter rounded-full px-3 py-1 text-xs font-medium bg-stone-100 dark:d-surface text-stone-600 dark:d-text-sec hover:bg-stone-200 dark:d-hover transition-colors";
-      });
-      document.querySelectorAll(".vault-entry").forEach(function(el) {
-        el.style.display = tag === "all" ? "" : (el.dataset.tags || "").includes(tag) ? "" : "none";
-      });
-      document.querySelectorAll(".vault-section").forEach(function(el) {
-        var visible = false;
-        el.querySelectorAll(".vault-entry").forEach(function(e) { if (e.style.display !== "none") visible = true; });
-        el.style.display = visible ? "" : "none";
+  document.addEventListener("DOMContentLoaded", function() {
+    document.querySelectorAll(".tag-filter").forEach(function(btn) {
+      btn.addEventListener("click", function() {
+        var tag = this.dataset.tag;
+        document.querySelectorAll(".tag-filter").forEach(function(b) {
+          b.className = b.dataset.tag === tag
+            ? "tag-filter active rounded-full px-3 py-1 text-xs font-medium bg-(--color-accent) text-white"
+            : "tag-filter rounded-full px-3 py-1 text-xs font-medium bg-stone-100 dark:d-surface text-stone-600 dark:d-text-sec hover:bg-stone-200 dark:d-hover transition-colors";
+        });
+        document.querySelectorAll(".vault-entry").forEach(function(el) {
+          el.style.display = tag === "all" ? "" : (el.dataset.tags || "").includes(tag) ? "" : "none";
+        });
+        document.querySelectorAll(".vault-section").forEach(function(el) {
+          var visible = false;
+          el.querySelectorAll(".vault-entry").forEach(function(e) { if (e.style.display !== "none") visible = true; });
+          el.style.display = visible ? "" : "none";
+        });
       });
     });
   });
 
   // Init graph
-  setTimeout(initGraph, 300);
+  document.addEventListener("DOMContentLoaded", function() {
+    setTimeout(initGraph, 300);
+  });
 </script>
 
 <style is:global>
