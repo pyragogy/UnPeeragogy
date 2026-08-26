@@ -176,105 +176,262 @@ for (const s of sectionOrder) {
 </BaseLayout>
 
 <script>
-  import ForceGraph from "force-graph";
+  import { forceSimulation, forceLink, forceManyBody, forceCenter, forceCollide } from "d3-force";
 
-  let graph = null;
+  let sim = null;
+  let canvas = null;
+  let ctx = null;
+  let zoomState = { x: 0, y: 0, k: 1 };
+
+  function getNodeColor(node) {
+    if (node.group === "unpeeragogy" || node.group === "unpeeragogy-only") return "#ef4444";
+    return "#4a8fe7";
+  }
+
+  function getCSSVar(name, fallback) {
+    return getComputedStyle(document.body).getPropertyValue(name).trim() || fallback;
+  }
 
   function initGraph() {
-    const container = document.getElementById("force-graph");
-    if (!container || graph) return;
+    let container = document.getElementById("force-graph");
+    if (!container) return;
+    if (canvas) { canvas.remove(); canvas = null; sim = null; }
 
-    // Guard: skip if container has no dimensions (hidden or not rendered)
-    var w = container.clientWidth;
-    var h = container.clientHeight;
-    if (w === 0 || h === 0) {
-      // Retry after a short delay when container becomes visible
-      setTimeout(initGraph, 500);
-      return;
+    canvas = document.createElement("canvas");
+    canvas.style.width = "100%";
+    canvas.style.height = "100%";
+    canvas.style.display = "block";
+    container.appendChild(canvas);
+    ctx = canvas.getContext("2d");
+
+    function resize() {
+      let w = container.clientWidth;
+      let h = container.clientHeight;
+      if (w === 0 || h === 0) { w = 800; h = 620; }
+      canvas.width = w * window.devicePixelRatio;
+      canvas.height = h * window.devicePixelRatio;
+      canvas.style.width = w + "px";
+      canvas.style.height = h + "px";
+      ctx.setTransform(window.devicePixelRatio, 0, 0, window.devicePixelRatio, 0, 0);
+      if (sim) render();
+    }
+    resize();
+
+    if (window.ResizeObserver) {
+      new ResizeObserver(resize).observe(container);
+    } else {
+      window.addEventListener("resize", resize);
     }
 
-    var vaultData = JSON.parse(document.getElementById("vault-data").textContent);
-    var nodes = vaultData.nodes;
-    var links = vaultData.links;
-
-    const graphData = {
-      nodes: nodes.map(n => ({
+    let vaultData = JSON.parse(document.getElementById("vault-data").textContent);
+    let nodeData = vaultData.nodes.map(function(n) {
+      return {
         id: n.id,
         name: n.name,
-        val: n.val || 1.5,
         group: n.group,
         tension: n.tension,
-        section: n.section,
-      })),
-      links: links.map(l => ({
-        source: l.source,
-        target: l.target,
-      })),
+        r: 6
+      };
+    });
+    let linkData = vaultData.links.map(function(l) {
+      return { source: l.source, target: l.target };
+    });
+
+    let w = container.clientWidth || 800;
+    let h = container.clientHeight || 620;
+
+    sim = forceSimulation(nodeData)
+      .force("link", forceLink(linkData).id(function(d) { return d.id; }).distance(80).strength(0.3))
+      .force("charge", forceManyBody().strength(-200))
+      .force("center", forceCenter(w / 2, h / 2))
+      .force("collide", forceCollide(function(d) { return d.r + 4; }))
+      .alphaDecay(0.02)
+      .on("tick", render);
+
+    // --- Interaction ---
+    let isDragging = false;
+    let dragNode = null;
+    let dragStart = null;
+    let mousePos = { x: 0, y: 0 };
+    let lastMouse = { x: 0, y: 0 };
+    let isPanning = false;
+
+    canvas.addEventListener("wheel", function(e) {
+      e.preventDefault();
+      let oldk = zoomState.k;
+      zoomState.k *= 1 - e.deltaY * 0.001;
+      zoomState.k = Math.max(0.2, Math.min(6, zoomState.k));
+      zoomState.x = e.offsetX - (e.offsetX - zoomState.x) * (zoomState.k / oldk);
+      zoomState.y = e.offsetY - (e.offsetY - zoomState.y) * (zoomState.k / oldk);
+      render();
+    });
+
+    canvas.addEventListener("mousedown", function(e) {
+      let hit = hitTest(e.offsetX, e.offsetY);
+      if (hit) {
+        isDragging = true;
+        dragNode = hit;
+        dragStart = { x: e.offsetX, y: e.offsetY };
+        sim.alphaTarget(0.3).restart();
+      } else {
+        isPanning = true;
+        lastMouse = { x: e.offsetX, y: e.offsetY };
+      }
+    });
+
+    canvas.addEventListener("mousemove", function(e) {
+      mousePos = { x: e.offsetX, y: e.offsetY };
+      if (isDragging && dragNode) {
+        let pos = screenToGraph(e.offsetX, e.offsetY);
+        dragNode.fx = pos.x;
+        dragNode.fy = pos.y;
+        sim.alpha(0.1).restart();
+      } else if (isPanning) {
+        zoomState.x += (e.offsetX - lastMouse.x);
+        zoomState.y += (e.offsetY - lastMouse.y);
+        lastMouse = { x: e.offsetX, y: e.offsetY };
+        render();
+      } else {
+        let hit = hitTest(e.offsetX, e.offsetY);
+        canvas.style.cursor = hit ? "pointer" : "default";
+        if (hit !== dragNode) { render(); }
+      }
+    });
+
+    canvas.addEventListener("mouseup", function(e) {
+      if (isDragging && dragNode) {
+        let moved = Math.abs(e.offsetX - dragStart.x) + Math.abs(e.offsetY - dragStart.y);
+        if (moved < 5) {
+          window.location.href = "/" + dragNode.id + "/";
+        }
+        dragNode.fx = null;
+        dragNode.fy = null;
+        dragNode = null;
+      }
+      isDragging = false;
+      isPanning = false;
+      sim.alphaTarget(0);
+    });
+
+    canvas.addEventListener("mouseleave", function() {
+      isDragging = false;
+      isPanning = false;
+      dragNode = null;
+      sim.alphaTarget(0);
+    });
+
+    // Double-click to reset zoom
+    canvas.addEventListener("dblclick", function() {
+      zoomState = { x: 0, y: 0, k: 1 };
+      render();
+    });
+  }
+
+  function screenToGraph(sx, sy) {
+    return {
+      x: (sx - zoomState.x) / zoomState.k,
+      y: (sy - zoomState.y) / zoomState.k
     };
+  }
 
-    // Read theme colors from CSS variables at runtime
-    var style = getComputedStyle(document.body);
-    var bgColor = style.getPropertyValue('--color-bg').trim() || '#ffffff';
-    var linkColor = style.getPropertyValue('--border-default').trim() || '#e4e4e7';
+  function graphToScreen(gx, gy) {
+    return {
+      x: gx * zoomState.k + zoomState.x,
+      y: gy * zoomState.k + zoomState.y
+    };
+  }
 
-    graph = ForceGraph()(container)
-      .graphData(graphData)
-      .nodeColor(function(node) {
-        if (node.group === "unpeeragogy" || node.group === "unpeeragogy-only") return "#ef4444";
-        return "#4a8fe7";
-      })
-      .nodeLabel(function(node) {
-        var label = node.name;
-        if (node.tension !== null) label += ' [T:' + node.tension.toFixed(1) + ']';
-        return label;
-      })
-      .nodeRelSize(6)
-      .linkColor(function() { return linkColor; })
-      .linkWidth(0.5)
-      .backgroundColor(bgColor)
-      .onNodeClick(function(node) {
-        window.location.href = '/' + node.id + '/';
-      })
-      .width(w)
-      .height(h);
+  function hitTest(sx, sy) {
+    let pos = screenToGraph(sx, sy);
+    let nodes = sim ? sim.nodes() : [];
+    for (let i = nodes.length - 1; i >= 0; i--) {
+      let n = nodes[i];
+      let dx = pos.x - n.x;
+      let dy = pos.y - n.y;
+      if (dx * dx + dy * dy < (n.r + 4) * (n.r + 4)) return n;
+    }
+    return null;
+  }
 
-    // Use ResizeObserver for responsive sizing (handles layout shifts, tab switches)
-    if (window.ResizeObserver) {
-      var ro = new ResizeObserver(function() {
-        if (container && graph) {
-          var cw = container.clientWidth;
-          var ch = container.clientHeight;
-          if (cw > 0 && ch > 0) {
-            graph.width(cw).height(ch);
-          }
-        }
-      });
-      ro.observe(container);
-      // Store observer reference to cleanup later
-      container._ro = ro;
+  function render() {
+    if (!ctx || !sim) return;
+    let w = canvas.width / window.devicePixelRatio;
+    let h = canvas.height / window.devicePixelRatio;
+
+    let bg = getCSSVar("--color-bg", "#ffffff");
+    ctx.fillStyle = bg;
+    ctx.fillRect(0, 0, w, h);
+
+    ctx.save();
+    ctx.translate(zoomState.x, zoomState.y);
+    ctx.scale(zoomState.k, zoomState.k);
+
+    let linkColor = getCSSVar("--border-default", "#e4e4e7");
+    ctx.strokeStyle = linkColor;
+    ctx.lineWidth = 0.5 / zoomState.k;
+    let nodes = sim.nodes();
+    let nodeMap = {};
+    for (let i = 0; i < nodes.length; i++) nodeMap[nodes[i].id] = nodes[i];
+
+    let links = sim.force("link").links();
+    for (let i = 0; i < links.length; i++) {
+      let s = (typeof links[i].source === "object") ? links[i].source : nodeMap[links[i].source];
+      let t = (typeof links[i].target === "object") ? links[i].target : nodeMap[links[i].target];
+      if (s && t) {
+        ctx.beginPath();
+        ctx.moveTo(s.x, s.y);
+        ctx.lineTo(t.x, t.y);
+        ctx.stroke();
+      }
+    }
+
+    for (let i = 0; i < nodes.length; i++) {
+      let n = nodes[i];
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.r, 0, 2 * Math.PI);
+      ctx.fillStyle = getNodeColor(n);
+      ctx.fill();
+    }
+
+    // Hover tooltip
+    let hx = mousePos.x;
+    let hy = mousePos.y;
+    let hit = hitTest(hx, hy);
+    if (hit) {
+      ctx.restore();
+      let label = hit.name;
+      if (hit.tension !== null) label += ' [T:' + hit.tension.toFixed(1) + ']';
+      ctx.font = "13px sans-serif";
+      let tw = ctx.measureText(label).width;
+      let pad = 8;
+      let tx = hx + 14;
+      let ty = hy - 14;
+      if (tx + tw + pad > w) tx = hx - tw - pad - 14;
+      ctx.fillStyle = getCSSVar("--surface-raised", "#ffffff");
+      ctx.strokeStyle = getCSSVar("--border-default", "#e4e4e7");
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.roundRect(tx, ty, tw + pad * 2, 26, 6);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = getCSSVar("--color-text", "#18181b");
+      ctx.textBaseline = "middle";
+      ctx.fillText(label, tx + pad, ty + 13);
     } else {
-      window.addEventListener("resize", function() {
-        if (container && graph) {
-          var cw = container.clientWidth;
-          var ch = container.clientHeight;
-          if (cw > 0 && ch > 0) {
-            graph.width(cw).height(ch);
-          }
-        }
-      });
+      ctx.restore();
     }
   }
 
   // --- View switching ---
   document.addEventListener("DOMContentLoaded", function() {
-    var gBtn = document.getElementById("view-graph-btn");
-    var tBtn = document.getElementById("view-tree-btn");
+    let gBtn = document.getElementById("view-graph-btn");
+    let tBtn = document.getElementById("view-tree-btn");
     if (gBtn) {
       gBtn.addEventListener("click", function() {
         document.getElementById("vault-graph").classList.remove("hidden");
         document.getElementById("vault-tree").classList.add("hidden");
         this.className = "rounded-md px-4 py-2 text-sm transition-all bg-white dark:d-raised shadow-sm font-semibold text-(--color-accent)";
-        var other = document.getElementById("view-tree-btn");
+        let other = document.getElementById("view-tree-btn");
         if (other) other.className = "rounded-md px-4 py-2 text-sm transition-all d-text-sec";
         initGraph();
       });
@@ -284,7 +441,7 @@ for (const s of sectionOrder) {
         document.getElementById("vault-graph").classList.add("hidden");
         document.getElementById("vault-tree").classList.remove("hidden");
         this.className = "rounded-md px-4 py-2 text-sm transition-all bg-white dark:d-raised shadow-sm font-semibold text-(--color-accent)";
-        var other = document.getElementById("view-graph-btn");
+        let other = document.getElementById("view-graph-btn");
         if (other) other.className = "rounded-md px-4 py-2 text-sm transition-all d-text-sec";
       });
     }
@@ -301,15 +458,15 @@ for (const s of sectionOrder) {
 
   // --- Search ---
   document.addEventListener("DOMContentLoaded", function() {
-    var searchInput = document.getElementById("vault-search");
+    let searchInput = document.getElementById("vault-search");
     if (searchInput) {
       searchInput.addEventListener("input", function() {
-        var q = this.value.toLowerCase();
+        let q = this.value.toLowerCase();
         document.querySelectorAll(".vault-entry").forEach(function(el) {
           el.style.display = el.textContent.toLowerCase().includes(q) ? "" : "none";
         });
         document.querySelectorAll(".vault-section").forEach(function(el) {
-          var visible = false;
+          let visible = false;
           el.querySelectorAll(".vault-entry").forEach(function(e) { if (e.style.display !== "none") visible = true; });
           el.style.display = visible ? "" : "none";
         });
@@ -321,7 +478,7 @@ for (const s of sectionOrder) {
   document.addEventListener("DOMContentLoaded", function() {
     document.querySelectorAll(".tag-filter").forEach(function(btn) {
       btn.addEventListener("click", function() {
-        var tag = this.dataset.tag;
+        let tag = this.dataset.tag;
         document.querySelectorAll(".tag-filter").forEach(function(b) {
           b.className = b.dataset.tag === tag
             ? "tag-filter active rounded-full px-3 py-1 text-xs font-medium bg-(--color-accent) text-white"
@@ -331,7 +488,7 @@ for (const s of sectionOrder) {
           el.style.display = tag === "all" ? "" : (el.dataset.tags || "").includes(tag) ? "" : "none";
         });
         document.querySelectorAll(".vault-section").forEach(function(el) {
-          var visible = false;
+          let visible = false;
           el.querySelectorAll(".vault-entry").forEach(function(e) { if (e.style.display !== "none") visible = true; });
           el.style.display = visible ? "" : "none";
         });
@@ -351,10 +508,3 @@ for (const s of sectionOrder) {
   .vault-section-header span:last-child { transition: transform 0.2s; }
   .vault-entry { text-decoration: none; color: inherit; }
   .vault-entry:hover { text-decoration: none; }
-  /* Force-graph canvas fills container */
-  #force-graph canvas { display: block; width: 100% !important; height: 100% !important; }
-  /* Ensure SVG tooltip doesn't overflow */
-  #force-graph svg { overflow: visible !important; }
-  /* Zoom controls always visible */
-  .graph-tooltip { background: var(--surface-raised); color: var(--color-text); border: 1px solid var(--border-default); border-radius: 6px; padding: 6px 10px; font-size: 13px; pointer-events: none; box-shadow: var(--shadow-sm); }
-</style>

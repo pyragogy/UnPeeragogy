@@ -135,8 +135,8 @@ body {
 
 /* ================================ */
 
-/* Force prose-invert in dark mode (Tailwind plugin compatibility) */
-.dark .prose-invert {
+/* Prose colors — use custom variables in all themes */
+.prose {
   --tw-prose-body: var(--color-text);
   --tw-prose-headings: var(--color-text);
   --tw-prose-links: var(--color-accent);
@@ -145,4 +145,7 @@ body {
   --tw-prose-code: var(--color-text);
   --tw-prose-hr: var(--border-default);
   --tw-prose-quote-borders: var(--border-default);
+  --tw-prose-counters: var(--text-secondary);
+  --tw-prose-bullets: var(--border-default);
+  --tw-prose-captions: var(--text-muted);
 }
