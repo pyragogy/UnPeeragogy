@@ -48,24 +48,24 @@ const next = currentIndex < sorted.length - 1 ? sorted[currentIndex + 1] : null;
 
 <BaseLayout title={title} description={peeragogyEntry?.data?.description || unpeeragogyEntry?.data?.description}>
   <!-- View Toggle -->
-  <div class="flex items-center justify-center gap-2 mb-6 p-2 bg-stone-100 dark:bg-stone-800 rounded-lg w-fit mx-auto">
+  <div class="flex items-center justify-center gap-2 mb-6 p-2 bg-stone-100 d-surface rounded-lg w-fit mx-auto">
     <button
       @click="view = 'dual'"
-      :class="view === 'dual' ? 'bg-white dark:bg-stone-700 shadow-sm font-semibold text-(--color-accent)' : 'text-stone-600 dark:text-stone-400 hover:text-(--color-text)'"
+      :class="view === 'dual' ? 'bg-white d-raised shadow-sm font-semibold text-(--color-accent)' : 'text-stone-600 d-text-sec hover:text-(--color-text)'"
       class="rounded-md px-4 py-2 text-sm transition-all"
     >
       ⿻ Dual
     </button>
     <button
       @click="view = 'peeragogy'"
-      :class="view === 'peeragogy' ? 'bg-white dark:bg-stone-700 shadow-sm font-semibold text-(--color-accent)' : 'text-stone-600 dark:text-stone-400 hover:text-(--color-text)'"
+      :class="view === 'peeragogy' ? 'bg-white d-raised shadow-sm font-semibold text-(--color-accent)' : 'text-stone-600 d-text-sec hover:text-(--color-text)'"
       class="rounded-md px-4 py-2 text-sm transition-all"
     >
       📖 Teoria
     </button>
     <button
       @click="view = 'unpeeragogy'"
-      :class="view === 'unpeeragogy' ? 'bg-white dark:bg-stone-700 shadow-sm font-semibold text-(--color-accent)' : 'text-stone-600 dark:text-stone-400 hover:text-(--color-text)'"
+      :class="view === 'unpeeragogy' ? 'bg-white d-raised shadow-sm font-semibold text-(--color-accent)' : 'text-stone-600 d-text-sec hover:text-(--color-text)'"
       class="rounded-md px-4 py-2 text-sm transition-all"
     >
       ⚡ Realtà
@@ -93,7 +93,7 @@ const next = currentIndex < sorted.length - 1 ? sorted[currentIndex + 1] : null;
         x-transition:enter-start="opacity-0"
         x-transition:enter-end="opacity-100"
         class="scroll-sync peeragogy-col overflow-y-auto max-h-[calc(100vh-12rem)] pr-4"
-        :class="view === 'dual' ? 'border-r border-stone-200 dark:border-stone-700' : ''"
+        :class="view === 'dual' ? 'border-r border-stone-200 d-border' : ''"
         @scroll.throttle="if (scrollSync && view === 'dual') { $el.closest('div').querySelector('.unpeeragogy-col').scrollTop = $el.scrollTop }"
       >
         {PeeragogyContent ? (
@@ -102,20 +102,20 @@ const next = currentIndex < sorted.length - 1 ? sorted[currentIndex + 1] : null;
               <p class="text-sm font-medium text-(--color-accent)">{peeragogyEntry.data.section}</p>
               <h1 class="text-2xl font-bold tracking-tight mt-1">{peeragogyEntry.data.title}</h1>
               {peeragogyEntry.data.description && (
-                <p class="mt-2 text-sm text-stone-600 dark:text-stone-400">{peeragogyEntry.data.description}</p>
+                <p class="mt-2 text-sm text-stone-600 d-text-sec">{peeragogyEntry.data.description}</p>
               )}
               <div class="mt-2 flex items-center gap-3 text-xs text-stone-500">
                 <span>⏱ {peeragogyEntry.data.readingTime} min</span>
                 {peeragogyEntry.data.tags?.length > 0 && (
                   <span class="flex gap-1">
                     {peeragogyEntry.data.tags.map((tag) => (
-                      <span class="rounded-full bg-stone-100 dark:bg-stone-800 px-2 py-0.5">{tag}</span>
+                      <span class="rounded-full bg-stone-100 d-surface px-2 py-0.5">{tag}</span>
                     ))}
                   </span>
                 )}
               </div>
             </header>
-            <div class="prose dark:prose-invert max-w-none prose-sm">
+            <div class="prose prose-invert max-w-none prose-sm">
               <PeeragogyContent />
             </div>
           </article>
@@ -146,13 +146,13 @@ const next = currentIndex < sorted.length - 1 ? sorted[currentIndex + 1] : null;
                 {unpeeragogyEntry.data.tags?.length > 0 && (
                   <span class="flex gap-1">
                     {unpeeragogyEntry.data.tags.map((tag) => (
-                      <span class="rounded-full bg-red-50 text-red-600 dark:bg-red-900/30 dark:text-red-400 px-2 py-0.5">{tag}</span>
+                      <span class="rounded-full bg-red-50 text-red-600 d-red-bg d-red-txt px-2 py-0.5">{tag}</span>
                     ))}
                   </span>
                 )}
               </div>
             </header>
-            <div class="prose dark:prose-invert max-w-none prose-sm prose-red">
+            <div class="prose prose-invert max-w-none prose-sm prose-red">
               <UnpeeragogyContent />
             </div>
 
@@ -169,7 +169,7 @@ const next = currentIndex < sorted.length - 1 ? sorted[currentIndex + 1] : null;
   </div>
 
   <!-- Prev/Next navigation -->
-  <nav class="mt-8 flex items-center justify-between border-t border-stone-200 dark:border-stone-700 pt-6">
+  <nav class="mt-8 flex items-center justify-between border-t border-stone-200 d-border pt-6">
     <div>
       {prev && (
         <a href={`/${prev.slug}/`} class="group flex flex-col">

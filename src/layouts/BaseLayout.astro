@@ -31,14 +31,14 @@ const { title, description, viewDefault = "dual" } = Astro.props;
     x-data="{ view: 'dual', scrollSync: true }"
     x-init="$watch('view', val => { if (val === 'dual') scrollSync = true })"
   >
-    <header class="sticky top-0 z-40 border-b border-stone-200 dark:border-stone-700 bg-(--color-bg)/95 backdrop-blur supports-[backdrop-filter]:bg-(--color-bg)/80">
+    <header class="sticky top-0 z-40 border-b border-stone-200 d-border bg-(--color-bg)/95 backdrop-blur supports-[backdrop-filter]:bg-(--color-bg)/80">
       <nav class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
         <a href="/" class="text-lg font-bold tracking-tight hover:text-(--color-accent) transition-colors">
           ⧩ Unpeeragogy
         </a>
         <div class="flex items-center gap-4">
           <a href="/" class="text-sm hover:text-(--color-accent) transition-colors">Home</a>
-          <button id="search-toggle" class="cursor-pointer rounded-md p-2 text-sm hover:bg-stone-200 dark:hover:bg-stone-700 transition-colors" aria-label="Search">
+          <button id="search-toggle" class="cursor-pointer rounded-md p-2 text-sm hover:bg-stone-200 d-hover transition-colors" aria-label="Search">
             <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
@@ -53,7 +53,7 @@ const { title, description, viewDefault = "dual" } = Astro.props;
       <slot />
     </main>
 
-    <footer class="border-t border-stone-200 dark:border-stone-700 py-6 text-center text-sm text-stone-500">
+    <footer class="border-t border-stone-200 d-border py-6 text-center text-sm text-stone-500 d-text-dim">
       <p>
         Unpeeragogy — Decostruzione radicale della teoria peer-to-peer (<a href="https://creativecommons.org/publicdomain/zero/1.0/" class="underline hover:text-(--color-accent)">CC Zero</a>)
       </p>

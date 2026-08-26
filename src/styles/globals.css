@@ -12,10 +12,23 @@
 }
 
 .dark {
-  --color-bg: #0f172a; /* Slate 900 - Blu scuro professionale */
-  --color-text: #f1f5f9; /* Slate 100 - Leggibilità massima */
-  --color-accent: #38bdf8; /* Sky 400 - Accento fresco */
-  --color-accent-light: #7dd3fc;
+  /* === Premium Deep Navy — TOP === */
+  --color-bg: #060b18;
+  --color-text: #e4ebf5;
+  --color-accent: #4a8fe7;
+  --color-accent-light: #6bace8;
+  --surface-bg: #0e162c;
+  --surface-raised: #16213d;
+  --surface-hover: #1c2b4f;
+  --border-default: #202d4a;
+  --border-light: #2a3a5a;
+  --text-secondary: #7b89b3;
+  --text-muted: #4a5b82;
+  --red-bg: rgba(239, 68, 68, 0.08);
+  --red-border: rgba(239, 68, 68, 0.25);
+  --red-text: #f87171;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.5);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
 }
 
 html {
@@ -48,15 +61,47 @@ body {
 
 /* Pattern cards */
 .pattern-card {
-  @apply border border-stone-200 dark:border-stone-700 rounded-lg p-6 
-         hover:shadow-md transition-shadow bg-white dark:bg-stone-800;
+  @apply border border-stone-200 rounded-lg p-6 
+         hover:shadow-md transition-shadow bg-white;
+  .dark & {
+    border-color: var(--border-default);
+    background: var(--surface-bg);
+    box-shadow: var(--shadow-sm);
+  }
 }
 
 /* Unpeeragogy agent box */
 .agent-perturbatore {
-  @apply border-l-4 border-red-500 bg-red-50 dark:bg-red-900/20 dark:border-red-400 
+  @apply border-l-4 border-red-500 bg-red-50 
          rounded-r-lg p-4 my-6 text-sm italic;
+  .dark & {
+    background: var(--red-bg);
+    border-color: var(--red-text);
+  }
 }
 
 /* No x-cloak CSS — Pagefind must see all content for indexing.
    Alpine handles x-show visibility via inline styles when JS loads. */
+
+/* === Dark Utility Classes (Deep Navy theme tokens) === */
+.dark .d-surface  { background: var(--surface-bg); }
+.dark .d-raised   { background: var(--surface-raised); }
+.dark .d-hover:hover { background: var(--surface-hover); }
+.dark .d-text-sec { color: var(--text-secondary); }
+.dark .d-text-dim { color: var(--text-muted); }
+.dark .d-border   { border-color: var(--border-default); }
+.dark .d-border-l { border-color: var(--border-light); }
+.dark .d-red-bg   { background: var(--red-bg); }
+.dark .d-red-bdr  { border-color: var(--red-border); }
+.dark .d-red-txt  { color: var(--red-text); }
+/* Force prose-invert in dark mode (Tailwind plugin compatibility) */
+.dark .prose-invert {
+  --tw-prose-body: var(--color-text);
+  --tw-prose-headings: var(--color-text);
+  --tw-prose-links: var(--color-accent);
+  --tw-prose-bold: var(--color-text);
+  --tw-prose-quotes: var(--text-secondary);
+  --tw-prose-code: var(--color-text);
+  --tw-prose-hr: var(--border-default);
+  --tw-prose-quote-borders: var(--border-default);
+}
