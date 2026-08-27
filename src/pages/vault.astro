@@ -33,6 +33,23 @@ const sectionOrder = Array.from(sections.keys()).sort((a, b) => {
   return aMin - bMin;
 });
 
+// Section palette (9 sezioni del handbook + fallback)
+const sectionColors = {
+  "Peeragogy in Practice":                  "#6366f1",
+  "Resources":                              "#8b5cf6",
+  "Cooperation":                            "#06b6d4",
+  "Convening a Group":                      "#d946ef",
+  "Introduction":                           "#10b981",
+  "Organizing a Learning Context":          "#f59e0b",
+  "Technologies, Services, and Platforms":  "#f97316",
+  "Motivation":                             "#ec4899",
+  "Assessment":                             "#84cc16",
+  "Altri":                                  "#a1a1aa",
+};
+const sectionMap = Object.fromEntries(
+  sectionOrder.map(s => [s, { color: sectionColors[s] || "#a1a1aa", order: sectionOrder.indexOf(s) }])
+);
+
 // Build 3D graph data — topology: within-section + paired cross-links
 const graphNodes = [];
 const graphLinks = [];
@@ -40,13 +57,15 @@ const nodeMap = new Map();
 
 for (const pe of peeragogyEntries) {
   const ue = unpeeragogyEntries.find(e => e.slug === pe.slug);
+  const sec = pe.data.section || "Altri";
   const node = {
     id: pe.slug,
     name: pe.data.title || pe.slug,
     group: ue ? "unpeeragogy" : "peeragogy",
     val: ue ? 2 : 1,
     tension: ue?.data?.tension_index ?? null,
-    section: pe.data.section || "Altri",
+    section: sec,
+    sectionColor: sectionColors[sec] || "#a1a1aa",
     readingTime: pe.data.readingTime ?? 0,
   };
   nodeMap.set(pe.slug, node);
@@ -56,13 +75,15 @@ for (const pe of peeragogyEntries) {
 // Add unpeeragogy-only entries
 for (const ue of unpeeragogyEntries) {
   if (!peeragogyEntries.find(e => e.slug === ue.slug)) {
+    const sec = ue.data.section || "Altri";
     const node = {
       id: ue.slug,
       name: ue.data.title || ue.slug,
       group: "unpeeragogy-only",
       val: 2,
       tension: ue.data.tension_index ?? null,
-      section: ue.data.section || "Altri",
+      section: sec,
+      sectionColor: sectionColors[sec] || "#a1a1aa",
       readingTime: ue.data.readingTime ?? 0,
     };
     nodeMap.set(ue.slug, node);
@@ -111,7 +132,7 @@ for (const s of sectionOrder) {
 ---
 
 <BaseLayout title="Vault — Unpeeragogy Knowledge Base" description="Grafo 3D interattivo + navigazione ad albero della Knowledge Base Unpeeragogy.">
-  <script set:html={JSON.stringify({ nodes: graphNodes, links: graphLinks })} id="vault-data" type="application/json"></script>
+  <script set:html={JSON.stringify({ nodes: graphNodes, links: graphLinks, sections: sectionMap })} id="vault-data" type="application/json"></script>
   <section class="py-8">
     <div class="flex items-center gap-4 mb-6">
       <h1 class="text-3xl font-extrabold tracking-tight">🗂️ Knowledge Base</h1>
@@ -126,9 +147,11 @@ for (const s of sectionOrder) {
     <!-- 3D GRAPH -->
     <div id="vault-graph" class="w-full rounded-lg border border-stone-200 dark:d-border overflow-hidden" style="height:620px;position:relative;">
       <div id="force-graph" style="width:100%;height:100%;"></div>
-      <div id="graph-legend" class="absolute bottom-4 left-4 flex gap-3 text-xs bg-white/90 dark:bg-[var(--surface-bg)]/90 px-3 py-2 rounded-lg shadow-sm dark:d-border backdrop-blur-sm">
-        <span class="flex items-center gap-1"><span class="w-3 h-3 rounded-full inline-block bg-[#3b82f6]"></span> Peeragogy</span>
-        <span class="flex items-center gap-1"><span class="w-3 h-3 rounded-full inline-block bg-[#ef4444]"></span> Unpeeragogy</span>
+      <div id="graph-legend" class="absolute bottom-4 left-4 flex flex-wrap gap-2 text-xs bg-white/90 dark:bg-[var(--surface-bg)]/90 px-3 py-2 rounded-lg shadow-sm dark:d-border backdrop-blur-sm max-w-[60%]">
+        {sectionOrder.map(s => (
+          <span class="flex items-center gap-1 whitespace-nowrap" title={s}><span class="w-3 h-3 rounded-full inline-block" style={`background:${sectionColors[s] || "#a1a1aa"}`}></span> {s.replace(/^(Technologies,|Organizing a|Convening a) /, "").replace(/ Services, and Platforms$/, "")}</span>
+        ))}
+        <span class="flex items-center gap-1 ml-1 pl-2 border-l border-stone-300 dark:d-border"><span class="w-2 h-2 rounded-full inline-block ring-1 ring-white dark:ring-black" style="background:#ffffff;border:2px solid currentColor;color:var(--color-text)"></span> Unpeer</span>
       </div>
       <div id="graph-controls" class="absolute bottom-4 right-4 flex flex-col gap-1.5">
         <button id="ctrl-zoom-in" class="w-10 h-10 flex items-center justify-center rounded-xl bg-white/95 dark:bg-[var(--surface-bg)]/95 shadow-md dark:shadow-sm dark:d-border backdrop-blur-sm text-lg font-bold hover:bg-stone-100 dark:d-hover transition-all cursor-pointer select-none border border-stone-200 dark:border-0" title="Zoom + (scroll wheel)">＋</button>
@@ -196,8 +219,7 @@ for (const s of sectionOrder) {
   let cachedFontSize = -1;
 
   function getNodeColor(n) {
-    if (n.group === "unpeeragogy" || n.group === "unpeeragogy-only") return "#ef4444";
-    return "#3b82f6";
+    return n.sectionColor || "#a1a1aa";
   }
 
   function getCSSVar(name, fallback) {
@@ -314,6 +336,24 @@ for (const s of sectionOrder) {
   }
 
   // ---- Geometry ----
+  function getNodeRadius(n) {
+    let base = 5;
+    let degreeBonus = 0;
+    if (sim) {
+      let links = sim.force("link").links();
+      let count = 0;
+      for (let i = 0; i < links.length; i++) {
+        let l = links[i];
+        let sid = typeof l.source === "object" ? l.source.id : l.source;
+        let tid = typeof l.target === "object" ? l.target.id : l.target;
+        if (sid === n.id || tid === n.id) count++;
+      }
+      degreeBonus = Math.sqrt(count) * 2;
+    }
+    let tensionBonus = (n.tension && n.tension > 0) ? n.tension * 2 : 0;
+    return Math.max(5, Math.min(16, base + degreeBonus + tensionBonus));
+  }
+
   function screenToGraph(sx, sy) {
     return { x: (sx - zoomState.x) / zoomState.k, y: (sy - zoomState.y) / zoomState.k };
   }
@@ -324,7 +364,7 @@ for (const s of sectionOrder) {
     let nodes = sim.nodes();
     for (let i = nodes.length - 1; i >= 0; i--) {
       let n = nodes[i];
-      let r = n.group === "unpeeragogy" || n.group === "unpeeragogy-only" ? 8 : 6;
+      let r = getNodeRadius(n);
       let dx = p.x - n.x, dy = p.y - n.y;
       if (dx * dx + dy * dy <= (r + 3) * (r + 3)) return n;
     }
@@ -337,7 +377,7 @@ for (const s of sectionOrder) {
     let w = canvas.width, h = canvas.height;
     let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
     nodes.forEach(function(n) {
-      let r = n.group === "unpeeragogy" || n.group === "unpeeragogy-only" ? 8 : 6;
+      let r = getNodeRadius(n);
       if (n.x - r < minX) minX = n.x - r;
       if (n.x + r > maxX) maxX = n.x + r;
       if (n.y - r < minY) minY = n.y - r;
@@ -398,13 +438,9 @@ for (const s of sectionOrder) {
       }
     });
 
-    // Nodes (sorted so unpeeragogy on top)
-    nodes.sort(function(a, b) {
-      return (a.group === "unpeeragogy" || a.group === "unpeeragogy-only" ? 1 : 0) -
-             (b.group === "unpeeragogy" || b.group === "unpeeragogy-only" ? 1 : 0);
-    });
+    // Nodes (draw unpeeragogy inner dot on top)
     nodes.forEach(function(n) {
-      let r = n.group === "unpeeragogy" || n.group === "unpeeragogy-only" ? 8 : 6;
+      let r = getNodeRadius(n);
       ctx.beginPath();
       ctx.arc(n.x, n.y, r, 0, 2 * Math.PI);
       ctx.fillStyle = getNodeColor(n);
@@ -412,6 +448,11 @@ for (const s of sectionOrder) {
       ctx.strokeStyle = "rgba(255,255,255,0.7)";
       ctx.lineWidth = 2 / zoomState.k;
       ctx.stroke();
+      // Inner dot: red if has unpeeragogy, blue-ish if theory-only
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, 3, 0, 2 * Math.PI);
+      ctx.fillStyle = n.group === "unpeeragogy" || n.group === "unpeeragogy-only" ? "#ef4444" : "#3b82f6";
+      ctx.fill();
     });
 
     // Labels
@@ -422,7 +463,7 @@ for (const s of sectionOrder) {
       ctx.textAlign = "center";
       ctx.textBaseline = "top";
       nodes.forEach(function(n) {
-        let r = n.group === "unpeeragogy" || n.group === "unpeeragogy-only" ? 8 : 6;
+        let r = getNodeRadius(n);
         let label = n.name.length > 18 ? n.name.slice(0, 18) + "…" : n.name;
         ctx.fillStyle = isDark ? "rgba(210, 220, 240, 0.65)" : "rgba(80, 85, 95, 0.6)";
         ctx.fillText(label, n.x, n.y + r + 2);
@@ -435,7 +476,7 @@ for (const s of sectionOrder) {
     if (mousePos.x >= 0) {
       let hit = hitTest(mousePos.x, mousePos.y);
       if (hit) {
-        let label = hit.name;
+        let label = hit.name + " · " + (hit.section || "");
         if (hit.tension !== null) label += "  T:" + hit.tension.toFixed(1);
         ctx.font = "13px sans-serif";
         let tw = ctx.measureText(label).width;
