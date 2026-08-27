@@ -191,7 +191,9 @@ for (const s of sectionOrder) {
   let ctx = null;
   let zoomState = { x: 0, y: 0, k: 1 };
   let showLabels = true;
-  let animationId = null;
+  let mousePos = { x: -1, y: -1 };
+  let cachedFont = null;
+  let cachedFontSize = -1;
 
   function getNodeColor(n) {
     if (n.group === "unpeeragogy" || n.group === "unpeeragogy-only") return "#ef4444";
@@ -202,16 +204,13 @@ for (const s of sectionOrder) {
     return getComputedStyle(document.body).getPropertyValue(name).trim() || fallback;
   }
 
+  // ---- Init ----
   function initGraph() {
     let container = document.getElementById("force-graph");
     if (!container) return;
-
-    // Clean up previous
-    if (animationId) { cancelAnimationFrame(animationId); animationId = null; }
     if (sim) { sim.stop(); sim = null; }
     if (canvas) { canvas.remove(); canvas = null; ctx = null; }
 
-    // Create canvas
     canvas = document.createElement("canvas");
     canvas.style.width = "100%";
     canvas.style.height = "100%";
@@ -219,165 +218,123 @@ for (const s of sectionOrder) {
     container.appendChild(canvas);
     ctx = canvas.getContext("2d");
 
-    function resize() {
-      let w = container.clientWidth || 800;
-      let h = container.clientHeight || 620;
-      canvas.width = w;
-      canvas.height = h;
-      canvas.style.width = w + "px";
-      canvas.style.height = h + "px";
-    }
+    let ro = new ResizeObserver(function() { resize(); });
+    ro.observe(container);
     resize();
 
-    let ro = new ResizeObserver(function() {
-      resize();
-      if (sim) render();
-    });
-    ro.observe(container);
-
-    // Load data
     let vaultData = JSON.parse(document.getElementById("vault-data").textContent);
     let nodes = vaultData.nodes.map(function(n) { return { ...n }; });
     let links = vaultData.links.map(function(l) { return { source: l.source, target: l.target }; });
 
-    let w = canvas.width;
-    let h = canvas.height;
-
-    // Place nodes in a circle around center (avoids initial collapse)
-    let cx = w / 2;
-    let cy = h / 2;
-    let radius = Math.min(w, h) * 0.35;
-    nodes.forEach(function(n, i) {
-      let angle = (2 * Math.PI * i) / nodes.length;
-      n.x = cx + radius * Math.cos(angle);
-      n.y = cy + radius * Math.sin(angle);
+    let w = canvas.width, h = canvas.height;
+    // Initial positions: random around center (Quartz-style)
+    nodes.forEach(function(n) {
+      n.x = Math.random() * w * 0.6 + w * 0.2;
+      n.y = Math.random() * h * 0.6 + h * 0.2;
     });
 
-    // Build force simulation
+    // Force simulation — PARAMETRI QUARTZ (deboli)
     sim = d3.forceSimulation(nodes)
-      .force("link", d3.forceLink(links).id(function(d) { return d.id; }).distance(120).strength(0.3))
-      .force("charge", d3.forceManyBody().strength(-200))
-      .force("center", d3.forceCenter(cx, cy))
-      .force("collide", d3.forceCollide(20))
-      .alphaDecay(0.02)
-      .velocityDecay(0.4)
-      .on("tick", function() {
-        render();
-      });
+      .force("link", d3.forceLink(links).id(function(d) { return d.id; }).distance(50).strength(0.2))
+      .force("charge", d3.forceManyBody().strength(-60))
+      .force("center", d3.forceCenter(w / 2, h / 2).strength(0.3))
+      .force("collide", d3.forceCollide(12))
+      .alphaDecay(0.03)
+      .velocityDecay(0.4);
 
-    // After simulation settles, zoom to fit
-    sim.on("end", function() {
-      zoomToFit();
-    });
+    sim.on("tick", render);
+    sim.on("end", zoomToFit);
 
-    // Stop simulation after 5 seconds and zoom to fit
+    // Stop + fit after 4s
     setTimeout(function() {
-      if (sim) {
-        sim.alphaTarget(0);
-        sim.stop();
-        zoomToFit();
-      }
-    }, 5000);
+      if (sim) { sim.alphaTarget(0); sim.stop(); zoomToFit(); }
+    }, 4000);
 
-    // --- Interaction ---
-    let isDragging = false;
-    let dragNode = null;
-    let isPanning = false;
-    let lastMouse = { x: 0, y: 0 };
-    let mousePos = { x: 0, y: 0 };
+    // ---- Interactivity ----
+    let dragNode = null, isPan = false, last = { x:0, y:0 };
 
     canvas.addEventListener("wheel", function(e) {
       e.preventDefault();
-      let oldk = zoomState.k;
-      zoomState.k *= 1 - e.deltaY * 0.002;
-      zoomState.k = Math.max(0.3, Math.min(5, zoomState.k));
-      zoomState.x = e.offsetX - (e.offsetX - zoomState.x) * (zoomState.k / oldk);
-      zoomState.y = e.offsetY - (e.offsetY - zoomState.y) * (zoomState.k / oldk);
-      render();
+      let ok = zoomState.k;
+      zoomState.k *= Math.pow(1.001, -e.deltaY);
+      zoomState.k = Math.max(0.2, Math.min(6, zoomState.k));
+      zoomState.x = e.offsetX - (e.offsetX - zoomState.x) * (zoomState.k / ok);
+      zoomState.y = e.offsetY - (e.offsetY - zoomState.y) * (zoomState.k / ok);
+      requestAnimationFrame(render);
     });
 
     canvas.addEventListener("mousedown", function(e) {
-      let hit = hitTest(e.offsetX, e.offsetY);
-      if (hit) {
-        isDragging = true;
-        dragNode = hit;
-        sim.alphaTarget(0.3).restart();
-      } else {
-        isPanning = true;
-        lastMouse = { x: e.offsetX, y: e.offsetY };
-      }
+      let n = hitTest(e.offsetX, e.offsetY);
+      if (n) { dragNode = n; sim.alphaTarget(0.3).restart(); }
+      else { isPan = true; last = { x: e.offsetX, y: e.offsetY }; }
     });
 
     canvas.addEventListener("mousemove", function(e) {
       mousePos = { x: e.offsetX, y: e.offsetY };
-      if (isDragging && dragNode) {
-        let pos = screenToGraph(e.offsetX, e.offsetY);
-        dragNode.fx = pos.x;
-        dragNode.fy = pos.y;
+      if (dragNode) {
+        let p = screenToGraph(e.offsetX, e.offsetY);
+        dragNode.fx = p.x; dragNode.fy = p.y;
         sim.alpha(0.1).restart();
-      } else if (isPanning) {
-        zoomState.x += (e.offsetX - lastMouse.x);
-        zoomState.y += (e.offsetY - lastMouse.y);
-        lastMouse = { x: e.offsetX, y: e.offsetY };
-        render();
+      } else if (isPan) {
+        zoomState.x += e.offsetX - last.x;
+        zoomState.y += e.offsetY - last.y;
+        last = { x: e.offsetX, y: e.offsetY };
+        requestAnimationFrame(render);
       } else {
-        let hit = hitTest(e.offsetX, e.offsetY);
-        canvas.style.cursor = hit ? "pointer" : "default";
-        if (hit) render();
+        canvas.style.cursor = hitTest(e.offsetX, e.offsetY) ? "pointer" : "default";
       }
     });
 
     canvas.addEventListener("mouseup", function(e) {
-      if (isDragging && dragNode) {
-        let dx = e.offsetX - (dragNode.fx !== null ? dragNode.fx || 0 : 0);
-        let dy = e.offsetY - (dragNode.fy !== null ? dragNode.fy || 0 : 0);
-        if (Math.abs(dx) < 5 && Math.abs(dy) < 5) {
+      if (dragNode) {
+        dragNode.fx = null; dragNode.fy = null;
+        if (hitTest(e.offsetX, e.offsetY) === dragNode)
           window.location.href = "/" + dragNode.id + "/";
-        }
-        dragNode.fx = null;
-        dragNode.fy = null;
+        dragNode = null;
       }
-      isDragging = false;
-      isPanning = false;
-      dragNode = null;
+      isPan = false;
       sim.alphaTarget(0);
     });
 
     canvas.addEventListener("mouseleave", function() {
-      isDragging = false;
-      isPanning = false;
-      dragNode = null;
+      dragNode = null; isPan = false; mousePos = { x: -1, y: -1 };
       sim.alphaTarget(0);
     });
 
-    canvas.addEventListener("dblclick", function() {
-      zoomToFit();
-    });
+    canvas.addEventListener("dblclick", zoomToFit);
 
-    // Controller buttons
-    document.getElementById("ctrl-zoom-in").addEventListener("click", function() {
-      zoomState.k = Math.min(5, zoomState.k * 1.3);
-      render();
-    });
-    document.getElementById("ctrl-zoom-out").addEventListener("click", function() {
-      zoomState.k = Math.max(0.3, zoomState.k / 1.3);
-      render();
-    });
-    document.getElementById("ctrl-reset").addEventListener("click", function() {
-      zoomToFit();
-    });
-    document.getElementById("ctrl-labels").addEventListener("click", function() {
-      showLabels = !showLabels;
-      render();
-    });
+    let ci = document.getElementById("ctrl-zoom-in");
+    let co = document.getElementById("ctrl-zoom-out");
+    let cr = document.getElementById("ctrl-reset");
+    let cl = document.getElementById("ctrl-labels");
+    if (ci) ci.onclick = function() { zoomState.k = Math.min(6, zoomState.k * 1.3); render(); };
+    if (co) co.onclick = function() { zoomState.k = Math.max(0.2, zoomState.k / 1.3); render(); };
+    if (cr) cr.onclick = zoomToFit;
+    if (cl) cl.onclick = function() { showLabels = !showLabels; render(); };
+  }
+
+  // ---- Geometry ----
+  function screenToGraph(sx, sy) {
+    return { x: (sx - zoomState.x) / zoomState.k, y: (sy - zoomState.y) / zoomState.k };
+  }
+
+  function hitTest(sx, sy) {
+    if (!sim) return null;
+    let p = screenToGraph(sx, sy);
+    let nodes = sim.nodes();
+    for (let i = nodes.length - 1; i >= 0; i--) {
+      let n = nodes[i];
+      let r = n.group === "unpeeragogy" || n.group === "unpeeragogy-only" ? 8 : 6;
+      let dx = p.x - n.x, dy = p.y - n.y;
+      if (dx * dx + dy * dy <= (r + 3) * (r + 3)) return n;
+    }
+    return null;
   }
 
   function zoomToFit() {
     if (!sim || !canvas) return;
-    let nodes = sim.nodes();
-    if (nodes.length === 0) return;
-    let w = canvas.width;
-    let h = canvas.height;
+    let nodes = sim.nodes(); if (!nodes.length) return;
+    let w = canvas.width, h = canvas.height;
     let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
     nodes.forEach(function(n) {
       let r = n.group === "unpeeragogy" || n.group === "unpeeragogy-only" ? 8 : 6;
@@ -386,40 +343,34 @@ for (const s of sectionOrder) {
       if (n.y - r < minY) minY = n.y - r;
       if (n.y + r > maxY) maxY = n.y + r;
     });
-    let graphW = maxX - minX || 1;
-    let graphH = maxY - minY || 1;
-    let padding = 60;
-    let scaleX = (w - padding * 2) / graphW;
-    let scaleY = (h - padding * 2) / graphH;
-    zoomState.k = Math.min(scaleX, scaleY);
-    zoomState.k = Math.max(0.3, Math.min(5, zoomState.k));
+    let gw = Math.max(maxX - minX, 10);
+    let gh = Math.max(maxY - minY, 10);
+    let pad = 50;
+    zoomState.k = Math.min((w - pad * 2) / gw, (h - pad * 2) / gh, 3);
+    zoomState.k = Math.max(0.3, zoomState.k);
     zoomState.x = w / 2 - (minX + maxX) / 2 * zoomState.k;
     zoomState.y = h / 2 - (minY + maxY) / 2 * zoomState.k;
-    render();
+    requestAnimationFrame(render);
   }
 
-  function screenToGraph(sx, sy) {
-    return { x: (sx - zoomState.x) / zoomState.k, y: (sy - zoomState.y) / zoomState.k };
+  function resize() {
+    let container = document.getElementById("force-graph");
+    if (!container || !canvas) return;
+    let w = container.clientWidth || 800;
+    let h = container.clientHeight || 620;
+    canvas.width = w;
+    canvas.height = h;
+    canvas.style.width = w + "px";
+    canvas.style.height = h + "px";
+    cachedFont = null;
+    if (sim) zoomToFit();
   }
 
-  function hitTest(sx, sy) {
-    if (!sim) return null;
-    let pos = screenToGraph(sx, sy);
-    let nodes = sim.nodes();
-    for (let i = nodes.length - 1; i >= 0; i--) {
-      let n = nodes[i];
-      let r = n.group === "unpeeragogy" || n.group === "unpeeragogy-only" ? 8 : 6;
-      let dx = pos.x - n.x;
-      let dy = pos.y - n.y;
-      if (dx * dx + dy * dy < (r + 4) * (r + 4)) return n;
-    }
-    return null;
-  }
-
+  // ---- Render ----
   function render() {
     if (!ctx || !sim) return;
-    let w = canvas.width;
-    let h = canvas.height;
+    let w = canvas.width, h = canvas.height;
+    let isDark = document.documentElement.classList.contains("dark");
 
     // Clear
     ctx.fillStyle = getCSSVar("--color-bg", "#ffffff");
@@ -429,19 +380,16 @@ for (const s of sectionOrder) {
     ctx.translate(zoomState.x, zoomState.y);
     ctx.scale(zoomState.k, zoomState.k);
 
-    // Draw links
-    let isDark = document.documentElement.classList.contains("dark");
-    ctx.strokeStyle = isDark ? "rgba(180, 190, 210, 0.4)" : "rgba(100, 110, 130, 0.25)";
+    // Links
+    ctx.strokeStyle = isDark ? "rgba(200, 210, 230, 0.35)" : "rgba(100, 110, 130, 0.2)";
     ctx.lineWidth = 1 / zoomState.k;
-
     let nodes = sim.nodes();
-    let nodeMap = {};
-    nodes.forEach(function(n) { nodeMap[n.id] = n; });
-
+    let nmap = {};
+    nodes.forEach(function(n) { nmap[n.id] = n; });
     let links = sim.force("link").links();
     links.forEach(function(l) {
-      let s = typeof l.source === "object" ? l.source : nodeMap[l.source];
-      let t = typeof l.target === "object" ? l.target : nodeMap[l.target];
+      let s = typeof l.source === "object" ? l.source : nmap[l.source];
+      let t = typeof l.target === "object" ? l.target : nmap[l.target];
       if (s && t) {
         ctx.beginPath();
         ctx.moveTo(s.x, s.y);
@@ -450,57 +398,61 @@ for (const s of sectionOrder) {
       }
     });
 
-    // Draw nodes + labels
+    // Nodes (sorted so unpeeragogy on top)
+    nodes.sort(function(a, b) {
+      return (a.group === "unpeeragogy" || a.group === "unpeeragogy-only" ? 1 : 0) -
+             (b.group === "unpeeragogy" || b.group === "unpeeragogy-only" ? 1 : 0);
+    });
     nodes.forEach(function(n) {
       let r = n.group === "unpeeragogy" || n.group === "unpeeragogy-only" ? 8 : 6;
       ctx.beginPath();
       ctx.arc(n.x, n.y, r, 0, 2 * Math.PI);
       ctx.fillStyle = getNodeColor(n);
       ctx.fill();
-      ctx.strokeStyle = "rgba(255,255,255,0.6)";
-      ctx.lineWidth = 1.5 / zoomState.k;
+      ctx.strokeStyle = "rgba(255,255,255,0.7)";
+      ctx.lineWidth = 2 / zoomState.k;
       ctx.stroke();
     });
 
     // Labels
     if (showLabels) {
-      let fontSize = Math.max(8, 12 / Math.sqrt(zoomState.k));
-      ctx.font = fontSize + "px sans-serif";
+      let fs = Math.max(8, 12 / Math.pow(zoomState.k, 0.5));
+      if (fs !== cachedFontSize) { cachedFont = fs + "px sans-serif"; cachedFontSize = fs; }
+      ctx.font = cachedFont;
       ctx.textAlign = "center";
       ctx.textBaseline = "top";
       nodes.forEach(function(n) {
         let r = n.group === "unpeeragogy" || n.group === "unpeeragogy-only" ? 8 : 6;
-        let label = n.name.length > 20 ? n.name.slice(0, 20) + "…" : n.name;
-        ctx.fillStyle = isDark ? "rgba(200, 210, 230, 0.7)" : "rgba(80, 85, 95, 0.7)";
+        let label = n.name.length > 18 ? n.name.slice(0, 18) + "…" : n.name;
+        ctx.fillStyle = isDark ? "rgba(210, 220, 240, 0.65)" : "rgba(80, 85, 95, 0.6)";
         ctx.fillText(label, n.x, n.y + r + 2);
       });
     }
 
     ctx.restore();
 
-    // Tooltip (drawn outside zoom transform)
-    let hx = mousePos.x;
-    let hy = mousePos.y;
-    let hit = hitTest(hx, hy);
-    if (hit) {
-      let label = hit.name;
-      if (hit.tension !== null) label += " T:" + hit.tension.toFixed(1);
-      ctx.font = "13px sans-serif";
-      let tw = ctx.measureText(label).width;
-      let pad = 10;
-      let bx = hx + 14;
-      let by = hy - 16;
-      if (bx + tw + pad > w) bx = hx - tw - pad - 14;
-      ctx.fillStyle = getCSSVar("--surface-raised", "#ffffff");
-      ctx.strokeStyle = getCSSVar("--border-default", "#e4e4e7");
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      ctx.roundRect(bx, by, tw + pad * 2, 26, 6);
-      ctx.fill();
-      ctx.stroke();
-      ctx.fillStyle = getCSSVar("--color-text", "#18181b");
-      ctx.textBaseline = "middle";
-      ctx.fillText(label, bx + pad, by + 13);
+    // Tooltip (fixed position, not affected by zoom)
+    if (mousePos.x >= 0) {
+      let hit = hitTest(mousePos.x, mousePos.y);
+      if (hit) {
+        let label = hit.name;
+        if (hit.tension !== null) label += "  T:" + hit.tension.toFixed(1);
+        ctx.font = "13px sans-serif";
+        let tw = ctx.measureText(label).width;
+        let pad = 10;
+        let bx = mousePos.x + 14, by = mousePos.y - 16;
+        if (bx + tw + pad > w) bx = mousePos.x - tw - pad - 14;
+        ctx.fillStyle = getCSSVar("--surface-raised", "#ffffff");
+        ctx.strokeStyle = getCSSVar("--border-default", "#e4e4e7");
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.roundRect(bx, by, tw + pad * 2, 26, 6);
+        ctx.fill();
+        ctx.stroke();
+        ctx.fillStyle = getCSSVar("--color-text", "#18181b");
+        ctx.textBaseline = "middle";
+        ctx.fillText(label, bx + pad, by + 13);
+      }
     }
   }
 
