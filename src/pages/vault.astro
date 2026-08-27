@@ -263,6 +263,7 @@ for (const s of sectionOrder) {
   let cachedFont = null;
   let cachedFontSize = -1;
   let hiddenSections = new Set();
+  let visitedSlugs = new Set();
 
   function getNodeColor(n) {
     return n.sectionColor || "#a1a1aa";
@@ -292,7 +293,12 @@ for (const s of sectionOrder) {
 
     let vaultData = JSON.parse(document.getElementById("vault-data").textContent);
     let nodes = vaultData.nodes.map(function(n) { return { ...n }; });
-    let links = vaultData.links.map(function(l) { return { source: l.source, target: l.target }; });
+    let links = vaultData.links.map(function(l) { return { source: l.source, target: l.target, type: l.type }; });
+
+    // Load visited from localStorage + mark current page
+    visitedSlugs = new Set(JSON.parse(localStorage.getItem("graph-visited") || "[]"));
+    let currentSlug = window.location.pathname.replace(/^\//, "").replace(/\/$/, "");
+    if (currentSlug && currentSlug !== "vault") visitedSlugs.add(currentSlug);
 
     let w = canvas.width, h = canvas.height;
     // Initial positions: random around center (Quartz-style)
@@ -356,8 +362,11 @@ for (const s of sectionOrder) {
     canvas.addEventListener("mouseup", function(e) {
       if (dragNode) {
         dragNode.fx = null; dragNode.fy = null;
-        if (hitTest(e.offsetX, e.offsetY) === dragNode)
+        if (hitTest(e.offsetX, e.offsetY) === dragNode) {
+          visitedSlugs.add(dragNode.id);
+          localStorage.setItem("graph-visited", JSON.stringify(Array.from(visitedSlugs)));
           window.location.href = "/" + dragNode.id + "/";
+        }
         dragNode = null;
       }
       isPan = false;
@@ -499,6 +508,9 @@ for (const s of sectionOrder) {
     nodes.forEach(function(n) {
       if (hiddenSections.has(n.section)) return;
       let r = getNodeRadius(n);
+      let isVisited = visitedSlugs.has(n.id);
+      let alpha = isVisited ? 1.0 : 0.35;
+      ctx.globalAlpha = alpha;
       ctx.beginPath();
       ctx.arc(n.x, n.y, r, 0, 2 * Math.PI);
       ctx.fillStyle = getNodeColor(n);
@@ -511,6 +523,7 @@ for (const s of sectionOrder) {
       ctx.arc(n.x, n.y, 3, 0, 2 * Math.PI);
       ctx.fillStyle = n.group === "unpeeragogy" || n.group === "unpeeragogy-only" ? "#ef4444" : "#3b82f6";
       ctx.fill();
+      ctx.globalAlpha = 1.0;
     });
 
     // Labels
@@ -524,9 +537,12 @@ for (const s of sectionOrder) {
         if (hiddenSections.has(n.section)) return;
         let r = getNodeRadius(n);
         let label = n.name.length > 18 ? n.name.slice(0, 18) + "…" : n.name;
+        let isVisited = visitedSlugs.has(n.id);
+        ctx.globalAlpha = isVisited ? 0.85 : 0.25;
         ctx.fillStyle = isDark ? "rgba(210, 220, 240, 0.65)" : "rgba(80, 85, 95, 0.6)";
         ctx.fillText(label, n.x, n.y + r + 2);
       });
+      ctx.globalAlpha = 1.0;
     }
 
     ctx.restore();
