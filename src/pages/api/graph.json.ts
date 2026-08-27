@@ -49,6 +49,8 @@ type GraphResponse = {
     peerCount: number;
     unpeerCount: number;
     unpeerOnlyCount: number;
+    totalPeerEntries: number;
+    unpeerPairedCount: number;
     avgTension: number;
     coverage: number;
     density: number;
@@ -192,6 +194,10 @@ export const GET: APIRoute = async () => {
     ? tensions.reduce((a, b) => a + b, 0) / tensions.length
     : 0;
   const peerCount = nodes.length - unpeerCount;
+  const unpeerPairedCount = unpeeragogyEntries.filter((ue) =>
+    peeragogyEntries.some((pe) => pe.slug === ue.slug)
+  ).length;
+  const totalPeerEntries = peeragogyEntries.length;
 
   const response: GraphResponse = {
     nodes,
@@ -203,8 +209,10 @@ export const GET: APIRoute = async () => {
       peerCount,
       unpeerCount,
       unpeerOnlyCount,
+      totalPeerEntries,
+      unpeerPairedCount,
       avgTension: Math.round(avgTension * 100) / 100,
-      coverage: Math.round((unpeerCount / Math.max(peerCount, 1)) * 100) / 100,
+      coverage: Math.round((unpeerPairedCount / Math.max(totalPeerEntries, 1)) * 100) / 100,
       density: Math.round((links.length / Math.max(nodes.length, 1)) * 100) / 100,
       unpeerOnlyRatio: Math.round((unpeerOnlyCount / Math.max(nodes.length, 1)) * 10000) / 100,
     },
