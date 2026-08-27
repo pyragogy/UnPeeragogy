@@ -52,10 +52,16 @@ function getTokenFromQuery(req: http.IncomingMessage): string | null {
   return url.searchParams.get('token');
 }
 
+function getTokenFromHeader(req: http.IncomingMessage): string | null {
+  const auth = req.headers.authorization;
+  if (!auth) return null;
+  const match = auth.match(/^Bearer\s+(.+)$/i);
+  return match ? match[1] : null;
+}
+
 function checkAuth(req: http.IncomingMessage): boolean {
   if (!AUTH_TOKEN) return true; // No token = open access
-  const token = getTokenFromQuery(req);
-  return token === AUTH_TOKEN;
+  return getTokenFromQuery(req) === AUTH_TOKEN || getTokenFromHeader(req) === AUTH_TOKEN;
 }
 
 // ─── Apply Friction Filter ─────────────────────────────────────
