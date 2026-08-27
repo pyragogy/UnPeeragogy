@@ -1,0 +1,59 @@
+name: Monthly Log Sync
+
+on:
+  schedule:
+    # Run on the 1st of every month at 09:00 UTC
+    - cron: "0 9 1 * *"
+  workflow_dispatch:
+    # Allow manual trigger for testing
+    inputs:
+      month:
+        description: "Month to generate (YYYY-MM, optional)"
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  sync-log:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history for git log --since
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project (refresh graph.json)
+        run: npm run build
+        env:
+          NODE_ENV: production
+
+      - name: Generate monthly log
+        run: node scripts/sync-log.mjs ${{ github.event.inputs.month || '' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check for changes
+        id: git-check
+        run: |
+          git add -A
+          if git diff --cached --quiet; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit and push
+        if: steps.git-check.outputs.changed == 'true'
+        run: |
+          git config user.name "unpeeragogy-bot"
+          git config user.email "bot@unpeeragogy.pyragogy.org"
+          git commit -m "log: sync mensile $(date '+%Y-%m') [skip ci]"
+          git push

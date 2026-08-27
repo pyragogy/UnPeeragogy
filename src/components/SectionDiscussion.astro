@@ -10,7 +10,7 @@ const newDiscussionUrl = `${repoUrl}/discussions/new?category=discussione`;
 const existingDiscussionsUrl = `${repoUrl}/discussions?discussions_q=label%3Adiscussione+${slug}`;
 ---
 
-<section class="mt-12 border-t border-red-200 d-red-bdr pt-8">
+<section class="mt-12 border-t border-teal-300 pt-8">
   <h2 class="text-lg font-bold mb-4 flex items-center gap-2">
     <span>💬</span> Discussione: {title}
   </h2>
@@ -25,7 +25,7 @@ const existingDiscussionsUrl = `${repoUrl}/discussions?discussions_q=label%3Adis
     <a
       href={newDiscussionUrl}
       target="_blank"
-      class="inline-flex items-center gap-2 rounded-lg bg-red-600 px-5 py-3 text-sm font-semibold text-white hover:bg-red-700 transition-colors"
+      class="inline-flex items-center gap-2 rounded-lg bg-teal-600 px-5 py-3 text-sm font-semibold text-white hover:bg-teal-700 transition-colors"
     >
       <span>✏️</span> Avvia discussione
     </a>

@@ -24,4 +24,27 @@ const unpeeragogy = defineCollection({
   }),
 });
 
-export const collections = { peeragogy, unpeeragogy };
+const logCollection = defineCollection({
+  schema: z.object({
+    title: z.string(),
+    month: z.string(),
+    description: z.string(),
+    metrics: z.object({
+      nodeCount: z.number(),
+      linkCount: z.number(),
+      avgTension: z.number(),
+      coverage: z.number(),
+      density: z.number(),
+      totalWords: z.number(),
+      discussionsActive: z.number(),
+    }),
+    changes: z.array(z.object({
+      type: z.enum(["discussion", "entry", "graph", "decision"]),
+      description: z.string(),
+      detail: z.string().optional(),
+    })),
+    buildTimestamp: z.string(),
+  }),
+});
+
+export const collections = { peeragogy, unpeeragogy, log: logCollection };

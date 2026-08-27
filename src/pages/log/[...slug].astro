@@ -1,0 +1,89 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+  const logEntries = await getCollection("log");
+  return logEntries.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+const m = entry.data.metrics;
+---
+
+<BaseLayout title={entry.data.title} description={entry.data.description}>
+  <article class="py-12 max-w-3xl mx-auto" data-pagefind-body>
+    <div class="mb-8">
+      <a href="/log/" class="text-sm d-text-dim hover:text-(--color-accent) transition-colors">← Tutti i log</a>
+      <h1 class="text-3xl font-extrabold tracking-tight mt-2 mb-2">{entry.data.title}</h1>
+      <p class="d-text-sec mb-4">{entry.data.description}</p>
+
+      <!-- Metrics bar -->
+      <div class="flex flex-wrap gap-4 p-4 border border-stone-200 d-border rounded-lg bg-stone-50 d-surface text-sm">
+        <div class="flex flex-col items-center">
+          <span class="text-lg font-bold text-(--color-accent)">{m.nodeCount}</span>
+          <span class="text-xs d-text-dim">nodi</span>
+        </div>
+        <div class="w-px bg-stone-200 d-border"></div>
+        <div class="flex flex-col items-center">
+          <span class="text-lg font-bold text-(--color-accent)">{m.linkCount}</span>
+          <span class="text-xs d-text-dim">link</span>
+        </div>
+        <div class="w-px bg-stone-200 d-border"></div>
+        <div class="flex flex-col items-center">
+          <span class="text-lg font-bold text-(--color-accent)">{m.avgTension}</span>
+          <span class="text-xs d-text-dim">tensione Ø</span>
+        </div>
+        <div class="w-px bg-stone-200 d-border"></div>
+        <div class="flex flex-col items-center">
+          <span class="text-lg font-bold text-(--color-accent)">{m.coverage}</span>
+          <span class="text-xs d-text-dim">copertura</span>
+        </div>
+        <div class="w-px bg-stone-200 d-border"></div>
+        <div class="flex flex-col items-center">
+          <span class="text-lg font-bold text-(--color-accent)">{m.density}</span>
+          <span class="text-xs d-text-dim">densità</span>
+        </div>
+        <div class="w-px bg-stone-200 d-border"></div>
+        <div class="flex flex-col items-center">
+          <span class="text-lg font-bold text-(--color-accent)">{m.totalWords}</span>
+          <span class="text-xs d-text-dim">parole</span>
+        </div>
+        <div class="w-px bg-stone-200 d-border"></div>
+        <div class="flex flex-col items-center">
+          <span class="text-lg font-bold text-(--color-accent)">{m.discussionsActive}</span>
+          <span class="text-xs d-text-dim">discussioni</span>
+        </div>
+      </div>
+
+      <!-- Changes list -->
+      {entry.data.changes.length > 0 && (
+        <div class="mt-6 space-y-3">
+          <h2 class="text-lg font-bold">Modifiche del mese</h2>
+          {entry.data.changes.map((c) => (
+            <div class="flex items-start gap-3 p-3 border border-stone-200 d-border rounded-lg">
+              <span class="shrink-0 mt-0.5 text-lg">
+                {c.type === "discussion" && "💬"}
+                {c.type === "entry" && "✏️"}
+                {c.type === "graph" && "🕸️"}
+                {c.type === "decision" && "⚡"}
+              </span>
+              <div>
+                <p class="text-sm font-medium">{c.description}</p>
+                {c.detail && <p class="text-xs d-text-dim mt-1">{c.detail}</p>}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+
+    <div class="prose max-w-none">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>
