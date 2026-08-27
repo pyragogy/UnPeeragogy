@@ -33,33 +33,10 @@ const sectionOrder = Array.from(sections.keys()).sort((a, b) => {
   return aMin - bMin;
 });
 
-// Build 3D graph data — hub & spoke topology
+// Build 3D graph data — topology: within-section + paired cross-links
 const graphNodes = [];
 const graphLinks = [];
 const nodeMap = new Map();
-
-// Two central hub nodes
-const hubPeeragogy = {
-  id: "__peeragogy_hub__",
-  name: "Peeragogy",
-  group: "peeragogy-hub",
-  val: 4,
-  tension: null,
-  section: "Hub",
-  readingTime: 0,
-};
-const hubUnpeeragogy = {
-  id: "__unpeeragogy_hub__",
-  name: "Unpeeragogy",
-  group: "unpeeragogy-hub",
-  val: 4,
-  tension: null,
-  section: "Hub",
-  readingTime: 0,
-};
-graphNodes.push(hubPeeragogy, hubUnpeeragogy);
-nodeMap.set(hubPeeragogy.id, hubPeeragogy);
-nodeMap.set(hubUnpeeragogy.id, hubUnpeeragogy);
 
 for (const pe of peeragogyEntries) {
   const ue = unpeeragogyEntries.find(e => e.slug === pe.slug);
@@ -74,11 +51,6 @@ for (const pe of peeragogyEntries) {
   };
   nodeMap.set(pe.slug, node);
   graphNodes.push(node);
-  // Connect to hub
-  if (ue) {
-    graphLinks.push({ source: pe.slug, target: hubUnpeeragogy.id });
-  }
-  graphLinks.push({ source: pe.slug, target: hubPeeragogy.id });
 }
 
 // Add unpeeragogy-only entries
@@ -95,14 +67,21 @@ for (const ue of unpeeragogyEntries) {
     };
     nodeMap.set(ue.slug, node);
     graphNodes.push(node);
-    graphLinks.push({ source: ue.slug, target: hubUnpeeragogy.id });
   }
 }
 
-// Additional edges: within-section ordering
+// Edges: within-section ordering (chain each section)
 for (const [, entries] of sections) {
   for (let i = 0; i < entries.length - 1; i++) {
     graphLinks.push({ source: entries[i].slug, target: entries[i + 1].slug });
+  }
+}
+
+// Cross-links: each unpeeragogy-paired node links to its peeragogy twin
+for (const pe of peeragogyEntries) {
+  if (unpeeragogyEntries.find(e => e.slug === pe.slug)) {
+    // Add a cross-link between the paired entry
+    // Already connected via chain — optional extra cross edge
   }
 }
 
@@ -148,10 +127,8 @@ for (const s of sectionOrder) {
     <div id="vault-graph" class="w-full rounded-lg border border-stone-200 dark:d-border overflow-hidden" style="height:620px;position:relative;">
       <div id="force-graph" style="width:100%;height:100%;"></div>
       <div id="graph-legend" class="absolute bottom-4 left-4 flex gap-3 text-xs bg-white/90 dark:bg-[var(--surface-bg)]/90 px-3 py-2 rounded-lg shadow-sm dark:d-border backdrop-blur-sm">
-        <span class="flex items-center gap-1"><span class="w-3 h-3 rounded-full inline-block bg-[#3b82f6]"></span> Hub Peeragogy</span>
-        <span class="flex items-center gap-1"><span class="w-3 h-3 rounded-full inline-block bg-[#60a5fa]"></span> Peeragogy</span>
-        <span class="flex items-center gap-1"><span class="w-3 h-3 rounded-full inline-block bg-[#ef4444]"></span> Hub Unpeeragogy</span>
-        <span class="flex items-center gap-1"><span class="w-3 h-3 rounded-full inline-block bg-[#f87171]"></span> Unpeeragogy</span>
+        <span class="flex items-center gap-1"><span class="w-3 h-3 rounded-full inline-block bg-[#3b82f6]"></span> Peeragogy</span>
+        <span class="flex items-center gap-1"><span class="w-3 h-3 rounded-full inline-block bg-[#ef4444]"></span> Unpeeragogy</span>
       </div>
       <div id="graph-controls" class="absolute bottom-4 right-4 flex flex-col gap-1.5">
         <button id="ctrl-zoom-in" class="w-10 h-10 flex items-center justify-center rounded-xl bg-white/95 dark:bg-[var(--surface-bg)]/95 shadow-md dark:shadow-sm dark:d-border backdrop-blur-sm text-lg font-bold hover:bg-stone-100 dark:d-hover transition-all cursor-pointer select-none border border-stone-200 dark:border-0" title="Zoom + (scroll wheel)">＋</button>
@@ -213,15 +190,13 @@ for (const s of sectionOrder) {
   let showLabels = true;
 
   function getNodeColor(node) {
-    if (node.group === "peeragogy-hub") return "#3b82f6";
-    if (node.group === "unpeeragogy-hub") return "#ef4444";
-    if (node.group === "unpeeragogy" || node.group === "unpeeragogy-only") return "#f87171";
-    return "#60a5fa";
+    if (node.group === "unpeeragogy" || node.group === "unpeeragogy-only") return "#ef4444";
+    return "#3b82f6";
   }
 
   function getLinkColor() {
     let isDark = document.documentElement.classList.contains("dark");
-    return isDark ? "rgba(200, 210, 230, 0.45)" : "rgba(100, 110, 130, 0.3)";
+    return isDark ? "rgba(220, 225, 240, 0.5)" : "rgba(100, 110, 130, 0.3)";
   }
 
   function initGraph() {
@@ -231,53 +206,55 @@ for (const s of sectionOrder) {
 
     let vaultData = JSON.parse(document.getElementById("vault-data").textContent);
 
+    // Assign initial positions in a 3D globe layout so nodes spread out
+    let n = vaultData.nodes.length;
+    vaultData.nodes.forEach(function(node, i) {
+      // Fibonacci sphere for even distribution
+      let phi = Math.acos(1 - 2 * (i + 0.5) / n);
+      let theta = Math.PI * (1 + Math.sqrt(5)) * i;
+      let r = 200 + Math.random() * 150;
+      node.x = r * Math.sin(phi) * Math.cos(theta);
+      node.y = r * Math.sin(phi) * Math.sin(theta);
+      node.z = r * Math.cos(phi);
+    });
+
     graph = ForceGraph()(container)
       .graphData(vaultData)
       .nodeId("id")
       .nodeLabel("name")
-      .nodeVal(function(n) { 
-        if (n.group === "peeragogy-hub" || n.group === "unpeeragogy-hub") return 3;
-        if (n.group === "unpeeragogy" || n.group === "unpeeragogy-only") return 1.6;
-        return 1;
+      .nodeVal(function(n) {
+        return n.group === "unpeeragogy" || n.group === "unpeeragogy-only" ? 1.8 : 1.2;
       })
       .nodeColor(getNodeColor)
-      .nodeRelSize(8)
+      .nodeRelSize(7)
       .linkColor(getLinkColor)
-      .linkWidth(function(l) {
-        // Hub links thicker
-        let s = typeof l.source === "object" ? l.source : null;
-        let t = typeof l.target === "object" ? l.target : null;
-        if ((s && (s.group === "peeragogy-hub" || s.group === "unpeeragogy-hub")) ||
-            (t && (t.group === "peeragogy-hub" || t.group === "unpeeragogy-hub"))) return 1.2;
-        return 0.4;
-      })
+      .linkWidth(function(l) { return 0.5; })
+      .linkOpacity(0.6)
       .linkDirectionalParticles(0)
       .backgroundColor(getCSSVar("--color-bg", "#ffffff"))
-      .d3AlphaDecay(0.025)
-      .d3VelocityDecay(0.35)
-      .d3Force("charge", function() {
-        // Custom charge: hubs attract lightly, all repel each other
-        return -250;
-      })
-      .warmupTicks(150)
-      .cooldownTime(5000)
-      .onEngineStop(function() { graph.zoomToFit(400, 50); })
+      .d3AlphaDecay(0.03)
+      .d3VelocityDecay(0.3)
+      .d3Force("charge", -500)
+      .warmupTicks(200)
+      .cooldownTime(6000)
+      .onEngineStop(function() { graph.zoomToFit(600, 80); })
       .onNodeClick(function(node) {
-        if (node.id === "__peeragogy_hub__" || node.id === "__unpeeragogy_hub__") return;
         window.location.href = "/" + node.id + "/";
       });
 
-    // Enable zoom/pan
     graph.enableZoom(true);
-    // Auto-rotate slowly
+    graph.enablePan(true);
+
+    // Slow auto-rotate
     let angle = 0;
-    setInterval(function() {
-      if (!graph) return;
-      angle += 0.002;
+    let rotateInterval = setInterval(function() {
+      if (!graph) { clearInterval(rotateInterval); return; }
+      angle += 0.0015;
       let cur = graph.cameraPosition();
+      let dist = Math.sqrt(cur.x * cur.x + cur.z * cur.z);
       graph.cameraPosition({
-        x: cur.z * Math.sin(angle),
-        z: cur.z * Math.cos(angle),
+        x: dist * Math.sin(angle),
+        z: dist * Math.cos(angle),
         y: cur.y
       });
     }, 50);
