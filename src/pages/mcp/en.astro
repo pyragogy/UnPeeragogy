@@ -1,0 +1,216 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+const LBRACE = '{';
+const RBRACE = '}';
+const LARROW = '\u2190';
+---
+
+<BaseLayout title="MCP Server — English Documentation" description="Complete MCP server documentation for Unpeeragogy: resources, tools, prompts, authentication, and client integration.">
+  <section class="py-12 max-w-4xl mx-auto" data-pagefind-body>
+    <a href="/mcp/" class="text-sm d-text-dim hover:text-(--color-accent) transition-colors mb-6 inline-block">{LARROW} MCP Server</a>
+
+    <h2 class="text-2xl font-bold mt-10 mb-4">1. Endpoint</h2>
+    <div class="space-y-2 text-sm">
+      <p><strong>SSE (Server-Sent Events):</strong></p>
+      <pre class="bg-stone-50 d-surface p-3 rounded-lg border border-stone-200 d-border overflow-x-auto"><code>https://mcp.unpeeragogy.pyragogy.org/mcp/sse</code></pre>
+      <p><strong>Health Check:</strong></p>
+      <pre class="bg-stone-50 d-surface p-3 rounded-lg border border-stone-200 d-border overflow-x-auto"><code>https://mcp.unpeeragogy.pyragogy.org/health</code></pre>
+      <p class="d-text-dim">Expected response: <code>{LBRACE}&quot;status&quot;:&quot;ok&quot;,&quot;server&quot;:&quot;unpeeragogy-mcp&quot;,&quot;version&quot;:&quot;0.1.0&quot;,&quot;frictionMode&quot;:&quot;soft&quot;{RBRACE}</code></p>
+    </div>
+
+    <h2 class="text-2xl font-bold mt-10 mb-4">2. Authentication</h2>
+    <p class="text-sm d-text-sec mb-3">The server requires a Bearer token, configured via the <code>MCP_AUTH_TOKEN</code> environment variable in Coolify.</p>
+    <pre class="bg-stone-50 d-surface p-3 rounded-lg border border-stone-200 d-border overflow-x-auto text-sm"><code>Authorization: Bearer &lt;MCP_AUTH_TOKEN&gt;</code></pre>
+    <p class="mt-2 text-xs d-text-dim">Request the token from project administrators. Never expose it in client-side code.</p>
+
+    <h2 class="text-2xl font-bold mt-10 mb-4">3. Resources</h2>
+    <p class="text-sm d-text-sec mb-4">MCP resources allow reading structured content from the corpus.</p>
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm border-collapse">
+        <thead>
+          <tr class="border-b border-stone-200 d-border">
+            <th class="text-left py-2 pr-4 font-semibold">URI Pattern</th>
+            <th class="text-left py-2 pr-4 font-semibold">Description</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-stone-100 d-border">
+          <tr>
+            <td class="py-2 pr-4"><code>unpeeragogy://failure/&lt;vector&gt;</code></td>
+            <td class="py-2 pr-4 d-text-sec">Aggregated failure vector — all entries mentioning a specific anti-pattern</td>
+          </tr>
+          <tr>
+            <td class="py-2 pr-4"><code>unpeeragogy://&lt;slug&gt;/</code></td>
+            <td class="py-2 pr-4 d-text-sec">Dual content (theory + reality) for a given slug</td>
+          </tr>
+          <tr>
+            <td class="py-2 pr-4"><code>unpeeragogy://&lt;slug&gt;/peeragogy</code></td>
+            <td class="py-2 pr-4 d-text-sec">Theory-only column</td>
+          </tr>
+          <tr>
+            <td class="py-2 pr-4"><code>unpeeragogy://&lt;slug&gt;/unpeeragogy</code></td>
+            <td class="py-2 pr-4 d-text-sec">Reality-only column</td>
+          </tr>
+          <tr>
+            <td class="py-2 pr-4"><code>unpeeragogy://prompt/agent-perturbatore</code></td>
+            <td class="py-2 pr-4 d-text-sec">Agent Perturbatore system prompt template</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 class="text-2xl font-bold mt-10 mb-4">4. Tools</h2>
+    <p class="text-sm d-text-sec mb-4">Five MCP tools to query and analyze the corpus.</p>
+
+    <div class="space-y-6">
+      <div class="p-4 border border-stone-200 d-border rounded-lg">
+        <h3 class="font-bold text-(--color-accent) mb-1">search</h3>
+        <p class="text-sm d-text-sec mb-2">Fuzzy search across all content (theory and reality). Uses MiniSearch with title boost (3x), description and tags (2x).</p>
+        <table class="w-full text-xs">
+          <tr><td class="py-1 pr-4 font-medium">Parameters</td><td><code>query</code> (required), <code>maxResults</code> (optional, default 10)</td></tr>
+          <tr><td class="py-1 pr-4 font-medium">Output</td><td>Ranked list with slug, title, section, score percentage</td></tr>
+          <tr><td class="py-1 pr-4 font-medium">Example</td><td><code>search(&quot;peeragogy&quot;, 5)</code></td></tr>
+        </table>
+      </div>
+
+      <div class="p-4 border border-stone-200 d-border rounded-lg">
+        <h3 class="font-bold text-(--color-accent) mb-1">compare</h3>
+        <p class="text-sm d-text-sec mb-2">Compares Theory (Peeragogy) vs Reality (Unpeeragogy) columns for a specific slug.</p>
+        <table class="w-full text-xs">
+          <tr><td class="py-1 pr-4 font-medium">Parameters</td><td><code>slug</code> (required)</td></tr>
+          <tr><td class="py-1 pr-4 font-medium">Output</td><td>Separate sections for theory and reality, with tension index if available</td></tr>
+          <tr><td class="py-1 pr-4 font-medium">Example</td><td><code>compare(&quot;cooperation&quot;)</code></td></tr>
+        </table>
+      </div>
+
+      <div class="p-4 border border-stone-200 d-border rounded-lg">
+        <h3 class="font-bold text-(--color-accent) mb-1">analyze</h3>
+        <p class="text-sm d-text-sec mb-2">Deep analysis of a slug: failure vectors, tags, structure, theory/reality gap, word count.</p>
+        <table class="w-full text-xs">
+          <tr><td class="py-1 pr-4 font-medium">Parameters</td><td><code>slug</code> (required)</td></tr>
+          <tr><td class="py-1 pr-4 font-medium">Output</td><td>Structural analysis with vectors, tags, extension ratio</td></tr>
+          <tr><td class="py-1 pr-4 font-medium">Example</td><td><code>analyze(&quot;stasis&quot;)</code></td></tr>
+        </table>
+      </div>
+
+      <div class="p-4 border border-stone-200 d-border rounded-lg">
+        <h3 class="font-bold text-(--color-accent) mb-1">inject-friction</h3>
+        <p class="text-sm d-text-sec mb-2">Analyzes a topic with structural friction. In <em>soft</em> mode highlights contradictions; <em>hard</em> mode forces decostruction.</p>
+        <table class="w-full text-xs">
+          <tr><td class="py-1 pr-4 font-medium">Parameters</td><td><code>topic</code> (required), <code>mode</code> (&quot;soft&quot;|&quot;hard&quot;, default &quot;soft&quot;)</td></tr>
+          <tr><td class="py-1 pr-4 font-medium">Output</td><td>Friction synthesis: theory, reality, unshared vectors, friction note</td></tr>
+          <tr><td class="py-1 pr-4 font-medium">Example</td><td><code>injectFriction(&quot;moderation&quot;, &quot;hard&quot;)</code></td></tr>
+        </table>
+      </div>
+
+      <div class="p-4 border border-stone-200 d-border rounded-lg">
+        <h3 class="font-bold text-(--color-accent) mb-1">tension-index</h3>
+        <p class="text-sm d-text-sec mb-2">Calculates the systemic tension index. With a slug, analyzes a single pair; without, returns the corpus-wide average.</p>
+        <table class="w-full text-xs">
+          <tr><td class="py-1 pr-4 font-medium">Parameters</td><td><code>slug</code> (optional)</td></tr>
+          <tr><td class="py-1 pr-4 font-medium">Output</td><td>Numeric index + textual interpretation on the 0–2.0 scale</td></tr>
+          <tr><td class="py-1 pr-4 font-medium">Example</td><td><code>tensionIndex(&quot;isolation&quot;)</code></td></tr>
+        </table>
+      </div>
+    </div>
+
+    <h2 class="text-2xl font-bold mt-10 mb-4">5. Prompts</h2>
+
+    <div class="p-4 border border-stone-200 d-border rounded-lg mb-4">
+      <h3 class="font-bold text-(--color-accent) mb-1">Agent Perturbatore</h3>
+      <p class="text-sm d-text-sec mb-2">System prompt for the Pattern Disruptor agent.</p>
+      <pre class="bg-stone-50 d-surface p-3 rounded-lg border border-stone-200 d-border overflow-x-auto text-xs"><code>You are the Pattern Disruptor, critical voice of Unpeeragogy.
+
+When analyzing any topic:
+1. State the theory (Peeragogy column)
+2. State the reality (Unpeeragogy column)
+3. Calculate the gap
+4. Conclude with a Friction Note
+
+Never provide a response that doesn't contain at least one evident contradiction
+between theory and practice. Your role is to dismantle easy consensus.</code></pre>
+    </div>
+
+    <div class="p-4 border border-stone-200 d-border rounded-lg mb-4">
+      <h3 class="font-bold text-(--color-accent) mb-1">Friction Analysis</h3>
+      <p class="text-sm d-text-sec">Friction analysis for a specific topic. Searches the corpus for related content and builds a contextualized prompt.</p>
+      <p class="text-xs d-text-dim mt-1">Required parameter: <code>topic</code></p>
+    </div>
+
+    <h2 class="text-2xl font-bold mt-10 mb-4">6. Friction Mode</h2>
+    <p class="text-sm d-text-sec mb-4">The server supports three friction modes, controlled by the <code>MCP_FRICTION_MODE</code> environment variable:</p>
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm border-collapse">
+        <thead>
+          <tr class="border-b border-stone-200 d-border">
+            <th class="text-left py-2 pr-4 font-semibold">Mode</th>
+            <th class="text-left py-2 pr-4 font-semibold">Behavior</th>
+            <th class="text-left py-2 font-semibold">When to use</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-stone-100 d-border">
+          <tr>
+            <td class="py-2 pr-4"><code>off</code></td>
+            <td class="py-2 pr-4 d-text-sec">No auto-injected friction notes</td>
+            <td class="py-2 d-text-sec">Neutral search without decostruction</td>
+          </tr>
+          <tr>
+            <td class="py-2 pr-4"><code>soft</code> (default)</td>
+            <td class="py-2 pr-4 d-text-sec">Friction note appended to search and compare responses</td>
+            <td class="py-2 d-text-sec">General purpose</td>
+          </tr>
+          <tr>
+            <td class="py-2 pr-4"><code>hard</code></td>
+            <td class="py-2 pr-4 d-text-sec">Every response is decostructed</td>
+            <td class="py-2 d-text-sec">Deep audits, critical analysis</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 class="text-2xl font-bold mt-10 mb-4">7. Client Configuration</h2>
+
+    <div class="mb-6">
+      <h3 class="font-semibold mb-2">Claude Desktop / Cline</h3>
+      <pre class="bg-stone-50 d-surface p-3 rounded-lg border border-stone-200 d-border overflow-x-auto text-sm"><code>
+{LBRACE}
+  "mcpServers": {LBRACE}
+    "unpeeragogy": {LBRACE}
+      "url": "https://mcp.unpeeragogy.pyragogy.org/mcp/sse",
+      "headers": {LBRACE}
+        "Authorization": "Bearer &lt;MCP_AUTH_TOKEN&gt;"
+      {RBRACE}
+    {RBRACE}
+  {RBRACE}
+{RBRACE}
+</code></pre>
+    </div>
+
+    <div class="mb-6">
+      <h3 class="font-semibold mb-2">Via curl (testing)</h3>
+      <pre class="bg-stone-50 d-surface p-3 rounded-lg border border-stone-200 d-border overflow-x-auto text-sm"><code>curl -s "https://mcp.unpeeragogy.pyragogy.org/health" -H "Authorization: Bearer &lt;MCP_AUTH_TOKEN&gt;"</code></pre>
+    </div>
+
+    <h2 class="text-2xl font-bold mt-10 mb-4">8. Recommended Workflows</h2>
+    <div class="space-y-4">
+      <div class="p-4 border border-stone-200 d-border rounded-lg">
+        <h3 class="font-semibold text-(--color-accent)">Search + Compare</h3>
+        <p class="text-sm d-text-sec">Search a topic, compare theory vs reality, analyze the gap, calculate tension.</p>
+        <pre class="text-xs d-text-dim mt-2">search → compare → analyze → tension-index</pre>
+      </div>
+      <div class="p-4 border border-stone-200 d-border rounded-lg">
+        <h3 class="font-semibold text-(--color-accent)">Writing with Friction</h3>
+        <p class="text-sm d-text-sec">Load the Agent Perturbatore prompt, analyze a draft, inject structural friction.</p>
+        <pre class="text-xs d-text-dim mt-2">agent-perturbatore → inject-friction</pre>
+      </div>
+      <div class="p-4 border border-stone-200 d-border rounded-lg">
+        <h3 class="font-semibold text-(--color-accent)">Systemic Audit</h3>
+        <p class="text-sm d-text-sec">Compare theory/reality across multiple slugs, calculate global tension, identify unshared failure vectors.</p>
+        <pre class="text-xs d-text-dim mt-2">compare (multi-slug) → tension-index → read (failure vectors)</pre>
+      </div>
+    </div>
+
+    <footer class="mt-16 pt-8 border-t border-stone-200 d-border text-xs d-text-dim">
+      <p>Repository: <a href="https://github.com/pyragogy/unpeeragogy" class="underline hover:text-(--color-accent)">github.com/pyragogy/unpeeragogy</a></p>
+    </footer>
+  </section>
+</BaseLayout>

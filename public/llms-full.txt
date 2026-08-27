@@ -1,0 +1,283 @@
+# Unpeeragogy — Comprehensive Guide for AI Agents
+
+> Decostruzione radicale della teoria peer-to-peer, confrontata con la nuda realtà operativa quotidiana.
+> 85 entry, 86 nodi, 126 link. CC0 — Public Domain.
+
+## Indice
+
+1. [Project Overview](#project-overview)
+2. [Content Structure](#content-structure)
+3. [Sections & Pattern Cards](#sections--pattern-cards)
+4. [Graph Knowledge Base](#graph-knowledge-base)
+5. [MCP Server](#mcp-server)
+6. [MCP Client Integration](#mcp-client-integration)
+7. [API Reference](#api-reference)
+8. [Voice & Style (Obliqo Voice)](#voice--style-obliqo-voice)
+9. [Contributing](#contributing)
+
+---
+
+## Project Overview
+
+Unpeeragogy è un'analisi critica operativa del Peeragogy Handbook. Ogni capitolo del manuale originale (Peeragogy) ha una corrispondente analisi nella colonna Realtà (Unpeeragogy) che ne smonta i presupposti con:
+
+- **Cold-open**: un'immagine concreta, non astratta, che apre ogni entry
+- **Failure Vector**: una tripletta negativa (cosa + cosa + cosa non funziona)
+- **Agente Perturbatore**: un self-quote in blockquote che smonta le assunzioni
+- **Quiet-adversative closing**: nessuna risoluzione, nessuna CTA — l'ultima frase pende
+
+### Metriche attuali
+
+| Metrica | Valore |
+|---------|-------|
+| Nodi | 86 |
+| Link | 126 |
+| Entry peeragogy | 85 |
+| Entry unpeeragogy | 85 |
+| Copertura | 0.99 (84/85) |
+| Tensione media | 1.34 |
+| Densità | 1.47 |
+| Parole totali (unpeer) | 22.997 |
+| Sezioni | 9 |
+
+### Link types
+
+- **chain** (76) — within-section ordering
+- **bridge** (8) — section-to-section transitions
+- **tag-N** (22) — tag-based chains (N = number of nodes)
+- **tension** (20) — cross-section tension-proximity edges with shared tags
+
+---
+
+## Content Structure
+
+### Colonna Sinistra — Teoria (Peeragogy)
+
+I testi storici del Peeragogy Handbook. La teoria, i pattern, la visione accademica dell'apprendimento collaborativo.
+
+### Colonna Destra — Realtà (Unpeeragogy)
+
+La decostruzione. Anti-pattern operativi, fallimenti reali, attriti umani. L'Agente Perturbatore del Pattern che smonta ogni certezza.
+
+### Dual View
+
+Ogni pagina mostra entrambe le colonne affiancate, con toggle per vedere solo teoria, solo realtà, o entrambe con scroll sincronizzato.
+
+---
+
+## Sections & Pattern Cards
+
+### 1. Introduction
+Slugs: `introduction`, `about`, `preface`, `foreword`, `welcome_to_the_peeragogy_workbook`, `peeragogy`, `peeragogy_handbook_v4`, `peeragogy_handbook_v4_editorial_remarks`
+Tension range: 0.3–1.8
+Key failure vectors: `gatekeeping`, `inclusione`, `autorità`, `fondamenti`
+
+### 2. Motivation
+Slugs: `motivation`, `heartbeat`, `navel_gazing`, `magical_thinking`, `isolation`, `participation`, `stuck`, `stasis`
+Tension range: 0.5–2.2
+Key failure vectors: `alibi-strutturale`, `soluzione-magica`, `rituale`
+
+### 3. Peeragogy in Practice
+Slugs: `patterns`, `antipatterns`, `roles`, `reduce`, `practice`, `specific`, `discerning_a_pattern`, `distributed_roadmap`, `roadmap`, `problem`, `solution`, `adding_structure`
+Tension range: 0.3–1.7
+
+### 4. Convening a Group
+Slugs: `convening`, `newcomer`, `participation`, `cofac`, `polling_for_ideas`, `creating_a_guide`, `action`, `landmarks`, `messy_with_lurkers`
+Tension range: 0.4–1.9
+
+### 5. Organizing a Learning Context
+Slugs: `organizing`, `cooperation`, `collab-ex`, `coworking`, `coworking-story`, `study_group`, `project`
+Tension range: 0.3–1.5
+
+### 6. Cooperation
+Slugs: `cooperation`, `cooperate`, `connectivism`, `context`, `community`, `play`, `course`
+Tension range: 0.6–1.8
+
+### 7. Assessment
+Slugs: `assessment`, `carrying`, `pattern_audit`, `researching_peeragogy`, `summaries`
+Tension range: 0.3–1.6
+
+### 8. Technologies, Services, and Platforms
+Slugs: `technologies`, `wiki`, `social-bookmarking`, `forums`, `website`, `podcast`, `realtime`, `updates`, `scrapbook`, `top`
+Tension range: 0.4–2.0
+
+### 9. Resources
+Slugs: `index`, `quickstart_guide`, `handbook`, `license`, `recommended_reading`, `open_future_design_bibliography`, `student_syllabus`, `syllabus_2021`, `k12`, `wrapper`, `outtakes`, `foreword`, `preface`, `case`, `paper`, `swats`, `workscape`, `sole`, `misunderstanding_power`
+
+---
+
+## Graph Knowledge Base
+
+The interactive graph (Vault) at `/vault/` visualizes all 86 nodes and 126 links using D3-force on Canvas2D.
+
+### Node properties
+
+- **Radius**: 5–16px (based on degree + tension)
+- **Color**: section palette (9 colors)
+- **Inner dot**: red if has unpeeragogy, blue if theory-only
+- **Alpha**: 1.0 visited, 0.35 unvisited
+
+### Edge types
+
+| Type | Visual | Count |
+|------|--------|-------|
+| chain | thin grey | 76 |
+| bridge | thinner, lower alpha | 8 |
+| tag-N | medium, higher alpha | 22 |
+| tension | red, weighted by shared tags | 20 |
+
+### Filtering
+
+- **Section filter**: toggle 9 section buttons
+- **Group filter**: Tutti / Realtà / Teoria
+- **Labels**: toggle via Aa button
+- **Zoom**: scroll wheel + +/- buttons + reset
+
+---
+
+## MCP Server
+
+The MCP (Model Context Protocol) server exposes the entire Unpeeragogy corpus to AI agents via SSE transport.
+
+### Endpoint
+
+```
+SSE:    https://mcp.unpeeragogy.pyragogy.org/mcp/sse
+Health: https://mcp.unpeeragogy.pyragogy.org/health
+```
+
+### Authentication
+
+Bearer token via `MCP_AUTH_TOKEN` environment variable.
+
+### Resources
+
+| URI Pattern | Description |
+|---|---|
+| `unpeeragogy://failure/<vector>` | Aggregated failure vector from all entries |
+| `unpeeragogy://<slug>/` | Dual content (theory + reality) for a slug |
+| `unpeeragogy://<slug>/peeragogy` | Theory-only for a slug |
+| `unpeeragogy://<slug>/unpeeragogy` | Reality-only for a slug |
+| `unpeeragogy://prompt/agent-perturbatore` | Agent Perturbatore system prompt |
+
+### Tools
+
+| Tool | Description | Parameters |
+|---|---|---|
+| `search` | Fuzzy search across all content | `query` (required), `maxResults` (optional, default 10) |
+| `compare` | Theory vs reality for a slug | `slug` (required) |
+| `analyze` | Vectors, structure, gap analysis | `slug` (required) |
+| `inject-friction` | Structural friction analysis | `topic` (required), `mode` (soft/hard, default soft) |
+| `tension-index` | Systemic tension calculation | `slug` (optional — per-slug or global) |
+
+### Prompts
+
+| Prompt | Description | Arguments |
+|---|---|---|
+| `agent-perturbatore` | System prompt for pattern disruption | none |
+| `friction-analysis` | Topic-specific friction analysis | `topic` (required) |
+
+### Friction Mode
+
+The server supports three friction modes via `MCP_FRICTION_MODE`:
+- **off**: no auto-injected friction
+- **soft** (default): friction note appended to responses
+- **hard**: forces decostruction even where no friction is apparent
+
+---
+
+## MCP Client Integration
+
+### Claude Desktop / Cline / Any MCP Client
+
+```json
+{
+  "mcpServers": {
+    "unpeeragogy": {
+      "url": "https://mcp.unpeeragogy.pyragogy.org/mcp/sse",
+      "headers": {
+        "Authorization": "Bearer YOUR_MCP_AUTH_TOKEN"
+      }
+    }
+  }
+}
+```
+
+### Recommended Workflows
+
+1. **Research** — Search for a topic → get dual view → analyze gap
+2. **Writing** — Load Agent Perturbatore prompt → analyze draft for friction
+3. **Audit** — Compare theory vs reality → inject friction → recalculate tension index
+4. **Evolution** — Read discussions → identify new failure vectors → suggest tension update
+
+---
+
+## API Reference
+
+### `GET /api/graph.json`
+
+Returns full graph state with metrics, nodes, links, and sections.
+
+```json
+{
+  "nodes": [ /* 86 nodes with id, name, group, val, tension, section, sectionColor */ ],
+  "links": [ /* 126 links with source, target, type, weight, sharedTags */ ],
+  "sections": { /* 9 sections with color, order, peerCount, unpeerCount */ },
+  "metrics": {
+    "nodeCount": 86,
+    "linkCount": 126,
+    "peerCount": 1,
+    "unpeerCount": 85,
+    "unpeerOnlyCount": 1,
+    "totalPeerEntries": 85,
+    "unpeerPairedCount": 84,
+    "avgTension": 1.34,
+    "coverage": 0.99,
+    "density": 1.47,
+    "unpeerOnlyRatio": 1.16
+  },
+  "buildTimestamp": "ISO-8601"
+}
+```
+
+### `GET /feed.xml`
+
+Atom feed with all entries, paired (theory + reality).
+
+### `GET /sitemap.xml`
+
+Sitemap for all 90+ pages.
+
+---
+
+## Voice & Style (Obliqo Voice)
+
+When generating Unpeeragogy content, follow these markers:
+
+| Element | Rule |
+|---|---|
+| **Cold-open** | Concrete image, non-abstract. First sentence must be something you can see/touch. |
+| **Failure Vector** | Negative triplet: "X + Y + Z — nessuno funziona." Name what doesn't work. |
+| **Agente Perturbatore** | Self-quote in blockquote. Short, sharp, subverts the premise. |
+| **Closing** | Quiet-adversative. No resolution, no CTA, no aphoristic slide-quote. Last sentence must hang. |
+| **Tone** | Friction-as-argument. Never SaaS-generic. No "sounds-like-AI" tells. |
+| **Language** | Italian (for content). English in `/mcp/en/` documentation. |
+
+### Base Tags (excluded from semantic matching)
+
+`unpeeragogy`, `decostruzione`, `anti-pattern` — universal tags, not counted for shared-tag edge building.
+
+---
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) on GitHub.
+
+- Open discussions on GitHub Discussions (label: `discussione`)
+- PRs welcome on `main` branch
+- All content CC0 — no permission needed
+
+---
+
+*Generated: comprehesive. Part of the Unpeeragogy project — CC0 Public Domain.*
+*Live site: https://unpeeragogy.pyragogy.org — MCP endpoint: https://mcp.unpeeragogy.pyragogy.org/mcp/sse*

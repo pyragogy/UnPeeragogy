@@ -1,0 +1,73 @@
+# Unpeeragogy
+
+Decostruzione radicale della teoria peer-to-peer (peeragogy), confrontata con la nuda realtà operativa quotidiana. Due colonne. Una verità.
+
+## Cos'è
+
+85 entry nella colonna Realtà che smontano i pattern del Peeragogy Handbook, con Agente Perturbatore, Failure Vector, e indice di tensione. 86 nodi, 126 link nel grafo della conoscenza.
+
+## Sezioni principali
+
+- Introduction — https://unpeeragogy.pyragogy.org/introduction/
+- Motivation — https://unpeeragogy.pyragogy.org/motivation/
+- Peeragogy in Practice — https://unpeeragogy.pyragogy.org/patterns/
+- Convening a Group — https://unpeeragogy.pyragogy.org/convening/
+- Organizing a Learning Context — https://unpeeragogy.pyragogy.org/organizing/
+- Cooperation — https://unpeeragogy.pyragogy.org/cooperation/
+- Assessment — https://unpeeragogy.pyragogy.org/assessment/
+- Technologies — https://unpeeragogy.pyragogy.org/technologies/
+- Resources — https://unpeeragogy.pyragogy.org/index/
+
+## Strumenti
+
+- Vault (grafo interattivo) — https://unpeeragogy.pyragogy.org/vault/
+- Log mensile — https://unpeeragogy.pyragogy.org/log/
+- Graph API — https://unpeeragogy.pyragogy.org/api/graph.json
+- Feed Atom — https://unpeeragogy.pyragogy.org/feed.xml
+
+## MCP Server
+
+Il progetto ha un MCP Server per AI agent che espone risorse, strumenti e prompt per la decostruzione:
+
+```
+Endpoint SSE: https://mcp.unpeeragogy.pyragogy.org/mcp/sse
+Health:       https://mcp.unpeeragogy.pyragogy.org/health
+```
+
+### Strumenti
+
+- **search** — Cerca nei contenuti (teoria e realtà) con fuzzy search
+- **compare** — Confronta teoria vs realtà per uno slug
+- **analyze** — Analizza uno slug: vettori di fallimento, struttura, scarto
+- **inject-friction** — Analizza un argomento con attrito strutturale (soft/hard)
+- **tension-index** — Calcola l'indice di tensione (per slug o globale)
+
+### Risorse
+
+- `unpeeragogy://failure/<vector>` — Vettore di fallimento aggregato
+- `unpeeragogy://<slug>/` — Contenuto duale (teoria + realtà)
+- `unpeeragogy://prompt/agent-perturbatore` — Template Agente Perturbatore
+
+### Prompt
+
+- **agent-perturbatore** — System prompt per decostruzione con attrito
+- **friction-analysis** — Analisi con attrito per argomento specifico
+
+## Autenticazione
+
+Il server MCP richiede Bearer token (`MCP_AUTH_TOKEN`).
+
+## Configurazione client MCP
+
+```json
+{
+  "mcpServers": {
+    "unpeeragogy": {
+      "url": "https://mcp.unpeeragogy.pyragogy.org/mcp/sse",
+      "headers": { "Authorization": "Bearer <MCP_AUTH_TOKEN>" }
+    }
+  }
+}
+```
+
+Per la versione completa: https://unpeeragogy.pyragogy.org/llms-full.txt

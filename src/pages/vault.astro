@@ -320,7 +320,12 @@ for (const s of sectionOrder) {
 
     let vaultData = JSON.parse(document.getElementById("vault-data").textContent);
     let nodes = vaultData.nodes.map(function(n) { return { ...n }; });
-    let links = vaultData.links.map(function(l) { return { source: l.source, target: l.target, type: l.type }; });
+    let links = vaultData.links.map(function(l) { 
+      var link = { source: l.source, target: l.target, type: l.type };
+      if (l.weight) link.weight = l.weight;
+      if (l.sharedTags) link.sharedTags = l.sharedTags;
+      return link;
+    });
 
     // Load visited from localStorage + mark current page
     visitedSlugs = new Set(JSON.parse(localStorage.getItem("graph-visited") || "[]"));
