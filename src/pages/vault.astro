@@ -94,15 +94,50 @@ for (const ue of unpeeragogyEntries) {
 // Edges: within-section ordering (chain each section)
 for (const [, entries] of sections) {
   for (let i = 0; i < entries.length - 1; i++) {
-    graphLinks.push({ source: entries[i].slug, target: entries[i + 1].slug });
+    graphLinks.push({ source: entries[i].slug, target: entries[i + 1].slug, type: "chain" });
   }
 }
 
-// Cross-links: each unpeeragogy-paired node links to its peeragogy twin
+// Bridge edges: last node of section N → first node of section N+1
+for (let i = 0; i < sectionOrder.length - 1; i++) {
+  const cur = sections.get(sectionOrder[i]);
+  const next = sections.get(sectionOrder[i + 1]);
+  if (cur && cur.length > 0 && next && next.length > 0) {
+    graphLinks.push({ source: cur[cur.length - 1].slug, target: next[0].slug, type: "bridge" });
+  }
+}
+
+// Tag-based chain edges (structural tags with 3-15 nodes, avoids hairball)
+const tagGroups = new Map();
 for (const pe of peeragogyEntries) {
-  if (unpeeragogyEntries.find(e => e.slug === pe.slug)) {
-    // Add a cross-link between the paired entry
-    // Already connected via chain — optional extra cross edge
+  if (pe.data.tags) {
+    for (const tag of pe.data.tags) {
+      if (!tagGroups.has(tag)) tagGroups.set(tag, []);
+      tagGroups.get(tag).push(pe.slug);
+    }
+  }
+}
+for (const [tag, slugs] of tagGroups) {
+  if (slugs.length >= 3 && slugs.length <= 15) {
+    for (let i = 0; i < slugs.length - 1; i++) {
+      graphLinks.push({ source: slugs[i], target: slugs[i + 1], type: "tag-" + tag });
+    }
+  }
+}
+
+// Tension-proximity edges: cross-section nodes with similar tension
+const tensionNodes = graphNodes
+  .filter(n => n.tension !== null && n.tension > 0)
+  .sort((a, b) => a.tension - b.tension);
+for (let i = 0; i < tensionNodes.length; i++) {
+  for (let j = i + 1; j < tensionNodes.length; j++) {
+    const a = tensionNodes[i];
+    const b = tensionNodes[j];
+    if (b.tension - a.tension > 0.3) break; // sorted, so stop early
+    if (a.section !== b.section) {
+      graphLinks.push({ source: a.id, target: b.id, type: "tension" });
+      break; // at most one tension link per node
+    }
   }
 }
 
@@ -420,9 +455,8 @@ for (const s of sectionOrder) {
     ctx.translate(zoomState.x, zoomState.y);
     ctx.scale(zoomState.k, zoomState.k);
 
-    // Links
-    ctx.strokeStyle = isDark ? "rgba(200, 210, 230, 0.35)" : "rgba(100, 110, 130, 0.2)";
-    ctx.lineWidth = 1 / zoomState.k;
+    // Links (styled by type)
+    let linkAlpha = isDark ? 0.35 : 0.2;
     let nodes = sim.nodes();
     let nmap = {};
     nodes.forEach(function(n) { nmap[n.id] = n; });
@@ -430,12 +464,19 @@ for (const s of sectionOrder) {
     links.forEach(function(l) {
       let s = typeof l.source === "object" ? l.source : nmap[l.source];
       let t = typeof l.target === "object" ? l.target : nmap[l.target];
-      if (s && t) {
-        ctx.beginPath();
-        ctx.moveTo(s.x, s.y);
-        ctx.lineTo(t.x, t.y);
-        ctx.stroke();
-      }
+      if (!s || !t) return;
+      let alpha = linkAlpha;
+      let width = 1;
+      let color = isDark ? "200, 210, 230" : "100, 110, 130";
+      if (l.type && l.type.startsWith("tag-")) { alpha = linkAlpha * 1.5; width = 1.2; }
+      else if (l.type === "bridge") { alpha = linkAlpha * 0.7; width = 0.8; }
+      else if (l.type === "tension") { color = "239, 68, 68"; alpha = linkAlpha * 1.8; width = 1.2; }
+      ctx.strokeStyle = "rgba(" + color + "," + alpha + ")";
+      ctx.lineWidth = width / zoomState.k;
+      ctx.beginPath();
+      ctx.moveTo(s.x, s.y);
+      ctx.lineTo(t.x, t.y);
+      ctx.stroke();
     });
 
     // Nodes (draw unpeeragogy inner dot on top)
