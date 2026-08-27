@@ -179,6 +179,16 @@ for (const s of sectionOrder) {
       <button id="view-tree-btn" class="rounded-md px-4 py-2 text-sm transition-all text-stone-600 dark:d-text-sec hover:text-(--color-text)">🌲 Albero</button>
     </div>
 
+    <!-- Section filters (graph only) -->
+    <div id="graph-filters" class="flex flex-wrap gap-2 mb-4">
+      {sectionOrder.map(s => (
+        <button class="section-filter active rounded-full px-2.5 py-1 text-xs font-medium flex items-center gap-1.5 bg-stone-100 dark:d-surface text-stone-600 dark:d-text-sec hover:bg-stone-200 dark:d-hover transition-colors border border-transparent" data-section={s} style={`border-color:${sectionColors[s] || "#a1a1aa"}`}>
+          <span class="w-2.5 h-2.5 rounded-full" style={`background:${sectionColors[s] || "#a1a1aa"}`}></span>
+          {s.replace(/^(Technologies,|Organizing a|Convening a) /, "").replace(/ Services, and Platforms$/, "")}
+        </button>
+      ))}
+    </div>
+
     <!-- 3D GRAPH -->
     <div id="vault-graph" class="w-full rounded-lg border border-stone-200 dark:d-border overflow-hidden" style="height:620px;position:relative;">
       <div id="force-graph" style="width:100%;height:100%;"></div>
@@ -252,6 +262,7 @@ for (const s of sectionOrder) {
   let mousePos = { x: -1, y: -1 };
   let cachedFont = null;
   let cachedFontSize = -1;
+  let hiddenSections = new Set();
 
   function getNodeColor(n) {
     return n.sectionColor || "#a1a1aa";
@@ -412,12 +423,14 @@ for (const s of sectionOrder) {
     let w = canvas.width, h = canvas.height;
     let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
     nodes.forEach(function(n) {
+      if (hiddenSections.has(n.section)) return;
       let r = getNodeRadius(n);
       if (n.x - r < minX) minX = n.x - r;
       if (n.x + r > maxX) maxX = n.x + r;
       if (n.y - r < minY) minY = n.y - r;
       if (n.y + r > maxY) maxY = n.y + r;
     });
+    if (minX === Infinity) return; // all hidden
     let gw = Math.max(maxX - minX, 10);
     let gh = Math.max(maxY - minY, 10);
     let pad = 50;
@@ -460,11 +473,14 @@ for (const s of sectionOrder) {
     let nodes = sim.nodes();
     let nmap = {};
     nodes.forEach(function(n) { nmap[n.id] = n; });
+    let visibleNodes = new Set();
+    nodes.forEach(function(n) { if (!hiddenSections.has(n.section)) visibleNodes.add(n.id); });
     let links = sim.force("link").links();
     links.forEach(function(l) {
       let s = typeof l.source === "object" ? l.source : nmap[l.source];
       let t = typeof l.target === "object" ? l.target : nmap[l.target];
       if (!s || !t) return;
+      if (!visibleNodes.has(s.id) || !visibleNodes.has(t.id)) return;
       let alpha = linkAlpha;
       let width = 1;
       let color = isDark ? "200, 210, 230" : "100, 110, 130";
@@ -479,8 +495,9 @@ for (const s of sectionOrder) {
       ctx.stroke();
     });
 
-    // Nodes (draw unpeeragogy inner dot on top)
+    // Nodes (draw unpeeragogy inner dot on top, skip hidden sections)
     nodes.forEach(function(n) {
+      if (hiddenSections.has(n.section)) return;
       let r = getNodeRadius(n);
       ctx.beginPath();
       ctx.arc(n.x, n.y, r, 0, 2 * Math.PI);
@@ -504,6 +521,7 @@ for (const s of sectionOrder) {
       ctx.textAlign = "center";
       ctx.textBaseline = "top";
       nodes.forEach(function(n) {
+        if (hiddenSections.has(n.section)) return;
         let r = getNodeRadius(n);
         let label = n.name.length > 18 ? n.name.slice(0, 18) + "…" : n.name;
         ctx.fillStyle = isDark ? "rgba(210, 220, 240, 0.65)" : "rgba(80, 85, 95, 0.6)";
@@ -616,6 +634,23 @@ for (const s of sectionOrder) {
   document.addEventListener("DOMContentLoaded", function() {
     setTimeout(initGraph, 300);
   });
+
+  // --- Section filter ---
+  document.addEventListener("DOMContentLoaded", function() {
+    document.querySelectorAll(".section-filter").forEach(function(btn) {
+      btn.addEventListener("click", function() {
+        let sec = this.dataset.section;
+        let isActive = this.classList.contains("active");
+        this.classList.toggle("active");
+        if (isActive) {
+          hiddenSections.add(sec);
+        } else {
+          hiddenSections.delete(sec);
+        }
+        if (sim) zoomToFit();
+      });
+    });
+  });
 </script>
 
 <style is:global>
@@ -624,3 +659,4 @@ for (const s of sectionOrder) {
   .vault-section-header span:last-child { transition: transform 0.2s; }
   .vault-entry { text-decoration: none; color: inherit; }
   .vault-entry:hover { text-decoration: none; }
+  .section-filter:not(.active) { opacity: 0.45; filter: saturate(0.3); }
