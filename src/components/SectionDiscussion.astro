@@ -5,46 +5,48 @@ export interface Props {
 }
 
 const { slug, title } = Astro.props;
+const repoUrl = "https://github.com/pyragogy/UnPeeragogy";
+const newDiscussionUrl = `${repoUrl}/discussions/new?category=discussione`;
+const existingDiscussionsUrl = `${repoUrl}/discussions?discussions_q=label%3Adiscussione+${slug}`;
 ---
 
 <section class="mt-12 border-t border-red-200 d-red-bdr pt-8">
   <h2 class="text-lg font-bold mb-4 flex items-center gap-2">
     <span>💬</span> Discussione: {title}
   </h2>
-  <p class="text-sm d-text-dim mb-4">Questa discussione è ancorata al piano della realtà operativa. Niente teoria — solo esperienze, fallimenti, e verità scomode.</p>
 
-  <div id="giscus-container" class="min-h-[200px] flex items-center justify-center">
-    <div class="text-center d-text-dim text-sm">
-      <p class="mb-2">💬 Le discussioni sono attive su GitHub Discussions.</p>
-      <p class="text-xs">Disponibile quando deployato su un dominio pubblico con Giscus configurato.</p>
-    </div>
+  <p class="text-sm d-text-dim mb-6">
+    La discussione vive su GitHub, non in un widget. Niente magia, niente bug silenziosi.
+    Apri un thread, condividi la tua esperienza, e la settimana successiva il progetto
+    può evolvere a partire da ciò che è emerso.
+  </p>
+
+  <div class="flex flex-wrap gap-4">
+    <a
+      href={newDiscussionUrl}
+      target="_blank"
+      class="inline-flex items-center gap-2 rounded-lg bg-red-600 px-5 py-3 text-sm font-semibold text-white hover:bg-red-700 transition-colors"
+    >
+      <span>✏️</span> Avvia discussione
+    </a>
+    <a
+      href={existingDiscussionsUrl}
+      target="_blank"
+      class="inline-flex items-center gap-2 rounded-lg border border-stone-300 d-border px-5 py-3 text-sm font-semibold hover:bg-stone-100 d-hover transition-colors"
+    >
+      <span>📋</span> Vedi discussioni esistenti
+    </a>
   </div>
 
-  <script define:vars={{ slug }}>
-    (function() {
-      var giscusContainer = document.getElementById("giscus-container");
-      var pageSlug = slug;
-      if (window.location.hostname !== "localhost" && window.location.hostname !== "127.0.0.1") {
-        var script = document.createElement("script");
-        script.src = "https://giscus.app/client.js";
-        script.setAttribute("data-repo", "pyragogy/unpeeragogy");
-        script.setAttribute("data-repo-id", "");
-        script.setAttribute("data-category", "Announcements");
-        script.setAttribute("data-category-id", "");
-        script.setAttribute("data-mapping", "specific");
-        script.setAttribute("data-term", "section: " + pageSlug);
-        script.setAttribute("data-strict", "0");
-        script.setAttribute("data-reactions-enabled", "1");
-        script.setAttribute("data-emit-metadata", "0");
-        script.setAttribute("data-input-position", "top");
-        script.setAttribute("data-theme", "preferred_color_scheme");
-        script.setAttribute("data-lang", "en");
-        script.setAttribute("crossorigin", "anonymous");
-        script.setAttribute("async", "");
-        if (giscusContainer) giscusContainer.appendChild(script);
-      }
-    })();
-  </script>
+  <details class="mt-4 text-xs d-text-dim">
+    <summary class="cursor-pointer hover:text-(--color-accent)">Cosa succede dopo che apro una discussione?</summary>
+    <div class="mt-2 space-y-1 leading-relaxed">
+      <p>1. La discussione appare in <strong>GitHub Discussions</strong> col tag <code>discussione</code>.</p>
+      <p>2. Una volta a settimana, il progetto analizza i thread attivi.</p>
+      <p>3. Se emergono nuovi Failure Vector, tension_index da rivedere, o Agenti Perturbatori da affilare, la entry viene aggiornata.</p>
+      <p>4. Un log settimanale in <code>/log</code> registra cosa è cambiato.</p>
+    </div>
+  </details>
 </section>
 
 <style>
