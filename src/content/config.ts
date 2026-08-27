@@ -8,6 +8,7 @@ const peeragogy = defineCollection({
     description: z.string().optional(),
     readingTime: z.number().optional(),
     tags: z.array(z.string()).optional(),
+    tension_index: z.number().optional(),
   }),
 });
 
@@ -19,6 +20,7 @@ const unpeeragogy = defineCollection({
     description: z.string().optional(),
     readingTime: z.number().optional(),
     tags: z.array(z.string()).optional(),
+    tension_index: z.number().optional(),
   }),
 });
 
