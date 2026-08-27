@@ -12,12 +12,50 @@ const { title, description, viewDefault = "dual" } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en" class="">
+<html lang="it" class="">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{title} — Unpeeragogy</title>
+    <title>{title}</title>
     {description && <meta name="description" content={description} />}
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description || "Unpeeragogy — decostruzione radicale della teoria peer-to-peer"} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={`https://unpeeragogy.pyragogy.org${Astro.url.pathname}`} />
+    <meta property="og:image" content="https://unpeeragogy.pyragogy.org/images/UnPeeragogy-logo-test.webp" />
+    <meta property="og:locale" content="it_IT" />
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description || "Decostruzione della teoria peer-to-peer"} />
+    <meta name="twitter:image" content="https://unpeeragogy.pyragogy.org/images/UnPeeragogy-logo-test.webp" />
+    <!-- GEO / Location (per motori di ricerca geolocalizzati) -->
+    <meta name="geo.region" content="IT" />
+    <meta name="geo.placename" content="Italia" />
+    <!-- RSS Feed -->
+    <link rel="alternate" type="application/atom+xml" title="Unpeeragogy Feed" href="https://unpeeragogy.pyragogy.org/feed.xml" />
+    <!-- canonical -->
+    <link rel="canonical" href={`https://unpeeragogy.pyragogy.org${Astro.url.pathname}`} />
+    <!-- Schema.org base -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "@id": "https://unpeeragogy.pyragogy.org/#website",
+        "url": "https://unpeeragogy.pyragogy.org",
+        "name": "Unpeeragogy",
+        "description": "Decostruzione radicale della teoria peer-to-peer, confrontata con la realtà operativa quotidiana.",
+        "inLanguage": "it",
+        "isAccessibleForFree": true,
+        "license": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "about": {
+          "@type": "Thing",
+          "name": "Peeragogy",
+          "description": "Teoria e pratica dell'apprendimento peer-to-peer"
+        }
+      }
+    </script>
     <script is:inline>
       const theme = localStorage.getItem("theme");
       if (theme === "dark" || (!theme && window.matchMedia("(prefers-color-scheme: dark)").matches)) {

@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "astro dev",
     "start": "npx -y serve dist --listen 80",
-    "build": "astro build && npx -y pagefind --site dist",
+    "build": "astro build && node scripts/generate-seo.mjs && npx -y pagefind --site dist",
     "preview": "npx -y serve dist --listen 4321",
     "astro": "astro",
     "convert-org": "node scripts/convert-org.js",

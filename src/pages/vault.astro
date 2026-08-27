@@ -203,6 +203,11 @@ for (const s of sectionOrder) {
 
     <!-- Section filters (graph only) -->
     <div id="graph-filters" class="flex flex-wrap gap-2 mb-4">
+      <div class="flex gap-1 mr-2 pr-2 border-r border-stone-200 dark:d-border">
+        <button class="group-filter active rounded-md px-3 py-1 text-xs font-medium bg-(--color-accent) text-white" data-group="all">Tutti</button>
+        <button class="group-filter rounded-md px-3 py-1 text-xs font-medium bg-stone-100 dark:d-surface text-stone-600 dark:d-text-sec hover:bg-stone-200 dark:d-hover transition-colors" data-group="unpeeragogy">⚡ Realtà</button>
+        <button class="group-filter rounded-md px-3 py-1 text-xs font-medium bg-stone-100 dark:d-surface text-stone-600 dark:d-text-sec hover:bg-stone-200 dark:d-hover transition-colors" data-group="peeragogy">📖 Teoria</button>
+      </div>
       {sectionOrder.map(s => (
         <button class="section-filter active rounded-full px-2.5 py-1 text-xs font-medium flex items-center gap-1.5 bg-stone-100 dark:d-surface text-stone-600 dark:d-text-sec hover:bg-stone-200 dark:d-hover transition-colors border border-transparent" data-section={s} style={`border-color:${sectionColors[s] || "#a1a1aa"}`}>
           <span class="w-2.5 h-2.5 rounded-full" style={`background:${sectionColors[s] || "#a1a1aa"}`}></span>
@@ -499,13 +504,13 @@ for (const s of sectionOrder) {
     ctx.translate(zoomState.x, zoomState.y);
     ctx.scale(zoomState.k, zoomState.k);
 
-    // Links (styled by type)
+    // Links (styled by type, weighted by tension)
     let linkAlpha = isDark ? 0.35 : 0.2;
     let nodes = sim.nodes();
     let nmap = {};
     nodes.forEach(function(n) { nmap[n.id] = n; });
     let visibleNodes = new Set();
-    nodes.forEach(function(n) { if (!hiddenSections.has(n.section)) visibleNodes.add(n.id); });
+    nodes.forEach(function(n) { if (!hiddenSections.has(n.section) && !hiddenGroups.has(n.group)) visibleNodes.add(n.id); });
     let links = sim.force("link").links();
     links.forEach(function(l) {
       let s = typeof l.source === "object" ? l.source : nmap[l.source];
@@ -517,7 +522,13 @@ for (const s of sectionOrder) {
       let color = isDark ? "200, 210, 230" : "100, 110, 130";
       if (l.type && l.type.startsWith("tag-")) { alpha = linkAlpha * 1.5; width = 1.2; }
       else if (l.type === "bridge") { alpha = linkAlpha * 0.7; width = 0.8; }
-      else if (l.type === "tension") { color = "239, 68, 68"; alpha = linkAlpha * 1.8; width = 1.2; }
+      else if (l.type === "tension") {
+        color = "239, 68, 68";
+        alpha = linkAlpha * 1.8;
+        // Weighted by shared-tag count
+        let w = l.weight || 1;
+        width = Math.min(1.0 + w * 0.4, 3.0);
+      }
       ctx.strokeStyle = "rgba(" + color + "," + alpha + ")";
       ctx.lineWidth = width / zoomState.k;
       ctx.beginPath();

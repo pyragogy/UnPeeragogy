@@ -1,0 +1,27 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="404 — Non trovato" description="Questa pagina non esiste. Forse non è mai esistita.">
+  <section class="py-24 text-center" data-pagefind-body>
+    <div class="max-w-lg mx-auto">
+      <h1 class="text-6xl font-extrabold tracking-tight text-stone-300 d-text-sec">404</h1>
+      <h2 class="mt-6 text-2xl font-bold tracking-tight">Questa pagina non esiste</h2>
+      <p class="mt-4 d-text-sec leading-relaxed">
+        Il pattern che cercavi non è stato trovato. Forse non esiste ancora. 
+        O forse è un falso positivo — un vicolo cieco nel grafo della conoscenza.
+      </p>
+      <div class="mt-8 flex justify-center gap-4">
+        <a href="/" class="rounded-lg bg-(--color-accent) px-6 py-3 text-white font-semibold hover:bg-(--color-accent-light) transition-colors">
+          Torna alla Home
+        </a>
+        <a href="/vault/" class="rounded-lg border border-stone-300 d-border px-6 py-3 font-semibold hover:bg-stone-100 d-hover transition-colors">
+          Esplora il Vault
+        </a>
+      </div>
+      <p class="mt-8 text-xs d-text-dim italic">
+        "L'errore non è fallimento. È il primo passo della decostruzione."
+      </p>
+    </div>
+  </section>
+</BaseLayout>
