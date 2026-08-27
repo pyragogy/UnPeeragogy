@@ -412,8 +412,14 @@ const httpServer = http.createServer(async (req, res) => {
     return;
   }
 
+  // Parse URL pathname (supports query params like ?token=)
+  let pathname = "/";
+  try {
+    pathname = new URL(req.url || '/', `http://${req.headers.host || 'localhost'}`).pathname;
+  } catch {}
+
   // Health check
-  if (req.url === "/health" && req.method === "GET") {
+  if (pathname === "/health" && req.method === "GET") {
     res.writeHead(200, { "Content-Type": "application/json" });
     res.end(
       JSON.stringify({
@@ -427,7 +433,7 @@ const httpServer = http.createServer(async (req, res) => {
   }
 
   // MCP SSE endpoint
-  if (req.url === "/sse" && req.method === "GET") {
+  if (pathname === "/sse" && req.method === "GET") {
     if (!checkAuth(req)) {
       res.writeHead(401, { "Content-Type": "application/json" });
       res.end(
@@ -447,7 +453,7 @@ const httpServer = http.createServer(async (req, res) => {
   }
 
   // MCP message endpoint (POST)
-  if (req.url === "/messages" && req.method === "POST") {
+  if (pathname === "/messages" && req.method === "POST") {
     if (!checkAuth(req)) {
       res.writeHead(401, { "Content-Type": "application/json" });
       res.end(JSON.stringify({ error: "Unauthorized." }));
