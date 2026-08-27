@@ -37,6 +37,12 @@ const { title, description, viewDefault = "dual" } = Astro.props;
     <link rel="alternate" type="application/atom+xml" title="Unpeeragogy Feed" href="https://unpeeragogy.pyragogy.org/feed.xml" />
     <!-- canonical -->
     <link rel="canonical" href={`https://unpeeragogy.pyragogy.org${Astro.url.pathname}`} />
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="alternate icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="alternate icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     <!-- Schema.org base -->
     <script type="application/ld+json">
       {
