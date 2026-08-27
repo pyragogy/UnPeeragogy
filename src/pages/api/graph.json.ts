@@ -29,6 +29,8 @@ type GraphLink = {
   source: string;
   target: string;
   type: string;
+  weight?: number;
+  sharedTags?: string[];
 };
 
 type SectionInfo = {
@@ -153,6 +155,21 @@ export const GET: APIRoute = async () => {
     }
   }
 
+  // Map tags per slug (peer + unpeer combined)
+  const nodeTags: Record<string, string[]> = {};
+  for (const pe of peeragogyEntries) {
+    const tags = new Set<string>();
+    if (pe.data.tags) pe.data.tags.forEach(t => tags.add(t));
+    const ue = unpeeragogyEntries.find(e => e.slug === pe.slug);
+    if (ue?.data.tags) ue.data.tags.forEach(t => tags.add(t));
+    if (tags.size > 0) nodeTags[pe.slug] = Array.from(tags);
+  }
+  for (const ue of unpeeragogyEntries) {
+    if (!peeragogyEntries.find(e => e.slug === ue.slug) && ue.data.tags) {
+      nodeTags[ue.slug] = ue.data.tags;
+    }
+  }
+
   const tensionNodes = nodes
     .filter((n) => n.tension !== null && n.tension > 0)
     .sort((a, b) => (a.tension ?? 0) - (b.tension ?? 0));
@@ -162,8 +179,15 @@ export const GET: APIRoute = async () => {
       const b = tensionNodes[j];
       if ((b.tension ?? 0) - (a.tension ?? 0) > 0.3) break;
       if (a.section !== b.section) {
-        links.push({ source: a.id, target: b.id, type: "tension" });
-        break;
+        // Only connect if nodes share at least one semantic tag (not base)
+        const aTags = nodeTags[a.id] || [];
+        const bTags = nodeTags[b.id] || [];
+        const baseTags = new Set(["unpeeragogy", "decostruzione", "anti-pattern"]);
+        const shared = aTags.filter(t => bTags.includes(t) && !baseTags.has(t));
+        if (shared.length > 0) {
+          links.push({ source: a.id, target: b.id, type: "tension", weight: shared.length, sharedTags: shared });
+          break;
+        }
       }
     }
   }

@@ -125,7 +125,22 @@ for (const [tag, slugs] of tagGroups) {
   }
 }
 
-// Tension-proximity edges: cross-section nodes with similar tension
+// Map tags per slug (combining peer + unpeer for cross-section tag matching)
+const nodeTags = {};
+for (const pe of peeragogyEntries) {
+  const tags = new Set();
+  if (pe.data.tags) pe.data.tags.forEach(t => tags.add(t));
+  const ue = unpeeragogyEntries.find(e => e.slug === pe.slug);
+  if (ue && ue.data.tags) ue.data.tags.forEach(t => tags.add(t));
+  if (tags.size > 0) nodeTags[pe.slug] = Array.from(tags);
+}
+for (const ue of unpeeragogyEntries) {
+  if (!peeragogyEntries.find(e => e.slug === ue.slug) && ue.data.tags) {
+    nodeTags[ue.slug] = ue.data.tags;
+  }
+}
+
+// Tension-proximity edges: cross-section nodes with similar tension AND shared tags
 const tensionNodes = graphNodes
   .filter(n => n.tension !== null && n.tension > 0)
   .sort((a, b) => a.tension - b.tension);
@@ -135,8 +150,15 @@ for (let i = 0; i < tensionNodes.length; i++) {
     const b = tensionNodes[j];
     if (b.tension - a.tension > 0.3) break; // sorted, so stop early
     if (a.section !== b.section) {
-      graphLinks.push({ source: a.id, target: b.id, type: "tension" });
-      break; // at most one tension link per node
+      // Only connect if nodes share at least one semantic tag (not base)
+      const aTags = nodeTags[a.id] || [];
+      const bTags = nodeTags[b.id] || [];
+      const baseTags = new Set(["unpeeragogy", "decostruzione", "anti-pattern"]);
+      const shared = aTags.filter(t => bTags.includes(t) && !baseTags.has(t));
+      if (shared.length > 0) {
+        graphLinks.push({ source: a.id, target: b.id, type: "tension", weight: shared.length, sharedTags: shared });
+        break; // at most one tension link per node
+      }
     }
   }
 }
@@ -538,9 +560,15 @@ for (const s of sectionOrder) {
         let r = getNodeRadius(n);
         let label = n.name.length > 18 ? n.name.slice(0, 18) + "…" : n.name;
         let isVisited = visitedSlugs.has(n.id);
-        ctx.globalAlpha = isVisited ? 0.85 : 0.25;
-        ctx.fillStyle = isDark ? "rgba(210, 220, 240, 0.65)" : "rgba(80, 85, 95, 0.6)";
-        ctx.fillText(label, n.x, n.y + r + 2);
+        ctx.globalAlpha = isVisited ? 0.9 : 0.35;
+        let lx = n.x, ly = n.y + r + 2;
+        // Halo outline — leggibile su qualsiasi sfondo (chiaro e scuro)
+        ctx.strokeStyle = isDark ? "rgba(0,0,0,0.6)" : "rgba(255,255,255,0.8)";
+        ctx.lineWidth = Math.max(1, 3 / zoomState.k);
+        ctx.lineJoin = "round";
+        ctx.strokeText(label, lx, ly);
+        ctx.fillStyle = isDark ? "rgba(230,235,245,0.85)" : "rgba(25,30,40,0.8)";
+        ctx.fillText(label, lx, ly);
       });
       ctx.globalAlpha = 1.0;
     }
