@@ -46,11 +46,16 @@ const server = new Server(
   }
 );
 
-// ─── Authentication middleware ─────────────────────────────────
+// ─── Authentication via query param (not header) ─────────────
+function getTokenFromQuery(req: http.IncomingMessage): string | null {
+  const url = new URL(req.url || '', `http://${req.headers.host || 'localhost'}`);
+  return url.searchParams.get('token');
+}
+
 function checkAuth(req: http.IncomingMessage): boolean {
   if (!AUTH_TOKEN) return true; // No token = open access
-  const auth = req.headers.authorization;
-  return auth === `Bearer ${AUTH_TOKEN}`;
+  const token = getTokenFromQuery(req);
+  return token === AUTH_TOKEN;
 }
 
 // ─── Apply Friction Filter ─────────────────────────────────────

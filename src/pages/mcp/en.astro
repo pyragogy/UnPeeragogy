@@ -19,9 +19,27 @@ const LARROW = '\u2190';
     </div>
 
     <h2 class="text-2xl font-bold mt-10 mb-4">2. Authentication</h2>
-    <p class="text-sm d-text-sec mb-3">The server requires a Bearer token, configured via the <code>MCP_AUTH_TOKEN</code> environment variable in Coolify.</p>
-    <pre class="bg-stone-50 d-surface p-3 rounded-lg border border-stone-200 d-border overflow-x-auto text-sm"><code>Authorization: Bearer &lt;MCP_AUTH_TOKEN&gt;</code></pre>
-    <p class="mt-2 text-xs d-text-dim">Request the token from project administrators. Never expose it in client-side code.</p>
+    <p class="text-sm d-text-sec mb-3">The server requires a token passed as a <strong>query parameter</strong> in the SSE URL. Configured as the <code>MCP_AUTH_TOKEN</code> environment variable in Coolify.</p>
+
+    <div class="p-5 border border-stone-200 d-border rounded-lg bg-stone-50 d-surface mb-6">
+      <h3 class="font-semibold mb-3">User setup procedure</h3>
+      <ol class="space-y-3 text-sm list-decimal ml-5">
+        <li><strong>Request the token</strong> &mdash; email Fabrizio (project admin):
+          <br><code class="text-xs">&#x69;&#x6e;&#x66;&#x6f;&#x40;&#x70;&#x79;&#x72;&#x61;&#x67;&#x6f;&#x67;&#x79;&#x2e;&#x6f;&#x72;&#x67;</code>
+          <br><span class="text-xs d-text-dim">State that you want to use the Unpeeragogy MCP server, and for which client (Claude Desktop, Cline, pi, etc.).</span>
+        </li>
+        <li><strong>Run</strong> in your terminal:
+          <pre class="bg-white dark:[background:var(--surface-bg)] p-3 rounded border border-stone-200 d-border overflow-x-auto mt-1"><code>npx @pyragogy/mcp-server --setup --token &lt;MCP_AUTH_TOKEN&gt;</code></pre>
+          <span class="text-xs d-text-dim">Replace <code>&lt;MCP_AUTH_TOKEN&gt;</code> with the token you received.
+          The script auto-configures Claude Desktop and pi.</span>
+        </li>
+        <li><strong>Restart Claude Desktop</strong> &mdash; done.</li>
+      </ol>
+    </div>
+
+    <p class="text-xs d-text-dim">Alternatively, manually edit <code>~/.config/Claude/claude_desktop_config.json</code>
+    as shown in section &laquo;7. Client Configuration&raquo;. The token is a shared secret:
+    never expose it in client-side code, never commit it to GitHub, never post it in public chats.</p>
 
     <h2 class="text-2xl font-bold mt-10 mb-4">3. Resources</h2>
     <p class="text-sm d-text-sec mb-4">MCP resources allow reading structured content from the corpus.</p>
@@ -175,10 +193,7 @@ between theory and practice. Your role is to dismantle easy consensus.</code></p
 {LBRACE}
   "mcpServers": {LBRACE}
     "unpeeragogy": {LBRACE}
-      "url": "https://mcp.unpeeragogy.pyragogy.org/mcp/sse",
-      "headers": {LBRACE}
-        "Authorization": "Bearer &lt;MCP_AUTH_TOKEN&gt;"
-      {RBRACE}
+      "url": "https://mcp.unpeeragogy.pyragogy.org/mcp/sse?token=&lt;MCP_AUTH_TOKEN&gt;"
     {RBRACE}
   {RBRACE}
 {RBRACE}
@@ -187,7 +202,7 @@ between theory and practice. Your role is to dismantle easy consensus.</code></p
 
     <div class="mb-6">
       <h3 class="font-semibold mb-2">Via curl (testing)</h3>
-      <pre class="bg-stone-50 d-surface p-3 rounded-lg border border-stone-200 d-border overflow-x-auto text-sm"><code>curl -s "https://mcp.unpeeragogy.pyragogy.org/health" -H "Authorization: Bearer &lt;MCP_AUTH_TOKEN&gt;"</code></pre>
+      <pre class="bg-stone-50 d-surface p-3 rounded-lg border border-stone-200 d-border overflow-x-auto text-sm"><code>curl -s "https://mcp.unpeeragogy.pyragogy.org/health?token=&lt;MCP_AUTH_TOKEN&gt;"</code></pre>
     </div>
 
     <h2 class="text-2xl font-bold mt-10 mb-4">8. Recommended Workflows</h2>

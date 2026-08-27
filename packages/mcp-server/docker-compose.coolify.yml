@@ -8,6 +8,7 @@ services:
     environment:
       - PORT=3001
       - MCP_FRICTION_MODE=soft
+      - MCP_AUTH_TOKEN=${MCP_AUTH_TOKEN}
     restart: unless-stopped
     labels:
       - "traefik.enable=true"

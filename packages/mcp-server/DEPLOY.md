@@ -42,45 +42,43 @@ curl https://mcp.unpeeragogy.pyragogy.org/health
 ### 1. Risorse MCP (list + read)
 ```bash
 # Lista risorse
-curl -s "http://91.99.70.26:3001/mcp/list" \
-  -H "Authorization: Bearer $MCP_AUTH_TOKEN"
+curl -s "http://91.99.70.26:3001/mcp/list?token=$MCP_AUTH_TOKEN"
 
 # Leggi risorsa per vettore di fallimento
-curl -s "http://91.99.70.26:3001/mcp/read?uri=unpeeragogy://failure/misunderstanding_power" \
-  -H "Authorization: Bearer $MCP_AUTH_TOKEN"
+curl -s "http://91.99.70.26:3001/mcp/read?uri=unpeeragogy://failure/misunderstanding_power&token=$MCP_AUTH_TOKEN"
 ```
 
-### 2. Tool MCP (via POST JSON)
+### 2. Tool MCP (via POST JSON, token in URL)
 ```bash
 # Search
-curl -s -X POST "http://91.99.70.26:3001/mcp/tool" \
-  -H "Authorization: Bearer $MCP_AUTH_TOKEN" \
+curl -s -X POST "http://91.99.70.26:3001/mcp/tool?token=$MCP_AUTH_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"tool":"search","params":{"query":"peeragogy","maxResults":5}}'
 
 # Inject Friction
-curl -s -X POST "http://91.99.70.26:3001/mcp/tool" \
-  -H "Authorization: Bearer $MCP_AUTH_TOKEN" \
+curl -s -X POST "http://91.99.70.26:3001/mcp/tool?token=$MCP_AUTH_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"tool":"injectFriction","params":{"topic":"moderation","mode":"hard"}}'
 
 # Tension Index
-curl -s -X POST "http://91.99.70.26:3001/mcp/tool" \
-  -H "Authorization: Bearer $MCP_AUTH_TOKEN" \
+curl -s -X POST "http://91.99.70.26:3001/mcp/tool?token=$MCP_AUTH_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"tool":"calculateTensionIndex","params":{}}'
 ```
 
-### 3. Connessione da client MCP (Claude Desktop / Cline)
+### 3. Connessione da client MCP (un comando)
+
+```bash
+npx @pyragogy/mcp-server --setup --token <MCP_AUTH_TOKEN>
+```
+
+Oppure manualmente:
 
 ```json
 {
   "mcpServers": {
     "unpeeragogy": {
-      "url": "https://mcp.unpeeragogy.pyragogy.org/mcp/sse",
-      "headers": {
-        "Authorization": "Bearer <MCP_AUTH_TOKEN>"
-      }
+      "url": "https://mcp.unpeeragogy.pyragogy.org/mcp/sse?token=<MCP_AUTH_TOKEN>"
     }
   }
 }
@@ -95,4 +93,31 @@ a ogni push su `main` (UUID della nuova applicazione MCP da aggiornare nel secre
 
 - **Container exited**: Il Dockerfile `COPY` paths deve corrispondere al contesto root del repo
 - **Health non risponde**: Il container builda ma esce subito → controllare i log da Coolify UI
-- **MCP_AUTH_TOKEN**: Va settato come variabile d'ambiente nell'app Coolify
+
+## 🔐 Autenticazione: MCP_AUTH_TOKEN
+
+Il server MCP protegge l'endpoint `/sse` con query parameter.
+Se `MCP_AUTH_TOKEN` non è impostato, l'accesso è **aperto** (sconsigliato).
+
+### Setup admin (una volta sola)
+
+1. Genera un token:
+   ```bash
+   node -e "const c=require('crypto');console.log('up_'+c.randomBytes(24).toString('base64url').slice(0,32))"
+   ```
+2. Coolify → **Progetti → Unpeeragogy → unpeeragogy-mcp → Environment Variables**:
+   - Aggiungi `MCP_AUTH_TOKEN` = il token generato
+3. **Redeploy**
+
+### Per chi si connette (un comando)
+
+```bash
+npx @pyragogy/mcp-server --setup --token <MCP_AUTH_TOKEN>
+```
+
+Configura automaticamente Claude Desktop e pi.
+
+### Richiedere il token
+
+Scrivi a Fabrizio via email: `info&#x40;pyragogy.org`
+Il token si passa via email privata. **Non committarlo su GitHub.**

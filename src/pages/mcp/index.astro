@@ -37,15 +37,13 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 &#123;
   "mcpServers": &#123;
     "unpeeragogy": &#123;
-      "url": "https://mcp.unpeeragogy.pyragogy.org/mcp/sse",
-      "headers": &#123;
-        "Authorization": "Bearer &lt;MCP_AUTH_TOKEN&gt;"
-      &#125;
+      "url": "https://mcp.unpeeragogy.pyragogy.org/mcp/sse?token=&lt;MCP_AUTH_TOKEN&gt;"
     &#125;
   &#125;
 &#125;
 </code></pre>
-      <p class="mt-3 text-xs d-text-dim">Il token va richiesto agli amministratori del progetto.</p>
+      <p class="mt-3 text-xs d-text-dim">Richiedi il token via email: <code>&#x69;&#x6e;&#x66;&#x6f;&#x40;&#x70;&#x79;&#x72;&#x61;&#x67;&#x6f;&#x67;&#x79;&#x2e;&#x6f;&#x72;&#x67;</code> (Fabrizio, admin).
+      Una volta ottenuto, esegui: <code>npx @pyragogy/mcp-server --setup --token &lt;token&gt;</code></p>
     </div>
   </section>
 </BaseLayout>
