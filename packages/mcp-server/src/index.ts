@@ -400,6 +400,8 @@ server.setRequestHandler(GetPromptRequestSchema, async (request) => {
 });
 
 // ─── HTTP Server (SSE Transport) ──────────────────────────────
+let activeTransport: SSEServerTransport | null = null;
+
 const httpServer = http.createServer(async (req, res) => {
   // CORS headers
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -443,6 +445,7 @@ const httpServer = http.createServer(async (req, res) => {
     }
 
     const transport = new SSEServerTransport("/messages", res);
+    activeTransport = transport;
     await server.connect(transport);
 
     // Keep alive
@@ -460,9 +463,17 @@ const httpServer = http.createServer(async (req, res) => {
       return;
     }
 
-    // Transport handles this via SSEServerTransport
-    res.writeHead(200);
-    res.end("OK");
+    if (activeTransport) {
+      try {
+        await activeTransport.handlePostMessage(req, res);
+      } catch (err) {
+        res.writeHead(500);
+        res.end(JSON.stringify({ error: String(err) }));
+      }
+    } else {
+      res.writeHead(400);
+      res.end(JSON.stringify({ error: "No active SSE session." }));
+    }
     return;
   }
 
