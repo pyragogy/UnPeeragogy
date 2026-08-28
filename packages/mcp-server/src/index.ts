@@ -25,6 +25,8 @@ import {
 import { getAgentPerturbatorePrompt, getFrictionPrompt } from "./prompts/index.js";
 import { hasFriction } from "./lib/friction.js";
 import { loadAllEntries } from "./lib/loader.js";
+import { routeOAuth } from "./lib/oauth.js";
+
 
 // ─── Configuration ────────────────────────────────────────────
 const PORT = parseInt(process.env.PORT || "3001", 10);
@@ -425,6 +427,11 @@ const httpServer = http.createServer(async (req, res) => {
   try {
     pathname = new URL(req.url || '/', `http://${req.headers.host || 'localhost'}`).pathname;
   } catch {}
+
+  // ─── OAuth routes (handled BEFORE auth — they ARE auth) ─────
+  if (routeOAuth(pathname, req, res)) {
+    return;
+  }
 
   // Health check
   if (pathname === "/health" && req.method === "GET") {
