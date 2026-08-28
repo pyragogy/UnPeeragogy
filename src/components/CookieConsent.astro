@@ -83,3 +83,23 @@ cc.run({
 // Expose for footer "Manage Cookies" button
 window.__cc = cc;
 </script>
+
+<style>
+  /* Mobile: full-width consent modal */
+  @media (max-width: 640px) {
+    #cc-main .cm__body {
+      flex-direction: column !important;
+    }
+    #cc-main .cm__btns {
+      flex-direction: column !important;
+      gap: 0.5rem !important;
+    }
+    #cc-main .cm__btn {
+      min-width: 100% !important;
+      margin: 0 !important;
+    }
+    #cc-main .pm__body {
+      padding: 1rem !important;
+    }
+  }
+</style>
