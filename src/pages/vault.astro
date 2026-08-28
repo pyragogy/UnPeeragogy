@@ -190,84 +190,92 @@ for (const s of sectionOrder) {
 
 <BaseLayout title="Vault — Unpeeragogy Knowledge Base" description="Grafo 3D interattivo + navigazione ad albero della Knowledge Base Unpeeragogy.">
   <script set:html={JSON.stringify({ nodes: graphNodes, links: graphLinks, sections: sectionMap })} id="vault-data" type="application/json"></script>
-  <section class="py-8">
-    <div class="flex items-center gap-4 mb-6">
-      <h1 class="text-3xl font-extrabold tracking-tight">🗂️ Knowledge Base</h1>
-      <span class="rounded-full bg-stone-100 dark:d-surface px-3 py-1 text-sm">{graphNodes.length} nodi · {graphLinks.length} connessioni</span>
+  <section class="py-4 sm:py-8">
+    <div class="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 mb-6">
+      <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight">🗂️ Knowledge Base</h1>
+      <span class="rounded-full bg-stone-100 dark:d-surface px-3 py-1 text-xs sm:text-sm w-fit">{graphNodes.length} nodi · {graphLinks.length} connessioni</span>
     </div>
 
-    <div class="flex items-center gap-2 mb-6 p-2 bg-stone-100 dark:d-surface rounded-lg w-fit">
-      <button id="view-graph-btn" class="rounded-md px-4 py-2 text-sm transition-all bg-white dark:d-raised shadow-sm font-semibold text-(--color-accent)">🕸️ Grafo 3D</button>
-      <button id="view-tree-btn" class="rounded-md px-4 py-2 text-sm transition-all text-stone-600 dark:d-text-sec hover:text-(--color-text)">🌲 Albero</button>
+    <div class="flex items-center gap-2 mb-6 p-2 bg-stone-100 dark:d-surface rounded-lg w-full sm:w-fit">
+      <button id="view-graph-btn" class="flex-1 sm:flex-initial rounded-md px-4 py-2 text-xs sm:text-sm transition-all bg-white dark:d-raised shadow-sm font-semibold text-(--color-accent)">🕸️ Grafo 3D</button>
+      <button id="view-tree-btn" class="flex-1 sm:flex-initial rounded-md px-4 py-2 text-xs sm:text-sm transition-all text-stone-600 dark:d-text-sec hover:text-(--color-text)">🌲 Albero</button>
     </div>
 
     <!-- Section filters (graph only) -->
-    <div id="graph-filters" class="flex flex-wrap gap-2 mb-4">
-      <div class="flex gap-1 mr-2 pr-2 border-r border-stone-200 dark:d-border">
-        <button class="group-filter active rounded-md px-3 py-1 text-xs font-medium bg-(--color-accent) text-white" data-group="all">Tutti</button>
-        <button class="group-filter rounded-md px-3 py-1 text-xs font-medium bg-stone-100 dark:d-surface text-stone-600 dark:d-text-sec hover:bg-stone-200 dark:d-hover transition-colors" data-group="unpeeragogy">⚡ Realtà</button>
-        <button class="group-filter rounded-md px-3 py-1 text-xs font-medium bg-stone-100 dark:d-surface text-stone-600 dark:d-text-sec hover:bg-stone-200 dark:d-hover transition-colors" data-group="peeragogy">📖 Teoria</button>
+    <div id="graph-filters" class="mb-4">
+      <!-- Mobile toggle -->
+      <button id="filter-toggle" class="sm:hidden flex items-center gap-2 text-xs d-text-dim mb-2 px-3 py-1.5 rounded-md hover:bg-stone-100 dark:d-hover transition-colors w-full">
+        <span>☰ Filtri sezioni</span>
+        <span class="ml-auto text-xs opacity-50">▼</span>
+      </button>
+      <div id="filter-body" class="flex flex-wrap gap-2">
+        <div class="flex gap-1 mr-2 pr-2 border-r border-stone-200 dark:d-border">
+          <button class="group-filter active rounded-md px-3 py-1 text-xs font-medium bg-(--color-accent) text-white" data-group="all">Tutti</button>
+          <button class="group-filter rounded-md px-3 py-1 text-xs font-medium bg-stone-100 dark:d-surface text-stone-600 dark:d-text-sec hover:bg-stone-200 dark:d-hover transition-colors" data-group="unpeeragogy">⚡ Realtà</button>
+          <button class="group-filter rounded-md px-3 py-1 text-xs font-medium bg-stone-100 dark:d-surface text-stone-600 dark:d-text-sec hover:bg-stone-200 dark:d-hover transition-colors" data-group="peeragogy">📖 Teoria</button>
+        </div>
+        {sectionOrder.map(s => (
+          <button class="section-filter active rounded-full px-2.5 py-1 text-xs font-medium flex items-center gap-1.5 bg-stone-100 dark:d-surface text-stone-600 dark:d-text-sec hover:bg-stone-200 dark:d-hover transition-colors border border-transparent" data-section={s} style={`border-color:${sectionColors[s] || "#a1a1aa"}`}>
+            <span class="w-2.5 h-2.5 rounded-full" style={`background:${sectionColors[s] || "#a1a1aa"}`}></span>
+            {s.replace(/^(Technologies,|Organizing a|Convening a) /, "").replace(/ Services, and Platforms$/, "")}
+          </button>
+        ))}
       </div>
-      {sectionOrder.map(s => (
-        <button class="section-filter active rounded-full px-2.5 py-1 text-xs font-medium flex items-center gap-1.5 bg-stone-100 dark:d-surface text-stone-600 dark:d-text-sec hover:bg-stone-200 dark:d-hover transition-colors border border-transparent" data-section={s} style={`border-color:${sectionColors[s] || "#a1a1aa"}`}>
-          <span class="w-2.5 h-2.5 rounded-full" style={`background:${sectionColors[s] || "#a1a1aa"}`}></span>
-          {s.replace(/^(Technologies,|Organizing a|Convening a) /, "").replace(/ Services, and Platforms$/, "")}
-        </button>
-      ))}
     </div>
 
     <!-- 3D GRAPH -->
-    <div id="vault-graph" class="w-full rounded-lg border border-stone-200 dark:d-border overflow-hidden" style="height:620px;position:relative;">
+    <div id="vault-graph" class="w-full rounded-lg border border-stone-200 dark:d-border overflow-hidden" style="height:min(620px, calc(100vh - 14rem));position:relative;">
       <div id="force-graph" style="width:100%;height:100%;"></div>
-      <div id="graph-legend" class="absolute bottom-4 left-4 flex flex-wrap gap-2 text-xs bg-white/90 dark:bg-[var(--surface-bg)]/90 px-3 py-2 rounded-lg shadow-sm dark:d-border backdrop-blur-sm max-w-[60%]">
-        {sectionOrder.map(s => (
-          <span class="flex items-center gap-1 whitespace-nowrap" title={s}><span class="w-3 h-3 rounded-full inline-block" style={`background:${sectionColors[s] || "#a1a1aa"}`}></span> {s.replace(/^(Technologies,|Organizing a|Convening a) /, "").replace(/ Services, and Platforms$/, "")}</span>
+      <div id="graph-legend" class="absolute bottom-4 left-2 sm:left-4 flex flex-wrap gap-1 sm:gap-2 text-[10px] sm:text-xs bg-white/90 dark:bg-[var(--surface-bg)]/90 px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg shadow-sm dark:d-border backdrop-blur-sm max-w-[70%] sm:max-w-[60%]">
+        {sectionOrder.slice(0, 5).map(s => (
+          <span class="flex items-center gap-1 whitespace-nowrap" title={s}><span class="w-2 sm:w-3 h-2 sm:h-3 rounded-full inline-block" style={`background:${sectionColors[s] || "#a1a1aa"}`}></span> <span class="hidden sm:inline">{s.replace(/^(Technologies,|Organizing a|Convening a) /, "").replace(/ Services, and Platforms$/, "")}</span><span class="sm:hidden">{s.replace(/^(Technologies,|Organizing a|Convening a) /, "").replace(/ Services, and Platforms$/, "").slice(0, 3)}</span></span>
         ))}
-        <span class="flex items-center gap-1 ml-1 pl-2 border-l border-stone-300 dark:d-border"><span class="w-2 h-2 rounded-full inline-block ring-1 ring-white dark:ring-black" style="background:#ffffff;border:2px solid currentColor;color:var(--color-text)"></span> Unpeer</span>
+        {sectionOrder.length > 5 && <span class="text-[10px] opacity-60">+{sectionOrder.length - 5}</span>}
+        <span class="flex items-center gap-1 ml-1 pl-2 border-l border-stone-300 dark:d-border"><span class="w-1.5 sm:w-2 h-1.5 sm:h-2 rounded-full inline-block ring-1 ring-white dark:ring-black" style="background:#ffffff;border:2px solid currentColor;color:var(--color-text)"></span> <span class="text-[10px] sm:text-xs">Unpeer</span></span>
       </div>
-      <div id="graph-controls" class="absolute bottom-4 right-4 flex flex-col gap-1.5">
-        <button id="ctrl-zoom-in" class="w-10 h-10 flex items-center justify-center rounded-xl bg-white/95 dark:bg-[var(--surface-bg)]/95 shadow-md dark:shadow-sm dark:d-border backdrop-blur-sm text-lg font-bold hover:bg-stone-100 dark:d-hover transition-all cursor-pointer select-none border border-stone-200 dark:border-0" title="Zoom + (scroll wheel)">＋</button>
-        <button id="ctrl-zoom-out" class="w-10 h-10 flex items-center justify-center rounded-xl bg-white/95 dark:bg-[var(--surface-bg)]/95 shadow-md dark:shadow-sm dark:d-border backdrop-blur-sm text-lg font-bold hover:bg-stone-100 dark:d-hover transition-all cursor-pointer select-none border border-stone-200 dark:border-0" title="Zoom - (scroll wheel)">−</button>
-        <button id="ctrl-reset" class="w-10 h-10 flex items-center justify-center rounded-xl bg-white/95 dark:bg-[var(--surface-bg)]/95 shadow-md dark:shadow-sm dark:d-border backdrop-blur-sm text-sm hover:bg-stone-100 dark:d-hover transition-all cursor-pointer select-none border border-stone-200 dark:border-0" title="Reset zoom (adatta tutto allo schermo)">⟲</button>
-        <button id="ctrl-labels" class="w-10 h-10 flex items-center justify-center rounded-xl bg-white/95 dark:bg-[var(--surface-bg)]/95 shadow-md dark:shadow-sm dark:d-border backdrop-blur-sm text-xs hover:bg-stone-100 dark:d-hover transition-all cursor-pointer select-none border border-stone-200 dark:border-0" title="Mostra/nascondi label">Aa</button>
+      <div id="graph-controls" class="absolute bottom-4 right-2 sm:right-4 flex flex-col gap-1.5">
+        <button id="ctrl-zoom-in" class="w-9 sm:w-10 h-9 sm:h-10 flex items-center justify-center rounded-xl bg-white/95 dark:bg-[var(--surface-bg)]/95 shadow-md dark:shadow-sm dark:d-border backdrop-blur-sm text-base sm:text-lg font-bold hover:bg-stone-100 dark:d-hover transition-all cursor-pointer select-none border border-stone-200 dark:border-0" title="Zoom +" aria-label="Zoom in">＋</button>
+        <button id="ctrl-zoom-out" class="w-9 sm:w-10 h-9 sm:h-10 flex items-center justify-center rounded-xl bg-white/95 dark:bg-[var(--surface-bg)]/95 shadow-md dark:shadow-sm dark:d-border backdrop-blur-sm text-base sm:text-lg font-bold hover:bg-stone-100 dark:d-hover transition-all cursor-pointer select-none border border-stone-200 dark:border-0" title="Zoom -" aria-label="Zoom out">−</button>
+        <button id="ctrl-reset" class="w-9 sm:w-10 h-9 sm:h-10 flex items-center justify-center rounded-xl bg-white/95 dark:bg-[var(--surface-bg)]/95 shadow-md dark:shadow-sm dark:d-border backdrop-blur-sm text-xs sm:text-sm hover:bg-stone-100 dark:d-hover transition-all cursor-pointer select-none border border-stone-200 dark:border-0" title="Reset" aria-label="Reset view">⟲</button>
+        <button id="ctrl-labels" class="w-9 sm:w-10 h-9 sm:h-10 flex items-center justify-center rounded-xl bg-white/95 dark:bg-[var(--surface-bg)]/95 shadow-md dark:shadow-sm dark:d-border backdrop-blur-sm text-[10px] sm:text-xs hover:bg-stone-100 dark:d-hover transition-all cursor-pointer select-none border border-stone-200 dark:border-0" title="Etichette" aria-label="Toggle labels">Aa</button>
       </div>
     </div>
 
     <!-- TREE -->
     <div id="vault-tree" class="hidden">
-      <div class="mb-6 flex flex-wrap gap-3 items-center">
-        <input id="vault-search" type="text" placeholder="Cerca capitolo..." class="rounded-lg border border-stone-200 dark:d-border bg-white dark:[background:var(--surface-bg)] px-4 py-2.5 text-sm flex-1 max-w-sm" />
+      <div class="mb-6 flex flex-col sm:flex-row gap-3 items-start sm:items-center">
+        <input id="vault-search" type="text" placeholder="Cerca capitolo..." class="rounded-lg border border-stone-200 dark:d-border bg-white dark:[background:var(--surface-bg)] px-4 py-2.5 text-sm w-full sm:w-auto sm:flex-1 sm:max-w-sm" />
         <div class="flex flex-wrap gap-2" id="tag-filters">
           <button class="tag-filter active rounded-full px-3 py-1 text-xs font-medium bg-(--color-accent) text-white" data-tag="all">Tutti</button>
           {allTagsSorted.slice(0, 20).map(tag => <button class="tag-filter rounded-full px-3 py-1 text-xs font-medium bg-stone-100 dark:d-surface text-stone-600 dark:d-text-sec hover:bg-stone-200 dark:d-hover transition-colors" data-tag={tag}>#{tag}</button>)}
         </div>
       </div>
 
-      <div class="space-y-4" id="vault-tree-sections">
+      <div class="space-y-3 sm:space-y-4" id="vault-tree-sections">
         {sectionOrder.map(s => (
           <div class="vault-section border border-stone-200 dark:d-border rounded-xl overflow-hidden" data-section={s}>
-            <button class="vault-section-header w-full flex items-center justify-between px-5 py-4 bg-stone-50 dark:d-surface hover:bg-stone-100 dark:d-hover transition-colors text-left text-base font-semibold">
-              <span class="flex items-center gap-3">
-                <span>{s}</span>
-                <span class="inline-flex items-center gap-1.5 text-xs font-normal">
+            <button class="vault-section-header w-full flex items-center justify-between px-4 sm:px-5 py-3 sm:py-4 bg-stone-50 dark:d-surface hover:bg-stone-100 dark:d-hover transition-colors text-left text-sm sm:text-base font-semibold">
+              <span class="flex items-center gap-2 sm:gap-3 min-w-0">
+                <span class="truncate">{s}</span>
+                <span class="inline-flex items-center gap-1 sm:gap-1.5 text-xs font-normal shrink-0">
                   <span class="rounded-full bg-[#4a8fe7]/15 text-[#4a8fe7] px-2 py-0.5">{peerCountBySection[s]} teoria</span>
                   <span class="rounded-full bg-[#ef4444]/15 text-[#ef4444] px-2 py-0.5">{unpeerCountBySection[s]} realtà</span>
                 </span>
               </span>
-              <span class="text-xs d-text-dim transition-transform">▼</span>
+              <span class="text-xs d-text-dim transition-transform shrink-0">▼</span>
             </button>
             <div class="vault-section-body divide-y divide-stone-100 dark:d-border">
               {entriesBySection[s].map(e => (
-                <a href={`/${e.slug}/`} class="vault-entry flex items-center gap-4 px-5 py-3.5 hover:bg-stone-50 dark:d-hover transition-colors text-sm group" data-slug={e.slug} data-tags={e.tags.join(",")}>
-                  <span class="w-3 h-3 rounded-full shrink-0" style={e.hasUnpeeragogy ? "background:#ef4444" : "background:#4a8fe7"}></span>
-                  <span class="flex-1 font-medium text-[15px]">{e.title}</span>
+                <a href={`/${e.slug}/`} class="vault-entry flex items-center gap-2 sm:gap-4 px-4 sm:px-5 py-3 sm:py-3.5 hover:bg-stone-50 dark:d-hover transition-colors text-xs sm:text-sm group" data-slug={e.slug} data-tags={e.tags.join(",")}>
+                  <span class="w-2.5 sm:w-3 h-2.5 sm:h-3 rounded-full shrink-0" style={e.hasUnpeeragogy ? "background:#ef4444" : "background:#4a8fe7"}></span>
+                  <span class="flex-1 font-medium text-sm sm:text-[15px] min-w-0 truncate">{e.title}</span>
                   {e.tension !== null && (
-                    <span class="tension-badge text-xs px-2 py-1 rounded-full shrink-0 font-medium" style={e.tension >= 1.0 ? "background:rgba(239,68,68,0.15);color:#f87171" : e.tension >= 0.6 ? "background:rgba(249,115,22,0.15);color:#fb923c" : "background:rgba(74,143,231,0.15);color:#4a8fe7"}>
+                    <span class="tension-badge text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full shrink-0 font-medium hidden sm:inline-block" style={e.tension >= 1.0 ? "background:rgba(239,68,68,0.15);color:#f87171" : e.tension >= 0.6 ? "background:rgba(249,115,22,0.15);color:#fb923c" : "background:rgba(74,143,231,0.15);color:#4a8fe7"}>
                       T {e.tension.toFixed(1)}
                     </span>
                   )}
-                  <span class="text-xs d-text-dim w-8 text-right shrink-0">{e.readingTime}m</span>
-                  <span class="d-text-dim group-hover:translate-x-1 transition-transform shrink-0">→</span>
+                  <span class="text-xs d-text-dim w-6 sm:w-8 text-right shrink-0">{e.readingTime}m</span>
+                  <span class="d-text-dim group-hover:translate-x-1 transition-transform shrink-0 hidden sm:inline">→</span>
                 </a>
               ))}
             </div>
@@ -368,7 +376,65 @@ for (const s of sectionOrder) {
       zoomState.x = e.offsetX - (e.offsetX - zoomState.x) * (zoomState.k / ok);
       zoomState.y = e.offsetY - (e.offsetY - zoomState.y) * (zoomState.k / ok);
       requestAnimationFrame(render);
-    });
+    }, { passive: false });
+
+    // ---- Touch events for mobile ----
+    let lastTouchDist = 0;
+    canvas.addEventListener("touchstart", function(e) {
+      e.preventDefault();
+      if (e.touches.length === 1) {
+        var t = e.touches[0];
+        var rect = canvas.getBoundingClientRect();
+        var sx = t.clientX - rect.left, sy = t.clientY - rect.top;
+        last = { x: sx, y: sy };
+        var n = hitTest(sx, sy);
+        if (n) { dragNode = n; sim.alphaTarget(0.3).restart(); }
+        else { isPan = true; }
+      } else if (e.touches.length === 2) {
+        lastTouchDist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
+      }
+    }, { passive: false });
+
+    canvas.addEventListener("touchmove", function(e) {
+      e.preventDefault();
+      if (e.touches.length === 1) {
+        var t = e.touches[0];
+        var rect = canvas.getBoundingClientRect();
+        var sx = t.clientX - rect.left, sy = t.clientY - rect.top;
+        if (dragNode) {
+          var p = screenToGraph(sx, sy);
+          dragNode.fx = p.x; dragNode.fy = p.y;
+          sim.alpha(0.1).restart();
+        } else if (isPan) {
+          zoomState.x += sx - last.x;
+          zoomState.y += sy - last.y;
+          last = { x: sx, y: sy };
+          requestAnimationFrame(render);
+        }
+      } else if (e.touches.length === 2) {
+        var dist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
+        if (lastTouchDist > 0) {
+          var scale = dist / lastTouchDist;
+          zoomState.k = Math.max(0.2, Math.min(6, zoomState.k * scale));
+          requestAnimationFrame(render);
+        }
+        lastTouchDist = dist;
+      }
+    }, { passive: false });
+
+    canvas.addEventListener("touchend", function(e) {
+      if (e.changedTouches.length === 1 && dragNode && !isPan) {
+        var t = e.changedTouches[0];
+        var rect = canvas.getBoundingClientRect();
+        var sx = t.clientX - rect.left, sy = t.clientY - rect.top;
+        if (hitTest(sx, sy) === dragNode) {
+          visitedSlugs.add(dragNode.id);
+          localStorage.setItem("graph-visited", JSON.stringify(Array.from(visitedSlugs)));
+          window.location.href = "/" + dragNode.id + "/";
+        }
+      }
+      dragNode = null; isPan = false; lastTouchDist = 0;
+    }, { passive: false });
 
     canvas.addEventListener("mousedown", function(e) {
       let n = hitTest(e.offsetX, e.offsetY);
@@ -691,6 +757,18 @@ for (const s of sectionOrder) {
     });
   });
 
+  // --- Mobile filter toggle ---
+  document.addEventListener("DOMContentLoaded", function() {
+    var toggle = document.getElementById("filter-toggle");
+    var body = document.getElementById("filter-body");
+    if (toggle && body) {
+      toggle.addEventListener("click", function() {
+        body.classList.toggle("open");
+        toggle.classList.toggle("open");
+      });
+    }
+  });
+
   // Init graph after DOM ready
   document.addEventListener("DOMContentLoaded", function() {
     setTimeout(initGraph, 300);
@@ -752,3 +830,19 @@ for (const s of sectionOrder) {
   .vault-entry { text-decoration: none; color: inherit; }
   .vault-entry:hover { text-decoration: none; }
   .section-filter:not(.active) { opacity: 0.45; filter: saturate(0.3); }
+
+  /* Mobile: filter collapse */
+  @media (max-width: 640px) {
+    #filter-body {
+      display: none;
+    }
+    #filter-body.open {
+      display: flex;
+    }
+    #filter-toggle.open span:last-child {
+      transform: rotate(180deg);
+    }
+    .tension-badge {
+      display: none;
+    }
+  }

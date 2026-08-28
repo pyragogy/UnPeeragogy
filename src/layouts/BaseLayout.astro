@@ -90,7 +90,9 @@ const navLinks = [
         <a href="/" class="flex items-center gap-2 text-lg font-bold tracking-tight hover:text-(--color-accent) transition-colors whitespace-nowrap">
           <span class="text-xl">⧩</span> Unpeeragogy
         </a>
-        <div class="flex items-center gap-1 text-sm">
+
+        <!-- Desktop nav links -->
+        <div class="hidden sm:flex items-center gap-1 text-sm">
           {
             navLinks.map((link) => (
               <a
@@ -102,11 +104,16 @@ const navLinks = [
             ))
           }
         </div>
+
         <div class="flex items-center">
+          <!-- Mobile hamburger -->
+          <button id="nav-toggle" class="sm:hidden cursor-pointer rounded-md p-2 transition-colors hover:bg-stone-200 d-hover" aria-label="Menu">
+            <Icon name="mingcute:menu-line" size={22} aria-hidden="true" />
+          </button>
           <a
             href="https://notebook.google.com/notebook/7d483314-7344-4718-9a6e-5f43524c8c0f"
             target="_blank"
-            class="rounded-md p-2 transition-colors hover:bg-stone-200 d-hover"
+            class="hidden sm:block rounded-md p-2 transition-colors hover:bg-stone-200 d-hover"
             aria-label="Notebook"
           >
             <Icon name="mingcute:book-2-line" size={20} aria-hidden="true" />
@@ -114,7 +121,7 @@ const navLinks = [
           <a
             href="https://github.com/pyragogy/UnPeeragogy"
             target="_blank"
-            class="rounded-md p-2 transition-colors hover:bg-stone-200 d-hover"
+            class="hidden sm:block rounded-md p-2 transition-colors hover:bg-stone-200 d-hover"
             aria-label="GitHub"
           >
             <Icon name="mingcute:github-line" size={20} aria-hidden="true" />
@@ -125,9 +132,43 @@ const navLinks = [
           <ThemeToggle />
         </div>
       </nav>
+
+      <!-- Mobile nav drawer -->
+      <div id="mobile-nav" class="sm:hidden hidden border-t border-stone-200 d-border bg-(--color-bg)/95">
+        <div class="flex flex-col gap-1 px-4 py-3 text-sm">
+          {
+            navLinks.map((link) => (
+              <a
+                href={link.href}
+                class="rounded-md px-3 py-2 transition-colors hover:bg-stone-200 d-hover hover:text-(--color-accent)"
+              >
+                {link.label}
+              </a>
+            ))
+          }
+          <div class="flex items-center gap-2 pt-2 mt-2 border-t border-stone-200 d-border">
+            <a
+              href="https://notebook.google.com/notebook/7d483314-7344-4718-9a6e-5f43524c8c0f"
+              target="_blank"
+              class="rounded-md p-2 transition-colors hover:bg-stone-200 d-hover"
+              aria-label="Notebook"
+            >
+              <Icon name="mingcute:book-2-line" size={20} aria-hidden="true" />
+            </a>
+            <a
+              href="https://github.com/pyragogy/UnPeeragogy"
+              target="_blank"
+              class="rounded-md p-2 transition-colors hover:bg-stone-200 d-hover"
+              aria-label="GitHub"
+            >
+              <Icon name="mingcute:github-line" size={20} aria-hidden="true" />
+            </a>
+          </div>
+        </div>
+      </div>
     </header>
 
-    <main class="mx-auto max-w-6xl px-4 py-8">
+    <main class="mx-auto max-w-6xl px-3 sm:px-4 py-6 sm:py-8">
       <div id="search" class="hidden mb-8"></div>
       <slot />
     </main>
@@ -159,11 +200,24 @@ const navLinks = [
     <CookieConsent />
 
     <script>
+      // Hamburger toggle
+      document.getElementById('nav-toggle')?.addEventListener('click', function() {
+        var drawer = document.getElementById('mobile-nav');
+        if (drawer) drawer.classList.toggle('hidden');
+      });
+
       document.getElementById('manage-cookie')?.addEventListener('click', (e) => {
         e.preventDefault();
         if (window.__cc?.showPreferences) {
           window.__cc.showPreferences();
         }
+      });
+
+      // Close mobile nav on link click
+      document.querySelectorAll('#mobile-nav a').forEach(function(link) {
+        link.addEventListener('click', function() {
+          document.getElementById('mobile-nav')?.classList.add('hidden');
+        });
       });
     </script>
   </body>
@@ -213,6 +267,23 @@ const navLinks = [
   }
   .legal-note a {
     color: var(--color-accent);
+  }
+
+  /* Mobile: footer link wrapping */
+  @media (max-width: 640px) {
+    .legal-links {
+      gap: 0.3rem;
+      font-size: 0.75rem;
+    }
+    .legal-links .sep {
+      margin: 0 0.1rem;
+    }
+    .legal-bar {
+      padding: 1rem 0.75rem 0.5rem;
+    }
+    .legal-line {
+      font-size: 0.75rem;
+    }
   }
 </style>
 

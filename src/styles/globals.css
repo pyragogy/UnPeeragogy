@@ -56,8 +56,19 @@ body {
 /* Prose overrides for readability */
 .prose {
   max-width: 72ch;
-  font-size: 1.05rem;
+  font-size: 1rem;
   line-height: 1.75;
+}
+
+@media (min-width: 640px) {
+  .prose {
+    font-size: 1.05rem;
+  }
+}
+
+.prose :where(img):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
+  max-width: 100%;
+  height: auto;
 }
 
 .prose h1, .prose h2, .prose h3, .prose h4 {

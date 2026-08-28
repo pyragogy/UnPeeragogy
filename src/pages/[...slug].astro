@@ -46,25 +46,25 @@ const next = currentIndex < sorted.length - 1 ? sorted[currentIndex + 1] : null;
 <BaseLayout title={title} description={peeragogyEntry?.data?.description || unpeeragogyEntry?.data?.description}>
   <!-- View Toggle (hidden for single-column Foreword) -->
   {peeragogyEntry?.slug !== 'foreword' ? (
-  <div class="flex items-center justify-center gap-2 mb-6 p-2 bg-stone-100 d-surface rounded-lg w-fit mx-auto">
+  <div class="flex items-center justify-center gap-2 mb-6 p-2 bg-stone-100 d-surface rounded-lg mx-auto max-w-full overflow-x-auto">
     <button
       @click="view = 'dual'"
       :class="view === 'dual' ? 'bg-white d-raised shadow-sm font-semibold text-(--color-accent)' : 'd-text-sec hover:text-(--color-text)'"
-      class="rounded-md px-4 py-2 text-sm transition-all"
+      class="rounded-md px-3 sm:px-4 py-2 text-xs sm:text-sm transition-all whitespace-nowrap"
     >
       ⿻ Dual
     </button>
     <button
       @click="view = 'peeragogy'"
       :class="view === 'peeragogy' ? 'bg-white d-raised shadow-sm font-semibold text-(--color-accent)' : 'd-text-sec hover:text-(--color-text)'"
-      class="rounded-md px-4 py-2 text-sm transition-all"
+      class="rounded-md px-3 sm:px-4 py-2 text-xs sm:text-sm transition-all whitespace-nowrap"
     >
       📖 Theory
     </button>
     <button
       @click="view = 'unpeeragogy'"
       :class="view === 'unpeeragogy' ? 'bg-white d-raised shadow-sm font-semibold text-(--color-accent)' : 'd-text-sec hover:text-(--color-text)'"
-      class="rounded-md px-4 py-2 text-sm transition-all"
+      class="rounded-md px-3 sm:px-4 py-2 text-xs sm:text-sm transition-all whitespace-nowrap"
     >
       ⚡ Reality
     </button>
@@ -110,7 +110,7 @@ const next = currentIndex < sorted.length - 1 ? sorted[currentIndex + 1] : null;
       <!-- Dual Column Layout -->
       <div
         class="min-w-0 flex-1"
-        :class="view === 'dual' ? 'grid grid-cols-1 lg:grid-cols-2 gap-6' : 'max-w-3xl mx-auto'"
+        :class="view === 'dual' ? 'flex flex-col lg:grid lg:grid-cols-2 gap-6' : 'max-w-3xl mx-auto'"
         data-pagefind-body
       >
         <!-- LEFT COLUMN: Peeragogy -->
@@ -119,9 +119,9 @@ const next = currentIndex < sorted.length - 1 ? sorted[currentIndex + 1] : null;
           x-transition:enter="transition ease-out duration-300"
           x-transition:enter-start="opacity-0"
           x-transition:enter-end="opacity-100"
-          class="scroll-sync peeragogy-col overflow-y-auto max-h-[calc(100vh-12rem)] pr-4"
-          :class="view === 'dual' ? 'border-r border-stone-200 d-border' : ''"
-          @scroll.throttle="if (scrollSync && view === 'dual') { var el = $el.closest('div').querySelector('.unpeeragogy-col'); if (el) el.scrollTop = $el.scrollTop }"
+          class="scroll-sync peeragogy-col"
+          :class="view === 'dual' ? 'lg:border-r lg:border-stone-200 d-border lg:pr-4' : ''"
+          @scroll.throttle="if (scrollSync && view === 'dual' && window.innerWidth >= 1024) { var el = $el.closest('div').querySelector('.unpeeragogy-col'); if (el) el.scrollTop = $el.scrollTop }"
         >
           {PeeragogyContent ? (
             <article>
@@ -159,9 +159,9 @@ const next = currentIndex < sorted.length - 1 ? sorted[currentIndex + 1] : null;
           x-transition:enter="transition ease-out duration-300"
           x-transition:enter-start="opacity-0"
           x-transition:enter-end="opacity-100"
-          class="scroll-sync unpeeragogy-col overflow-y-auto max-h-[calc(100vh-12rem)]"
-          :class="view === 'dual' ? 'pl-2' : ''"
-          @scroll.throttle="if (scrollSync && view === 'dual') { var el = $el.closest('div').querySelector('.peeragogy-col'); if (el) el.scrollTop = $el.scrollTop }"
+          class="scroll-sync unpeeragogy-col"
+          :class="view === 'dual' ? 'lg:pl-2' : ''"
+          @scroll.throttle="if (scrollSync && view === 'dual' && window.innerWidth >= 1024) { var el = $el.closest('div').querySelector('.peeragogy-col'); if (el) el.scrollTop = $el.scrollTop }"
         >
           {UnpeeragogyContent ? (
             <article>
@@ -195,20 +195,20 @@ const next = currentIndex < sorted.length - 1 ? sorted[currentIndex + 1] : null;
   )}
 
   <!-- Prev/Next navigation -->
-  <nav class="mt-8 flex items-center justify-between border-t border-stone-200 d-border pt-6">
-    <div>
+  <nav class="mt-8 flex items-center justify-between border-t border-stone-200 d-border pt-6 gap-4">
+    <div class="min-w-0 flex-1">
       {prev && (
         <a href={`/${prev.slug}/`} class="group flex flex-col">
-          <span class="text-sm d-text-dim">← Previous</span>
-          <span class="font-medium group-hover:text-(--color-accent) transition-colors">{prev.data.title}</span>
+          <span class="text-xs sm:text-sm d-text-dim">← Previous</span>
+          <span class="text-sm sm:text-base font-medium truncate group-hover:text-(--color-accent) transition-colors">{prev.data.title}</span>
         </a>
       )}
     </div>
-    <div class="text-right">
+    <div class="min-w-0 flex-1 text-right">
       {next && (
         <a href={`/${next.slug}/`} class="group flex flex-col">
-          <span class="text-sm d-text-dim">Next →</span>
-          <span class="font-medium group-hover:text-(--color-accent) transition-colors">{next.data.title}</span>
+          <span class="text-xs sm:text-sm d-text-dim">Next →</span>
+          <span class="text-sm sm:text-base font-medium truncate group-hover:text-(--color-accent) transition-colors">{next.data.title}</span>
         </a>
       )}
     </div>
