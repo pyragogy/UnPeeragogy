@@ -696,17 +696,48 @@ for (const s of sectionOrder) {
     setTimeout(initGraph, 300);
   });
 
+  // --- All toggle (Tutti) ---
+  document.addEventListener("DOMContentLoaded", function() {
+    var allBtn = document.querySelector('.group-filter[data-group="all"]');
+    if (allBtn) {
+      allBtn.addEventListener("click", function() {
+        var isAllActive = this.classList.contains("active");
+        if (isAllActive) {
+          // Deselect all section filters
+          hiddenSections = new Set(sectionOrder);
+          document.querySelectorAll(".section-filter").forEach(function(btn) {
+            btn.classList.remove("active");
+          });
+        } else {
+          // Select all section filters
+          hiddenSections = new Set();
+          document.querySelectorAll(".section-filter").forEach(function(btn) {
+            btn.classList.add("active");
+          });
+        }
+        this.classList.toggle("active");
+        if (sim) zoomToFit();
+      });
+    }
+  });
+
   // --- Section filter ---
   document.addEventListener("DOMContentLoaded", function() {
     document.querySelectorAll(".section-filter").forEach(function(btn) {
       btn.addEventListener("click", function() {
-        let sec = this.dataset.section;
-        let isActive = this.classList.contains("active");
+        var sec = this.dataset.section;
+        var isActive = this.classList.contains("active");
         this.classList.toggle("active");
         if (isActive) {
           hiddenSections.add(sec);
         } else {
           hiddenSections.delete(sec);
+        }
+        // Sync "Tutti" state
+        var allBtn = document.querySelector('.group-filter[data-group="all"]');
+        if (allBtn) {
+          var allVisible = document.querySelectorAll(".section-filter.active").length === sectionOrder.length;
+          allBtn.classList.toggle("active", allVisible);
         }
         if (sim) zoomToFit();
       });

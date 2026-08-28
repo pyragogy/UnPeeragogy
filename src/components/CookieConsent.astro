@@ -1,0 +1,67 @@
+---
+// Cookie Consent — vanilla-cookieconsent v3
+---
+
+<script>
+import * as cc from 'vanilla-cookieconsent';
+import 'vanilla-cookieconsent/dist/cookieconsent.css';
+
+cc.run({
+  guiOptions: {
+    consentModal: {
+      layout: 'cloud',
+      position: 'bottom center',
+      equalWeightButtons: true,
+      flipButtons: false,
+    },
+    preferencesModal: {
+      layout: 'box',
+      position: 'right',
+      equalWeightButtons: true,
+      flipButtons: false,
+    },
+  },
+  categories: {
+    necessary: { enabled: true, readOnly: true },
+  },
+  language: {
+    default: 'it',
+    translations: {
+      it: {
+        consentModal: {
+          title: 'Questo sito utilizza cookie tecnici',
+          description:
+            'Utilizziamo solo cookie tecnici essenziali per il funzionamento del sito. Nessun cookie di profilazione o tracciamento.',
+          acceptAllBtn: 'Accetta',
+          acceptNecessaryBtn: 'Solo necessari',
+          showPreferencesBtn: 'Dettagli',
+          footer:
+            '<a href="/privacy/">Privacy</a> · <a href="/cookies/">Cookie</a> · <a href="/terms/">Termini</a>',
+        },
+        preferencesModal: {
+          title: 'Preferenze Cookie',
+          acceptAllBtn: 'Accetta tutti',
+          acceptNecessaryBtn: 'Solo necessari',
+          savePreferencesBtn: 'Salva preferenze',
+          closeIconLabel: 'Chiudi',
+          sections: [
+            {
+              title: 'Cookie Necessari',
+              description: 'Essenziali per il funzionamento del sito. Memorizzazione tema scuro/chiaro e stato consenso.',
+              linkedCategory: 'necessary',
+            },
+            {
+              title: 'Maggiori informazioni',
+              description:
+                'Consulta la <a href="/privacy/">Privacy Policy</a> o scrivi a <a href="mailto:info@pyragogy.org">info@pyragogy.org</a>.',
+            },
+          ],
+        },
+      },
+    },
+  },
+});
+
+// Expose for footer "Gestisci Cookie" button
+window.__cc = cc;
+</script>
