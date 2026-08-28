@@ -1,5 +1,5 @@
 ---
-// Cookie Consent — vanilla-cookieconsent v3
+// Cookie Consent — vanilla-cookieconsent v3 | English · professional
 ---
 
 <script>
@@ -22,38 +22,56 @@ cc.run({
     },
   },
   categories: {
-    necessary: { enabled: true, readOnly: true },
+    necessary: {
+      enabled: true,
+      readOnly: true,
+      services: {
+        cookieConsent: { label: 'Consent preferences' },
+        themePrefs: { label: 'Theme preference (light/dark)' },
+      },
+    },
   },
   language: {
-    default: 'it',
+    default: 'en',
     translations: {
-      it: {
+      en: {
         consentModal: {
-          title: 'Questo sito utilizza cookie tecnici',
+          title: 'This site uses essential cookies only',
           description:
-            'Utilizziamo solo cookie tecnici essenziali per il funzionamento del sito. Nessun cookie di profilazione o tracciamento.',
-          acceptAllBtn: 'Accetta',
-          acceptNecessaryBtn: 'Solo necessari',
-          showPreferencesBtn: 'Dettagli',
+            'We only use technical cookies that are strictly necessary for the site to function and to remember your preferences (theme and consent choice). No tracking, no analytics, no third-party profiling cookies are deployed.',
+          acceptAllBtn: 'Accept',
+          acceptNecessaryBtn: 'Accept necessary only',
+          showPreferencesBtn: 'Cookie preferences',
           footer:
-            '<a href="/privacy/">Privacy</a> · <a href="/cookies/">Cookie</a> · <a href="/terms/">Termini</a>',
+            '<a href="/privacy/">Privacy Policy</a> · <a href="/cookies/">Cookie Policy</a> · <a href="/terms/">Terms of Service</a>',
         },
         preferencesModal: {
-          title: 'Preferenze Cookie',
-          acceptAllBtn: 'Accetta tutti',
-          acceptNecessaryBtn: 'Solo necessari',
-          savePreferencesBtn: 'Salva preferenze',
-          closeIconLabel: 'Chiudi',
+          title: 'Cookie Preferences',
+          acceptAllBtn: 'Accept all',
+          acceptNecessaryBtn: 'Accept necessary only',
+          savePreferencesBtn: 'Save preferences',
+          closeIconLabel: 'Close',
           sections: [
             {
-              title: 'Cookie Necessari',
-              description: 'Essenziali per il funzionamento del sito. Memorizzazione tema scuro/chiaro e stato consenso.',
+              title: 'Necessary Cookies',
+              description:
+                'These cookies are essential for the website to function properly. They enable core functionality such as theme persistence (dark/light mode) and consent state storage. No personally identifiable information is collected.',
               linkedCategory: 'necessary',
             },
             {
-              title: 'Maggiori informazioni',
+              title: 'Third-Party Services',
               description:
-                'Consulta la <a href="/privacy/">Privacy Policy</a> o scrivi a <a href="mailto:info@pyragogy.org">info@pyragogy.org</a>.',
+                'This site uses <strong>Giscus</strong> for comments (powered by GitHub Discussions) and is hosted via <strong>GitHub Pages</strong>. These services may set their own cookies for authentication and security. Please refer to the <a href="https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement" target="_blank" rel="noopener noreferrer">GitHub Privacy Statement</a> for details.',
+            },
+            {
+              title: 'Your Rights',
+              description:
+                'Under the GDPR (if you are in the EU/EEA/UK) and similar privacy frameworks, you have the right to access, rectify, or erase your data, and to lodge a complaint with your local data protection authority. For inquiries: <a href="mailto:info@pyragogy.org">info@pyragogy.org</a>.',
+            },
+            {
+              title: 'More Information',
+              description:
+                'Read our full <a href="/privacy/">Privacy Policy</a>, <a href="/cookies/">Cookie Policy</a>, and <a href="/terms/">Terms of Service</a>, or contact us at <a href="mailto:info@pyragogy.org">info@pyragogy.org</a>.',
             },
           ],
         },
@@ -62,6 +80,6 @@ cc.run({
   },
 });
 
-// Expose for footer "Gestisci Cookie" button
+// Expose for footer "Manage Cookies" button
 window.__cc = cc;
 </script>
