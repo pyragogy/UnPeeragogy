@@ -2,8 +2,6 @@
    <img src="./public/images/UnPeeragogy-logo-test.webp" alt="Unpeeragogy" width="240" />
 </div>
 
-<h1 align="center">Unpeeragogy</h1>
-
 <p align="center">
   <strong>Peeragogy's uncomfortable second question.</strong>
 </p>
