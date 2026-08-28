@@ -1,6 +1,7 @@
 ---
 import "../styles/globals.css";
 import ThemeToggle from "../components/ThemeToggle.astro";
+import CookieConsent from "../components/CookieConsent.astro";
 import { Icon } from "astro-icon/components";
 
 export interface Props {
@@ -131,13 +132,89 @@ const navLinks = [
       <slot />
     </main>
 
-    <footer class="border-t border-stone-200 d-border py-6 text-center text-sm d-text-dim">
-      <p>
-        Unpeeragogy — Decostruzione radicale della teoria peer-to-peer (<a href="https://creativecommons.org/publicdomain/zero/1.0/" class="underline hover:text-(--color-accent)">CC Zero</a>)
-      </p>
+    <footer>
+      <div class="legal-bar">
+        <p class="legal-line">
+          © {new Date().getFullYear()} Fabrizio Terzi — P.IVA IT04923300166
+        </p>
+        <nav class="legal-links">
+          <a href="/privacy/">Privacy Policy</a>
+          <span class="sep">·</span>
+          <a href="/cookies/">Cookie Policy</a>
+          <span class="sep">·</span>
+          <a href="/terms/">Termini di Servizio</a>
+          <span class="sep">·</span>
+          <a href="javascript:void(0)" id="manage-cookie" onclick="window.__cc?.showPreferences?.()">Gestisci Cookie</a>
+          <span class="sep">·</span>
+          <a href="https://www.linkedin.com/in/bergamohub001/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <span class="sep">·</span>
+          <a href="mailto:info@pyragogy.org">info@pyragogy.org</a>
+        </nav>
+        <p class="legal-note">
+          Contenuti in <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noopener noreferrer" class="underline hover:text-(--color-accent)">CC Zero</a> — Public Domain Dedication.
+        </p>
+      </div>
     </footer>
+
+    <CookieConsent />
+
+    <script>
+      document.getElementById('manage-cookie')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (window.__cc?.showPreferences) {
+          window.__cc.showPreferences();
+        }
+      });
+    </script>
   </body>
 </html>
+
+<style>
+  .legal-bar {
+    text-align: center;
+    padding: 1.5rem 0 0.5rem;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border-color, #e4e4e7);
+  }
+  :root.dark .legal-bar {
+    border-top-color: var(--border-dark, #27272a);
+  }
+  .legal-line {
+    margin: 0 0 0.5rem;
+    font-weight: 600;
+  }
+  .legal-links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.5rem;
+  }
+  .legal-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color 0.15s ease;
+  }
+  .legal-links a:hover {
+    color: var(--color-text);
+    text-decoration: underline;
+  }
+  .legal-links .sep {
+    color: var(--text-secondary);
+    opacity: 0.5;
+  }
+  .legal-note {
+    margin: 0.25rem 0 0;
+    font-size: 0.75rem;
+    opacity: 0.7;
+  }
+  .legal-note a {
+    color: var(--color-accent);
+  }
+</style>
 
 <script>
   document.getElementById("search-toggle")?.addEventListener("click", () => {

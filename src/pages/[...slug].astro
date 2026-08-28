@@ -44,7 +44,8 @@ const next = currentIndex < sorted.length - 1 ? sorted[currentIndex + 1] : null;
 ---
 
 <BaseLayout title={title} description={peeragogyEntry?.data?.description || unpeeragogyEntry?.data?.description}>
-  <!-- View Toggle -->
+  <!-- View Toggle (hidden for single-column Foreword) -->
+  {peeragogyEntry?.slug !== 'foreword' ? (
   <div class="flex items-center justify-center gap-2 mb-6 p-2 bg-stone-100 d-surface rounded-lg w-fit mx-auto">
     <button
       @click="view = 'dual'"
@@ -58,41 +59,22 @@ const next = currentIndex < sorted.length - 1 ? sorted[currentIndex + 1] : null;
       :class="view === 'peeragogy' ? 'bg-white d-raised shadow-sm font-semibold text-(--color-accent)' : 'd-text-sec hover:text-(--color-text)'"
       class="rounded-md px-4 py-2 text-sm transition-all"
     >
-      📖 Teoria
+      📖 Theory
     </button>
     <button
       @click="view = 'unpeeragogy'"
       :class="view === 'unpeeragogy' ? 'bg-white d-raised shadow-sm font-semibold text-(--color-accent)' : 'd-text-sec hover:text-(--color-text)'"
       class="rounded-md px-4 py-2 text-sm transition-all"
     >
-      ⚡ Realtà
+      ⚡ Reality
     </button>
   </div>
+  ) : null}
 
-  <div class="flex gap-8">
-    <!-- Sidebar TOC -->
-    <aside class="hidden lg:block w-64 shrink-0">
-      <div class="sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto">
-        <TableOfContents slug={peeragogyEntry?.slug || unpeeragogyEntry?.slug} section={peeragogyEntry?.data?.section || unpeeragogyEntry?.data?.section} />
-      </div>
-    </aside>
-
-    <!-- Dual Column Layout -->
-    <div
-      class="min-w-0 flex-1"
-      :class="view === 'dual' ? 'grid grid-cols-1 lg:grid-cols-2 gap-6' : 'max-w-3xl mx-auto'"
-      data-pagefind-body
-    >
-      <!-- LEFT COLUMN: Peeragogy -->
-      <div
-        x-show="view === 'dual' || view === 'peeragogy'"
-        x-transition:enter="transition ease-out duration-300"
-        x-transition:enter-start="opacity-0"
-        x-transition:enter-end="opacity-100"
-        class="scroll-sync peeragogy-col overflow-y-auto max-h-[calc(100vh-12rem)] pr-4"
-        :class="view === 'dual' ? 'border-r border-stone-200 d-border' : ''"
-        @scroll.throttle="if (scrollSync && view === 'dual') { var el = $el.closest('div').querySelector('.unpeeragogy-col'); if (el) el.scrollTop = $el.scrollTop }"
-      >
+  <!-- Foreword: single column, full width, no Unpeeragogy -->
+  {peeragogyEntry?.slug === 'foreword' ? (
+    <div class="max-w-3xl mx-auto" data-pagefind-body>
+      <div class="scroll-sync peeragogy-col">
         {PeeragogyContent ? (
           <article>
             <header class="mb-6">
@@ -103,13 +85,6 @@ const next = currentIndex < sorted.length - 1 ? sorted[currentIndex + 1] : null;
               )}
               <div class="mt-2 flex items-center gap-3 text-xs d-text-dim">
                 <span>⏱ {peeragogyEntry.data.readingTime} min</span>
-                {peeragogyEntry.data.tags?.length > 0 && (
-                  <span class="flex gap-1">
-                    {peeragogyEntry.data.tags.map((tag) => (
-                      <span class="rounded-full bg-stone-100 d-surface px-2 py-0.5">{tag}</span>
-                    ))}
-                  </span>
-                )}
               </div>
             </header>
             <div class="prose max-w-none prose-sm">
@@ -122,46 +97,102 @@ const next = currentIndex < sorted.length - 1 ? sorted[currentIndex + 1] : null;
           </div>
         )}
       </div>
+    </div>
+  ) : (
+    <div class="flex gap-8">
+      <!-- Sidebar TOC -->
+      <aside class="hidden lg:block w-64 shrink-0">
+        <div class="sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto">
+          <TableOfContents slug={peeragogyEntry?.slug || unpeeragogyEntry?.slug} section={peeragogyEntry?.data?.section || unpeeragogyEntry?.data?.section} />
+        </div>
+      </aside>
 
-      <!-- RIGHT COLUMN: Unpeeragogy -->
+      <!-- Dual Column Layout -->
       <div
-        x-show="view === 'dual' || view === 'unpeeragogy'"
-        x-transition:enter="transition ease-out duration-300"
-        x-transition:enter-start="opacity-0"
-        x-transition:enter-end="opacity-100"
-        class="scroll-sync unpeeragogy-col overflow-y-auto max-h-[calc(100vh-12rem)]"
-        :class="view === 'dual' ? 'pl-2' : ''"
-        @scroll.throttle="if (scrollSync && view === 'dual') { var el = $el.closest('div').querySelector('.peeragogy-col'); if (el) el.scrollTop = $el.scrollTop }"
+        class="min-w-0 flex-1"
+        :class="view === 'dual' ? 'grid grid-cols-1 lg:grid-cols-2 gap-6' : 'max-w-3xl mx-auto'"
+        data-pagefind-body
       >
-        {UnpeeragogyContent ? (
-          <article>
-            <header class="mb-6">
-              <p class="text-sm font-medium text-red-500">⚡ Unpeeragogy</p>
-              <h1 class="text-2xl font-bold tracking-tight mt-1">{unpeeragogyEntry.data.title}</h1>
-              <div class="mt-2 flex items-center gap-3 text-xs d-text-dim">
-                <span>⏱ {unpeeragogyEntry.data.readingTime} min</span>
-                {unpeeragogyEntry.data.tags?.length > 0 && (
-                  <span class="flex gap-1">
-                    {unpeeragogyEntry.data.tags.map((tag) => (
-                      <span class="rounded-full bg-red-50 text-red-600 d-red-bg d-red-txt px-2 py-0.5">{tag}</span>
-                    ))}
-                  </span>
+        <!-- LEFT COLUMN: Peeragogy -->
+        <div
+          x-show="view === 'dual' || view === 'peeragogy'"
+          x-transition:enter="transition ease-out duration-300"
+          x-transition:enter-start="opacity-0"
+          x-transition:enter-end="opacity-100"
+          class="scroll-sync peeragogy-col overflow-y-auto max-h-[calc(100vh-12rem)] pr-4"
+          :class="view === 'dual' ? 'border-r border-stone-200 d-border' : ''"
+          @scroll.throttle="if (scrollSync && view === 'dual') { var el = $el.closest('div').querySelector('.unpeeragogy-col'); if (el) el.scrollTop = $el.scrollTop }"
+        >
+          {PeeragogyContent ? (
+            <article>
+              <header class="mb-6">
+                <p class="text-sm font-medium text-(--color-accent)">{peeragogyEntry.data.section}</p>
+                <h1 class="text-2xl font-bold tracking-tight mt-1">{peeragogyEntry.data.title}</h1>
+                {peeragogyEntry.data.description && (
+                  <p class="mt-2 text-sm d-text-sec">{peeragogyEntry.data.description}</p>
                 )}
+                <div class="mt-2 flex items-center gap-3 text-xs d-text-dim">
+                  <span>⏱ {peeragogyEntry.data.readingTime} min</span>
+                  {peeragogyEntry.data.tags?.length > 0 && (
+                    <span class="flex gap-1">
+                      {peeragogyEntry.data.tags.map((tag) => (
+                        <span class="rounded-full bg-stone-100 d-surface px-2 py-0.5">{tag}</span>
+                      ))}
+                    </span>
+                  )}
+                </div>
+              </header>
+              <div class="prose max-w-none prose-sm">
+                <PeeragogyContent />
               </div>
-            </header>
-            <div class="prose max-w-none prose-sm prose-red">
-              <UnpeeragogyContent />
+            </article>
+          ) : (
+            <div class="flex items-center justify-center h-64 d-text-dim italic">
+              <p>Nessun contenuto Peeragogy per questa sezione.</p>
             </div>
-            <SectionDiscussion slug={unpeeragogyEntry.slug} title={unpeeragogyEntry.data.title} />
-          </article>
-        ) : (
-          <div class="flex items-center justify-center h-64 d-text-dim italic">
-            <p>Nessuna contro-analisi Unpeeragogy ancora scritta. Il Pattern Disruptor tace — per ora.</p>
-          </div>
-        )}
+          )}
+        </div>
+
+        <!-- RIGHT COLUMN: Unpeeragogy -->
+        <div
+          x-show="view === 'dual' || view === 'unpeeragogy'"
+          x-transition:enter="transition ease-out duration-300"
+          x-transition:enter-start="opacity-0"
+          x-transition:enter-end="opacity-100"
+          class="scroll-sync unpeeragogy-col overflow-y-auto max-h-[calc(100vh-12rem)]"
+          :class="view === 'dual' ? 'pl-2' : ''"
+          @scroll.throttle="if (scrollSync && view === 'dual') { var el = $el.closest('div').querySelector('.peeragogy-col'); if (el) el.scrollTop = $el.scrollTop }"
+        >
+          {UnpeeragogyContent ? (
+            <article>
+              <header class="mb-6">
+                <p class="text-sm font-medium text-red-500">⚡ Unpeeragogy</p>
+                <h1 class="text-2xl font-bold tracking-tight mt-1">{unpeeragogyEntry.data.title}</h1>
+                <div class="mt-2 flex items-center gap-3 text-xs d-text-dim">
+                  <span>⏱ {unpeeragogyEntry.data.readingTime} min</span>
+                  {unpeeragogyEntry.data.tags?.length > 0 && (
+                    <span class="flex gap-1">
+                      {unpeeragogyEntry.data.tags.map((tag) => (
+                        <span class="rounded-full bg-red-50 text-red-600 d-red-bg d-red-txt px-2 py-0.5">{tag}</span>
+                      ))}
+                    </span>
+                  )}
+                </div>
+              </header>
+              <div class="prose max-w-none prose-sm prose-red">
+                <UnpeeragogyContent />
+              </div>
+              <SectionDiscussion slug={unpeeragogyEntry.slug} title={unpeeragogyEntry.data.title} />
+            </article>
+          ) : (
+            <div class="flex items-center justify-center h-64 d-text-dim italic">
+              <p>Nessuna contro-analisi Unpeeragogy ancora scritta. Il Pattern Disruptor tace — per ora.</p>
+            </div>
+          )}
+        </div>
       </div>
     </div>
-  </div>
+  )}
 
   <!-- Prev/Next navigation -->
   <nav class="mt-8 flex items-center justify-between border-t border-stone-200 d-border pt-6">

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { Icon } from "astro-icon/components";
 ---
 
 <BaseLayout title="Unpeeragogy" description="Unpeeragogy — la decostruzione radicale della teoria peer-to-peer, confrontata con la nuda realtà operativa quotidiana.">
@@ -17,7 +18,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         Inizia a Leggere ⿻
       </a>
       <a href="/vault/" class="rounded-lg border border-stone-300 d-border px-6 py-3 font-semibold hover:bg-stone-100 d-hover transition-colors">
-        🗂️ Vault KB → 
+        <Icon name="mingcute:safe-box-line" size={20} class="inline-block align-middle mr-1.5" aria-hidden="true" /> Vault →
       </a>
       <a href="https://github.com/pyragogy/unpeeragogy" target="_blank" class="rounded-lg border border-stone-300 d-border px-6 py-3 font-semibold hover:bg-stone-100 d-hover transition-colors">
         GitHub → 
