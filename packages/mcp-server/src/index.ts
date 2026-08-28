@@ -406,7 +406,7 @@ server.setRequestHandler(GetPromptRequestSchema, async (request) => {
 });
 
 // ─── HTTP Server (SSE Transport) ──────────────────────────────
-let activeTransport: SSEServerTransport | null = null;
+const transports = new Map<string, SSEServerTransport>();
 
 const httpServer = http.createServer(async (req, res) => {
   // CORS headers
@@ -451,12 +451,12 @@ const httpServer = http.createServer(async (req, res) => {
     }
 
     const transport = new SSEServerTransport("/messages", res);
-    activeTransport = transport;
     await server.connect(transport);
+    transports.set(transport.sessionId, transport);
 
-    // Keep alive
+    // Clean up when the SSE connection closes
     req.on("close", () => {
-      server.close();
+      transports.delete(transport.sessionId);
     });
     return;
   }
@@ -469,16 +469,31 @@ const httpServer = http.createServer(async (req, res) => {
       return;
     }
 
-    if (activeTransport) {
-      try {
-        await activeTransport.handlePostMessage(req, res);
-      } catch (err) {
-        res.writeHead(500);
-        res.end(JSON.stringify({ error: String(err) }));
-      }
-    } else {
+    // Extract sessionId from query params
+    let sessionId: string | null = null;
+    try {
+      const url = new URL(req.url || '', `http://${req.headers.host || 'localhost'}`);
+      sessionId = url.searchParams.get('sessionId');
+    } catch {}
+
+    if (!sessionId) {
       res.writeHead(400);
-      res.end(JSON.stringify({ error: "No active SSE session." }));
+      res.end(JSON.stringify({ error: "Missing sessionId query parameter." }));
+      return;
+    }
+
+    const transport = transports.get(sessionId);
+    if (!transport) {
+      res.writeHead(400);
+      res.end(JSON.stringify({ error: "No active SSE session for this sessionId." }));
+      return;
+    }
+
+    try {
+      await transport.handlePostMessage(req, res);
+    } catch (err) {
+      res.writeHead(500);
+      res.end(JSON.stringify({ error: String(err) }));
     }
     return;
   }
