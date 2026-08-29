@@ -3,10 +3,10 @@
 ---
 
 <script>
-import * as cc from 'vanilla-cookieconsent';
+import * as ccModule from 'vanilla-cookieconsent';
 import 'vanilla-cookieconsent/dist/cookieconsent.css';
 
-cc.run({
+const api = ccModule.run({
   guiOptions: {
     consentModal: {
       layout: 'cloud',
@@ -81,7 +81,8 @@ cc.run({
 });
 
 // Expose for footer "Manage Cookies" button
-window.__cc = cc;
+// ccModule is the library; api is the running instance with showPreferences
+window.__cc = api;
 </script>
 
 <style>
