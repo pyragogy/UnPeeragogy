@@ -4,7 +4,7 @@ import tailwindcss from "@tailwindcss/vite";
 import icon from "astro-icon";
 
 export default defineConfig({
-  site: "https://unpeeragogy.org",
+  site: "https://unpeeragogy.pyragogy.org",
   output: "static",
   integrations: [mdx(), icon()],
   vite: {
