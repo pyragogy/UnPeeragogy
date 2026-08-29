@@ -378,40 +378,62 @@ for (const s of sectionOrder) {
       requestAnimationFrame(render);
     }, { passive: false });
 
-    // ---- Touch events for mobile ----
+    // ---- Touch events for mobile (scroll-aware) ----
+    // Strategy: only preventDefault when actually interacting (dragging a node or panning).
+    // Allow page scroll when tapping without drag or zoom.
     let lastTouchDist = 0;
+    let touchStartTime = 0;
+    let touchMoved = false;
+    let touchStartPos = { x: 0, y: 0 };
+    const TAP_THRESHOLD = 10; // px movement before it's considered a drag/pan
+
     canvas.addEventListener("touchstart", function(e) {
-      e.preventDefault();
       if (e.touches.length === 1) {
         var t = e.touches[0];
         var rect = canvas.getBoundingClientRect();
         var sx = t.clientX - rect.left, sy = t.clientY - rect.top;
+        touchStartPos = { x: sx, y: sy };
         last = { x: sx, y: sy };
+        touchStartTime = Date.now();
+        touchMoved = false;
         var n = hitTest(sx, sy);
-        if (n) { dragNode = n; sim.alphaTarget(0.3).restart(); }
-        else { isPan = true; }
+        if (n) {
+          dragNode = n;
+          e.preventDefault(); // only prevent scroll when starting on a node
+        } else {
+          isPan = true;
+          // Don't preventDefault — allow page scroll
+        }
       } else if (e.touches.length === 2) {
         lastTouchDist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
+        e.preventDefault(); // pinch zoom: prevent scroll
       }
     }, { passive: false });
 
     canvas.addEventListener("touchmove", function(e) {
-      e.preventDefault();
       if (e.touches.length === 1) {
         var t = e.touches[0];
         var rect = canvas.getBoundingClientRect();
         var sx = t.clientX - rect.left, sy = t.clientY - rect.top;
+        var dx = sx - touchStartPos.x;
+        var dy = sy - touchStartPos.y;
+        if (Math.abs(dx) > TAP_THRESHOLD || Math.abs(dy) > TAP_THRESHOLD) {
+          touchMoved = true;
+        }
         if (dragNode) {
+          e.preventDefault();
           var p = screenToGraph(sx, sy);
           dragNode.fx = p.x; dragNode.fy = p.y;
           sim.alpha(0.1).restart();
-        } else if (isPan) {
+        } else if (isPan && touchMoved) {
+          e.preventDefault();
           zoomState.x += sx - last.x;
           zoomState.y += sy - last.y;
           last = { x: sx, y: sy };
           requestAnimationFrame(render);
         }
       } else if (e.touches.length === 2) {
+        e.preventDefault();
         var dist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
         if (lastTouchDist > 0) {
           var scale = dist / lastTouchDist;
@@ -423,7 +445,7 @@ for (const s of sectionOrder) {
     }, { passive: false });
 
     canvas.addEventListener("touchend", function(e) {
-      if (e.changedTouches.length === 1 && dragNode && !isPan) {
+      if (!touchMoved && e.changedTouches.length === 1 && dragNode) {
         var t = e.changedTouches[0];
         var rect = canvas.getBoundingClientRect();
         var sx = t.clientX - rect.left, sy = t.clientY - rect.top;
@@ -431,9 +453,10 @@ for (const s of sectionOrder) {
           visitedSlugs.add(dragNode.id);
           localStorage.setItem("graph-visited", JSON.stringify(Array.from(visitedSlugs)));
           window.location.href = "/" + dragNode.id + "/";
+          e.preventDefault();
         }
       }
-      dragNode = null; isPan = false; lastTouchDist = 0;
+      dragNode = null; isPan = false; lastTouchDist = 0; touchMoved = false;
     }, { passive: false });
 
     canvas.addEventListener("mousedown", function(e) {
