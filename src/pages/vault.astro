@@ -50,6 +50,19 @@ const sectionMap = Object.fromEntries(
   sectionOrder.map(s => [s, { color: sectionColors[s] || "#a1a1aa", order: sectionOrder.indexOf(s) }])
 );
 
+// Mobile legend abbreviations
+const MOBILE_ABBR = {
+  "Introduction": "Intr",
+  "Motivation": "Motiv",
+  "Peeragogy in Practice": "Pract",
+  "Convening a Group": "Group",
+  "Organizing a Learning Context": "Orgnz",
+  "Cooperation": "Coop",
+  "Assessment": "Asses",
+  "Technologies, Services, and Platforms": "Tech",
+  "Resources": "Res",
+};
+
 // Build 3D graph data — topology: within-section + paired cross-links
 const graphNodes = [];
 const graphLinks = [];
@@ -225,12 +238,19 @@ for (const s of sectionOrder) {
 
     <!-- 3D GRAPH -->
     <div id="vault-graph" class="w-full rounded-lg border border-stone-200 dark:d-border overflow-hidden" style="height:min(620px, calc(100vh - 14rem));position:relative;">
-      <div id="force-graph" style="width:100%;height:100%;"></div>
+      <div id="force-graph" style="width:100%;height:100%;">
+        <div id="graph-loading" class="absolute inset-0 flex items-center justify-center bg-(--color-bg) z-10 transition-opacity duration-500" style="pointer-events:none;">
+          <div class="flex flex-col items-center gap-3">
+            <div class="w-8 h-8 rounded-full border-2 border-(--color-accent) border-t-transparent animate-spin"></div>
+            <span class="text-xs d-text-dim">Caricamento grafo...</span>
+          </div>
+        </div>
+      </div>
       <div id="graph-legend" class="absolute bottom-4 left-2 sm:left-4 flex flex-wrap gap-1 sm:gap-2 text-[10px] sm:text-xs bg-white/90 dark:bg-[var(--surface-bg)]/90 px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg shadow-sm dark:d-border backdrop-blur-sm max-w-[70%] sm:max-w-[60%]">
-        {sectionOrder.slice(0, 5).map(s => (
-          <span class="flex items-center gap-1 whitespace-nowrap" title={s}><span class="w-2 sm:w-3 h-2 sm:h-3 rounded-full inline-block" style={`background:${sectionColors[s] || "#a1a1aa"}`}></span> <span class="hidden sm:inline">{s.replace(/^(Technologies,|Organizing a|Convening a) /, "").replace(/ Services, and Platforms$/, "")}</span><span class="sm:hidden">{s.replace(/^(Technologies,|Organizing a|Convening a) /, "").replace(/ Services, and Platforms$/, "").slice(0, 3)}</span></span>
+        {sectionOrder.slice(0, 6).map(s => (
+          <span class="flex items-center gap-1 whitespace-nowrap" title={s}><span class="w-2 sm:w-3 h-2 sm:h-3 rounded-full inline-block" style={`background:${sectionColors[s] || "#a1a1aa"}`}></span> <span class="hidden sm:inline">{s.replace(/^(Technologies,|Organizing a|Convening a) /, "").replace(/ Services, and Platforms$/, "")}</span><span class="sm:hidden">{MOBILE_ABBR[s] || s.split(/\s+/).map(w => w[0]).join('').slice(0,4)}</span></span>
         ))}
-        {sectionOrder.length > 5 && <span class="text-[10px] opacity-60">+{sectionOrder.length - 5}</span>}
+        {sectionOrder.length > 6 && <span class="text-[10px] opacity-60">+{sectionOrder.length - 6}</span>}
         <span class="flex items-center gap-1 ml-1 pl-2 border-l border-stone-300 dark:d-border"><span class="w-1.5 sm:w-2 h-1.5 sm:h-2 rounded-full inline-block ring-1 ring-white dark:ring-black" style="background:#ffffff;border:2px solid currentColor;color:var(--color-text)"></span> <span class="text-[10px] sm:text-xs">Unpeer</span></span>
       </div>
       <div id="graph-controls" class="absolute bottom-4 right-2 sm:right-4 flex flex-col gap-1.5">
@@ -320,6 +340,7 @@ for (const s of sectionOrder) {
     canvas.style.width = "100%";
     canvas.style.height = "100%";
     canvas.style.display = "block";
+    canvas.style.touchAction = "none";
     container.appendChild(canvas);
     ctx = canvas.getContext("2d");
 
@@ -357,13 +378,23 @@ for (const s of sectionOrder) {
       .alphaDecay(0.03)
       .velocityDecay(0.4);
 
-    sim.on("tick", render);
-    sim.on("end", zoomToFit);
+    sim.on("tick", function() { render(); hideGraphLoading(); });
+    sim.on("end", function() { zoomToFit(); hideGraphLoading(); });
 
     // Stop + fit after 4s
     setTimeout(function() {
-      if (sim) { sim.alphaTarget(0); sim.stop(); zoomToFit(); }
+      if (sim) { sim.alphaTarget(0); sim.stop(); zoomToFit(); hideGraphLoading(); }
     }, 4000);
+
+    function hideGraphLoading() {
+      var el = document.getElementById("graph-loading");
+      if (el) {
+        el.style.opacity = "0";
+        setTimeout(function() { if (el && el.parentNode) el.parentNode.removeChild(el); }, 500);
+        // Make it idempotent
+        hideGraphLoading = function(){};
+      }
+    }
 
     // ---- Interactivity ----
     let dragNode = null, isPan = false, last = { x:0, y:0 };
@@ -378,9 +409,10 @@ for (const s of sectionOrder) {
       requestAnimationFrame(render);
     }, { passive: false });
 
-    // ---- Touch events for mobile (scroll-aware) ----
-    // Strategy: only preventDefault when actually interacting (dragging a node or panning).
-    // Allow page scroll when tapping without drag or zoom.
+    // ---- Touch events for mobile (scroll-aware with touch-action:none on canvas) ----
+    // Canvas has touch-action:none, so browser never intercepts touch for scroll.
+    // We still selectively preventDefault only when dragging/panning/zooming,
+    // but the page scroll outside canvas works normally.
     let lastTouchDist = 0;
     let touchStartTime = 0;
     let touchMoved = false;
@@ -399,16 +431,13 @@ for (const s of sectionOrder) {
         var n = hitTest(sx, sy);
         if (n) {
           dragNode = n;
-          e.preventDefault(); // only prevent scroll when starting on a node
         } else {
           isPan = true;
-          // Don't preventDefault — allow page scroll
         }
       } else if (e.touches.length === 2) {
         lastTouchDist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
-        e.preventDefault(); // pinch zoom: prevent scroll
       }
-    }, { passive: false });
+    });
 
     canvas.addEventListener("touchmove", function(e) {
       if (e.touches.length === 1) {
@@ -421,19 +450,16 @@ for (const s of sectionOrder) {
           touchMoved = true;
         }
         if (dragNode) {
-          e.preventDefault();
           var p = screenToGraph(sx, sy);
           dragNode.fx = p.x; dragNode.fy = p.y;
           sim.alpha(0.1).restart();
         } else if (isPan && touchMoved) {
-          e.preventDefault();
           zoomState.x += sx - last.x;
           zoomState.y += sy - last.y;
           last = { x: sx, y: sy };
           requestAnimationFrame(render);
         }
       } else if (e.touches.length === 2) {
-        e.preventDefault();
         var dist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
         if (lastTouchDist > 0) {
           var scale = dist / lastTouchDist;
@@ -442,7 +468,7 @@ for (const s of sectionOrder) {
         }
         lastTouchDist = dist;
       }
-    }, { passive: false });
+    });
 
     canvas.addEventListener("touchend", function(e) {
       if (!touchMoved && e.changedTouches.length === 1 && dragNode) {
@@ -453,11 +479,10 @@ for (const s of sectionOrder) {
           visitedSlugs.add(dragNode.id);
           localStorage.setItem("graph-visited", JSON.stringify(Array.from(visitedSlugs)));
           window.location.href = "/" + dragNode.id + "/";
-          e.preventDefault();
         }
       }
       dragNode = null; isPan = false; lastTouchDist = 0; touchMoved = false;
-    }, { passive: false });
+    });
 
     canvas.addEventListener("mousedown", function(e) {
       let n = hitTest(e.offsetX, e.offsetY);
@@ -797,26 +822,22 @@ for (const s of sectionOrder) {
     setTimeout(initGraph, 300);
   });
 
-  // --- All toggle (Tutti) ---
+  // --- All toggle (Tutti): always shows all sections when active ---
+  // "Tutti" resets all filters — shows everything. Clicking deselects all.
   document.addEventListener("DOMContentLoaded", function() {
     var allBtn = document.querySelector('.group-filter[data-group="all"]');
     if (allBtn) {
       allBtn.addEventListener("click", function() {
-        var isAllActive = this.classList.contains("active");
-        if (isAllActive) {
-          // Deselect all section filters
-          hiddenSections = new Set(sectionOrder);
-          document.querySelectorAll(".section-filter").forEach(function(btn) {
-            btn.classList.remove("active");
-          });
-        } else {
-          // Select all section filters
-          hiddenSections = new Set();
-          document.querySelectorAll(".section-filter").forEach(function(btn) {
-            btn.classList.add("active");
-          });
-        }
-        this.classList.toggle("active");
+        // Reset all: show everything, hide nothing
+        hiddenSections = new Set();
+        hiddenGroups = new Set();
+        document.querySelectorAll(".section-filter").forEach(function(btn) {
+          btn.classList.add("active");
+        });
+        document.querySelectorAll(".group-filter").forEach(function(btn) {
+          btn.classList.remove("active");
+        });
+        this.classList.add("active");
         if (sim) zoomToFit();
       });
     }
@@ -840,6 +861,21 @@ for (const s of sectionOrder) {
           var allVisible = document.querySelectorAll(".section-filter.active").length === sectionOrder.length;
           allBtn.classList.toggle("active", allVisible);
         }
+        if (sim) zoomToFit();
+      });
+    });
+
+    // --- Group filter (📖 Theory / ⚡ Reality) ---
+    document.querySelectorAll(".group-filter:not([data-group='all'])").forEach(function(btn) {
+      btn.addEventListener("click", function() {
+        var group = this.dataset.group;
+        var isActive = this.classList.contains("active");
+        if (isActive) {
+          hiddenGroups.delete(group);
+        } else {
+          hiddenGroups.add(group);
+        }
+        this.classList.toggle("active");
         if (sim) zoomToFit();
       });
     });
