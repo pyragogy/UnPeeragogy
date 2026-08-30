@@ -130,7 +130,7 @@ const navLinks = [
 
         <div class="flex items-center">
           <!-- Mobile hamburger -->
-          <button id="nav-toggle" class="sm:hidden cursor-pointer rounded-md p-2 transition-colors hover:bg-stone-200 d-hover" aria-label="Menu">
+          <button id="nav-toggle" class="sm:hidden cursor-pointer rounded-md p-2 transition-colors hover:bg-stone-200 d-hover" aria-label="Menu" aria-expanded="false">
             <Icon name="mingcute:menu-line" id="hamburger-open" size={22} aria-hidden="true" />
             <Icon name="mingcute:close-line" id="hamburger-close" size={22} aria-hidden="true" class="hidden" />
           </button>
@@ -158,7 +158,7 @@ const navLinks = [
       </nav>
 
       <!-- Mobile nav drawer -->
-      <div id="mobile-nav" class="sm:hidden hidden border-t border-stone-200 d-border bg-(--color-bg)/95">
+      <div id="mobile-nav" class="sm:hidden hidden border-t border-stone-200 d-border bg-(--color-bg)/95 overflow-y-auto max-h-[80vh]">
         <div class="flex flex-col gap-1 px-4 py-3 text-sm">
           {
             navLinks.map((link) => (
@@ -224,7 +224,7 @@ const navLinks = [
     <CookieConsent />
 
     <script>
-      // Hamburger toggle with icon swap
+      // Hamburger toggle with icon swap + focus trap
       document.getElementById('nav-toggle')?.addEventListener('click', function() {
         var drawer = document.getElementById('mobile-nav');
         var openIcon = document.getElementById('hamburger-open');
@@ -234,6 +234,28 @@ const navLinks = [
           drawer.classList.toggle('hidden');
           if (openIcon) openIcon.classList.toggle('hidden', isOpen);
           if (closeIcon) closeIcon.classList.toggle('hidden', !isOpen);
+          this.setAttribute('aria-expanded', !isOpen);
+          // Focus trap: when opening, focus first link in drawer
+          if (!isOpen) {
+            var firstLink = drawer.querySelector('a');
+            if (firstLink) setTimeout(function() { firstLink.focus(); }, 100);
+          }
+        }
+      });
+
+      // Close drawer on Escape
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          var drawer = document.getElementById('mobile-nav');
+          if (drawer && !drawer.classList.contains('hidden')) {
+            drawer.classList.add('hidden');
+            var openIcon = document.getElementById('hamburger-open');
+            var closeIcon = document.getElementById('hamburger-close');
+            if (openIcon) openIcon.classList.remove('hidden');
+            if (closeIcon) closeIcon.classList.add('hidden');
+            var toggle = document.getElementById('nav-toggle');
+            if (toggle) { toggle.setAttribute('aria-expanded', 'false'); toggle.focus(); }
+          }
         }
       });
 

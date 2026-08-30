@@ -206,7 +206,7 @@ for (const s of sectionOrder) {
   <section class="py-4 sm:py-8">
     <div class="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 mb-6">
       <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight">🗂️ Knowledge Base</h1>
-      <span class="rounded-full bg-stone-100 dark:d-surface px-3 py-1 text-xs sm:text-sm w-fit">{graphNodes.length} nodi · {graphLinks.length} connessioni</span>
+      <span class="rounded-full bg-stone-100 dark:bg-(--surface-bg) text-stone-600 dark:text-stone-300 px-3 py-1 text-xs sm:text-sm w-fit">{graphNodes.length} nodi · {graphLinks.length} connessioni</span>
     </div>
 
     <div class="flex items-center gap-2 mb-6 p-2 bg-stone-100 dark:d-surface rounded-lg w-full sm:w-fit">
@@ -306,8 +306,10 @@ for (const s of sectionOrder) {
   </section>
 </BaseLayout>
 
-<script>
-  import * as d3 from "d3-force";
+<script src="https://cdn.jsdelivr.net/npm/d3-force@3.0.0/dist/d3-force.js"></script>
+<script is:inline>
+  (function(){
+  var d3 = window.d3_force; if (!d3) { console.warn("d3-force UMD not loaded via script, trying dynamic import..."); }
 
   let sim = null;
   let canvas = null;
@@ -320,21 +322,73 @@ for (const s of sectionOrder) {
   let hiddenSections = new Set();
   let hiddenGroups = new Set();
   let visitedSlugs = new Set();
+  let ro = null; // ResizeObserver, disconnettibile
+  let simEnded = false;
+  let filterDirty = true; // rebuild nmap/visibleNodes only when filters change
+  let cachedNmap = {};
+  let cachedVisibleNodes = new Set();
+  let cachedDegrees = {}; // degree per node id
+  let prefersReducedMotion = false;
+  if (typeof window !== 'undefined') {
+    prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  }
+
+  let _cssCache = {};
+  document.addEventListener("theme-changed", function() { _cssCache = {}; });
+  function getCSSVar(name, fallback) {
+    if (!_cssCache[name]) {
+      _cssCache[name] = getComputedStyle(document.body).getPropertyValue(name).trim() || fallback;
+      // Invalida dopo 1s (per theme switch)
+      setTimeout(function() { delete _cssCache[name]; }, 1000);
+    }
+    return _cssCache[name];
+  }
+
+  // roundRect polyfill per Safari < 15.4
+  if (!CanvasRenderingContext2D.prototype.roundRect) {
+    CanvasRenderingContext2D.prototype.roundRect = function(x, y, w, h, r) {
+      if (r > w / 2) r = w / 2;
+      if (r > h / 2) r = h / 2;
+      this.moveTo(x + r, y);
+      this.lineTo(x + w - r, y);
+      this.quadraticCurveTo(x + w, y, x + w, y + r);
+      this.lineTo(x + w, y + h - r);
+      this.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+      this.lineTo(x + r, y + h);
+      this.quadraticCurveTo(x, y + h, x, y + h - r);
+      this.lineTo(x, y + r);
+      this.quadraticCurveTo(x, y, x + r, y);
+      this.closePath();
+      return this;
+    };
+  }
 
   function getNodeColor(n) {
     return n.sectionColor || "#a1a1aa";
   }
 
-  function getCSSVar(name, fallback) {
-    return getComputedStyle(document.body).getPropertyValue(name).trim() || fallback;
-  }
-
   // ---- Init ----
   function initGraph() {
+    if (!d3) {
+      console.warn("d3-force non disponibile — grafo disabilitato");
+      let el = document.getElementById("graph-loading");
+      if (el) {
+        el.style.pointerEvents = "auto";
+        el.innerHTML = '<div class="flex flex-col items-center gap-3 px-4 text-center"><span class="text-lg">🕸️</span><span class="text-xs d-text-dim">Grafo non disponibile · verifica connessione</span></div>';
+      }
+      return;
+    }
     let container = document.getElementById("force-graph");
     if (!container) return;
+    // Don't init if container is hidden (no dimensions)
+    if (container.offsetParent === null || container.clientWidth === 0) {
+      return;
+    }
+    if (ro) { ro.disconnect(); ro = null; }
     if (sim) { sim.stop(); sim = null; }
     if (canvas) { canvas.remove(); canvas = null; ctx = null; }
+    simEnded = false;
+    filterDirty = true;
 
     canvas = document.createElement("canvas");
     canvas.style.width = "100%";
@@ -344,7 +398,7 @@ for (const s of sectionOrder) {
     container.appendChild(canvas);
     ctx = canvas.getContext("2d");
 
-    let ro = new ResizeObserver(function() { resize(); });
+    ro = new ResizeObserver(function() { resize(); });
     ro.observe(container);
     resize();
 
@@ -378,23 +432,28 @@ for (const s of sectionOrder) {
       .alphaDecay(0.03)
       .velocityDecay(0.4);
 
-    sim.on("tick", function() { render(); hideGraphLoading(); });
-    sim.on("end", function() { zoomToFit(); hideGraphLoading(); });
+    rebuildDegrees();
 
-    // Stop + fit after 4s
-    setTimeout(function() {
-      if (sim) { sim.alphaTarget(0); sim.stop(); zoomToFit(); hideGraphLoading(); }
-    }, 4000);
-
+    let loadingHidden = false;
     function hideGraphLoading() {
-      var el = document.getElementById("graph-loading");
+      if (loadingHidden) return;
+      loadingHidden = true;
+      let el = document.getElementById("graph-loading");
       if (el) {
         el.style.opacity = "0";
         setTimeout(function() { if (el && el.parentNode) el.parentNode.removeChild(el); }, 500);
-        // Make it idempotent
-        hideGraphLoading = function(){};
       }
     }
+
+    sim.on("tick", function() { render(); hideGraphLoading(); });
+    sim.on("end", function() {
+      if (!simEnded) { simEnded = true; zoomToFit(); hideGraphLoading(); }
+    });
+
+    // Stop + fit after 4s (only if sim hasn't ended yet)
+    setTimeout(function() {
+      if (sim && !simEnded) { sim.alphaTarget(0); sim.stop(); simEnded = true; zoomToFit(); hideGraphLoading(); }
+    }, 4000);
 
     // ---- Interactivity ----
     let dragNode = null, isPan = false, last = { x:0, y:0 };
@@ -538,20 +597,24 @@ for (const s of sectionOrder) {
   }
 
   // ---- Geometry ----
+  function rebuildDegrees() {
+    if (!sim) return;
+    let links = sim.force("link").links();
+    cachedDegrees = {};
+    for (let i = 0; i < links.length; i++) {
+      let l = links[i];
+      let sid = typeof l.source === "object" ? l.source.id : l.source;
+      let tid = typeof l.target === "object" ? l.target.id : l.target;
+      cachedDegrees[sid] = (cachedDegrees[sid] || 0) + 1;
+      cachedDegrees[tid] = (cachedDegrees[tid] || 0) + 1;
+    }
+    filterDirty = true;
+  }
+
   function getNodeRadius(n) {
     let base = 5;
-    let degreeBonus = 0;
-    if (sim) {
-      let links = sim.force("link").links();
-      let count = 0;
-      for (let i = 0; i < links.length; i++) {
-        let l = links[i];
-        let sid = typeof l.source === "object" ? l.source.id : l.source;
-        let tid = typeof l.target === "object" ? l.target.id : l.target;
-        if (sid === n.id || tid === n.id) count++;
-      }
-      degreeBonus = Math.sqrt(count) * 2;
-    }
+    let degree = cachedDegrees[n.id] || 0;
+    let degreeBonus = Math.sqrt(degree) * 2;
     let tensionBonus = (n.tension && n.tension > 0) ? n.tension * 2 : 0;
     return Math.max(5, Math.min(16, base + degreeBonus + tensionBonus));
   }
@@ -573,9 +636,11 @@ for (const s of sectionOrder) {
     return null;
   }
 
+  let _zoomToFitPending = false;
   function zoomToFit() {
-    if (!sim || !canvas) return;
-    let nodes = sim.nodes(); if (!nodes.length) return;
+    if (!sim || !canvas || _zoomToFitPending) return;
+    _zoomToFitPending = true;
+    let nodes = sim.nodes(); if (!nodes.length) { _zoomToFitPending = false; return; }
     let w = canvas.width, h = canvas.height;
     let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
     nodes.forEach(function(n) {
@@ -586,7 +651,7 @@ for (const s of sectionOrder) {
       if (n.y - r < minY) minY = n.y - r;
       if (n.y + r > maxY) maxY = n.y + r;
     });
-    if (minX === Infinity) return; // all hidden
+    if (minX === Infinity) { _zoomToFitPending = false; return; } // all hidden
     let gw = Math.max(maxX - minX, 10);
     let gh = Math.max(maxY - minY, 10);
     let pad = 50;
@@ -594,12 +659,14 @@ for (const s of sectionOrder) {
     zoomState.k = Math.max(0.3, zoomState.k);
     zoomState.x = w / 2 - (minX + maxX) / 2 * zoomState.k;
     zoomState.y = h / 2 - (minY + maxY) / 2 * zoomState.k;
-    requestAnimationFrame(render);
+    requestAnimationFrame(function() { render(); _zoomToFitPending = false; });
   }
 
   function resize() {
     let container = document.getElementById("force-graph");
     if (!container || !canvas) return;
+    // Skip resize if graph is hidden (tree view mode)
+    if (container.offsetParent === null) return;
     let w = container.clientWidth || 800;
     let h = container.clientHeight || 620;
     canvas.width = w;
@@ -616,8 +683,19 @@ for (const s of sectionOrder) {
     let w = canvas.width, h = canvas.height;
     let isDark = document.documentElement.classList.contains("dark");
 
-    // Clear
-    ctx.fillStyle = getCSSVar("--color-bg", "#ffffff");
+    // Rebuild nmap/visibleNodes only when filters change
+    if (filterDirty) {
+      let nodes = sim.nodes();
+      cachedNmap = {};
+      nodes.forEach(function(n) { cachedNmap[n.id] = n; });
+      cachedVisibleNodes = new Set();
+      nodes.forEach(function(n) { if (!hiddenSections.has(n.section) && !hiddenGroups.has(n.group)) cachedVisibleNodes.add(n.id); });
+      filterDirty = false;
+    }
+
+    // Clear (cached CSS vars, no forced layout)
+    let bgColor = getCSSVar("--color-bg", "#ffffff");
+    ctx.fillStyle = bgColor;
     ctx.fillRect(0, 0, w, h);
 
     ctx.save();
@@ -627,10 +705,8 @@ for (const s of sectionOrder) {
     // Links (styled by type, weighted by tension)
     let linkAlpha = isDark ? 0.35 : 0.2;
     let nodes = sim.nodes();
-    let nmap = {};
-    nodes.forEach(function(n) { nmap[n.id] = n; });
-    let visibleNodes = new Set();
-    nodes.forEach(function(n) { if (!hiddenSections.has(n.section) && !hiddenGroups.has(n.group)) visibleNodes.add(n.id); });
+    let nmap = cachedNmap;
+    let visibleNodes = cachedVisibleNodes;
     let links = sim.force("link").links();
     links.forEach(function(l) {
       let s = typeof l.source === "object" ? l.source : nmap[l.source];
@@ -645,7 +721,6 @@ for (const s of sectionOrder) {
       else if (l.type === "tension") {
         color = "239, 68, 68";
         alpha = linkAlpha * 1.8;
-        // Weighted by shared-tag count
         let w = l.weight || 1;
         width = Math.min(1.0 + w * 0.4, 3.0);
       }
@@ -657,43 +732,64 @@ for (const s of sectionOrder) {
       ctx.stroke();
     });
 
-    // Nodes (draw unpeeragogy inner dot on top, skip hidden sections)
+    // Nodes
     nodes.forEach(function(n) {
       if (hiddenSections.has(n.section)) return;
       let r = getNodeRadius(n);
       let isVisited = visitedSlugs.has(n.id);
-      let alpha = isVisited ? 1.0 : 0.35;
-      ctx.globalAlpha = alpha;
+      // Shape distinction: visited = filled circle, unvisited = circle with diagonal line
+      ctx.globalAlpha = 1.0;
       ctx.beginPath();
       ctx.arc(n.x, n.y, r, 0, 2 * Math.PI);
       ctx.fillStyle = getNodeColor(n);
+      ctx.globalAlpha = isVisited ? 1.0 : 0.5;
       ctx.fill();
       ctx.strokeStyle = "rgba(255,255,255,0.7)";
       ctx.lineWidth = 2 / zoomState.k;
       ctx.stroke();
-      // Inner dot: red if has unpeeragogy, blue-ish if theory-only
+      if (!isVisited) {
+        // Diagonal line across unvisited nodes for colorblind-friendly distinction
+        ctx.beginPath();
+        ctx.moveTo(n.x - r * 0.4, n.y - r * 0.4);
+        ctx.lineTo(n.x + r * 0.4, n.y + r * 0.4);
+        ctx.strokeStyle = "rgba(200,200,200,0.5)";
+        ctx.lineWidth = 2 / zoomState.k;
+        ctx.stroke();
+      }
+      ctx.globalAlpha = 1.0;
+      // Inner dot
       ctx.beginPath();
       ctx.arc(n.x, n.y, 3, 0, 2 * Math.PI);
       ctx.fillStyle = n.group === "unpeeragogy" || n.group === "unpeeragogy-only" ? "#ef4444" : "#3b82f6";
       ctx.fill();
-      ctx.globalAlpha = 1.0;
     });
 
-    // Labels
+    // Labels with overlap avoidance (grid-based)
     if (showLabels) {
       let fs = Math.max(8, 12 / Math.pow(zoomState.k, 0.5));
       if (fs !== cachedFontSize) { cachedFont = fs + "px sans-serif"; cachedFontSize = fs; }
       ctx.font = cachedFont;
       ctx.textAlign = "center";
       ctx.textBaseline = "top";
+      let labelSpaces = {}; // track occupied positions per grid cell
+      let GRID_SIZE = 50; // px in graph coords
       nodes.forEach(function(n) {
         if (hiddenSections.has(n.section)) return;
+        if (!visibleNodes.has(n.id)) return;
         let r = getNodeRadius(n);
         let label = n.name.length > 18 ? n.name.slice(0, 18) + "…" : n.name;
         let isVisited = visitedSlugs.has(n.id);
         ctx.globalAlpha = isVisited ? 0.9 : 0.35;
         let lx = n.x, ly = n.y + r + 2;
-        // Halo outline — leggibile su qualsiasi sfondo (chiaro e scuro)
+        // Grid-based overlap avoidance
+        let gx = Math.round(lx / GRID_SIZE);
+        let gy = Math.round(ly / GRID_SIZE);
+        let key = gx + ":" + gy;
+        if (labelSpaces[key]) {
+          ly = labelSpaces[key];
+        } else {
+          labelSpaces[key] = ly;
+        }
         ctx.strokeStyle = isDark ? "rgba(0,0,0,0.6)" : "rgba(255,255,255,0.8)";
         ctx.lineWidth = Math.max(1, 3 / zoomState.k);
         ctx.lineJoin = "round";
@@ -716,119 +812,127 @@ for (const s of sectionOrder) {
         let tw = ctx.measureText(label).width;
         let pad = 10;
         let bx = mousePos.x + 14, by = mousePos.y - 16;
-        if (bx + tw + pad > w) bx = mousePos.x - tw - pad - 14;
-        ctx.fillStyle = getCSSVar("--surface-raised", "#ffffff");
-        ctx.strokeStyle = getCSSVar("--border-default", "#e4e4e7");
+        let twp = tw + pad * 2;
+        let th = 26;
+        // Edge clamping: keep tooltip fully on-canvas
+        if (bx + twp > w) bx = Math.max(2, w - twp - 2);
+        if (bx < 2) bx = 2;
+        if (by + th > h) by = mousePos.y - th - 8;
+        if (by < 2) by = 2;
+        let surfBg = getCSSVar("--surface-raised", "#ffffff");
+        let borderCol = getCSSVar("--border-default", "#e4e4e7");
+        let txtCol = getCSSVar("--color-text", "#18181b");
+        ctx.fillStyle = surfBg;
+        ctx.strokeStyle = borderCol;
         ctx.lineWidth = 1;
         ctx.beginPath();
-        ctx.roundRect(bx, by, tw + pad * 2, 26, 6);
+        ctx.roundRect(bx, by, twp, th, 6);
         ctx.fill();
         ctx.stroke();
-        ctx.fillStyle = getCSSVar("--color-text", "#18181b");
+        ctx.fillStyle = txtCol;
         ctx.textBaseline = "middle";
         ctx.fillText(label, bx + pad, by + 13);
       }
     }
   }
 
-  // --- View switching ---
-  document.addEventListener("DOMContentLoaded", function() {
-    let gBtn = document.getElementById("view-graph-btn");
-    let tBtn = document.getElementById("view-tree-btn");
-    if (gBtn) {
-      gBtn.addEventListener("click", function() {
-        document.getElementById("vault-graph").classList.remove("hidden");
-        document.getElementById("vault-tree").classList.add("hidden");
-        this.className = "rounded-md px-4 py-2 text-sm transition-all bg-white dark:d-raised shadow-sm font-semibold text-(--color-accent)";
-        let other = document.getElementById("view-tree-btn");
-        if (other) other.className = "rounded-md px-4 py-2 text-sm transition-all d-text-sec";
-        initGraph();
-      });
-    }
-    if (tBtn) {
-      tBtn.addEventListener("click", function() {
-        document.getElementById("vault-graph").classList.add("hidden");
-        document.getElementById("vault-tree").classList.remove("hidden");
-        this.className = "rounded-md px-4 py-2 text-sm transition-all bg-white dark:d-raised shadow-sm font-semibold text-(--color-accent)";
-        let other = document.getElementById("view-graph-btn");
-        if (other) other.className = "rounded-md px-4 py-2 text-sm transition-all d-text-sec";
-      });
-    }
-  });
+  // --- UI initialization (script is inline → DOM elements above exist) ---
+  // View switching
+  let gBtn = document.getElementById("view-graph-btn");
+  let tBtn = document.getElementById("view-tree-btn");
+  if (gBtn) {
+    gBtn.addEventListener("click", function() {
+      document.getElementById("vault-graph").classList.remove("hidden");
+      document.getElementById("vault-tree").classList.add("hidden");
+      this.className = "rounded-md px-4 py-2 text-sm transition-all bg-white dark:d-raised shadow-sm font-semibold text-(--color-accent)";
+      let other = document.getElementById("view-tree-btn");
+      if (other) other.className = "rounded-md px-4 py-2 text-sm transition-all d-text-sec";
+      initGraph();
+    });
+  }
+  if (tBtn) {
+    tBtn.addEventListener("click", function() {
+      document.getElementById("vault-graph").classList.add("hidden");
+      document.getElementById("vault-tree").classList.remove("hidden");
+      this.className = "rounded-md px-4 py-2 text-sm transition-all bg-white dark:d-raised shadow-sm font-semibold text-(--color-accent)";
+      let other = document.getElementById("view-graph-btn");
+      if (other) other.className = "rounded-md px-4 py-2 text-sm transition-all d-text-sec";
+    });
+  }
 
-  // --- Accordion ---
-  document.addEventListener("DOMContentLoaded", function() {
-    document.querySelectorAll(".vault-section-header").forEach(function(btn) {
-      btn.addEventListener("click", function() {
-        this.closest(".vault-section").classList.toggle("collapsed");
-      });
+  // Accordion
+  document.querySelectorAll(".vault-section-header").forEach(function(btn) {
+    btn.addEventListener("click", function() {
+      this.closest(".vault-section").classList.toggle("collapsed");
     });
   });
 
-  // --- Search ---
-  document.addEventListener("DOMContentLoaded", function() {
-    let searchInput = document.getElementById("vault-search");
-    if (searchInput) {
-      searchInput.addEventListener("input", function() {
-        let q = this.value.toLowerCase();
-        document.querySelectorAll(".vault-entry").forEach(function(el) {
-          el.style.display = el.textContent.toLowerCase().includes(q) ? "" : "none";
-        });
-        document.querySelectorAll(".vault-section").forEach(function(el) {
-          let visible = false;
-          el.querySelectorAll(".vault-entry").forEach(function(e) { if (e.style.display !== "none") visible = true; });
-          el.style.display = visible ? "" : "none";
-        });
-      });
-    }
-  });
+  var activeTag = 'all';
+  var searchQuery = '';
 
-  // --- Tag filter ---
-  document.addEventListener("DOMContentLoaded", function() {
-    document.querySelectorAll(".tag-filter").forEach(function(btn) {
-      btn.addEventListener("click", function() {
-        let tag = this.dataset.tag;
-        document.querySelectorAll(".tag-filter").forEach(function(b) {
-          b.className = b.dataset.tag === tag
-            ? "tag-filter active rounded-full px-3 py-1 text-xs font-medium bg-(--color-accent) text-white"
-            : "tag-filter rounded-full px-3 py-1 text-xs font-medium bg-stone-100 dark:d-surface d-text-sec hover:bg-stone-200 dark:d-hover transition-colors";
-        });
-        document.querySelectorAll(".vault-entry").forEach(function(el) {
-          el.style.display = tag === "all" ? "" : (el.dataset.tags || "").includes(tag) ? "" : "none";
-        });
-        document.querySelectorAll(".vault-section").forEach(function(el) {
-          let visible = false;
-          el.querySelectorAll(".vault-entry").forEach(function(e) { if (e.style.display !== "none") visible = true; });
-          el.style.display = visible ? "" : "none";
-        });
+  function applyFilters() {
+    var entries = document.querySelectorAll('.vault-entry');
+    entries.forEach(function(el) {
+      var matchTag = activeTag === 'all' || (el.dataset.tags || '').includes(activeTag);
+      var matchSearch = searchQuery === '' || el.textContent.toLowerCase().includes(searchQuery);
+      el.style.display = (matchTag && matchSearch) ? '' : 'none';
+    });
+    document.querySelectorAll('.vault-section').forEach(function(el) {
+      var visible = false;
+      el.querySelectorAll('.vault-entry').forEach(function(e) { if (e.style.display !== 'none') visible = true; });
+      el.style.display = visible ? '' : 'none';
+    });
+  }
+
+  // Search
+  var searchInput = document.getElementById('vault-search');
+  if (searchInput) {
+    searchInput.addEventListener('input', function() {
+      searchQuery = this.value.toLowerCase();
+      applyFilters();
+    });
+  }
+
+  // Tag filter
+  document.querySelectorAll('.tag-filter').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      activeTag = this.dataset.tag;
+      document.querySelectorAll('.tag-filter').forEach(function(b) {
+        b.className = b.dataset.tag === activeTag
+          ? 'tag-filter active rounded-full px-3 py-1 text-xs font-medium bg-(--color-accent) text-white'
+          : 'tag-filter rounded-full px-3 py-1 text-xs font-medium bg-stone-100 dark:d-surface d-text-sec hover:bg-stone-200 dark:d-hover transition-colors';
       });
+      applyFilters();
     });
   });
 
-  // --- Mobile filter toggle ---
-  document.addEventListener("DOMContentLoaded", function() {
-    var toggle = document.getElementById("filter-toggle");
-    var body = document.getElementById("filter-body");
-    if (toggle && body) {
-      toggle.addEventListener("click", function() {
-        body.classList.toggle("open");
-        toggle.classList.toggle("open");
-      });
-    }
-  });
+  // Mobile filter toggle
+  var toggle = document.getElementById("filter-toggle");
+  var body = document.getElementById("filter-body");
+  if (toggle && body) {
+    toggle.addEventListener("click", function() {
+      body.classList.toggle("open");
+      toggle.classList.toggle("open");
+    });
+  }
 
-  // Init graph after DOM ready
-  document.addEventListener("DOMContentLoaded", function() {
-    setTimeout(initGraph, 300);
-  });
-
-  // --- All toggle (Tutti): always shows all sections when active ---
-  // "Tutti" resets all filters — shows everything. Clicking deselects all.
-  document.addEventListener("DOMContentLoaded", function() {
-    var allBtn = document.querySelector('.group-filter[data-group="all"]');
-    if (allBtn) {
-      allBtn.addEventListener("click", function() {
-        // Reset all: show everything, hide nothing
+  // All toggle (Tutti) — toggle: se tutti attivi, deseleziona tutti; altrimenti seleziona tutti
+  var allBtn = document.querySelector('.group-filter[data-group="all"]');
+  if (allBtn) {
+    allBtn.addEventListener("click", function() {
+      var allActive = hiddenSections.size === 0 && hiddenGroups.size === 0;
+      if (allActive) {
+        // Tutti attivi → deseleziona tutto
+        var sectionBtns = document.querySelectorAll(".section-filter");
+        sectionBtns.forEach(function(btn) { btn.classList.remove("active"); });
+        sectionOrder.forEach(function(s) { hiddenSections.add(s); });
+        document.querySelectorAll(".group-filter:not([data-group='all'])").forEach(function(btn) {
+          btn.classList.remove("active");
+          hiddenGroups.add(btn.dataset.group);
+        });
+        this.classList.remove("active");
+      } else {
+        // Qualcuno deselezionato → seleziona tutto
         hiddenSections = new Set();
         hiddenGroups = new Set();
         document.querySelectorAll(".section-filter").forEach(function(btn) {
@@ -838,48 +942,64 @@ for (const s of sectionOrder) {
           btn.classList.remove("active");
         });
         this.classList.add("active");
-        if (sim) zoomToFit();
+      }
+      filterDirty = true;
+      if (sim) zoomToFit();
+    });
+  }
+
+  // Section filter
+  document.querySelectorAll(".section-filter").forEach(function(btn) {
+    btn.addEventListener("click", function() {
+      var sec = this.dataset.section;
+      var isActive = this.classList.contains("active");
+      this.classList.toggle("active");
+      if (isActive) {
+        hiddenSections.add(sec);
+      } else {
+        hiddenSections.delete(sec);
+      }
+      filterDirty = true;
+      var ab = document.querySelector('.group-filter[data-group="all"]');
+      if (ab) {
+        var allVisible = document.querySelectorAll(".section-filter.active").length === sectionOrder.length;
+        ab.classList.toggle("active", allVisible);
+      }
+      if (sim) zoomToFit();
+    });
+  });
+
+  // Group filter
+  document.querySelectorAll(".group-filter:not([data-group='all'])").forEach(function(btn) {
+    btn.addEventListener("click", function() {
+      var group = this.dataset.group;
+      var isActive = this.classList.contains("active");
+      if (isActive) {
+        hiddenGroups.delete(group);
+      } else {
+        hiddenGroups.add(group);
+      }
+      this.classList.toggle("active");
+      filterDirty = true;
+      if (sim) zoomToFit();
+    });
+  });
+
+  // Init graph — requestAnimationFrame per mobile (layout già calcolato)
+  var graphContainer = document.getElementById("force-graph");
+  if (graphContainer && graphContainer.offsetParent !== null) {
+    requestAnimationFrame(function() { initGraph(); });
+  } else {
+    // Graph container is hidden (tree view mode), defer until shown
+    var gBtn = document.getElementById("view-graph-btn");
+    if (gBtn) {
+      gBtn.addEventListener("click", function initOnce() {
+        requestAnimationFrame(function() { initGraph(); });
+        gBtn.removeEventListener("click", initOnce);
       });
     }
-  });
-
-  // --- Section filter ---
-  document.addEventListener("DOMContentLoaded", function() {
-    document.querySelectorAll(".section-filter").forEach(function(btn) {
-      btn.addEventListener("click", function() {
-        var sec = this.dataset.section;
-        var isActive = this.classList.contains("active");
-        this.classList.toggle("active");
-        if (isActive) {
-          hiddenSections.add(sec);
-        } else {
-          hiddenSections.delete(sec);
-        }
-        // Sync "Tutti" state
-        var allBtn = document.querySelector('.group-filter[data-group="all"]');
-        if (allBtn) {
-          var allVisible = document.querySelectorAll(".section-filter.active").length === sectionOrder.length;
-          allBtn.classList.toggle("active", allVisible);
-        }
-        if (sim) zoomToFit();
-      });
-    });
-
-    // --- Group filter (📖 Theory / ⚡ Reality) ---
-    document.querySelectorAll(".group-filter:not([data-group='all'])").forEach(function(btn) {
-      btn.addEventListener("click", function() {
-        var group = this.dataset.group;
-        var isActive = this.classList.contains("active");
-        if (isActive) {
-          hiddenGroups.delete(group);
-        } else {
-          hiddenGroups.add(group);
-        }
-        this.classList.toggle("active");
-        if (sim) zoomToFit();
-      });
-    });
-  });
+  }
+})();
 </script>
 
 <style is:global>
