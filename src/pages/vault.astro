@@ -209,6 +209,33 @@ for (const s of sectionOrder) {
       <span class="rounded-full bg-stone-100 dark:bg-(--surface-bg) text-stone-600 dark:text-stone-300 px-3 py-1 text-xs sm:text-sm w-fit">{graphNodes.length} nodi · {graphLinks.length} connessioni</span>
     </div>
 
+    <!-- Vault guide -->
+    <details class="mb-6 group">
+      <summary class="flex items-center gap-2 text-xs sm:text-sm d-text-dim cursor-pointer px-3 py-2 rounded-lg hover:bg-stone-100 dark:d-hover transition-colors w-fit">
+        <span class="transition-transform group-open:rotate-90">▶</span>
+        Come leggere la Vault
+      </summary>
+      <div class="mt-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs sm:text-sm p-4 border border-stone-200 d-border rounded-lg bg-white d-surface">
+        <div class="space-y-1">
+          <span class="font-semibold text-(--color-accent)">📖 Nodi azzurri</span>
+          <p class="d-text-dim">Pattern del Peeragogy Handbook. La teoria così com'è.</p>
+        </div>
+        <div class="space-y-1">
+          <span class="font-semibold text-amber-600 dark:text-amber-400">⚡ Nodi ambra</span>
+          <p class="d-text-dim">Osservazioni Unpeeragogy. Dove la teoria incontra attrito.</p>
+        </div>
+        <div class="space-y-1">
+          <span class="font-semibold">📏 Dimensione del nodo</span>
+          <p class="d-text-dim"><code>tension_index</code>: più grande = più frizione osservata.</p>
+        </div>
+        <div class="space-y-1">
+          <span class="font-semibold">🎨 Colore della sezione</span>
+          <p class="d-text-dim">Ogni colore corrisponde a una sezione di Peeragogy.</p>
+        </div>
+      </div>
+      <p class="mt-2 text-xs d-text-dim italic">Suggerito: Introduction → Motivation → Patterns → Convening</p>
+    </details>
+
     <div class="flex items-center gap-2 mb-6 p-2 bg-stone-100 dark:d-surface rounded-lg w-full sm:w-fit">
       <button id="view-graph-btn" class="flex-1 sm:flex-initial rounded-md px-4 py-2 text-xs sm:text-sm transition-all bg-white dark:d-raised shadow-sm font-semibold text-(--color-accent)">🕸️ Grafo 3D</button>
       <button id="view-tree-btn" class="flex-1 sm:flex-initial rounded-md px-4 py-2 text-xs sm:text-sm transition-all text-stone-600 dark:d-text-sec hover:text-(--color-text)">🌲 Albero</button>
