@@ -42,10 +42,11 @@ import { Icon } from "astro-icon/components";
         <h3 class="text-lg font-semibold text-(--color-accent)">Motivation</h3>
         <p class="mt-2 text-sm d-text-sec">Un'esplorazione di cosa accade alla motivazione quando le condizioni ideali vengono meno.</p>
       </a>
-      <a href="/patterns/" class="pattern-card">
-        <h3 class="text-lg font-semibold text-(--color-accent)">Peeragogy in Practice</h3>
+      <div class="pattern-card">
+        <h3 class="text-lg font-semibold text-(--color-accent)"><a href="/patterns/" class="hover:underline">Peeragogy in Practice</a></h3>
         <p class="mt-2 text-sm d-text-sec">Pattern, coordinazione, attrito. Cosa funziona, cosa si deforma e perché vale la pena guardarci.</p>
-      </a>
+        <span class="text-xs text-(--color-accent) mt-2 inline-block opacity-70">📄 Success cases: <a href="/newcomer-where-it-works/" class="hover:underline">Newcomer</a> · <a href="/cooperation-where-it-works/" class="hover:underline">Cooperation</a></span>
+      </div>
       <a href="/convening/" class="pattern-card">
         <h3 class="text-lg font-semibold text-(--color-accent)">Convening a Group</h3>
         <p class="mt-2 text-sm d-text-sec">Riunire persone è un atto semplice. Mantenere il gruppo è un'altra storia. Osservazioni sui limiti del consenso.</p>
@@ -113,18 +114,21 @@ import { Icon } from "astro-icon/components";
       Il progetto deve essere disposto a cambiare posizione davanti a controesempi,
       esperienze positive, nuovi dati, interpretazioni alternative.
     </p>
+    <p class="d-text-sec max-w-2xl mb-6 text-sm italic">
+      Ecco i primi due casi in cui la teoria regge. Le condizioni sono ancora in fase di mappatura.
+      I <a href="/vault/" class="text-amber-600 dark:text-amber-400 hover:underline">failure modes</a> restano lo scopo principale del progetto — ma senza success cases, non è ricerca.
+    </p>
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm">
-      <div class="p-5 border border-stone-200 d-border rounded-lg bg-white d-surface">
-        <h3 class="font-semibold mb-2">✅ Where the pattern works</h3>
-        <p class="d-text-dim">Documentare anche dove Peeragogy funziona è essenziale. Se presentiamo solo i fallimenti, 
-        il progetto sembra costruito per dimostrare una tesi. Mostrare dove la teoria regge rende 
-        la critica molto più forte.</p>
-      </div>
-      <div class="p-5 border border-amber-200 d-border rounded-lg bg-amber-50 dark:bg-(--red-bg)">
-        <h3 class="font-semibold text-amber-600 dark:text-amber-400 mb-2">⚡ Where the pattern breaks</h3>
-        <p class="d-text-dim">Le condizioni limite. I contesti in cui la teoria non tiene. I failure modes osservati. 
-        Non per dimostrare che la teoria è sbagliata — per capire dove smette di essere utile.</p>
-      </div>
+      <a href="/newcomer-where-it-works/" class="p-5 border border-stone-200 d-border rounded-lg bg-white d-surface hover:shadow-md transition-shadow">
+        <h3 class="font-semibold mb-2">✅ Newcomer — il caso Charlotte Pierce</h3>
+        <p class="d-text-dim">Una storia concreta di accoglienza riuscita: Charlotte arriva su Google Plus, viene accolta, diventa contributor, organizzatrice e moderatrice. Il pattern funziona quando la cultura del gruppo precede il pattern.</p>
+        <span class="text-xs text-(--color-accent) mt-2 inline-block">Leggi →</span>
+      </a>
+      <a href="/cooperation-where-it-works/" class="p-5 border border-amber-200 d-border rounded-lg bg-amber-50 dark:bg-(--red-bg) hover:brightness-95 transition-all">
+        <h3 class="font-semibold text-amber-600 dark:text-amber-400 mb-2">✅ Cooperation — il dominio dove regge</h3>
+        <p class="d-text-dim">Un'analisi strutturale delle precondizioni: modularità del lavoro, visione condivisa, asimmetria accettata. La cooperazione emerge quando il costo di non coordinarsi è basso.</p>
+        <span class="text-xs text-amber-600 dark:text-amber-400 mt-2 inline-block">Leggi →</span>
+      </a>
     </div>
     <p class="mt-4 text-sm d-text-dim italic max-w-2xl">
       Stiamo testando i pattern, non processandoli.
