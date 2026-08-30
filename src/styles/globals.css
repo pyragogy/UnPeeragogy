@@ -107,7 +107,15 @@ body {
   }
 }
 
-/* Unpeeragogy agent box */
+/* Unpeeragogy agent box — Friction/Observation Callout */
+.perturbator {
+  @apply border-l-4 border-amber-500 bg-amber-50 
+         rounded-r-lg p-4 my-6 text-sm italic;
+  .dark & {
+    background: rgba(217,119,6,0.08);
+    border-color: #d97706;
+  }
+}
 .agent-perturbatore {
   @apply border-l-4 border-red-500 bg-red-50 
          rounded-r-lg p-4 my-6 text-sm italic;
