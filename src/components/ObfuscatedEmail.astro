@@ -1,0 +1,22 @@
+---
+interface Props {
+  user?: string;
+  domain?: string;
+  tld?: string;
+  class?: string;
+  as?: "link" | "text" | "code";
+}
+
+const { user = "info", domain = "pyragogy", tld = "org", as = "link" } = Astro.props;
+---
+
+<span
+  class={`obfuscated-email ${Astro.props.class || ""}`}
+  data-user={user}
+  data-domain={domain}
+  data-tld={tld}
+  data-as={as}
+  aria-label="Email address"
+>
+  [email protected]
+</span>

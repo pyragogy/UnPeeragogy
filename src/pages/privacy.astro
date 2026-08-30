@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import ObfuscatedEmail from "../components/ObfuscatedEmail.astro";
 ---
 
 <BaseLayout title="Privacy Policy — Unpeeragogy" description="Data processing information notice pursuant to Regulation (EU) 2016/679 (GDPR).">
@@ -18,7 +19,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       <li><strong>Controller:</strong> Fabrizio Terzi</li>
       <li><strong>Registered office:</strong> Bergamo (BG), Italy</li>
       <li><strong>VAT ID:</strong> IT04923300166</li>
-      <li><strong>Contact email:</strong> <code>info@pyragogy.org</code></li>
+      <li><strong>Contact email:</strong> <ObfuscatedEmail as="code" /></li>
     </ul>
 
     <hr />
@@ -71,7 +72,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       <li>Lodge a complaint with the competent supervisory authority (<strong>Garante per la Protezione dei Dati Personali</strong> — <a href="https://www.garanteprivacy.it">garanteprivacy.it</a>).</li>
     </ul>
 
-    <p>To exercise your rights: <code>info@pyragogy.org</code>.</p>
+    <p>To exercise your rights: <ObfuscatedEmail as="code" /></p>
 
     <hr />
 

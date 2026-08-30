@@ -2,6 +2,7 @@
 import "../styles/globals.css";
 import ThemeToggle from "../components/ThemeToggle.astro";
 import CookieConsent from "../components/CookieConsent.astro";
+import ObfuscatedEmail from "../components/ObfuscatedEmail.astro";
 import { Icon } from "astro-icon/components";
 
 export interface Props {
@@ -227,7 +228,7 @@ const navLinks = [
           <span class="sep">·</span>
           <a href="https://www.linkedin.com/in/bergamohub001/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
           <span class="sep">·</span>
-          <a href="mailto:info@pyragogy.org">info@pyragogy.org</a>
+          <ObfuscatedEmail />
         </nav>
         <p class="legal-note">
           Content in <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noopener noreferrer" class="underline hover:text-(--color-accent)">CC Zero</a> — Public Domain Dedication.
@@ -372,6 +373,22 @@ const navLinks = [
       link.rel = "stylesheet";
       link.href = "/pagefind/pagefind-ui.css";
       document.head.appendChild(link);
+    }
+  });
+
+  // Decode obfuscated email addresses
+  document.querySelectorAll('.obfuscated-email').forEach(function(el) {
+    var user = el.dataset.user;
+    var domain = el.dataset.domain;
+    var tld = el.dataset.tld;
+    var as = el.dataset.as || 'link';
+    var email = user + '@' + domain + '.' + tld;
+    if (as === 'link') {
+      el.innerHTML = '<a href="mailto:' + email + '">' + email + '</a>';
+    } else if (as === 'code') {
+      el.innerHTML = '<code>' + email + '</code>';
+    } else {
+      el.textContent = email;
     }
   });
 </script>
