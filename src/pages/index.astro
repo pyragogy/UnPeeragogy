@@ -3,14 +3,16 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import { Icon } from "astro-icon/components";
 ---
 
-<BaseLayout title="Unpeeragogy" description="Unpeeragogy — la decostruzione radicale della teoria peer-to-peer, confrontata con la nuda realtà operativa quotidiana.">
+<BaseLayout title="Unpeeragogy" description="Peeragogy, vista da vicino. Teoria, esperienza e attrito a confronto.">
   <section class="py-8 sm:py-16 text-center" data-pagefind-body>
     <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight">
     <img src="/images/UnPeeragogy-logo-test.webp" alt="Unpeeragogy" class="mx-auto h-24 sm:h-40 w-auto" />
     </h1>
-    <p class="mt-4 text-base sm:text-lg d-text-sec max-w-2xl mx-auto px-4">
-      La decostruzione della teoria accademica della peeragogy, confrontata 
-      con la nuda realtà operativa quotidiana. <em>Due colonne. Una verità.</em>
+    <p class="mt-4 text-lg sm:text-xl d-text-sec max-w-2xl mx-auto px-4 font-medium">
+      Peeragogy, vista da vicino.
+    </p>
+    <p class="text-base sm:text-lg d-text-dim max-w-xl mx-auto px-4 mt-2">
+      Teoria, esperienza e attrito a confronto.
     </p>
 
     <div class="mt-8 flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 px-4">
@@ -31,27 +33,27 @@ import { Icon } from "astro-icon/components";
     <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
       <a href="/introduction/" class="pattern-card">
         <h3 class="text-lg font-semibold text-(--color-accent)">Introduction</h3>
-        <p class="mt-2 text-sm d-text-sec">Teoria vs realtà — il divario tra il manuale e la pratica.</p>
+        <p class="mt-2 text-sm d-text-sec">Il punto di partenza. Cosa promette la teoria e cosa emerge quando la si osserva da vicino.</p>
       </a>
       <a href="/motivation/" class="pattern-card">
         <h3 class="text-lg font-semibold text-(--color-accent)">Motivation</h3>
-        <p class="mt-2 text-sm d-text-sec">La motivazione come scusa. Il free-rider accademico.</p>
+        <p class="mt-2 text-sm d-text-sec">Un'esplorazione di cosa accade alla motivazione quando le condizioni ideali vengono meno.</p>
       </a>
       <a href="/patterns/" class="pattern-card">
         <h3 class="text-lg font-semibold text-(--color-accent)">Peeragogy in Practice</h3>
-        <p class="mt-2 text-sm d-text-sec">Pattern? Trucchi. Stanchezza da coordinamento.</p>
+        <p class="mt-2 text-sm d-text-sec">Pattern, coordinazione, attrito. Cosa funziona, cosa si deforma e perché vale la pena guardarci.</p>
       </a>
       <a href="/convening/" class="pattern-card">
         <h3 class="text-lg font-semibold text-(--color-accent)">Convening a Group</h3>
-        <p class="mt-2 text-sm d-text-sec">Il consenso paralizzante. Riunire la gente non è un pattern.</p>
+        <p class="mt-2 text-sm d-text-sec">Riunire persone è un atto semplice. Mantenere il gruppo è un'altra storia. Osservazioni sui limiti del consenso.</p>
       </a>
       <a href="/organizing/" class="pattern-card">
         <h3 class="text-lg font-semibold text-(--color-accent)">Organizing a Learning Context</h3>
-        <p class="mt-2 text-sm d-text-sec">La dittatura benevola. Organizzare è micro-management.</p>
+        <p class="mt-2 text-sm d-text-sec">Organizzare è necessario. Quando diventa micro-gestione? Quando la struttura aiuta e quando sostituisce l'iniziativa?</p>
       </a>
       <a href="/cooperation/" class="pattern-card">
         <h3 class="text-lg font-semibold text-(--color-accent)">Cooperation</h3>
-        <p class="mt-2 text-sm d-text-sec">Cooperazione? Competizione travestita. Il conflitto inespresso.</p>
+        <p class="mt-2 text-sm d-text-sec">La cooperazione è un ideale. Nella pratica, produce tensione, competizione e conflitto inespresso. Un'analisi.</p>
       </a>
     </div>
   </section>
@@ -61,17 +63,17 @@ import { Icon } from "astro-icon/components";
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       <div class="p-6 border border-stone-200 d-border rounded-lg bg-white d-surface">
         <h3 class="font-semibold text-(--color-accent)">📖 Colonna Sinistra — Peeragogy</h3>
-        <p class="mt-2 text-sm d-text-sec">I testi storici del Peeragogy Handbook. La teoria, i pattern, la visione accademica dell'apprendimento collaborativo. Inalterati, rispettati, ma non sacri.</p>
+        <p class="mt-2 text-sm d-text-sec">I testi storici del Peeragogy Handbook. La teoria, i pattern, la visione dell'apprendimento collaborativo. Inalterati, rispettati — messi a disposizione perché il lettore possa confrontarli con l'esperienza.</p>
       </div>
-      <div class="p-6 border border-red-200 d-red-bdr rounded-lg bg-red-50 d-red-bg">
-        <h3 class="font-semibold text-red-500">⚡ Colonna Destra — Unpeeragogy</h3>
-        <p class="mt-2 text-sm d-text-sec">La decostruzione. Anti-pattern operativi, fallimenti reali, attriti umani. L'Agente Perturbatore del Pattern che smonta ogni certezza.</p>
+      <div class="p-6 border border-amber-200 d-border rounded-lg bg-amber-50 dark:bg-(--red-bg)">
+        <h3 class="font-semibold text-amber-600 dark:text-amber-400">⚡ Colonna Destra — Unpeeragogy</h3>
+        <p class="mt-2 text-sm d-text-sec">Osservazioni, dubbi, failure modes, controesempi. Non una confutazione della teoria, ma una messa alla prova — per vedere dove regge e dove la distanza tra teoria ed esperienza si fa visibile.</p>
       </div>
     </div>
     <div class="mt-6 flex flex-wrap gap-4 text-sm">
       <span class="rounded-full bg-stone-100 d-surface px-3 py-1">CC Zero — Public Domain</span>
-      <span class="rounded-full bg-red-50 d-red-bg text-red-600 d-red-txt px-3 py-1">Agente Perturbatore Attivo</span>
-      <span class="rounded-full bg-stone-100 d-surface px-3 py-1">Dual-View Reading</span>
+      <span class="rounded-full bg-amber-50 dark:bg-(--red-bg) text-amber-700 dark:text-amber-400 px-3 py-1">Perturbator: attrito come funzione epistemica</span>
+      <span class="rounded-full bg-stone-100 d-surface px-3 py-1">Lettura a doppia colonna</span>
     </div>
   </section>
 </BaseLayout>
