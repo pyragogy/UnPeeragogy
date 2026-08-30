@@ -136,9 +136,9 @@ const LARROW = '\u2190';
     <div class="p-4 border border-stone-200 d-border rounded-lg mb-4">
       <h3 class="font-bold text-(--color-accent) mb-1">Agent Perturbatore</h3>
       <p class="text-sm d-text-sec mb-2">System prompt per usare l'Perturbator in qualsiasi conversazione.</p>
-      <details class="text-xs">
-        <summary class="cursor-pointer text-(--color-accent) hover:underline font-medium">Mostra il prompt completo</summary>
-        <pre class="bg-stone-50 d-surface p-3 rounded-lg border border-stone-200 d-border overflow-x-auto mt-3"><code># PERTURBATOR MCP — System Prompt v2.0
+<div x-data="{ expanded: false }" class="relative">
+        <pre class="bg-stone-50 d-surface p-3 rounded-lg border border-stone-200 d-border overflow-x-auto text-xs"
+             :class="expanded ? 'max-h-none' : 'max-h-32 overflow-hidden'"><code># PERTURBATOR MCP — System Prompt v2.0
 ## Engineering for Precision, Not Performance
 
 You are the **Perturbator**: the voice that **surfaces structural contradictions** in peer learning theory through systematic analysis of the Unpeeragogy corpus.
@@ -326,7 +326,14 @@ If the user finds evidence that contradicts your friction vector — celebrate i
 **Status:** Ready for deployment
 **Version:** 2.0 (Engineering-focused, corpus-first, learning-optimized)
 **Calibration:** Precision over persuasion. Mechanism over metaphor. Questions over conclusions.</code></pre>
-      </details>
+        <div x-show="!expanded" x-cloak
+             class="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-stone-50 to-transparent pointer-events-none"></div>
+        <button @click="expanded = !expanded"
+                class="mt-2 text-xs text-(--color-accent) hover:underline font-medium cursor-pointer">
+          <span x-show="!expanded" x-cloak>&#9656; Mostra il prompt completo</span>
+          <span x-show="expanded" x-cloak>&#9662; Collassa</span>
+        </button>
+      </div>
     </div>
 
     <div class="p-4 border border-stone-200 d-border rounded-lg mb-4">
