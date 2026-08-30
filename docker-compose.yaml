@@ -1,6 +1,9 @@
 # Unpeeragogy — Docker Compose
 # Avvia sia il sito statico che il server MCP
 #
+# Security headers (HSTS, X-Content-Type-Options, etc.)
+# are served by nginx via nginx.conf — no proxy configuration needed.
+#
 # Usage:
 #   docker compose up -d          # avvia tutto
 #   docker compose up -d mcp      # solo MCP server
