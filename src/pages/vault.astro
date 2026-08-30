@@ -929,7 +929,7 @@ for (const s of sectionOrder) {
         // Tutti attivi → deseleziona tutto
         var sectionBtns = document.querySelectorAll(".section-filter");
         sectionBtns.forEach(function(btn) { btn.classList.remove("active"); });
-        sectionOrder.forEach(function(s) { hiddenSections.add(s); });
+        sectionBtns.forEach(function(btn) { hiddenSections.add(btn.dataset.section); });
         document.querySelectorAll(".group-filter:not([data-group='all'])").forEach(function(btn) {
           btn.classList.remove("active");
           hiddenGroups.add(btn.dataset.group);
@@ -966,8 +966,9 @@ for (const s of sectionOrder) {
       filterDirty = true;
       var ab = document.querySelector('.group-filter[data-group="all"]');
       if (ab) {
-        var allVisible = document.querySelectorAll(".section-filter.active").length === sectionOrder.length;
-        ab.classList.toggle("active", allVisible);
+        var totalSectionFilters = document.querySelectorAll(".section-filter").length;
+        var activeFilters = document.querySelectorAll(".section-filter.active").length;
+        ab.classList.toggle("active", activeFilters === totalSectionFilters);
       }
       if (sim) zoomToFit();
     });
