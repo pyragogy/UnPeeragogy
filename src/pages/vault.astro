@@ -990,18 +990,10 @@ for (const s of sectionOrder) {
   });
 
   // Init graph — requestAnimationFrame per mobile (layout già calcolato)
-  var graphContainer = document.getElementById("force-graph");
-  if (graphContainer && graphContainer.offsetParent !== null) {
+  // Il click handler su #view-graph-btn (sopra) chiama gia' initGraph(),
+  // quindi se il container e' nascosto parte al primo click sull'apposito pulsante.
+  if (document.getElementById("force-graph") && document.getElementById("force-graph").offsetParent !== null) {
     requestAnimationFrame(function() { initGraph(); });
-  } else {
-    // Graph container is hidden (tree view mode), defer until shown
-    var gBtn = document.getElementById("view-graph-btn");
-    if (gBtn) {
-      gBtn.addEventListener("click", function initOnce() {
-        requestAnimationFrame(function() { initGraph(); });
-        gBtn.removeEventListener("click", initOnce);
-      });
-    }
   }
 })();
 </script>
