@@ -8,6 +8,7 @@ const { slug, title } = Astro.props;
 const repoUrl = "https://github.com/pyragogy/UnPeeragogy";
 const newDiscussionUrl = `${repoUrl}/discussions/new?category=discussione`;
 const existingDiscussionsUrl = `${repoUrl}/discussions?discussions_q=label%3Adiscussione+${slug}`;
+const helpUrl = "https://docs.github.com/en/discussions/quickstart";
 ---
 
 <section class="mt-12 border-t border-teal-300 pt-8">
@@ -16,14 +17,13 @@ const existingDiscussionsUrl = `${repoUrl}/discussions?discussions_q=label%3Adis
   </h2>
 
   <p class="text-sm d-text-dim mb-2">
-    The discussion lives on GitHub, not in a widget. No magic, no silent bugs.
-    Open a thread, share your experience, and the following week the project
-    can evolve from what emerged.
+    The discussion lives on GitHub. No magic, no silent bugs.
+    Open a thread, share your experience, and the project evolves from what emerges.
   </p>
   <p class="text-sm d-text-dim mb-6">
     Write in your native language — the browser will translate. Lowering the entry barrier
-    is more important than choosing the "right" language. GitHub automatically translates threads
-    when you need to follow along.
+    is more important than choosing the "right" language. GitHub translates threads automatically
+    so everyone can follow along.
   </p>
 
   <div class="flex flex-wrap gap-4">
@@ -46,10 +46,20 @@ const existingDiscussionsUrl = `${repoUrl}/discussions?discussions_q=label%3Adis
   <details class="mt-4 text-xs d-text-dim">
     <summary class="cursor-pointer hover:text-(--color-accent)">What happens after I open a discussion?</summary>
     <div class="mt-2 space-y-1 leading-relaxed">
-      <p>1. The discussion appears in <strong>GitHub Discussions</strong> with tag <code>discussione</code>.</p>
-      <p>2. Once a week, the project analyzes active threads.</p>
-      <p>3. If new Failure Vectors, tension_index revisions, or sharper Perturbator observations emerge, the entry gets updated.</p>
-      <p>4. A weekly log at <code>/log</code> records what changed.</p>
+      <p>1. Your discussion appears in <strong>GitHub Discussions</strong> with tag <code>discussione</code>.</p>
+      <p>2. Once a week, the project reads active threads and checks for new findings.</p>
+      <p>3. If a new Failure Vector emerges, a tension_index needs revision, or the Perturbator can sharpen its analysis — the entry gets updated.</p>
+      <p>4. The change is logged at <code>/log</code> and goes live on the next deploy.</p>
+    </div>
+  </details>
+
+  <details class="mt-3 text-xs d-text-dim">
+    <summary class="cursor-pointer hover:text-(--color-accent)">Don't have a GitHub account? Here's how it works</summary>
+    <div class="mt-2 space-y-1 leading-relaxed">
+      <p>GitHub Discussions is free. You need a <a href="https://github.com/signup" target="_blank" class="underline hover:text-(--color-accent)">GitHub account</a> (30 seconds to create one).</p>
+      <p>Once you're signed in, click "Start a discussion" above. Write in your own language — the thread will be translated for everyone else automatically.</p>
+      <p>You don't need to know how to code. You don't need to know what "git" is. You just need an observation that the theory didn't match reality.</p>
+      <p><a href={helpUrl} target="_blank" class="underline hover:text-(--color-accent)">What are GitHub Discussions? →</a></p>
     </div>
   </details>
 </section>

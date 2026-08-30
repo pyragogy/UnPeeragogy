@@ -6,17 +6,17 @@ const logEntries = await getCollection("log");
 const sorted = logEntries.sort((a, b) => b.data.month.localeCompare(a.data.month));
 ---
 
-<BaseLayout title="Log mensile" description="Registro delle revisioni mensili di Unpeeragogy — discussioni attive, entry modificate, evoluzione del grafo.">
+<BaseLayout title="Monthly Log" description="Unpeeragogy's monthly revision log — active discussions, modified entries, graph evolution.">
   <section class="py-12" data-pagefind-body>
-    <h1 class="text-3xl font-extrabold tracking-tight mb-2">📋 Log mensile</h1>
+    <h1 class="text-3xl font-extrabold tracking-tight mb-2">📋 Monthly Log</h1>
     <p class="d-text-sec mb-8">
-      Ogni mese il progetto analizza le discussioni attive e le modifiche alle entry,
-      e registra qui cosa è cambiato. <em>Trasparenza radicale, niente changelog cosmetico.</em>
+      Every month the project reads active discussions and entry changes,
+      and logs what shifted. <em>Radical transparency, no cosmetic changelogs.</em>
     </p>
 
     <div class="space-y-6">
       {sorted.length === 0 && (
-        <p class="d-text-dim italic">Nessun log ancora registrato.</p>
+        <p class="d-text-dim italic">No log entries yet.</p>
       )}
 
       {sorted.map((entry) => (
@@ -37,9 +37,9 @@ const sorted = logEntries.sort((a, b) => b.data.month.localeCompare(a.data.month
           <div class="mt-4 flex flex-wrap gap-3 text-xs d-text-dim">
             <span>🕸️ {entry.data.metrics.nodeCount} nodi</span>
             <span>🔗 {entry.data.metrics.linkCount} link</span>
-            <span>⚡ tensione Ø {entry.data.metrics.avgTension}</span>
-            <span>📝 {entry.data.metrics.totalWords} parole</span>
-            <span>💬 {entry.data.metrics.discussionsActive} discussioni</span>
+            <span>⚡ avg tension {entry.data.metrics.avgTension}</span>
+            <span>📝 {entry.data.metrics.totalWords} words</span>
+            <span>💬 {entry.data.metrics.discussionsActive} discussions</span>
           </div>
 
           {entry.data.changes.length > 0 && (
@@ -56,7 +56,7 @@ const sorted = logEntries.sort((a, b) => b.data.month.localeCompare(a.data.month
                 </li>
               ))}
               {entry.data.changes.length > 3 && (
-                <li class="text-xs d-text-dim">… e altre {entry.data.changes.length - 3} modifiche</li>
+                <li class="text-xs d-text-dim">… and {entry.data.changes.length - 3} more changes</li>
               )}
             </ul>
           )}
