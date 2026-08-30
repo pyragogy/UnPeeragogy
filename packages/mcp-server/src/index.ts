@@ -48,12 +48,7 @@ const server = new Server(
   }
 );
 
-// ─── Authentication via query param (not header) ─────────────
-function getTokenFromQuery(req: http.IncomingMessage): string | null {
-  const url = new URL(req.url || '', `http://${req.headers.host || 'localhost'}`);
-  return url.searchParams.get('token');
-}
-
+// ─── Authentication (RFC 6750 Bearer token only) ────────────
 function getTokenFromHeader(req: http.IncomingMessage): string | null {
   const auth = req.headers.authorization;
   if (!auth) return null;
@@ -62,8 +57,11 @@ function getTokenFromHeader(req: http.IncomingMessage): string | null {
 }
 
 function checkAuth(req: http.IncomingMessage): boolean {
-  if (!AUTH_TOKEN) return true; // No token = open access
-  return getTokenFromQuery(req) === AUTH_TOKEN || getTokenFromHeader(req) === AUTH_TOKEN;
+  if (!AUTH_TOKEN) {
+    // Fail-secure: should never reach here — startup exits if unset
+    return false;
+  }
+  return getTokenFromHeader(req) === AUTH_TOKEN;
 }
 
 // ─── Apply Friction Filter ─────────────────────────────────────
@@ -511,16 +509,18 @@ const httpServer = http.createServer(async (req, res) => {
 });
 
 // ─── Start ─────────────────────────────────────────────────────
+if (!AUTH_TOKEN) {
+  console.error("❌ MCP_AUTH_TOKEN is not set. The server refuses to start without authentication.");
+  console.error("   Set the environment variable and restart.");
+  process.exit(1);
+}
+
 httpServer.listen(PORT, () => {
   console.log(`⚡ Unpeeragogy MCP Server running on port ${PORT}`);
   console.log(`  SSE endpoint: http://localhost:${PORT}/sse`);
   console.log(`  Health check: http://localhost:${PORT}/health`);
   console.log(`  Friction mode: ${FRICTION_MODE}`);
-  if (AUTH_TOKEN) {
-    console.log(`  Auth: Bearer token enabled`);
-  } else {
-    console.log(`  Auth: open (no MCP_AUTH_TOKEN configured)`);
-  }
+  console.log(`  Auth: Bearer token enabled`);
   console.log(`  Resources: ${listResources().length} available`);
 });
 
