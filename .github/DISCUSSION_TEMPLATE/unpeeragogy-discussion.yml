@@ -29,7 +29,7 @@ body:
       required: true
 
   - type: textarea
-    id: corpo
+    id: experience
     attributes:
       label: Your experience
       description: What have you experienced that confirms, contradicts, or extends this entry?
@@ -43,7 +43,7 @@ body:
       required: true
 
   - type: dropdown
-    id: accordo
+    id: position
     attributes:
       label: Position
       description: What do you think of this analysis?
