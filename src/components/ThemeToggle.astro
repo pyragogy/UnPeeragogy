@@ -37,5 +37,7 @@ import { Icon } from "astro-icon/components";
     const newTheme = isDark ? "light" : "dark";
     localStorage.setItem("theme", newTheme);
     applyTheme(newTheme);
+    // Invalidate graph CSS variable cache
+    document.dispatchEvent(new CustomEvent("theme-changed"));
   });
 </script>

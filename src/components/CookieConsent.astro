@@ -7,6 +7,15 @@ import * as ccModule from 'vanilla-cookieconsent';
 import 'vanilla-cookieconsent/dist/cookieconsent.css';
 
 const api = ccModule.run({
+  cookie: {
+    name: 'cc-consent',
+    domain: window.location.hostname,
+    path: '/',
+    sameSite: 'Lax',
+    useLocalStorage: false,
+    // Cookie expiry: 365 days
+    expiryInDays: 365,
+  },
   guiOptions: {
     consentModal: {
       layout: 'cloud',
