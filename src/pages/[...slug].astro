@@ -136,7 +136,7 @@ const next = currentIndex < sorted.length - 1 ? sorted[currentIndex + 1] : null;
           x-transition:enter-end="opacity-100"
           class="scroll-sync peeragogy-col"
           :class="view === 'dual' ? 'lg:border-r lg:border-stone-200 d-border lg:pr-4' : ''"
-          @scroll.throttle="if (scrollSync && view === 'dual' && window.innerWidth >= 1024) { var el = $el.closest('div').querySelector('.unpeeragogy-col'); if (el) el.scrollTop = $el.scrollTop }"
+          @scroll.throttle="if (!syncing && scrollSync && view === 'dual' && window.innerWidth >= 1024) { syncing = true; var el = $el.closest('div').querySelector('.unpeeragogy-col'); if (el) el.scrollTop = $el.scrollTop; requestAnimationFrame(() => syncing = false) }"
         >
           {PeeragogyContent ? (
             <article>
@@ -176,7 +176,7 @@ const next = currentIndex < sorted.length - 1 ? sorted[currentIndex + 1] : null;
           x-transition:enter-end="opacity-100"
           class="scroll-sync unpeeragogy-col"
           :class="view === 'dual' ? 'lg:pl-2' : ''"
-          @scroll.throttle="if (scrollSync && view === 'dual' && window.innerWidth >= 1024) { var el = $el.closest('div').querySelector('.peeragogy-col'); if (el) el.scrollTop = $el.scrollTop }"
+          @scroll.throttle="if (!syncing && scrollSync && view === 'dual' && window.innerWidth >= 1024) { syncing = true; var el = $el.closest('div').querySelector('.peeragogy-col'); if (el) el.scrollTop = $el.scrollTop; requestAnimationFrame(() => syncing = false) }"
         >
           {UnpeeragogyContent ? (
             <article>
