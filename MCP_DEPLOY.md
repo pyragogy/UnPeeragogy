@@ -1,16 +1,16 @@
 # MCP Server — Coolify Setup Guide
 
-> Crea il server MCP come applicazione standalone nel progetto **Unpeeragogy** della Coolify Console.
+> Create the MCP server as a standalone application in the **Unpeeragogy** project of the Coolify Console.
 
-## Passo 1 — Crea l'applicazione
+## Step 1 — Create the application
 
-Dalla Coolify Console (`https://console.pyragogy.org`), vai su Progetti → Unpeeragogy → **+ Nuova Applicazione**
+From Coolify Console (`https://console.pyragogy.org`), go to Projects → Unpeeragogy → **+ New Application**
 
-### Configurazione:
+### Configuration:
 
-| Campo | Valore |
-|-------|--------|
-| **Nome** | `unpeeragogy-mcp` |
+| Field | Value |
+|-------|-------|
+| **Name** | `unpeeragogy-mcp` |
 | **Repository** | `pyragogy/unpeeragogy` |
 | **Branch** | `main` |
 | **Build Pack** | `Dockerfile` |
@@ -19,37 +19,60 @@ Dalla Coolify Console (`https://console.pyragogy.org`), vai su Progetti → Unpe
 | **Port(s)** | `3001` |
 | **Domain** | `mcp.unpeeragogy.pyragogy.org` |
 
-### Variabili d'ambiente:
+### Environment variables:
 
-| Variabile | Valore |
-|-----------|--------|
-| `MCP_AUTH_TOKEN` | (genera una stringa random) |
+| Variable | Value |
+|----------|-------|
+| `MCP_AUTH_TOKEN` | (generate a random string — **required**, without it all requests are denied) |
 | `MCP_FRICTION_MODE` | `soft` |
 | `PORT` | `3001` |
 
-## Passo 2 — Ottieni l'UUID
+## Step 2 — Get the UUID
 
-Dopo la creazione, dalla pagina dell'app prendi l'UUID (es. `abc123...`).
+After creation, copy the UUID from the app page (e.g. `abc123...`).
 
-## Passo 3 — Configura il secret GitHub
+## Step 3 — Configure GitHub secret
 
-Vai su Settings → Secrets and variables → Actions del repository `pyragogy/unpeeragogy` e aggiungi:
+Go to Settings → Secrets and variables → Actions of the `pyragogy/unpeeragogy` repository and add:
 
-| Secret | Valore |
-|--------|--------|
-| `COOLIFY_MCP_UUID` | l'UUID dell'app MCP |
+| Secret | Value |
+|--------|-------|
+| `COOLIFY_MCP_UUID` | The MCP app UUID |
 
-## Passo 4 — Primo deploy manuale
+## Step 4 — First manual deploy
 
-Dalla Coolify Console, clicca **Deploy** sull'app MCP.
+From Coolify Console, click **Deploy** on the MCP app.
 
-Dopo il deploy, verifichi con:
+After deploy, verify with:
 
 ```bash
 curl https://mcp.unpeeragogy.pyragogy.org/health
 ```
 
-Risposta attesa:
+Expected response:
 ```json
 {"status":"ok","server":"unpeeragogy-mcp","version":"0.1.0","frictionMode":"soft"}
 ```
+
+## Step 5 — Connect from a client
+
+```bash
+npx @pyragogy/mcp-server --setup --token <MCP_AUTH_TOKEN>
+```
+
+Or manually configure your MCP client:
+
+```json
+{
+  "mcpServers": {
+    "unpeeragogy": {
+      "url": "https://mcp.unpeeragogy.pyragogy.org/sse",
+      "headers": {
+        "Authorization": "Bearer <MCP_AUTH_TOKEN>"
+      }
+    }
+  }
+}
+```
+
+> **Security**: `Authorization: Bearer` is the only accepted method. Query params are **not supported**.

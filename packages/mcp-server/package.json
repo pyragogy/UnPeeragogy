@@ -16,7 +16,7 @@
     "minisearch": "^7.1.0",
     "gray-matter": "^4.0.3"
   },
-  "files": ["dist", "scripts/mcp-setup.mjs"],
+  "files": ["dist", "scripts/"],
   "devDependencies": {
     "typescript": "^5.7.0",
     "tsx": "^4.19.0",

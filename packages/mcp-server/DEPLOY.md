@@ -1,27 +1,27 @@
 # MCP Server — Deploy & Verify
 
-> Servizio MCP deployato su Coolify (pyragogy.org) nel progetto Unpeeragogy.
-> Container **running**, health check passato.
+> MCP service deployed on Coolify (pyragogy.org) under the Unpeeragogy project.
+> Container **running**, health check passed.
 
-## Stato attuale
+## Current Status
 
-| Proprietà | Valore |
-|-----------|--------|
+| Property | Value |
+|----------|-------|
 | **Server** | Pyragogy-Core (`91.99.70.26`) |
-| **Progetto** | Unpeeragogy (UUID: `k148lm5dloro147dpqnlpd91`) |
+| **Project** | Unpeeragogy (UUID: `k148lm5dloro147dpqnlpd91`) |
 | **Port** | `3001` |
 | **Health** | ✅ `curl http://91.99.70.26:3001/health` → OK |
 
-## ⚠️ Passo manuale — Creare l'app MCP dalla UI Coolify
+## ⚠️ Manual step — Create MCP app from Coolify UI
 
-Il server MCP è deployato come docker-compose service. Per assegnare il dominio
-`mcp.unpeeragogy.pyragogy.org` serve creare un'applicazione **standalone** dalla UI.
+The MCP server is deployed as a docker-compose service. To assign the domain
+`mcp.unpeeragogy.pyragogy.org`, you need to create a **standalone** application from the UI.
 
-Dalla **Coolify Console** → **Projects** → **Unpeeragogy** → **+ Nuova Applicazione**:
+From **Coolify Console** → **Projects** → **Unpeeragogy** → **+ New Application**:
 
-| Campo | Valore |
-|-------|--------|
-| **Nome** | `unpeeragogy-mcp` |
+| Field | Value |
+|-------|-------|
+| **Name** | `unpeeragogy-mcp` |
 | **Repository** | `pyragogy/unpeeragogy` |
 | **Branch** | `main` |
 | **Build Pack** | `Dockerfile` |
@@ -30,94 +30,108 @@ Dalla **Coolify Console** → **Projects** → **Unpeeragogy** → **+ Nuova App
 | **Port** | `3001` |
 | **Domain** | `mcp.unpeeragogy.pyragogy.org` |
 
-Dopo la creazione, clicca **Deploy**. Tra ~3 minuti:
+After creation, click **Deploy**. In ~3 minutes:
 
 ```bash
 curl https://mcp.unpeeragogy.pyragogy.org/health
 # → {"status":"ok","server":"unpeeragogy-mcp","version":"0.1.0","frictionMode":"soft"}
 ```
 
-## Verifica completa del MCP Server
+## Verify MCP Server
 
-### 1. Risorse MCP (list + read)
+### 1. Resources (list + read)
 ```bash
-# Lista risorse
-curl -s "http://91.99.70.26:3001/mcp/list?token=$MCP_AUTH_TOKEN"
+# List resources (use Authorization header)
+curl -s -H "Authorization: Bearer $MCP_AUTH_TOKEN" \
+  "https://mcp.unpeeragogy.pyragogy.org/mcp/list"
 
-# Leggi risorsa per vettore di fallimento
-curl -s "http://91.99.70.26:3001/mcp/read?uri=unpeeragogy://failure/misunderstanding_power&token=$MCP_AUTH_TOKEN"
+# Read a specific failure vector
+curl -s -H "Authorization: Bearer $MCP_AUTH_TOKEN" \
+  "https://mcp.unpeeragogy.pyragogy.org/mcp/read?uri=unpeeragogy://failure/misunderstanding_power"
 ```
 
-### 2. Tool MCP (via POST JSON, token in URL)
+### 2. Tools (POST JSON)
 ```bash
 # Search
-curl -s -X POST "http://91.99.70.26:3001/mcp/tool?token=$MCP_AUTH_TOKEN" \
+curl -s -X POST "https://mcp.unpeeragogy.pyragogy.org/mcp/tool" \
+  -H "Authorization: Bearer $MCP_AUTH_TOKEN" \
   -H "Content-Type: application/json" \
-  -d '{"tool":"search","params":{"query":"peeragogy","maxResults":5}}'
+  -d '{"tool":"search","params":{"query":"coordination","maxResults":5}}'
 
 # Inject Friction
-curl -s -X POST "http://91.99.70.26:3001/mcp/tool?token=$MCP_AUTH_TOKEN" \
+curl -s -X POST "https://mcp.unpeeragogy.pyragogy.org/mcp/tool" \
+  -H "Authorization: Bearer $MCP_AUTH_TOKEN" \
   -H "Content-Type: application/json" \
-  -d '{"tool":"injectFriction","params":{"topic":"moderation","mode":"hard"}}'
+  -d '{"tool":"inject-friction","params":{"topic":"moderation","mode":"hard"}}'
 
 # Tension Index
-curl -s -X POST "http://91.99.70.26:3001/mcp/tool?token=$MCP_AUTH_TOKEN" \
+curl -s -X POST "https://mcp.unpeeragogy.pyragogy.org/mcp/tool" \
+  -H "Authorization: Bearer $MCP_AUTH_TOKEN" \
   -H "Content-Type: application/json" \
-  -d '{"tool":"calculateTensionIndex","params":{}}'
+  -d '{"tool":"tension-index","params":{}}'
 ```
 
-### 3. Connessione da client MCP (un comando)
+> **Security note**: prefer the `Authorization: Bearer` header over query params (`?token=`).
+> Query params leak to proxy/server logs. The query param fallback exists for backwards compatibility only.
+
+### 3. Connect from MCP client (one command)
 
 ```bash
 npx @pyragogy/mcp-server --setup --token <MCP_AUTH_TOKEN>
 ```
 
-Oppure manualmente:
+This configures both Claude Desktop and pi automatically. Or manually:
 
 ```json
 {
   "mcpServers": {
     "unpeeragogy": {
-      "url": "https://mcp.unpeeragogy.pyragogy.org/mcp/sse?token=<MCP_AUTH_TOKEN>"
+      "url": "https://mcp.unpeeragogy.pyragogy.org/sse",
+      "headers": {
+        "Authorization": "Bearer <MCP_AUTH_TOKEN>"
+      }
     }
   }
 }
 ```
 
-## Deploy automatico
+## Automatic Deploy
 
-Il workflow `.github/workflows/deploy.yml` deploya **entrambi** i servizi (web + MCP)
-a ogni push su `main` (UUID della nuova applicazione MCP da aggiornare nel secret).
+The workflow `.github/workflows/deploy.yml` deploys **both** services (web + MCP)
+on every push to `main` (the MCP app UUID must be set in the GitHub secret).
 
 ## Troubleshooting
 
-- **Container exited**: Il Dockerfile `COPY` paths deve corrispondere al contesto root del repo
-- **Health non risponde**: Il container builda ma esce subito → controllare i log da Coolify UI
+- **Container exited**: Dockerfile `COPY` paths must match the repository root context
+- **Health not responding**: Container builds but exits immediately → check logs in Coolify UI
+- **Setup script not found**: make sure you're running `npx @pyragogy/mcp-server` (published package), not from the monorepo directly
 
-## 🔐 Autenticazione: MCP_AUTH_TOKEN
+## 🔐 Authentication: MCP_AUTH_TOKEN
 
-Il server MCP protegge l'endpoint `/sse` con query parameter.
-Se `MCP_AUTH_TOKEN` non è impostato, l'accesso è **aperto** (sconsigliato).
+The MCP server protects all endpoints. This is **mandatory** — without it, all requests are denied.
 
-### Setup admin (una volta sola)
+### Admin setup (one time)
 
-1. Genera un token:
+1. Generate a token:
    ```bash
    node -e "const c=require('crypto');console.log('up_'+c.randomBytes(24).toString('base64url').slice(0,32))"
    ```
-2. Coolify → **Progetti → Unpeeragogy → unpeeragogy-mcp → Environment Variables**:
-   - Aggiungi `MCP_AUTH_TOKEN` = il token generato
+2. Coolify → **Projects → Unpeeragogy → unpeeragogy-mcp → Environment Variables**:
+   - Add `MCP_AUTH_TOKEN` = generated token
 3. **Redeploy**
 
-### Per chi si connette (un comando)
+### For clients (one command)
 
 ```bash
 npx @pyragogy/mcp-server --setup --token <MCP_AUTH_TOKEN>
 ```
 
-Configura automaticamente Claude Desktop e pi.
+Configures Claude Desktop and pi. Flags:
+- `--claude` — Claude Desktop only
+- `--pi` — pi (coding agent) only
+- `--server-url` — custom URL (default: `https://mcp.unpeeragogy.pyragogy.org`)
 
-### Richiedere il token
+### Requesting a token
 
-Scrivi a Fabrizio via email: `info&#x40;pyragogy.org`
-Il token si passa via email privata. **Non committarlo su GitHub.**
+Write to Fabrizio via email: `info&#x40;pyragogy.org`
+The token is sent via private email. **Never commit it to GitHub.**
