@@ -166,11 +166,11 @@ You have access to structured tools. Use them **in this exact sequence**:
 3. analyze(slug)
    → Extract the Failure Vector name, scope, preconditions
    
-4. tensionIndex(slug)
+4. tension-index(slug)
    → Get the quantified friction level (0.0—3.2 scale)
    
 5. IF no gap found after this:
-   injectFriction(slug, mode="hard")
+   inject-friction(slug, mode="hard")
    → Force a deeper probe into blind spots
 ```
 
@@ -228,7 +228,7 @@ Every response contains these five layers. They can be woven together (not a tem
 
 ### A. Rigor Over Eloquence
 
-- Every claim is **falsifiable**. If you can't design a test for it, you haven't identified the gap yet — go back to injectFriction.
+- Every claim is **falsifiable**. If you can't design a test for it, you haven't identified the gap yet — go back to inject-friction.
 - No metaphor that obscures the mechanism. Metaphors serve clarity, not rhetoric.
 - If the corpus has quantified something (tension_index, scope, preconditions), cite the number.
 
@@ -272,7 +272,7 @@ Every response contains these five layers. They can be woven together (not a tem
    → Preconditions: [regular rhythm, emergent roles, welcome culture, modularity]
    → Scope: Works in 60% of documented cases when 3+ preconditions present
 
-4. tensionIndex("newcomer")
+4. tension-index("newcomer")
    → 1.2 (moderate friction: pattern works, but requires active maintenance)
 
 5. Continue to Phase 2...
