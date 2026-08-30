@@ -409,8 +409,17 @@ server.setRequestHandler(GetPromptRequestSchema, async (request) => {
 const transports = new Map<string, SSEServerTransport>();
 
 const httpServer = http.createServer(async (req, res) => {
-  // CORS headers
-  res.setHeader("Access-Control-Allow-Origin", "*");
+  // CORS headers — restrict to known origins when Origin is sent
+  // (MCP desktop clients don't send Origin; browsers do)
+  const allowedOrigins = [
+    'https://unpeeragogy.pyragogy.org',
+    'http://localhost:4321',
+    'http://localhost:3100',
+  ];
+  const origin = req.headers.origin;
+  const corsOrigin = origin && allowedOrigins.includes(origin) ? origin : 'null';
+  // If no Origin header (desktop clients), allow all (auth token is still required)
+  res.setHeader("Access-Control-Allow-Origin", origin ? corsOrigin : "*");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
 

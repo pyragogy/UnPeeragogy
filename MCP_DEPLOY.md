@@ -39,6 +39,18 @@ Go to Settings → Secrets and variables → Actions of the `pyragogy/unpeeragog
 |--------|-------|
 | `COOLIFY_MCP_UUID` | The MCP app UUID |
 
+### Security Headers (Coolify Proxy)
+
+If your MCP server is behind a reverse proxy (Coolify default), configure these headers:
+
+| Header | Value | Reason |
+|--------|-------|--------|
+| `Strict-Transport-Security` | `max-age=63072000; includeSubDomains; preload` | Force HTTPS for 2 years |
+| `X-Content-Type-Options` | `nosniff` | Prevent MIME sniffing |
+| `Referrer-Policy` | `strict-origin-when-cross-origin` | Don't leak URL paths |
+
+In Coolify: open the MCP app → **Proxy** tab → add these under **Custom Headers**.
+
 ## Step 4 — First manual deploy
 
 From Coolify Console, click **Deploy** on the MCP app.
