@@ -17,13 +17,13 @@ import { Icon } from "astro-icon/components";
 
     <div class="mt-8 flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 px-4">
       <a href="/introduction/" class="rounded-lg bg-(--color-accent) px-6 py-3 text-white font-semibold hover:bg-(--color-accent-light) transition-colors">
-        Inizia a Leggere ⿻
+        Esplora i pattern ⿻
+      </a>
+      <a href="/why/" class="rounded-lg border border-stone-300 d-border px-6 py-3 font-semibold hover:bg-stone-100 d-hover transition-colors">
+        Perché questo progetto →
       </a>
       <a href="/vault/" class="rounded-lg border border-stone-300 d-border px-6 py-3 font-semibold hover:bg-stone-100 d-hover transition-colors">
-        <Icon name="mingcute:safe-box-line" size={20} class="inline-block align-middle mr-1.5" aria-hidden="true" /> Vault →
-      </a>
-      <a href="https://github.com/pyragogy/unpeeragogy" target="_blank" class="rounded-lg border border-stone-300 d-border px-6 py-3 font-semibold hover:bg-stone-100 d-hover transition-colors">
-        GitHub → 
+        <Icon name="mingcute:safe-box-line" size={20} class="inline-block align-middle mr-1.5" aria-hidden="true" /> Knowledge Base →
       </a>
     </div>
   </section>
@@ -75,5 +75,79 @@ import { Icon } from "astro-icon/components";
       <span class="rounded-full bg-amber-50 dark:bg-(--red-bg) text-amber-700 dark:text-amber-400 px-3 py-1">Perturbator: attrito come funzione epistemica</span>
       <span class="rounded-full bg-stone-100 d-surface px-3 py-1">Lettura a doppia colonna</span>
     </div>
+  </section>
+
+  <section class="py-12 border-t border-stone-200 d-border">
+    <h2 class="text-2xl font-bold mb-4">Source ≠ Interpretation</h2>
+    <p class="d-text-sec max-w-2xl mb-6">
+      Un principio strutturale del progetto: distinguere sempre ciò che la teoria dice effettivamente
+      da ciò che osserviamo accadere — e dalla nostra interpretazione di quell'osservazione.
+    </p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
+      <div class="p-4 border border-stone-200 d-border rounded-lg bg-white d-surface">
+        <span class="font-semibold text-(--color-accent)">Source</span>
+        <p class="mt-1 d-text-dim">Cosa dice realmente il testo originale. Il pattern, la citazione, il principio.</p>
+      </div>
+      <div class="p-4 border border-stone-200 d-border rounded-lg bg-white d-surface">
+        <span class="font-semibold text-amber-600 dark:text-amber-400">Observation</span>
+        <p class="mt-1 d-text-dim">Cosa è stato osservato nell'esperienza: un comportamento, una dinamica, un attrito.</p>
+      </div>
+      <div class="p-4 border border-stone-200 d-border rounded-lg bg-white d-surface">
+        <span class="font-semibold">Interpretation</span>
+        <p class="mt-1 d-text-dim">Come leggiamo quell'osservazione. Un'ipotesi, non una conclusione.</p>
+      </div>
+      <div class="p-4 border border-stone-200 d-border rounded-lg bg-white d-surface">
+        <span class="font-semibold">Failure Mode</span>
+        <p class="mt-1 d-text-dim">Un modo in cui un pattern può deteriorarsi o non funzionare in certe condizioni.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-12 border-t border-stone-200 d-border">
+    <h2 class="text-2xl font-bold mb-4">What would change my mind?</h2>
+    <p class="d-text-sec max-w-2xl mb-4">
+      UnPeeragogy non esiste per raccogliere esempi che confermano le sue critiche.
+      Il progetto deve essere disposto a cambiare posizione davanti a controesempi,
+      esperienze positive, nuovi dati, interpretazioni alternative.
+    </p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm">
+      <div class="p-5 border border-stone-200 d-border rounded-lg bg-white d-surface">
+        <h3 class="font-semibold mb-2">✅ Where the pattern works</h3>
+        <p class="d-text-dim">Documentare anche dove Peeragogy funziona è essenziale. Se presentiamo solo i fallimenti, 
+        il progetto sembra costruito per dimostrare una tesi. Mostrare dove la teoria regge rende 
+        la critica molto più forte.</p>
+      </div>
+      <div class="p-5 border border-amber-200 d-border rounded-lg bg-amber-50 dark:bg-(--red-bg)">
+        <h3 class="font-semibold text-amber-600 dark:text-amber-400 mb-2">⚡ Where the pattern breaks</h3>
+        <p class="d-text-dim">Le condizioni limite. I contesti in cui la teoria non tiene. I failure modes osservati. 
+        Non per dimostrare che la teoria è sbagliata — per capire dove smette di essere utile.</p>
+      </div>
+    </div>
+    <p class="mt-4 text-sm d-text-dim italic max-w-2xl">
+      Stiamo testando i pattern, non processandoli.
+    </p>
+  </section>
+
+  <section class="py-12 border-t border-stone-200 d-border text-center">
+    <h2 class="text-2xl font-bold mb-4">Il percorso</h2>
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 text-sm sm:text-base">
+      <div class="p-4 border border-stone-200 d-border rounded-lg bg-white d-surface min-w-[160px]">
+        <div class="font-semibold text-(--color-accent)">Peeragogy</div>
+        <div class="d-text-dim text-xs mt-1">Il primo framework</div>
+      </div>
+      <div class="text-2xl d-text-dim">⟶</div>
+      <div class="p-4 border border-amber-200 d-border rounded-lg bg-amber-50 dark:bg-(--red-bg) min-w-[160px]">
+        <div class="font-semibold text-amber-600 dark:text-amber-400">UnPeeragogy</div>
+        <div class="d-text-dim text-xs mt-1">La messa alla prova</div>
+      </div>
+      <div class="text-2xl d-text-dim">⟶</div>
+      <div class="p-4 border border-stone-200 d-border rounded-lg bg-white d-surface min-w-[160px]">
+        <div class="font-semibold">Pyragogy</div>
+        <div class="d-text-dim text-xs mt-1">Nuove domande</div>
+      </div>
+    </div>
+    <p class="mt-4 text-sm d-text-dim max-w-xl mx-auto">
+      Ogni domanda genera un'altra domanda. Non una sostituzione, ma una progressione.
+    </p>
   </section>
 </BaseLayout>

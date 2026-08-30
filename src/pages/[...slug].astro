@@ -66,9 +66,24 @@ const next = currentIndex < sorted.length - 1 ? sorted[currentIndex + 1] : null;
       :class="view === 'unpeeragogy' ? 'bg-white d-raised shadow-sm font-semibold text-(--color-accent)' : 'd-text-sec hover:text-(--color-text)'"
       class="rounded-md px-3 sm:px-4 py-2 text-xs sm:text-sm transition-all whitespace-nowrap"
     >
-      ⚡ Reality
+      ⚡ Friction
     </button>
   </div>
+  ) : null}
+
+  <!-- Epistemic framing bar (on dual-capable pages) -->
+  {peeragogyEntry?.slug !== 'foreword' ? (
+    <div class="mb-6 flex flex-wrap items-center gap-2 text-[10px] sm:text-xs d-text-dim border-b border-stone-200 d-border pb-3">
+      <span class="font-medium text-(--color-accent)">📖 Source</span>
+      <span class="opacity-50">→</span>
+      <span class="font-medium text-amber-600 dark:text-amber-400">⚡ Observation</span>
+      <span class="mx-2 opacity-30">·</span>
+      <span class="italic">Where the pattern works</span>
+      <span class="opacity-50">/</span>
+      <span class="italic">Where the pattern breaks</span>
+      <span class="mx-2 opacity-30">·</span>
+      <span class="text-[10px] opacity-60">Interpretation ≠ Conclusion</span>
+    </div>
   ) : null}
 
   <!-- Foreword: single column, full width, no Unpeeragogy -->
@@ -166,7 +181,7 @@ const next = currentIndex < sorted.length - 1 ? sorted[currentIndex + 1] : null;
           {UnpeeragogyContent ? (
             <article>
               <header class="mb-6">
-                <p class="text-sm font-medium text-red-500">⚡ Unpeeragogy</p>
+                <p class="text-sm font-medium text-amber-600 dark:text-amber-400">⚡ Unpeeragogy · Friction · Observation</p>
                 <h1 class="text-2xl font-bold tracking-tight mt-1">{unpeeragogyEntry.data.title}</h1>
                 <div class="mt-2 flex items-center gap-3 text-xs d-text-dim">
                   <span>⏱ {unpeeragogyEntry.data.readingTime} min</span>
@@ -179,14 +194,14 @@ const next = currentIndex < sorted.length - 1 ? sorted[currentIndex + 1] : null;
                   )}
                 </div>
               </header>
-              <div class="prose max-w-none prose-sm prose-red">
+              <div class="prose max-w-none prose-sm prose-amber">
                 <UnpeeragogyContent />
               </div>
               <SectionDiscussion slug={unpeeragogyEntry.slug} title={unpeeragogyEntry.data.title} />
             </article>
           ) : (
             <div class="flex items-center justify-center h-64 d-text-dim italic">
-              <p>Nessuna contro-analisi Unpeeragogy ancora scritta. Il Perturbator tace — per ora.</p>
+              <p>Nessuna osservazione Unpeeragogy ancora registrata per questa sezione. Il Perturbator osserva — per ora.</p>
             </div>
           )}
         </div>
@@ -217,5 +232,6 @@ const next = currentIndex < sorted.length - 1 ? sorted[currentIndex + 1] : null;
 
 <style>
   .scroll-sync { scroll-behavior: smooth; }
-  .prose-red :deep(blockquote) { border-left-color: #ef4444; }
+  .prose-amber :deep(blockquote) { border-left-color: #d97706; }
+  .prose-amber :deep(strong) { color: var(--color-text); }
 </style>
