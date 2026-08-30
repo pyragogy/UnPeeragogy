@@ -47,7 +47,7 @@ const api = ccModule.run({
         consentModal: {
           title: 'This site uses essential cookies only',
           description:
-            'We only use technical cookies that are strictly necessary for the site to function and to remember your preferences (theme and consent choice). No tracking, no analytics, no third-party profiling cookies are deployed.',
+            'We only use technical cookies that are strictly necessary for the site to function and to remember your preferences (theme and consent choice). We also use <strong>Plausible Analytics</strong> self-hosted — no cookies, no profiling, aggregated only. <a href="/privacy/" class="cc-link">Full disclosure</a>.',
           acceptAllBtn: 'Accept',
           acceptNecessaryBtn: 'Accept necessary only',
           showPreferencesBtn: 'Cookie preferences',
@@ -66,6 +66,11 @@ const api = ccModule.run({
               description:
                 'These cookies are essential for the website to function properly. They enable core functionality such as theme persistence (dark/light mode) and consent state storage. No personally identifiable information is collected.',
               linkedCategory: 'necessary',
+            },
+            {
+              title: 'Analytics',
+              description:
+                'This site uses <strong>Plausible Analytics</strong> self-hosted on <code>plausible.pyragogy.org</code> to measure page views and referrers. Plausible does not use cookies, does not profile users, and does not collect personal data. IP addresses are anonymized at the server level. The data is used solely to understand which patterns are read most — no advertising, no data selling, no third-party sharing. <a href="https://plausible.io/data-policy" target="_blank" rel="noopener noreferrer">Plausible Data Policy</a>.',
             },
             {
               title: 'Third-Party Services',
