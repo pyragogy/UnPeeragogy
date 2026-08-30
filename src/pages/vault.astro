@@ -306,10 +306,14 @@ for (const s of sectionOrder) {
   </section>
 </BaseLayout>
 
-<script src="https://cdn.jsdelivr.net/npm/d3-force@3.0.0/dist/d3-force.js"></script>
 <script is:inline>
-  (function(){
-  var d3 = window.d3_force; if (!d3) { console.warn("d3-force UMD not loaded via script, trying dynamic import..."); }
+  (async function(){
+  var d3;
+  try {
+    d3 = await import("https://cdn.jsdelivr.net/npm/d3-force@3.0.0/+esm");
+  } catch(e) {
+    console.warn("d3-force ESM load failed, fallback to CDN UMD...", e);
+  }
 
   let sim = null;
   let canvas = null;
