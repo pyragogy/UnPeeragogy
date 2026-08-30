@@ -106,7 +106,7 @@ const navLinks = [
   </head>
   <body
     class="min-h-screen bg-(--color-bg) text-(--color-text) antialiased"
-    x-data="{ view: 'dual', scrollSync: true }"
+    x-data="{ view: 'dual', scrollSync: true, syncing: false }"
     x-init="$watch('view', val => { if (val === 'dual') scrollSync = true })"
   >
     <header class="sticky top-0 z-40 border-b border-stone-200 d-border bg-(--color-bg)/95 backdrop-blur supports-[backdrop-filter]:bg-(--color-bg)/80">
