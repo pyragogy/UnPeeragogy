@@ -12,13 +12,18 @@ const existingDiscussionsUrl = `${repoUrl}/discussions?discussions_q=label%3Adis
 
 <section class="mt-12 border-t border-teal-300 pt-8">
   <h2 class="text-lg font-bold mb-4 flex items-center gap-2">
-    <span>💬</span> Discussione: {title}
+    <span>💬</span> Discussion: {title}
   </h2>
 
+  <p class="text-sm d-text-dim mb-2">
+    The discussion lives on GitHub, not in a widget. No magic, no silent bugs.
+    Open a thread, share your experience, and the following week the project
+    can evolve from what emerged.
+  </p>
   <p class="text-sm d-text-dim mb-6">
-    La discussione vive su GitHub, non in un widget. Niente magia, niente bug silenziosi.
-    Apri un thread, condividi la tua esperienza, e la settimana successiva il progetto
-    può evolvere a partire da ciò che è emerso.
+    Write in your native language — the browser will translate. Lowering the entry barrier
+    is more important than choosing the "right" language. GitHub automatically translates threads
+    when you need to follow along.
   </p>
 
   <div class="flex flex-wrap gap-4">
@@ -27,24 +32,24 @@ const existingDiscussionsUrl = `${repoUrl}/discussions?discussions_q=label%3Adis
       target="_blank"
       class="inline-flex items-center gap-2 rounded-lg bg-teal-600 px-5 py-3 text-sm font-semibold text-white hover:bg-teal-700 transition-colors"
     >
-      <span>✏️</span> Avvia discussione
+      <span>✏️</span> Start a discussion
     </a>
     <a
       href={existingDiscussionsUrl}
       target="_blank"
       class="inline-flex items-center gap-2 rounded-lg border border-stone-300 d-border px-5 py-3 text-sm font-semibold hover:bg-stone-100 d-hover transition-colors"
     >
-      <span>📋</span> Vedi discussioni esistenti
+      <span>📋</span> See existing discussions
     </a>
   </div>
 
   <details class="mt-4 text-xs d-text-dim">
-    <summary class="cursor-pointer hover:text-(--color-accent)">Cosa succede dopo che apro una discussione?</summary>
+    <summary class="cursor-pointer hover:text-(--color-accent)">What happens after I open a discussion?</summary>
     <div class="mt-2 space-y-1 leading-relaxed">
-      <p>1. La discussione appare in <strong>GitHub Discussions</strong> col tag <code>discussione</code>.</p>
-      <p>2. Una volta a settimana, il progetto analizza i thread attivi.</p>
-      <p>3. Se emergono nuovi Failure Vector, tension_index da rivedere, o Agenti Perturbatori da affilare, la entry viene aggiornata.</p>
-      <p>4. Un log settimanale in <code>/log</code> registra cosa è cambiato.</p>
+      <p>1. The discussion appears in <strong>GitHub Discussions</strong> with tag <code>discussione</code>.</p>
+      <p>2. Once a week, the project analyzes active threads.</p>
+      <p>3. If new Failure Vectors, tension_index revisions, or sharper Perturbator observations emerge, the entry gets updated.</p>
+      <p>4. A weekly log at <code>/log</code> records what changed.</p>
     </div>
   </details>
 </section>
