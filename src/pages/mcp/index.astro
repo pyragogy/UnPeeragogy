@@ -2,39 +2,38 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 ---
 
-<BaseLayout title="MCP Server — Documentazione" description="Server MCP per AI agent: risorse, strumenti e prompt per interagire con l'intero corpus Unpeeragogy.">
+<BaseLayout title="MCP Server — Documentation" description="MCP server for AI agents: resources, tools, and prompts to interact with the full Unpeeragogy corpus.">
   <section class="py-12 max-w-4xl mx-auto" data-pagefind-body>
     <h1 class="text-3xl font-extrabold tracking-tight mb-2">⚡ MCP Server</h1>
     <p class="d-text-sec mb-8">
-      Il server MCP espone l'intero corpus Unpeeragogy agli AI agent tramite il Model Context Protocol.
-      Risorse, strumenti e prompt per la decostruzione.
+      The MCP server exposes the full Unpeeragogy corpus to AI agents via the Model Context Protocol.
+      Resources, tools, and prompts for deconstruction.
     </p>
 
     <div class="flex gap-3 mb-10">
-      <a href="/mcp/it/" class="rounded-lg bg-(--color-accent) px-5 py-2.5 text-sm font-semibold text-white hover:bg-(--color-accent-light) transition-colors">Italiano</a>
-      <a href="/mcp/en/" class="rounded-lg border border-stone-300 d-border px-5 py-2.5 text-sm font-semibold hover:bg-stone-100 d-hover transition-colors">English</a>
+      <a href="/mcp/it/" class="rounded-lg border border-stone-300 d-border px-5 py-2.5 text-sm font-semibold hover:bg-stone-100 d-hover transition-colors">Italiano</a>
+      <a href="/mcp/en/" class="rounded-lg bg-(--color-accent) px-5 py-2.5 text-sm font-semibold text-white hover:bg-(--color-accent-light) transition-colors">English</a>
     </div>
 
     <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      <a href="/mcp/it/" class="block p-5 border border-stone-200 d-border rounded-lg hover:bg-stone-50 d-hover transition-colors">
-        <h2 class="font-semibold text-(--color-accent)">Documentazione IT</h2>
-        <p class="mt-2 text-sm d-text-sec">Guida completa in italiano: risorse, strumenti, prompt, esempi d'uso.</p>
-      </a>
       <a href="/mcp/en/" class="block p-5 border border-stone-200 d-border rounded-lg hover:bg-stone-50 d-hover transition-colors">
         <h2 class="font-semibold text-(--color-accent)">Documentation EN</h2>
-        <p class="mt-2 text-sm d-text-sec">Complete guide in English: resources, tools, prompts, usage examples.</p>
+        <p class="mt-2 text-sm d-text-sec">Complete guide: endpoints, resources, tools, prompts, authentication, and client configuration.</p>
+      </a>
+      <a href="/mcp/it/" class="block p-5 border border-stone-200 d-border rounded-lg hover:bg-stone-50 d-hover transition-colors">
+        <h2 class="font-semibold text-(--color-accent)">Documentazione IT</h2>
+        <p class="mt-2 text-sm d-text-sec">Guida completa in italiano: endpoint, risorse, strumenti, prompt, autenticazione e configurazione client.</p>
       </a>
       <a href="https://github.com/pyragogy/unpeeragogy/tree/main/packages/mcp-server" target="_blank" class="block p-5 border border-stone-200 d-border rounded-lg hover:bg-stone-50 d-hover transition-colors">
         <h2 class="font-semibold text-(--color-accent)">Source Code</h2>
-        <p class="mt-2 text-sm d-text-sec">Vai al repository GitHub — codice del server MCP.</p>
+        <p class="mt-2 text-sm d-text-sec">Browse the GitHub repository — MCP server source code.</p>
       </a>
     </div>
 
     <div class="mt-12 p-6 border border-stone-200 d-border rounded-lg bg-stone-50 d-surface">
-      <h2 class="text-lg font-bold mb-3">Connessione rapida</h2>
-      <p class="text-sm d-text-sec mb-4">Per Claude Desktop, Cline, o qualsiasi client MCP:</p>
-      <pre class="text-xs bg-white dark:[background:var(--surface-bg)] p-4 rounded-lg overflow-x-auto border border-stone-200 d-border"><code>
-&#123;
+      <h2 class="text-lg font-bold mb-3">Quick Connect</h2>
+      <p class="text-sm d-text-sec mb-4">For Claude Desktop, Cline, or any MCP client:</p>
+      <pre class="text-xs bg-white dark:[background:var(--surface-bg)] p-4 rounded-lg overflow-x-auto border border-stone-200 d-border"><code>&#123;
   "mcpServers": &#123;
     "unpeeragogy": &#123;
       "url": "https://mcp.unpeeragogy.pyragogy.org/sse?token=&lt;MCP_AUTH_TOKEN&gt;"
@@ -42,8 +41,8 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
   &#125;
 &#125;
 </code></pre>
-      <p class="mt-3 text-xs d-text-dim">Richiedi il token via email: <code>&#x69;&#x6e;&#x66;&#x6f;&#x40;&#x70;&#x79;&#x72;&#x61;&#x67;&#x6f;&#x67;&#x79;&#x2e;&#x6f;&#x72;&#x67;</code> (Fabrizio, admin).
-      Una volta ottenuto, esegui: <code>npx @pyragogy/mcp-server --setup --token &lt;token&gt;</code></p>
+      <p class="mt-3 text-xs d-text-dim">Request a token via email: <code>&#x69;&#x6e;&#x66;&#x6f;&#x40;&#x70;&#x79;&#x72;&#x61;&#x67;&#x6f;&#x67;&#x79;&#x2e;&#x6f;&#x72;&#x67;</code> (Fabrizio, admin).
+      Once you have it, run: <code>npx @pyragogy/mcp-server --setup --token &lt;token&gt;</code></p>
     </div>
   </section>
 </BaseLayout>
