@@ -9,10 +9,13 @@ import { Icon } from "astro-icon/components";
     <img src="/images/UnPeeragogy-logo-test.webp" alt="Unpeeragogy" class="mx-auto h-24 sm:h-40 w-auto" />
     </h1>
     <p class="mt-4 text-lg sm:text-xl d-text-sec max-w-2xl mx-auto px-4 font-medium">
-      Peeragogy, vista da vicino.
+      La peeragogy secondo la teoria.
     </p>
-    <p class="text-base sm:text-lg d-text-dim max-w-xl mx-auto px-4 mt-2">
-      Teoria, esperienza e attrito a confronto.
+    <p class="text-base sm:text-lg d-text-dim max-w-xl mx-auto px-4 mt-1">
+      La peeragogy secondo il campo.
+    </p>
+    <p class="text-base sm:text-lg d-text-dim max-w-xl mx-auto px-4 mt-1 font-semibold">
+      La distanza è il problema.
     </p>
 
     <div class="mt-8 flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 px-4">
@@ -149,5 +152,83 @@ import { Icon } from "astro-icon/components";
     <p class="mt-4 text-sm d-text-dim max-w-xl mx-auto">
       Ogni domanda genera un'altra domanda. Non una sostituzione, ma una progressione.
     </p>
+  </section>
+
+  <section class="py-12 border-t border-stone-200 d-border">
+    <h2 class="text-2xl font-bold mb-4">How to read Unpeeragogy</h2>
+    <p class="d-text-sec max-w-2xl mb-6">
+      Questo non è un manuale contrario a Peeragogy. È un manuale che chiede a Peeragogy: 
+      <em>Dove reggi? Dove cedi? Che condizioni presumi che siano vere? Cosa succede quando quelle condizioni non sono vere?</em>
+    </p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+      <div class="p-4 border border-stone-200 d-border rounded-lg bg-white d-surface">
+        <span class="font-semibold">📖 Colonna sinistra</span>
+        <p class="mt-1 d-text-dim">La teoria così com'è. I pattern, le citazioni, i principi del Peeragogy Handbook — inalterati.</p>
+      </div>
+      <div class="p-4 border border-amber-200 d-border rounded-lg bg-amber-50 dark:bg-(--red-bg)">
+        <span class="font-semibold text-amber-600 dark:text-amber-400">⚡ Colonna destra</span>
+        <p class="mt-1 d-text-dim">Osservazioni dal campo. Failure modes, controesempi, e il Perturbator che chiede: <em>e se la teoria non avesse visto questo?</em></p>
+      </div>
+    </div>
+    <div class="mt-4 p-4 border border-stone-200 d-border rounded-lg bg-white d-surface text-sm">
+      <p class="d-text-sec">
+        <strong>Se leggi Unpeeragogy e concludi "Peeragogy è sbagliato", abbiamo fallito.</strong><br>
+        Se leggi Unpeeragogy e capisci <em>"Peeragogy è utile in X, meno in Y, e non spiega Z"</em>, hai capito il progetto.
+      </p>
+    </div>
+  </section>
+
+  <section class="py-12 border-t border-stone-200 d-border">
+    <h2 class="text-2xl font-bold mb-4">Percorso suggerito</h2>
+    <p class="d-text-sec max-w-2xl mb-6">
+      Nuovo a Unpeeragogy? Leggi nell'ordine suggerito:
+    </p>
+    <ol class="max-w-xl mx-auto space-y-3 text-sm">
+      <li class="p-3 border border-stone-200 d-border rounded-lg bg-white d-surface flex items-start gap-3">
+        <span class="font-bold text-(--color-accent) text-lg shrink-0 w-6">1</span>
+        <div>
+          <a href="/introduction/" class="font-semibold hover:text-(--color-accent) transition-colors">Introduction</a>
+          <p class="d-text-dim">Il punto di partenza. La teoria e dove inizia l'attrito.</p>
+        </div>
+      </li>
+      <li class="p-3 border border-stone-200 d-border rounded-lg bg-white d-surface flex items-start gap-3">
+        <span class="font-bold text-(--color-accent) text-lg shrink-0 w-6">2</span>
+        <div>
+          <a href="/motivation/" class="font-semibold hover:text-(--color-accent) transition-colors">Motivation</a>
+          <p class="d-text-dim">Il primo confronto tra aspettative e realtà operativa.</p>
+        </div>
+      </li>
+      <li class="p-3 border border-stone-200 d-border rounded-lg bg-white d-surface flex items-start gap-3">
+        <span class="font-bold text-(--color-accent) text-lg shrink-0 w-6">3</span>
+        <div>
+          <a href="/patterns/" class="font-semibold hover:text-(--color-accent) transition-colors">Peeragogy in Practice</a>
+          <p class="d-text-dim">Pattern, coordinazione, attrito. Il cuore del progetto.</p>
+        </div>
+      </li>
+      <li class="p-3 border border-stone-200 d-border rounded-lg bg-white d-surface flex items-start gap-3">
+        <span class="font-bold text-(--color-accent) text-lg shrink-0 w-6">4</span>
+        <div>
+          <a href="/convening/" class="font-semibold hover:text-(--color-accent) transition-colors">Convening a Group</a>
+          <p class="d-text-dim">Il costo sociale dell'apprendimento tra pari.</p>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <section class="py-12 border-t border-stone-200 d-border">
+    <h2 class="text-2xl font-bold mb-4">Usa Unpeeragogy con AI</h2>
+    <p class="d-text-sec max-w-2xl mb-4">
+      Il nostro server MCP espone failure vectors, prompt, e strumenti per analizzare i pattern 
+      con AI agents (Claude Desktop, Gemini, ecc.).
+    </p>
+    <div class="flex flex-col sm:flex-row gap-3 text-sm">
+      <a href="/mcp/" class="rounded-lg bg-(--color-accent) px-5 py-2.5 text-white font-semibold hover:bg-(--color-accent-light) transition-colors w-fit">
+        Documentazione MCP →
+      </a>
+      <span class="flex items-center gap-2 text-xs d-text-dim px-3">
+        <span class="rounded-full bg-stone-100 d-surface px-2 py-1">API /llms.txt</span>
+        <span class="rounded-full bg-stone-100 d-surface px-2 py-1">Prompt template</span>
+      </span>
+    </div>
   </section>
 </BaseLayout>
