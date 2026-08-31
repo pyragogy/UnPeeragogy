@@ -9,6 +9,9 @@ body:
         You don't need to know anything about "tension index" or "failure vectors" to fill this out.
         Just tell us what happened. We'll figure out what it means.
 
+        The form separates **what happened** from **what you think it meant**.
+        Both matter — but they are different kinds of evidence.
+
   - type: input
     id: entry-slug
     attributes:
@@ -46,10 +49,28 @@ body:
       required: true
 
   - type: textarea
+    id: interpretation
+    attributes:
+      label: What I think it meant
+      description: "Your take — not what happened, but what you make of it. This is different from the facts, and both are valuable."
+      placeholder: "e.g. I think we assumed everyone wanted the same level of commitment. That assumption was wrong."
+    validations:
+      required: false
+
+  - type: textarea
     id: takeaway
     attributes:
       label: What you'd tell someone about to try this
       description: "One or two sentences. What would have helped you know in advance?"
+    validations:
+      required: false
+
+  - type: textarea
+    id: counter-evidence
+    attributes:
+      label: "What might we be getting wrong?"
+      description: "Optional: if you think our current entry on this pattern misses something, tell us. This is the most valuable thing you can contribute."
+      placeholder: "e.g. The entry says consensus is paralyzing. But in my group, consensus was the only thing that kept people from leaving."
     validations:
       required: false
 

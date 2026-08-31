@@ -1,0 +1,361 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Protocol — Unpeeragogy" description="A transparent, exploratory approach to bringing practitioner experience back into theory.">
+  <article class="prose prose-stone dark:prose-invert max-w-3xl mx-auto" data-pagefind-body>
+
+    <h1 class="text-4xl font-bold tracking-tight mb-2">How UnPeeragogy Collects and Examines Evidence</h1>
+    <p class="text-lg d-text-dim font-medium mb-12">A transparent, exploratory approach to bringing practitioner experience back into theory.</p>
+
+    <!-- ─── Research Question ────────────────────────── -->
+    <h2>Research question</h2>
+
+    <p class="lead">What happens when Peeragogy patterns meet conditions they don't explicitly describe?</p>
+
+    <p>This question is deliberately open. It does not assume that patterns fail. It does not assume they succeed. It assumes that the conditions under which a pattern operates — group size, trust, commitment, time, shared history, material constraints — are not fully captured by the pattern description itself. When those conditions diverge from the unstated assumptions of the pattern, something happens. We want to know what.</p>
+
+    <p>Sub-questions include:</p>
+
+    <ul>
+      <li>Under what conditions does a pattern appear to work?</li>
+      <li>Under what conditions does it become fragile?</li>
+      <li>What unexpected outcomes emerge — positive, negative, or neutral?</li>
+      <li>Which assumptions appear to be necessary but unstated?</li>
+      <li>Which observations challenge the UnPeeragogy interpretation itself?</li>
+    </ul>
+
+    <p>The last sub-question is structural: the framework we are building must remain open to its own revision.</p>
+
+    <!-- ─── What Counts as Evidence ──────────────────── -->
+    <h2>What counts as evidence</h2>
+
+    <p>We distinguish between different kinds of statements. This is the epistemic taxonomy underlying the project:</p>
+
+    <dl class="space-y-4">
+      <div>
+        <dt class="font-semibold">Source</dt>
+        <dd class="d-text-sec">What the Peeragogy Handbook says. This is fixed text — the original pattern description, principles, and claims.</dd>
+      </div>
+      <div>
+        <dt class="font-semibold">Observation</dt>
+        <dd class="d-text-sec">What a practitioner reports from direct experience. Not yet interpreted — just what happened, as concretely as possible.</dd>
+      </div>
+      <div>
+        <dt class="font-semibold">Incident</dt>
+        <dd class="d-text-sec">A specific episode described using the Critical Incident Technique (CIT). More structured than a general observation: it has context, intention, action, outcome, and reflection.</dd>
+      </div>
+      <div>
+        <dt class="font-semibold">Interpretation</dt>
+        <dd class="d-text-sec">What the researcher derives from the incident. This is always provisional and linked to the specific incident that generated it.</dd>
+      </div>
+      <div>
+        <dt class="font-semibold">Hypothesis</dt>
+        <dd class="d-text-sec">A tentative explanation of why a pattern behaved as it did. Not a conclusion — a candidate to be tested against further incidents.</dd>
+      </div>
+      <div>
+        <dt class="font-semibold">Failure Mode</dt>
+        <dd class="d-text-sec">A describable way in which a pattern deteriorates or produces outcomes contrary to its intent. Failure modes are more stable than best practices because they have been observed under specific conditions.</dd>
+      </div>
+      <div>
+        <dt class="font-semibold">Counter-Evidence</dt>
+        <dd class="d-text-sec">An observation or incident that puts tension on a previous interpretation. This is not necessarily a refutation — it may qualify, complicate, or narrow the scope of an earlier claim.</dd>
+      </div>
+      <div>
+        <dt class="font-semibold">Revised Interpretation</dt>
+        <dd class="d-text-sec">An interpretation updated after new counter-evidence. The old interpretation is not erased — it remains visible as part of the audit trail.</dd>
+      </div>
+    </dl>
+
+    <p>These types are not decorative. They are reflected in how field reports are structured and how the knowledge graph connects entries. A reader should be able to see <em>what kind of claim</em> they are looking at.</p>
+
+    <!-- ─── Evidence Status ──────────────────────────── -->
+    <h2>Evidence status</h2>
+
+    <p>Every observation and interpretation in the corpus carries an <strong>evidence status</strong> that indicates its current epistemic position:</p>
+
+    <table class="w-full text-sm">
+      <thead>
+        <tr><th class="text-left pr-4">Status</th><th class="text-left">Meaning</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="pr-4 font-semibold align-top">Observed</td><td>A raw incident has been reported. No analysis has been applied.</td></tr>
+        <tr><td class="pr-4 font-semibold align-top">Reported</td><td>The incident has been logged in the corpus with context.</td></tr>
+        <tr><td class="pr-4 font-semibold align-top">Interpreted</td><td>An interpretation has been derived from the incident by the project.</td></tr>
+        <tr><td class="pr-4 font-semibold align-top">Hypothesized</td><td>A tentative explanation has been proposed, linking the incident to one or more patterns.</td></tr>
+        <tr><td class="pr-4 font-semibold align-top">Corroborated</td><td>Multiple independent incidents support the same interpretation.</td></tr>
+        <tr><td class="pr-4 font-semibold align-top">Contested</td><td>Counter-evidence has been raised against the current interpretation.</td></tr>
+        <tr><td class="pr-4 font-semibold align-top">Revised</td><td>The interpretation has been updated. The previous version remains in the history.</td></tr>
+      </tbody>
+    </table>
+
+    <p>We do not assign numeric confidence scores. These qualitative states are more honest — they describe what we know and how we know it, without pretending to measure validity on a scale we have not calibrated.</p>
+
+    <!-- ─── How Incidents Are Collected ──────────────── -->
+    <h2>How incidents are collected</h2>
+
+    <p>Field reports are collected through a public GitHub Discussions forum in the <code>field-reports</code> category. There is no formal sampling frame: contributions are voluntary, self-selected, and asynchronous. This means the corpus is not representative in a statistical sense — it captures what people choose to share, not a random sample of Peeragogy practice.</p>
+
+    <p>Two templates serve different entry points:</p>
+
+    <h3>📖 Share Your Story</h3>
+    <p>For anyone who tried something and wants to report what happened. No prior knowledge of the project's vocabulary is required. The form follows a natural sequence:</p>
+
+    <ol>
+      <li><strong>Context</strong> — What group? Size, purpose, duration?</li>
+      <li><strong>Intention</strong> — What were you trying to do?</li>
+      <li><strong>Action</strong> — What did you (or the group) actually do?</li>
+      <li><strong>Outcome</strong> — What happened? Be specific.</li>
+      <li><strong>Surprise</strong> — What was unexpected?</li>
+      <li><strong>Reflection</strong> — Looking back, what do you think contributed to the outcome?</li>
+    </ol>
+
+    <p>The form separates <strong>what happened</strong> from <strong>what the contributor thinks it meant</strong>. Both are valuable — but they are different kinds of evidence.</p>
+
+    <h3>🔍 Structural Analysis</h3>
+    <p>For contributors already familiar with the framework who want to propose a specific revision to an existing entry. This template requires position (Confirms / Extends / Contradicts / Question), a detailed analysis, and optional suggestions for impact. The final editorial decision rests with the project — this prevents the framework from outsourcing its judgment to whoever happens to submit a report first.</p>
+
+    <!-- ─── Critical Incident Technique ──────────────── -->
+    <h2>Critical Incident Technique (CIT)</h2>
+
+    <p>Our primary collection method is adapted from the <strong>Critical Incident Technique</strong>, originally developed by John C. Flanagan (1954) for studying effective and ineffective behaviours in complex real-world settings. CIT asks respondents to describe a specific incident — not to offer general opinions, and not to confirm or refute a theory.</p>
+
+    <p><strong>Why CIT, not AAR:</strong> After Action Reviews assume a shared team experience and a common goal. Most Peeragogy field reports come from independent observers in different contexts. CIT is designed for exactly this situation: asynchronous, context-rich, single-observer reports.</p>
+
+    <p><strong>What CIT can do:</strong></p>
+    <ul>
+      <li>Generate detailed, concrete descriptions of real events</li>
+      <li>Identify conditions that affect outcomes</li>
+      <li>Surface unexpected patterns and contradictions</li>
+      <li>Provide the raw material for inductive analysis</li>
+    </ul>
+
+    <p><strong>What CIT cannot do:</strong></p>
+    <ul>
+      <li>Produce statistically generalisable results</li>
+      <li>Establish causal relationships</li>
+      <li>Estimate prevalence of a failure mode in the population</li>
+      <li>Eliminate recall bias or narrative self-justification</li>
+    </ul>
+
+    <p>We do not treat CIT reports as objective accounts. They are retrospective narratives shaped by memory, perspective, and the contributor's relationship to the events. This is not a weakness to be eliminated — it is a characteristic of the data type, and we account for it in our interpretation.</p>
+
+    <p><strong>Avoiding leading questions:</strong> The form does not ask "did this prove the pattern wrong?" because that question already contains an interpretation. It asks what happened, what was expected, what surprised — and lets the friction (or lack of it) emerge from the description, not from the framing.</p>
+
+    <!-- ─── From Incident to Interpretation ─────────── -->
+    <h2>From incident to interpretation</h2>
+
+    <p>When a field report arrives, it passes through the following process:</p>
+
+    <ol>
+      <li><strong>Logging</strong> — The incident is recorded in the corpus with its evidence status set to <em>Observed</em>.</li>
+      <li><strong>Context matching</strong> — The incident is linked to the relevant pattern(s) via slug reference.</li>
+      <li><strong>Initial interpretation</strong> — The project examines the incident and proposes an interpretation. Status becomes <em>Interpreted</em>.</li>
+      <li><strong>Tension assessment</strong> — If the incident diverges from what the pattern predicts, the tension_index of the pattern may be adjusted. This is always documented with a rationale.</li>
+      <li><strong>Hypothesis generation</strong> — A candidate explanation is proposed for <em>why</em> the pattern behaved as it did under those conditions. Status: <em>Hypothesized</em>.</li>
+    </ol>
+
+    <p>Every interpretation retains a <strong>provenance trail</strong> — it is linked back to the specific incident(s) that generated it. If a later revision occurs, both the old and new interpretations remain visible, along with the counter-evidence that triggered the change.</p>
+
+    <!-- ─── Counter-Evidence ─────────────────────────── -->
+    <h2>Counter-evidence</h2>
+
+    <p>Counter-evidence is a structural component of the framework, not an afterthought. An interpretation that cannot be challenged by new observations has no mechanism for correction — and therefore no long-term credibility.</p>
+
+    <p>Counter-evidence enters the system in two ways:</p>
+
+    <ul>
+      <li><strong>Externally</strong> — A new field report contradicts or complicates a previous interpretation. This triggers review of the affected entry.</li>
+      <li><strong>Internally</strong> — The Perturbator (see below) systematically applies the question "what condition would make this wrong?" to every interpretation, including its own.</li>
+    </ul>
+
+    <p>Counter-evidence does not automatically invalidate an interpretation. It may:</p>
+    <ul>
+      <li>Narrow its scope ("this holds only in groups with X characteristic")</li>
+      <li>Qualify it ("this holds, but only when Y is present")</li>
+      <li>Complicate it ("the pattern works, but produces unexpected side effects")</li>
+      <li>Contradict it ("under these conditions, the opposite happened")</li>
+    </ul>
+
+    <p>Each outcome is recorded and visible in the evidence trail.</p>
+
+    <!-- ─── Negative Cases ───────────────────────────── -->
+    <h2>Negative cases</h2>
+
+    <p>A qualitative inquiry improves when it actively looks for cases that do not fit its emerging interpretation. This is called <strong>negative case analysis</strong> — and it is deliberately built into the system.</p>
+
+    <p>The framework does not exist to collect failure stories. It exists to collect <strong>whatever happened</strong> — including cases where a pattern worked exactly as described, or where the conditions for success were clearly met. These cases are as valuable as failure modes because they help define the boundary: <em>under what conditions does this pattern hold?</em></p>
+
+    <p>Every pattern entry in the corpus includes, where possible, a note on conditions where the pattern appears robust — not as a diplomatic concession, but as necessary information for delimiting the pattern's operating range.</p>
+
+    <!-- ─── The Perturbator (Formalized) ─────────────── -->
+    <h2>The Perturbator</h2>
+
+    <p>The Perturbator (Pattern Disruptor) is often read as a character — a sharp, anti-academic voice that complicates theoretical claims. That is the surface. The underlying function is analytic:</p>
+
+    <blockquote>
+      <p>The Perturbator is a systematic friction injector. It asks: <em>what condition would make this pattern fail?</em> Or equivalently: <em>what would have to be true for this pattern to work?</em></p>
+    </blockquote>
+
+    <p>These two questions are the same question from opposite directions. Both test the boundary between a theoretical claim and the operational conditions under which it holds.</p>
+
+    <p>Critically, the Perturbator function is <strong>recursive</strong>: it applies to UnPeeragogy's own interpretations as well. If an UnPeeragogy entry claims that a pattern fails under condition X, the Perturbator asks: <em>what condition would make this interpretation wrong?</em> This is not performative self-criticism — it is a methodological requirement for a project that claims to value correction over consensus.</p>
+
+    <!-- ─── Researcher Position & Bias ───────────────── -->
+    <h2>Researcher position & bias</h2>
+
+    <p>This section is required reading before evaluating the project's claims.</p>
+
+    <p>UnPeeragogy was built by <strong>Fabrizio Terzi</strong>, who was a contributor to the Peeragogy Handbook from its early editions and later founded <strong>Pyragogy</strong> as a separate line of inquiry. This means:</p>
+
+    <ul>
+      <li>He has direct personal experience with the Peeragogy project, its history, and its community</li>
+      <li>He has pre-existing relationships with some of the people whose work is examined here</li>
+      <li>He has formed opinions about Peeragogy's strengths and limitations over many years</li>
+      <li>He is building UnPeeragogy as a separate project with its own direction</li>
+    </ul>
+
+    <p>These are not disqualifying conditions. They are <strong>positionality</strong> — the situated perspective from which the research is conducted. Every research project has one. The question is whether it is acknowledged and what mechanisms exist to reduce the risk of confirmation bias.</p>
+
+    <p>The project attempts to mitigate confirmation bias through:</p>
+
+    <ul>
+      <li><strong>Structural separation</strong> of source, observation, and interpretation in the data model</li>
+      <li><strong>Counter-evidence</strong> as a built-in component, not an afterthought</li>
+      <li><strong>Negative case analysis</strong> — active search for cases where the framework's assumptions do not hold</li>
+      <li><strong>External contributions</strong> via the field-reports system</li>
+      <li><strong>Version history</strong> — all revisions are tracked and visible</li>
+      <li><strong>Methodological transparency</strong> — this protocol is public and open to scrutiny</li>
+    </ul>
+
+    <p>We do not claim absence of bias. That would be methodologically naive. We claim that the project is designed to be <strong>correctable</strong> — and that the mechanisms for correction are visible to any reader.</p>
+
+    <!-- ─── Biases and Limitations ──────────────────── -->
+    <h2>Biases and limitations</h2>
+
+    <p>This section is not a formality. These limitations are real and affect what the project can legitimately claim.</p>
+
+    <h3>Sampling bias</h3>
+    <p>Field reports are voluntary and self-selected. People who have had frustrating experiences may be more motivated to report than people who found a pattern worked well. The corpus may overrepresent problematic cases. We track this by also collecting and highlighting negative cases (where patterns worked), but the sample remains non-random.</p>
+
+    <h3>Recall bias</h3>
+    <p>Incidents are reported retrospectively. Memory is reconstructive — people simplify, justify, and shape their accounts in ways that may not correspond to what actually happened. We do not treat field reports as objective records. We treat them as situated narratives that require interpretation.</p>
+
+    <h3>Survivorship bias</h3>
+    <p>Field reports come from people who are still engaged enough to write about their experience. Groups that dissolve completely do not produce reports. The silent failure — the group that quietly stopped meeting — is underrepresented in the corpus.</p>
+
+    <h3>Interpretive bias</h3>
+    <p>The project's interpretations are produced by a single researcher with a known position (see above). Where possible, interpretations are linked to the specific incidents that generated them, so readers can evaluate the interpretive chain themselves.</p>
+
+    <h3>Narrative competence</h3>
+    <p>Some contributors describe their experience more clearly than others. A well-told incident may carry more interpretive weight than a poorly-told one that is factually more significant. We are aware of this distortion but cannot fully eliminate it.</p>
+
+    <!-- ─── What the Project Cannot Claim ────────────── -->
+    <h2>What the project cannot claim</h2>
+
+    <p>UnPeeragogy is <strong>exploratory qualitative research</strong>. It is not a statistical validation or falsification of Peeragogy. Specifically:</p>
+
+    <ul>
+      <li>The corpus does not support claims about <strong>prevalence</strong> — we cannot say "X% of Peeragogy groups experience Y failure"</li>
+      <li>The corpus does not support claims about <strong>causality</strong> — we cannot say "Z pattern causes W outcome"</li>
+      <li>The corpus does not support claims about <strong>generalizability</strong> — findings from one context may not transfer to another</li>
+    </ul>
+
+    <p><strong>What the project can produce:</strong></p>
+    <ul>
+      <li>Context-rich qualitative evidence about how patterns behave under particular conditions</li>
+      <li>Identifiable failure modes that can be tested and refined by future observers</li>
+      <li>A transparent record of how interpretations were derived and revised</li>
+      <li>A structured forum for practitioner experience to feed back into theoretical understanding</li>
+    </ul>
+
+    <!-- ─── How Interpretations Can Change ──────────── -->
+    <h2>How interpretations can change</h2>
+
+    <p>Interpretations in UnPeeragogy are provisional and revisable. The revision process is:</p>
+
+    <ol>
+      <li><strong>Trigger</strong> — A new field report, counter-evidence, or internal review identifies a tension in a current interpretation.</li>
+      <li><strong>Assessment</strong> — The project reviews the existing interpretation against the new evidence.</li>
+      <li><strong>Revision</strong> — If the tension is significant, the interpretation is updated. The previous version is preserved in the commit history and in the evidence trail.</li>
+      <li><strong>Documentation</strong> — The change is logged at <code>/log</code> with the rationale and the evidence that prompted it.</li>
+    </ol>
+
+    <p>Because the entire corpus is version-controlled (git), every change to an interpretation is traceable. A reader can see: what we thought before, what evidence challenged it, what we think now, and why.</p>
+
+    <p>This is the core design principle:</p>
+    <blockquote>
+      <p>Interpretations should be revisable without erasing their history.</p>
+    </blockquote>
+
+    <p>For the avoidance of doubt: the <strong>final editorial decision</strong> on any revision rests with the project. Contributions are evaluated on evidentiary grounds, not by popularity or authority. This prevents the framework from being captured by motivated contributors — including the project itself, which is why the revision history is public.</p>
+
+    <!-- ─── Open Contribution ────────────────────────── -->
+    <h2>Open contribution</h2>
+
+    <p>All content in the UnPeeragogy corpus is <strong>CC0</strong> — public domain. The repository is open. Anyone can:</p>
+
+    <ul>
+      <li><strong>Submit a field report</strong> via the Share Your Story template</li>
+      <li><strong>Propose a structural analysis</strong> via the dedicated template</li>
+      <li><strong>Fork the repository</strong> and build on the corpus independently</li>
+      <li><strong>Read the protocol</strong> and evaluate the methodology</li>
+    </ul>
+
+    <p>Contributions are not formally peer-reviewed in the traditional sense (there is no review board, no double-blind process). Instead, they are:</p>
+    <ul>
+      <li>Triaged by relevance to the existing corpus</li>
+      <li>Connected to the relevant pattern(s) by slug</li>
+      <li>Interpreted with explicit evidence status</li>
+      <li>Subject to revision when counter-evidence emerges</li>
+    </ul>
+
+    <p>The project operates on trust and transparency rather than gatekeeping. GitHub's public history ensures that every change is attributable and reversible.</p>
+
+    <!-- ─── Privacy & Ethics ─────────────────────────── -->
+    <h2>Privacy & ethics</h2>
+
+    <p>Field reports may describe real experiences involving real people and organizations. Contributors are asked to:</p>
+    <ul>
+      <li>Avoid submitting identifiable personal information (names, contact details, precise location)</li>
+      <li>Consider whether their report could affect third parties</li>
+      <li>Use vague descriptions where specificity might identify someone</li>
+    </ul>
+
+    <p>The project may redact or anonymize reports that contain unintended personal data. If a contributor wants a report removed or modified after submission, contact <span data-user="info" data-domain="pyragogy" data-tld="org" class="cursor-pointer">info<wbr/>@pyragogy.org</span> — the history is immutable on GitHub, but the project can remove the content from the published site and add a redaction notice.</p>
+
+    <!-- ─── The Tension Index ────────────────────────── -->
+    <h2>The tension_index</h2>
+
+    <p>Every UnPeeragogy entry carries a <code>tension_index</code> value (0–3) that represents:</p>
+
+    <blockquote>
+      <p>A descriptive indicator of the observed friction between a Peeragogy pattern and operational reality, based on the current corpus of field reports and incidents.</p>
+    </blockquote>
+
+    <p>The tension_index is <strong>not</strong>:</p>
+    <ul>
+      <li>A measure of scientific validity</li>
+      <li>A statistical significance score</li>
+      <li>A final judgment on the usefulness of the pattern</li>
+      <li>A proxy for "how wrong the Handbook is"</li>
+    </ul>
+
+    <p>Tension_index values are assigned transparently and may change as new evidence arrives. The rationale for each value is documented in the entry's provenance trail. Because the corpus currently has limited data, tension_index values should be read as tentative — more indicative of the questions we are asking than the answers we have found.</p>
+
+    <!-- ─── Current Status ───────────────────────────── -->
+    <h2>Current status</h2>
+
+    <p>UnPeeragogy is in its <strong>initial exploratory phase</strong>. The corpus contains approximately 90 entries, most derived from seed content rather than from external field reports. The infrastructure for collecting and processing field reports is operational. The first external contributions will test and refine the methodology described here.</p>
+
+    <p>The project is transparent about this starting point. It does not pretend to have settled findings. It offers a method, a structure, and an invitation: try Peeragogy, tell us what happened, and let the theory be responsible to the experience.</p>
+
+    <hr class="my-12" />
+
+    <div class="d-text-sec text-sm space-y-2">
+      <p><strong>Exploratory qualitative research.</strong> Not a statistical validation of Peeragogy. Not a replacement for the Handbook. A structured empirical feedback layer.</p>
+      <p><a href="https://github.com/pyragogy/UnPeeragogy" target="_blank" class="underline hover:text-(--color-accent)">View the repository →</a></p>
+    </div>
+
+  </article>
+</BaseLayout>

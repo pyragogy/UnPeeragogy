@@ -3,6 +3,15 @@ description: "For people already familiar with tension_index / Failure Vectors w
 title: "[Entry title] — Your perspective"
 labels: ["field-reports", "analysis"]
 body:
+  - type: markdown
+    attributes:
+      value: |
+        You're familiar with the framework. Help us refine it by grounding your analysis in specific observations.
+        Distinguish what you observed from what you infer.
+
+        **Provenance matters**: link your analysis to the incident(s) that generated it.
+        If you're proposing a revision, tell us what evidence would challenge your proposal.
+
   - type: input
     id: entry-slug
     attributes:
@@ -28,9 +37,27 @@ body:
     id: analysis
     attributes:
       label: Your analysis
-      description: "The evidence, the mechanism, the boundary you think the current entry misses or gets right."
+      description: "The evidence, the mechanism, the boundary you think the current entry misses or gets right. Distinguish what you observed from what you infer."
     validations:
       required: true
+
+  - type: textarea
+    id: provenance
+    attributes:
+      label: "Where does this come from?"
+      description: "Link this analysis to specific incidents, sources, or observations. Help us trace how you reached this conclusion."
+      placeholder: "e.g. Based on three separate groups I've observed over 18 months..."
+    validations:
+      required: false
+
+  - type: textarea
+    id: counter-evidence
+    attributes:
+      label: "What would count against this?"
+      description: "Optional: what observation, if it existed, would weaken or contradict your analysis?"
+      placeholder: "e.g. If the same pattern worked in a group of similar size and commitment level, my analysis would need revision."
+    validations:
+      required: false
 
   - type: textarea
     id: suggested-impact
