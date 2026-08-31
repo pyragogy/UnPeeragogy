@@ -24,9 +24,9 @@ import { Icon } from "astro-icon/components";
     }
   }
 
-  // Init icon state
-  const initial = localStorage.getItem("theme");
-  if (initial === "dark" || (!initial && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+  // Init icon state — default dark sempre
+  var initial = localStorage.getItem("theme");
+  if (initial === "dark" || !initial) {
     sun?.classList.remove("hidden");
   } else {
     moon?.classList.remove("hidden");

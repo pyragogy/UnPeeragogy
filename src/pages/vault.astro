@@ -205,7 +205,7 @@ for (const s of sectionOrder) {
 
 <BaseLayout title="Vault — Unpeeragogy Knowledge Base" description="Interactive 3D graph + tree navigation of the Unpeeragogy knowledge base.">
   <script set:html={JSON.stringify({ nodes: graphNodes, links: graphLinks, sections: sectionMap })} id="vault-data" type="application/json"></script>
-  <script src="../scripts/vault-d3-loader.ts"></script>
+  <!-- d3-force loaded dynamically from CDN in inline script below -->
   <section class="py-4 sm:py-8">
     <div class="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 mb-6">
       <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight">🗂️ Knowledge Base</h1>
@@ -346,31 +346,19 @@ for (const s of sectionOrder) {
 
 <script is:inline>
   (async function(){
-  var d3;
-  // Load d3-force from Astro-bundled module (compiled from node_modules)
-  // The bundled loader sets window.__d3GraphApi when ready
-  function waitForD3(attempts) {
-    if (attempts <= 0) return null;
-    var api = window.__d3GraphApi;
-    if (api && api.loaded) {
-      return {
-        forceSimulation: api.forceSimulation,
-        forceLink: api.forceLink,
-        forceManyBody: api.forceManyBody,
-        forceCenter: api.forceCenter,
-        forceCollide: api.forceCollide,
-      };
-    }
-    // Module may still be loading — retry on next frame
-    return new Promise(function(resolve) {
-      requestAnimationFrame(function() {
-        resolve(waitForD3(attempts - 1));
-      });
-    });
-  }
-  d3 = await waitForD3(30); // ~500ms budget for module load
-  if (!d3) {
-    console.warn("d3-force failed to load from bundle — graph will be disabled");
+  var d3 = null;
+  // Load d3-force from CDN (reliable on all browsers/devices)
+  try {
+    var m = await import('https://cdn.jsdelivr.net/npm/d3-force@3.0.0/dist/d3-force.min.js');
+    d3 = {
+      forceSimulation: m.forceSimulation,
+      forceLink: m.forceLink,
+      forceManyBody: m.forceManyBody,
+      forceCenter: m.forceCenter,
+      forceCollide: m.forceCollide,
+    };
+  } catch(e) {
+    console.warn('d3-force failed to load from CDN — graph disabled', e);
   }
 
   let sim = null;
