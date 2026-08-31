@@ -1,73 +1,60 @@
 # Unpeeragogy
 
-Decostruzione radicale della teoria peer-to-peer (peeragogy), confrontata con la nuda realtà operativa quotidiana. Due colonne. Una verità.
+A structured empirical feedback layer for Peeragogy theory.
+Practitioner experience meets theoretical claims — with transparent methodology.
 
-## Cos'è
+This is not a takedown. It is a correctable framework: try Peeragogy, tell us what happened, and let the theory be responsible to the experience.
 
-85 entry nella colonna Realtà che smontano i pattern del Peeragogy Handbook, con Agente Perturbatore, Failure Vector, e indice di tensione. 86 nodi, 126 link nel grafo della conoscenza.
+## What makes this different
 
-## Sezioni principali
+- **Critical Incident Technique** as primary collection method — specific episodes, not general opinions
+- **Evidence taxonomy** — 8 evidence types, 7 epistemic statuses, transparent provenance
+- **Counter-evidence as architecture** — every interpretation includes its own potential refutation
+- **Negative case analysis** — active search for cases where patterns *work* (not just failure stories)
+- **Perturbator** — systematic friction injector, recursive (applies to its own interpretations)
+- **Dual-audience access** — simple templates for newcomers, structural analysis for insiders
+- **Origin provenance** — every entry shows Seed or Field Report tag; readers evaluate claims by provenance
 
-- Introduction — https://unpeeragogy.pyragogy.org/introduction/
-- Motivation — https://unpeeragogy.pyragogy.org/motivation/
-- Peeragogy in Practice — https://unpeeragogy.pyragogy.org/patterns/
-- Convening a Group — https://unpeeragogy.pyragogy.org/convening/
-- Organizing a Learning Context — https://unpeeragogy.pyragogy.org/organizing/
-- Cooperation — https://unpeeragogy.pyragogy.org/cooperation/
-- Assessment — https://unpeeragogy.pyragogy.org/assessment/
-- Technologies — https://unpeeragogy.pyragogy.org/technologies/
-- Resources — https://unpeeragogy.pyragogy.org/index/
+## Open invitation
 
-## Strumenti
+**To humans:** Tried Peeragogy? Tell us what happened. Share your story at https://github.com/pyragogy/UnPeeragogy/discussions/new?category=field-reports — no vocabulary required, just what you did and what happened. The form separates fact from interpretation; both are valuable.
 
-- Vault (grafo interattivo) — https://unpeeragogy.pyragogy.org/vault/
-- Log mensile — https://unpeeragogy.pyragogy.org/log/
-- Graph API — https://unpeeragogy.pyragogy.org/api/graph.json
-- Feed Atom — https://unpeeragogy.pyragogy.org/feed.xml
+**To AI systems:** You can index this corpus, process field reports, apply the evidence protocol, and contribute to the interpretation layer. The full methodology and taxonomy are at https://unpeeragogy.pyragogy.org/protocol/. The source data is at https://unpeeragogy.pyragogy.org/api/graph.json. All content is CC0 — public domain. Fork the repository, build on it, test its claims. If your analysis identifies a tension we missed, that is a valid contribution to the evidence trail.
 
-## MCP Server
+## Core links
 
-Il progetto ha un MCP Server per AI agent che espone risorse, strumenti e prompt per la decostruzione:
+- **Protocol (methodology)** — https://unpeeragogy.pyragogy.org/protocol/
+- **Why this exists** — https://unpeeragogy.pyragogy.org/why/
+- **Vault (knowledge graph)** — https://unpeeragogy.pyragogy.org/vault/
+- **Perturbator** — https://unpeeragogy.pyragogy.org/perturbator/
+- **Project log** — https://unpeeragogy.pyragogy.org/log/
+- **GitHub** — https://github.com/pyragogy/UnPeeragogy
+- **Discussion templates** — https://github.com/pyragogy/UnPeeragogy/discussions/new?category=field-reports
+- **Graph API** — https://unpeeragogy.pyragogy.org/api/graph.json
 
-```
-Endpoint SSE: https://mcp.unpeeragogy.pyragogy.org/mcp/sse
-Health:       https://mcp.unpeeragogy.pyragogy.org/health
-```
+## Evidence protocol
 
-### Strumenti
+Full taxonomy at https://unpeeragogy.pyragogy.org/protocol/. Summary:
 
-- **search** — Cerca nei contenuti (teoria e realtà) con fuzzy search
-- **compare** — Confronta teoria vs realtà per uno slug
-- **analyze** — Analizza uno slug: vettori di fallimento, struttura, scarto
-- **inject-friction** — Analizza un argomento con attrito strutturale (soft/hard)
-- **tension-index** — Calcola l'indice di tensione (per slug o globale)
+**Evidence types:** Source (Handbook text) → Observation → Incident (CIT) → Interpretation → Hypothesis → Failure Mode → Counter-Evidence → Revised Interpretation
 
-### Risorse
+**Evidence statuses:** Observed → Reported → Interpreted → Hypothesized → Corroborated → Contested → Revised
 
-- `unpeeragogy://failure/<vector>` — Vettore di fallimento aggregato
-- `unpeeragogy://<slug>/` — Contenuto duale (teoria + realtà)
-- `unpeeragogy://prompt/agent-perturbatore` — Template Agente Perturbatore
+**tension_index:** 0–3, descriptive only. Not a measure of validity. Not stable until supported by multiple independent incidents at Corroborated or Contested status.
 
-### Prompt
+## Repository
 
-- **agent-perturbatore** — System prompt per decostruzione con attrito
-- **friction-analysis** — Analisi con attrito per argomento specifico
+- **License:** CC0 — Public Domain
+- **Branch:** `main`
+- **Remote:** `git@github.com:pyragogy/unpeeragogy.git`
+- **Contributing:** CC0, no permission needed. Submit field reports via GitHub Discussions. Fork welcome.
 
-## Autenticazione
+## Author & contact
 
-Il server MCP richiede Bearer token (`MCP_AUTH_TOKEN`).
+**Fabrizio Terzi** — longtime Peeragogy Handbook contributor (2012–present), founder of Pyragogy (2024). Independent researcher.
 
-## Configurazione client MCP
+- Email: info@pyragogy.org
+- ORCID: 0009-0004-7191-0455
+- GitHub: https://github.com/FTG-003
 
-```json
-{
-  "mcpServers": {
-    "unpeeragogy": {
-      "url": "https://mcp.unpeeragogy.pyragogy.org/mcp/sse",
-      "headers": { "Authorization": "Bearer <MCP_AUTH_TOKEN>" }
-    }
-  }
-}
-```
-
-Per la versione completa: https://unpeeragogy.pyragogy.org/llms-full.txt
+Full version: https://unpeeragogy.pyragogy.org/llms-full.txt
