@@ -3,7 +3,7 @@
 </div>
 
 <p align="center">
-  <strong>Peeragogy's uncomfortable second question.</strong>
+  <strong>Theory meets friction and research.</strong>
 </p>
 
 <p align="center">
@@ -12,7 +12,7 @@
   <a href="https://github.com/pyragogy/unpeeragogy/actions"><img src="https://img.shields.io/github/actions/workflow/status/pyragogy/unpeeragogy/deploy.yml?branch=main&style=flat-square&label=deploy" alt="Deploy" /></a>
   <a href="./packages/mcp-server"><img src="https://img.shields.io/badge/MCP%20Server-available-teal?style=flat-square" alt="MCP Server" /></a>
   <a href="https://unpeeragogy.pyragogy.org/vault"><img src="https://img.shields.io/badge/vault-online-teal?style=flat-square" alt="Vault" /></a>
-  <a href="https://unpeeragogy.pyragogy.org/mcp"><img src="https://img.shields.io/badge/NotebookLM-free-teal?style=flat-square" alt="NotebookLM" /></a>
+  <a href="https://unpeeragogy.pyragogy.org/protocol"><img src="https://img.shields.io/badge/protocol-online-teal?style=flat-square" alt="Protocol" /></a>
 </p>
 
 ---
@@ -40,26 +40,60 @@ I didn't find these contradictions interesting because they proved Peeragogy wro
 
 ## What is Unpeeragogy?
 
-Unpeeragogy is a **dual-column experiment**. On one side, the original Peeragogy theory. On the other, the friction produced when that theory encounters actual human behaviour, power dynamics, coordination fatigue, and the failure patterns that academic models tend to flatten.
-
-### The two-column method
+A **dual-column experiment**. On one side, the original Peeragogy theory. On the other, the friction produced when that theory encounters actual human behaviour, power dynamics, coordination fatigue, and the failure patterns that academic models tend to flatten.
 
 | Peeragogy (theory) | Unpeeragogy (reality) |
 |---|---|
 | Collaborative learning | Paralyzing consensus |
 | Self-organization | Academic free-rider |
 | Participatory design | Coordination fatigue |
-| Distributed leadership | The tyranny of strutturelessness |
+| Distributed leadership | Tyranny of structurelessness |
 
-Between the two columns: **the reader** — asked not to choose which side is correct, but to notice where the two stop agreeing. That gap is the experiment.
+Between the two columns: **the reader** — asked not to choose which side is correct, but to notice where the two stop agreeing.
 
 ---
 
-## The Agente Perturbatore
+## Evidence Protocol
 
-Unpeeragogy introduces a critical native entity: the **Perturbator** — a voice that lives in the analysis boxes, speaking with a colloquial, complicit, sharp, anti-academic tone. Not the smartest person. Not the leader. Someone willing to say: *wait — why are we assuming this?*
+The protocol is the epistemic backbone of the project — **how we collect, classify, and challenge evidence**. It defines:
 
-> *"The Perturbator is useful precisely because they introduce uncertainty into a system that has become too comfortable with its own assumptions."*
+| Concept | What it does |
+|---|---|
+| **Research question** | *What happens when Peeragogy patterns meet conditions they don't explicitly describe?* |
+| **Evidence taxonomy** | 8 types: `source`, `observation`, `incident`, `interpretation`, `hypothesis`, `failure_mode`, `counter_evidence`, `revised_interpretation` |
+| **Discussion templates** | Two GitHub Discussion templates — one for free-form stories ([`share-your-story.yml`](.github/DISCUSSION_TEMPLATE/share-your-story.yml)), one for structured analysis ([`structural-analysis.yml`](.github/DISCUSSION_TEMPLATE/structural-analysis.yml)) — enforcing provenance tracking and epistemic discipline |
+| **Provenance** | Each claim is traceable: *who observed, under what conditions, and what might contradict it* |
+
+The protocol is documented at **[unpeeragogy.pyragogy.org/protocol](https://unpeeragogy.pyragogy.org/protocol)** and lives in [`src/data/evidence-taxonomy.ts`](src/data/evidence-taxonomy.ts).
+
+> **Key rule**: The framework must remain open to its own revision. Counter-evidence is not a bug — it's data.
+
+---
+
+## The Agente Perturbatore (MCP Server)
+
+The **Perturbator** is not a chatbot. It's a **friction engine** — a structured MCP server that forces the gap between theory and practice into visibility.
+
+**Resources:**
+- `unpeeragogy://failure/<slug>` — failure vectors from the corpus
+- `unpeeragogy://tension/<slug>` — quantified friction level (0.0–3.2)
+
+**Tools:**
+- `search(query)` — does a failure vector exist for this topic?
+- `compare(slug)` — read the theory/reality pair
+- `analyze(slug)` — extract scope, preconditions, failure mode name
+- `tension-index(slug)` — get the quantified friction level
+- `injectFriction(prompt, slug)` — apply the Perturbator's voice to arbitrary text
+
+**Prompts:**
+- AGENTE_PERTURBATORE_PROMPT v2.0 — operational protocol with mandatory phases: *search → compare → analyze → tension-index → inject*
+
+```
+cd packages/mcp-server
+npm run dev
+```
+
+See [`packages/mcp-server/DEPLOY.md`](packages/mcp-server/DEPLOY.md) for deployment and auth (Coolify, JWT).
 
 ---
 
@@ -69,9 +103,10 @@ Unpeeragogy introduces a critical native entity: the **Perturbator** — a voice
 |---|---|
 | `src/content/peeragogy/` | Historical Peeragogy texts (MDX) |
 | `src/content/unpeeragogy/` | Anti-patterns, critique, operational reality |
-| `src/content/chat/` | Conversation logs |
+| `src/data/evidence-taxonomy.ts` | Epistemic types, statuses, failure vectors |
 | `packages/mcp-server/` | MCP server for AI integration |
 | `scripts/` | Org-to-MDX conversion, log sync |
+| `.github/DISCUSSION_TEMPLATE/` | Structured field report templates |
 
 ### Features
 
@@ -79,8 +114,10 @@ Unpeeragogy introduces a critical native entity: the **Perturbator** — a voice
 - **View toggle** (Alpine.js) — Dual View, Solo Peeragogy, Solo Unpeeragogy
 - **Giscus discussions** — bound to the Unpeeragogy column (the plane of real conflict)
 - **Pagefind search** — full-text search across both collections
+- **Knowledge graph** — interactive 3D force-directed graph of nodes and connections ([vault](https://unpeeragogy.pyragogy.org/vault))
+- **Evidence Protocol** — research framework + GitHub Discussion templates with provenance tracking
+- **MCP Server** — Agente Perturbatore exposed as resources, tools, and prompts
 - **LLMs.txt** — AI-friendly content distillation (`/llms.txt`, `/llms-full.txt`)
-- **MCP server** — expose resources, tools, and friction injection to AI clients
 
 ---
 
@@ -114,20 +151,13 @@ npm run seed-unpeeragogy
 
 ---
 
-## MCP Server
+## How to contribute
 
-Unpeeragogy ships with an MCP server that exposes:
-
-- **Resources** — failure vectors (`unpeeragogy://failure/<slug>`)
-- **Tools** — `search`, `injectFriction`, `calculateTensionIndex`, `listPrompts`
-- **Prompts** — Agente Perturbatore prompts for AI clients
-
-```bash
-cd packages/mcp-server
-npm run dev
-```
-
-See [`packages/mcp-server/DEPLOY.md`](packages/mcp-server/DEPLOY.md) for deployment and authentication.
+1. **Read the protocol**: [unpeeragogy.pyragogy.org/protocol](https://unpeeragogy.pyragogy.org/protocol)
+2. **Open a Discussion** with your field report — use the template that fits:
+   - [📖 Share your story](https://github.com/pyragogy/unpeeragogy/discussions/new?category=field-reports&template=share-your-story.yml) — for raw experience, no jargon required
+   - [🔍 Structural analysis](https://github.com/pyragogy/unpeeragogy/discussions/new?category=field-reports&template=structural-analysis.yml) — for people familiar with tension_index / failure vectors
+3. **Contribute via PR** for content revisions, new anti-patterns, or protocol refinements.
 
 ---
 
@@ -136,18 +166,19 @@ See [`packages/mcp-server/DEPLOY.md`](packages/mcp-server/DEPLOY.md) for deploym
 ```
 unpeeragogy/
 ├── src/
-│   ├── components/       # Astro components (SectionDiscussion, ViewToggle, ...)
-│   ├── content/          # Astro Content Collections
-│   │   ├── peeragogy/    # Historical texts (MDX)
-│   │   └── unpeeragogy/  # Anti-patterns (MDX)
-│   ├── layouts/          # BaseLayout, DualLayout
-│   ├── pages/            # Routes (index, why, mcp, ...)
-│   └── styles/           # Global CSS
+│   ├── components/        # Astro components (SectionDiscussion, ViewToggle, ...)
+│   ├── content/           # Astro Content Collections
+│   │   ├── peeragogy/     # Historical texts (MDX)
+│   │   └── unpeeragogy/   # Anti-patterns (MDX)
+│   ├── data/              # Evidence taxonomy, failure vectors
+│   ├── layouts/           # BaseLayout, DualLayout
+│   ├── pages/             # Routes (index, why, protocol, mcp, vault, ...)
+│   └── styles/            # Global CSS (dark theme default)
 ├── packages/
-│   └── mcp-server/       # MCP server (TypeScript)
-├── public/               # Static assets (icons, images)
-├── scripts/              # Conversion & utility scripts
-└── .github/workflows/    # CI/CD (Coolify deploy)
+│   └── mcp-server/        # MCP server (TypeScript)
+├── public/                # Static assets (icons, images)
+├── scripts/               # Conversion & utility scripts
+└── .github/workflows/     # CI/CD (Coolify deploy)
 ```
 
 **Stack:** Astro 5 · Tailwind CSS v4 · Alpine.js · Pagefind · Giscus · MCP SDK
