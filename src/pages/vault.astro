@@ -33,7 +33,7 @@ const sectionOrder = Array.from(sections.keys()).sort((a, b) => {
   return aMin - bMin;
 });
 
-// Section palette (9 sezioni del handbook + fallback)
+// Section palette (9 handbook sections + fallback)
 const sectionColors = {
   "Peeragogy in Practice":                  "#6366f1",
   "Resources":                              "#8b5cf6",
@@ -207,34 +207,34 @@ for (const s of sectionOrder) {
   <section class="py-4 sm:py-8">
     <div class="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 mb-6">
       <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight">🗂️ Knowledge Base</h1>
-      <span class="rounded-full bg-stone-100 dark:bg-(--surface-bg) text-stone-600 dark:text-stone-300 px-3 py-1 text-xs sm:text-sm w-fit">{graphNodes.length} nodi · {graphLinks.length} connessioni</span>
+      <span class="rounded-full bg-stone-100 dark:bg-(--surface-bg) text-stone-600 dark:text-stone-300 px-3 py-1 text-xs sm:text-sm w-fit">{graphNodes.length} nodes · {graphLinks.length} connections</span>
     </div>
 
     <!-- Vault guide -->
     <details class="mb-6 group">
       <summary class="flex items-center gap-2 text-xs sm:text-sm d-text-dim cursor-pointer px-3 py-2 rounded-lg hover:bg-stone-100 dark:d-hover transition-colors w-fit">
         <span class="transition-transform group-open:rotate-90">▶</span>
-        Come leggere la Vault
+        How to read the Vault
       </summary>
       <div class="mt-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs sm:text-sm p-4 border border-stone-200 d-border rounded-lg bg-white d-surface">
         <div class="space-y-1">
-          <span class="font-semibold text-(--color-accent)">📖 Nodi azzurri</span>
-          <p class="d-text-dim">Pattern del Peeragogy Handbook. La teoria così com'è.</p>
+          <span class="font-semibold text-(--color-accent)">📖 Blue nodes</span>
+          <p class="d-text-dim">Peeragogy Handbook patterns. The theory as-is.</p>
         </div>
         <div class="space-y-1">
-          <span class="font-semibold text-amber-600 dark:text-amber-400">⚡ Nodi ambra</span>
-          <p class="d-text-dim">Osservazioni Unpeeragogy. Dove la teoria incontra attrito.</p>
+          <span class="font-semibold text-amber-600 dark:text-amber-400">⚡ Amber nodes</span>
+          <p class="d-text-dim">Unpeeragogy observations. Where theory meets friction.</p>
         </div>
         <div class="space-y-1">
-          <span class="font-semibold">📏 Dimensione del nodo</span>
-          <p class="d-text-dim"><code>tension_index</code>: più grande = più frizione osservata.</p>
+          <span class="font-semibold">📏 Node size</span>
+          <p class="d-text-dim"><code>tension_index</code>: larger = more observed friction.</p>
         </div>
         <div class="space-y-1">
-          <span class="font-semibold">🎨 Colore della sezione</span>
-          <p class="d-text-dim">Ogni colore corrisponde a una sezione di Peeragogy.</p>
+          <span class="font-semibold">🎨 Section color</span>
+          <p class="d-text-dim">Each color corresponds to a Peeragogy section.</p>
         </div>
       </div>
-      <p class="mt-2 text-xs d-text-dim italic">Suggerito: Introduction → Motivation → Patterns → Convening</p>
+      <p class="mt-2 text-xs d-text-dim italic">Suggested: Introduction → Motivation → Patterns → Convening</p>
     </details>
 
     <div class="flex items-center gap-2 mb-6 p-2 bg-stone-100 dark:d-surface rounded-lg w-full sm:w-fit">
@@ -246,7 +246,7 @@ for (const s of sectionOrder) {
     <div id="graph-filters" class="mb-4">
       <!-- Mobile toggle -->
       <button id="filter-toggle" class="sm:hidden flex items-center gap-2 text-xs d-text-dim mb-2 px-3 py-1.5 rounded-md hover:bg-stone-100 dark:d-hover transition-colors w-full">
-        <span>☰ Filtri sezioni</span>
+        <span>☰ Section filters</span>
         <span class="ml-auto text-xs opacity-50">▼</span>
       </button>
       <div id="filter-body" class="flex flex-wrap gap-2">
@@ -270,7 +270,7 @@ for (const s of sectionOrder) {
         <div id="graph-loading" class="absolute inset-0 flex items-center justify-center bg-(--color-bg) z-10 transition-opacity duration-500" style="pointer-events:none;">
           <div class="flex flex-col items-center gap-3">
             <div class="w-8 h-8 rounded-full border-2 border-(--color-accent) border-t-transparent animate-spin"></div>
-            <span class="text-xs d-text-dim">Caricamento grafo...</span>
+            <span class="text-xs d-text-dim">Loading graph...</span>
           </div>
         </div>
       </div>
