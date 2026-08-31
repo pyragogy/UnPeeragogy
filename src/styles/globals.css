@@ -182,3 +182,72 @@ body {
   --tw-prose-bullets: var(--border-default);
   --tw-prose-captions: var(--text-muted);
 }
+
+
+/* Full-page graph mode — depth overlay */
+#vault-graph.fullscreen {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  border-radius: 0;
+  border: none;
+}
+#vault-graph.fullscreen::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse 80% 60% at 25% 30%, rgba(99, 102, 241, 0.06) 0%, transparent 100%),
+    radial-gradient(ellipse 70% 50% at 75% 70%, rgba(6, 182, 212, 0.05) 0%, transparent 100%),
+    radial-gradient(ellipse 60% 40% at 55% 50%, rgba(139, 92, 246, 0.04) 0%, transparent 100%);
+  pointer-events: none;
+}
+.dark #vault-graph.fullscreen::before {
+  background:
+    radial-gradient(ellipse 80% 60% at 25% 30%, rgba(99, 102, 241, 0.12) 0%, transparent 100%),
+    radial-gradient(ellipse 70% 50% at 75% 70%, rgba(6, 182, 212, 0.10) 0%, transparent 100%),
+    radial-gradient(ellipse 60% 40% at 55% 50%, rgba(139, 92, 246, 0.08) 0%, transparent 100%);
+  pointer-events: none;
+}
+#vault-graph.fullscreen::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.015) 2px, rgba(255,255,255,0.015) 3px),
+    repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(255,255,255,0.015) 2px, rgba(255,255,255,0.015) 3px);
+  background-size: 3px 3px;
+  pointer-events: none;
+}
+.dark #vault-graph.fullscreen::after {
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.04) 2px, rgba(0,0,0,0.04) 3px),
+    repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(0,0,0,0.04) 2px, rgba(0,0,0,0.04) 3px);
+}
+#vault-graph.fullscreen #graph-controls {
+  bottom: 2rem;
+  right: 2rem;
+}
+#vault-graph.fullscreen #graph-legend {
+  bottom: 2rem;
+  left: 2rem;
+  font-size: 0.8rem;
+}
+#vault-graph.fullscreen #ctrl-fullscreen {
+  background: rgba(239, 68, 68, 0.2);
+  color: #ef4444;
+}
+#vault-graph.fullscreen #force-graph {
+  background: transparent;
+}
+#vault-graph.fullscreen #graph-loading {
+  background: transparent;
+}
+body:has(#vault-graph.fullscreen) #content-wrapper > :not(#vault-graph) {
+  display: none;
+}

@@ -292,6 +292,7 @@ for (const s of sectionOrder) {
         <button id="ctrl-zoom-out" class="w-9 sm:w-10 h-9 sm:h-10 flex items-center justify-center rounded-xl bg-white/95 dark:bg-[var(--surface-bg)]/95 shadow-md dark:shadow-sm dark:d-border backdrop-blur-sm text-base sm:text-lg font-bold hover:bg-stone-100 dark:d-hover transition-all cursor-pointer select-none border border-stone-200 dark:border-0" title="Zoom -" aria-label="Zoom out">−</button>
         <button id="ctrl-reset" class="w-9 sm:w-10 h-9 sm:h-10 flex items-center justify-center rounded-xl bg-white/95 dark:bg-[var(--surface-bg)]/95 shadow-md dark:shadow-sm dark:d-border backdrop-blur-sm text-xs sm:text-sm hover:bg-stone-100 dark:d-hover transition-all cursor-pointer select-none border border-stone-200 dark:border-0" title="Reset" aria-label="Reset view">⟲</button>
         <button id="ctrl-labels" class="w-9 sm:w-10 h-9 sm:h-10 flex items-center justify-center rounded-xl bg-white/95 dark:bg-[var(--surface-bg)]/95 shadow-md dark:shadow-sm dark:d-border backdrop-blur-sm text-[10px] sm:text-xs hover:bg-stone-100 dark:d-hover transition-all cursor-pointer select-none border border-stone-200 dark:border-0" title="Etichette" aria-label="Toggle labels">Aa</button>
+        <button id="ctrl-fullscreen" class="w-9 sm:w-10 h-9 sm:h-10 flex items-center justify-center rounded-xl bg-white/95 dark:bg-[var(--surface-bg)]/95 shadow-md dark:shadow-sm dark:d-border backdrop-blur-sm text-xs sm:text-sm hover:bg-stone-100 dark:d-hover transition-all cursor-pointer select-none border border-stone-200 dark:border-0" title="Vista completa" aria-label="Toggle full page">⛶</button>
       </div>
     </div>
 
@@ -1052,6 +1053,48 @@ for (const s of sectionOrder) {
   // quindi se il container e' nascosto parte al primo click sull'apposito pulsante.
   if (document.getElementById("force-graph") && document.getElementById("force-graph").offsetParent !== null) {
     requestAnimationFrame(function() { initGraph(); });
+  }
+
+  // Full-page toggle
+  var fsBtn = document.getElementById("ctrl-fullscreen");
+  if (fsBtn) {
+    fsBtn.addEventListener("click", function() {
+      var graph = document.getElementById("vault-graph");
+      if (!graph) return;
+      var isFull = graph.classList.contains("fullscreen");
+      if (isFull) {
+        graph.classList.remove("fullscreen");
+        this.title = "Vista completa";
+      } else {
+        graph.classList.add("fullscreen");
+        this.title = "Chiudi vista completa";
+      }
+      // Re-render graph at new dimensions
+      setTimeout(function() {
+        if (sim) {
+          var w = canvas.width, h = canvas.height;
+          sim.force("center", d3.forceCenter(w / 2, h / 2).strength(0.3));
+          zoomToFit();
+          sim.alpha(0.2).restart();
+        }
+      }, 100);
+    });
+    // Escape key exits fullscreen
+    document.addEventListener("keydown", function(e) {
+      if (e.key === "Escape") {
+        var graph = document.getElementById("vault-graph");
+        if (graph && graph.classList.contains("fullscreen")) {
+          graph.classList.remove("fullscreen");
+          fsBtn.title = "Vista completa";
+          if (sim) {
+            setTimeout(function() {
+              zoomToFit();
+              sim.alpha(0.2).restart();
+            }, 100);
+          }
+        }
+      }
+    });
   }
 })();
 </script>
