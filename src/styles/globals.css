@@ -248,6 +248,28 @@ body {
 #vault-graph.fullscreen #graph-loading {
   background: transparent;
 }
-body:has(#vault-graph.fullscreen) #content-wrapper > :not(#vault-graph) {
+body:has(#vault-graph.fullscreen) header,
+body:has(#vault-graph.fullscreen) footer {
   display: none;
+}
+body:has(#vault-graph.fullscreen) {
+  overflow: hidden;
+}
+body:has(#vault-graph.fullscreen) main {
+  padding: 0;
+  margin: 0;
+  max-width: none;
+  min-height: 0;
+}
+#vault-graph.fullscreen #graph-legend {
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 90%;
+  padding: 0.5rem 1.25rem;
+  font-size: 0.85rem;
+  text-align: center;
+}
+#vault-graph.fullscreen #graph-legend span {
+  white-space: nowrap;
 }

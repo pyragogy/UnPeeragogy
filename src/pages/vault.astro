@@ -162,7 +162,7 @@ for (let i = 0; i < tensionNodes.length; i++) {
   for (let j = i + 1; j < tensionNodes.length; j++) {
     const a = tensionNodes[i];
     const b = tensionNodes[j];
-    if (b.tension - a.tension > 0.3) break; // sorted, so stop early
+    if (b.tension - a.tension > 0.301) break; // sorted, so stop early (0.301 = 0.3 + epsilon per floating point)
     if (a.section !== b.section) {
       // Only connect if nodes share at least one semantic tag (not base)
       const aTags = nodeTags[a.id] || [];
