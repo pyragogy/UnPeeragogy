@@ -95,6 +95,7 @@ for (const ue of unpeeragogyEntries) {
       group: "unpeeragogy-only",
       val: 2,
       tension: ue.data.tension_index ?? null,
+      origin: ue.data.origin || "seed",
       section: sec,
       sectionColor: sectionColors[sec] || "#a1a1aa",
       readingTime: ue.data.readingTime ?? 0,
@@ -189,6 +190,7 @@ for (const s of sectionOrder) {
       slug: pe.slug,
       title: pe.data.title || pe.slug,
       tension: ue?.data?.tension_index ?? null,
+      origin: ue?.data?.origin || "seed",
       readingTime: pe.data.readingTime ?? 0,
       tags: pe.data.tags || [],
       hasUnpeeragogy: !!ue,
@@ -232,6 +234,10 @@ for (const s of sectionOrder) {
         <div class="space-y-1">
           <span class="font-semibold">🎨 Section color</span>
           <p class="d-text-dim">Each color corresponds to a Peeragogy section.</p>
+        </div>
+        <div class="space-y-1">
+          <span class="font-semibold">🏷️ Origin badge</span>
+          <p class="d-text-dim"><em>Seed</em> = project analysis. <em>Field Report</em> = external contribution. Every entry shows where it comes from.</p>
         </div>
       </div>
       <p class="mt-2 text-xs d-text-dim italic">Suggested: Introduction → Motivation → Patterns → Convening</p>
@@ -317,6 +323,9 @@ for (const s of sectionOrder) {
                 <a href={`/${e.slug}/`} class="vault-entry flex items-center gap-2 sm:gap-4 px-4 sm:px-5 py-3 sm:py-3.5 hover:bg-stone-50 dark:d-hover transition-colors text-xs sm:text-sm group" data-slug={e.slug} data-tags={e.tags.join(",")}>
                   <span class="w-2.5 sm:w-3 h-2.5 sm:h-3 rounded-full shrink-0" style={e.hasUnpeeragogy ? "background:#ef4444" : "background:#4a8fe7"}></span>
                   <span class="flex-1 font-medium text-sm sm:text-[15px] min-w-0 truncate">{e.title}</span>
+                  {e.origin && e.origin !== "seed" && (
+                    <span class="text-[9px] sm:text-[10px] px-1.5 py-0.5 rounded-full shrink-0 font-medium bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300 mr-1">FR</span>
+                  )}
                   {e.tension !== null && (
                     <span class="tension-badge text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full shrink-0 font-medium hidden sm:inline-block" style={e.tension >= 1.0 ? "background:rgba(239,68,68,0.15);color:#f87171" : e.tension >= 0.6 ? "background:rgba(249,115,22,0.15);color:#fb923c" : "background:rgba(74,143,231,0.15);color:#4a8fe7"}>
                       T {e.tension.toFixed(1)}

@@ -100,6 +100,7 @@ const next = currentIndex < sorted.length - 1 ? sorted[currentIndex + 1] : null;
               )}
               <div class="mt-2 flex items-center gap-3 text-xs d-text-dim">
                 <span>⏱ {peeragogyEntry.data.readingTime} min</span>
+                <span class="rounded-full px-2 py-0.5 bg-stone-100 dark:bg-(--surface-bg) text-stone-500 dark:text-stone-400">Handbook</span>
               </div>
             </header>
             <div class="prose max-w-none prose-sm">
@@ -185,6 +186,9 @@ const next = currentIndex < sorted.length - 1 ? sorted[currentIndex + 1] : null;
                 <h1 class="text-2xl font-bold tracking-tight mt-1">{unpeeragogyEntry.data.title}</h1>
                 <div class="mt-2 flex items-center gap-3 text-xs d-text-dim">
                   <span>⏱ {unpeeragogyEntry.data.readingTime} min</span>
+                  <span class="rounded-full px-2 py-0.5 bg-stone-100 dark:bg-(--surface-bg) text-stone-500 dark:text-stone-400">
+                    {unpeeragogyEntry.data.origin || "seed"}
+                  </span>
                   {unpeeragogyEntry.data.tags?.length > 0 && (
                     <span class="flex gap-1">
                       {unpeeragogyEntry.data.tags.map((tag) => (

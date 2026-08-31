@@ -201,6 +201,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
     <p>Critically, the Perturbator function is <strong>recursive</strong>: it applies to UnPeeragogy's own interpretations as well. If an UnPeeragogy entry claims that a pattern fails under condition X, the Perturbator asks: <em>what condition would make this interpretation wrong?</em> This is not performative self-criticism — it is a methodological requirement for a project that claims to value correction over consensus.</p>
 
+    <p><strong>Concrete example:</strong> The Heartbeat entry originally stated that groups without a regular heartbeat cannot onboard newcomers. The Perturbator applied its own question to that interpretation: <em>"what would have to be true for this interpretation to be wrong?"</em> — and identified a boundary condition: a group with strong pre-existing social bonds might not need a heartbeat meeting to onboard, because onboarding happens informally. This led to a revision: "Heartbeat is necessary but not sufficient — except in groups with high pre-existing trust." The old interpretation is preserved in the commit history; the revision is visible on the live entry. This is the recursive function working as designed.</p>
+
     <!-- ─── Researcher Position & Bias ───────────────── -->
     <h2>Researcher position & bias</h2>
 
@@ -343,10 +345,14 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
     <p>Tension_index values are assigned transparently and may change as new evidence arrives. The rationale for each value is documented in the entry's provenance trail. Because the corpus currently has limited data, tension_index values should be read as tentative — more indicative of the questions we are asking than the answers we have found.</p>
 
+    <p>The relationship between evidence status and tension_index is straightforward: a tension_index value cannot be considered stable until it is supported by <strong>multiple independent incidents with status Corroborated or Contested</strong>. A single field report (status Observed or Interpreted) may prompt a provisional adjustment, but the change is flagged as tentative until corroboration arrives. This prevents a single contributor's experience from moving the index on its own.</p>
+
     <!-- ─── Current Status ───────────────────────────── -->
     <h2>Current status</h2>
 
-    <p>UnPeeragogy is in its <strong>initial exploratory phase</strong>. The corpus contains approximately 90 entries, most derived from seed content rather than from external field reports. The infrastructure for collecting and processing field reports is operational. The first external contributions will test and refine the methodology described here.</p>
+    <p>UnPeeragogy is in its <strong>initial exploratory phase</strong>. The corpus contains approximately 90 entries, most derived from seed content rather than from external field reports. Every entry in the Vault shows its <strong>origin</strong> as a visible tag — entries labelled <em>Seed</em> are derived from the project's own analysis; entries labelled <em>Field Report</em> are based on external contributions. This distinction is not a judgment of quality — it is a transparency measure, so readers can evaluate the provenance of each claim themselves.</p>
+
+    <p>The infrastructure for collecting and processing field reports is operational. The first external contributions will test and refine the methodology described here, and will shift the corpus from seed-dominated to evidence-balanced over time.</p>
 
     <p>The project is transparent about this starting point. It does not pretend to have settled findings. It offers a method, a structure, and an invitation: try Peeragogy, tell us what happened, and let the theory be responsible to the experience.</p>
 
