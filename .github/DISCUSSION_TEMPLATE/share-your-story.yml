@@ -1,0 +1,68 @@
+name: "📖 Share your story"
+description: "Tell us what happened when you tried this in a real group. No jargon needed — just the story."
+title: "[Pattern] — "
+labels: ["field-reports", "story"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        You don't need to know anything about "tension index" or "failure vectors" to fill this out.
+        Just tell us what happened. We'll figure out what it means.
+
+  - type: input
+    id: entry-slug
+    attributes:
+      label: Which pattern is this about?
+      description: "The page you were reading (e.g. newcomer, motivation, heartbeat, cooperation)"
+      placeholder: "e.g. newcomer"
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: The situation
+      description: "What group was this? Size, purpose, how long it had existed. Skip anything identifying — vague is fine."
+      placeholder: "e.g. A 6-person open-source docs team, together about 8 months, mostly async on Discord."
+    validations:
+      required: false
+
+  - type: textarea
+    id: what-you-tried
+    attributes:
+      label: What you tried
+      description: "What did you (or the group) do, based on this pattern?"
+      placeholder: "e.g. We set a fixed weekly call to build a heartbeat, hoping it would help new people integrate."
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: "Be specific. What was said, what changed, who left, who stayed, what surprised you."
+      placeholder: "e.g. The weekly call worked for the first month. Then attendance dropped because..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: takeaway
+    attributes:
+      label: What you'd tell someone about to try this
+      description: "One or two sentences. What would have helped you know in advance?"
+    validations:
+      required: false
+
+  - type: dropdown
+    id: relation-to-theory
+    attributes:
+      label: "Optional: how does this compare to what the pattern describes?"
+      description: "Skip this — that's our job to work out, not yours."
+      options:
+        - "Skip this — our job"
+        - "Matched what the pattern describes"
+        - "Went differently than the pattern describes"
+        - "Somewhere in between"
+      default: 0
+    validations:
+      required: false

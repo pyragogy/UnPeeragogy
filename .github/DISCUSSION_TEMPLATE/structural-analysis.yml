@@ -1,0 +1,41 @@
+name: "🔍 Structural analysis"
+description: "For people already familiar with tension_index / Failure Vectors who want to propose a specific revision."
+title: "[Entry title] — Your perspective"
+labels: ["field-reports", "analysis"]
+body:
+  - type: input
+    id: entry-slug
+    attributes:
+      label: Entry (slug)
+      description: "Which page does this analysis target?"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: position
+    attributes:
+      label: Position
+      description: "How does your observation relate to the current entry?"
+      options:
+        - "Confirms"
+        - "Extends"
+        - "Contradicts"
+        - "Question"
+    validations:
+      required: true
+
+  - type: textarea
+    id: analysis
+    attributes:
+      label: Your analysis
+      description: "The evidence, the mechanism, the boundary you think the current entry misses or gets right."
+    validations:
+      required: true
+
+  - type: textarea
+    id: suggested-impact
+    attributes:
+      label: "Optional: what do you think this changes?"
+      description: "Your hunch is welcome (e.g. 'tension_index feels too low', 'this is a new failure vector', 'the Perturbator line undersells this'). Final call is made in review — this just helps us prioritize."
+    validations:
+      required: false

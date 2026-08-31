@@ -6,19 +6,19 @@ export interface Props {
 
 const { slug, title } = Astro.props;
 const repoUrl = "https://github.com/pyragogy/UnPeeragogy";
-const newDiscussionUrl = `${repoUrl}/discussions/new?category=discussione`;
-const existingDiscussionsUrl = `${repoUrl}/discussions?discussions_q=label%3Adiscussione+${slug}`;
+const newDiscussionUrl = `${repoUrl}/discussions/new?category=field-reports`;
+const existingDiscussionsUrl = `${repoUrl}/discussions?discussions_q=label%3Afield-reports+${slug}`;
 const helpUrl = "https://docs.github.com/en/discussions/quickstart";
 ---
 
 <section class="mt-12 border-t border-teal-300 pt-8">
   <h2 class="text-lg font-bold mb-4 flex items-center gap-2">
-    <span>💬</span> Discussion: {title}
+    <span>💬</span> Field Report: {title}
   </h2>
 
   <p class="text-sm d-text-dim mb-2">
-    The discussion lives on GitHub. No magic, no silent bugs.
-    Open a thread, share your experience, and the project evolves from what emerges.
+    Every pattern in the Handbook has been tested in the real world — and the real world usually has something to say about it.
+    If you tried something similar, or saw it fail differently, share the story here.
   </p>
   <p class="text-sm d-text-dim mb-6">
     Write in your native language — the browser will translate. Lowering the entry barrier
@@ -32,23 +32,30 @@ const helpUrl = "https://docs.github.com/en/discussions/quickstart";
       target="_blank"
       class="inline-flex items-center gap-2 rounded-lg bg-teal-600 px-5 py-3 text-sm font-semibold text-white hover:bg-teal-700 transition-colors"
     >
-      <span>✏️</span> Start a discussion
+      <span>✏️</span> Share your story
+    </a>
+    <a
+      href={newDiscussionUrl}
+      target="_blank"
+      class="inline-flex items-center gap-2 rounded-lg border border-stone-300 d-border px-5 py-3 text-sm font-semibold hover:bg-stone-100 d-hover transition-colors"
+    >
+      <span>🔍</span> Structural analysis
     </a>
     <a
       href={existingDiscussionsUrl}
       target="_blank"
       class="inline-flex items-center gap-2 rounded-lg border border-stone-300 d-border px-5 py-3 text-sm font-semibold hover:bg-stone-100 d-hover transition-colors"
     >
-      <span>📋</span> See existing discussions
+      <span>📋</span> Browse field reports
     </a>
   </div>
 
   <details class="mt-4 text-xs d-text-dim">
-    <summary class="cursor-pointer hover:text-(--color-accent)">What happens after I open a discussion?</summary>
+    <summary class="cursor-pointer hover:text-(--color-accent)">What happens after I share my story?</summary>
     <div class="mt-2 space-y-1 leading-relaxed">
-      <p>1. Your discussion appears in <strong>GitHub Discussions</strong> with tag <code>discussione</code>.</p>
-      <p>2. Once a week, the project reads active threads and checks for new findings.</p>
-      <p>3. If a new Failure Vector emerges, a tension_index needs revision, or the Perturbator can sharpen its analysis — the entry gets updated.</p>
+      <p>1. Your post appears in <strong>GitHub Discussions</strong> with tag <code>field-reports</code>.</p>
+      <p>2. Once a week, the project reads new threads and checks for patterns worth integrating.</p>
+      <p>3. If your story reveals a new Failure Vector, a revision to tension_index, or a sharper edge for the Perturbator — the entry gets updated.</p>
       <p>4. The change is logged at <code>/log</code> and goes live on the next deploy.</p>
     </div>
   </details>
@@ -57,7 +64,7 @@ const helpUrl = "https://docs.github.com/en/discussions/quickstart";
     <summary class="cursor-pointer hover:text-(--color-accent)">Don't have a GitHub account? Here's how it works</summary>
     <div class="mt-2 space-y-1 leading-relaxed">
       <p>GitHub Discussions is free. You need a <a href="https://github.com/signup" target="_blank" class="underline hover:text-(--color-accent)">GitHub account</a> (30 seconds to create one).</p>
-      <p>Once you're signed in, click "Start a discussion" above. Write in your own language — the thread will be translated for everyone else automatically.</p>
+      <p>Once you're signed in, click "Share your story" above. Write in your own language — the thread will be translated for everyone else automatically.</p>
       <p>You don't need to know how to code. You don't need to know what "git" is. You just need an observation that the theory didn't match reality.</p>
       <p><a href={helpUrl} target="_blank" class="underline hover:text-(--color-accent)">What are GitHub Discussions? →</a></p>
     </div>
