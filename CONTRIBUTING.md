@@ -1,39 +1,39 @@
-# Contribuire a Unpeeragogy
+# Contributing to Unpeeragogy
 
-Ogni contributo è benvenuto. Questo non è un progetto accademico — è una decostruzione operativa. Il modo migliore per contribuire è **partecipare alle discussioni**.
+All contributions are welcome. This is not an academic project — it's an operational deconstruction. The best way to contribute is to **join the discussions**.
 
-## 💬 Discutere
+## 💬 Discuss
 
-Ogni entry del sito ha un link **✏️ Avvia discussione** che apre GitHub Discussions. Usalo per:
+Every entry on the site has a **✏️ Start Discussion** link that opens GitHub Discussions. Use it to:
 
-- Condividere un'esperienza che conferma o contraddice un anti-pattern
-- Segnalare un Failure Vector mancante
-- Proporre un Agente Perturbatore più affilato
-- Chiedere chiarimenti
+- Share an experience that confirms or contradicts an anti-pattern
+- Report a missing Failure Vector
+- Propose a sharper Perturbator response
+- Ask for clarification
 
-Le discussioni vengono revisionate mensilmente e possono far evolvere le entry, il grafo o il tension_index.
+Discussions are reviewed monthly and may evolve entries, the graph, or the tension index.
 
-## ✏️ Proporre modifiche
+## ✏️ Propose changes
 
-1. Apri una **discussione** su GitHub per il cambiamento proposto
-2. Se è chiaro, apri una **pull request** sul branch `main`
-3. La PR viene revisionata e mergiata se coerente con lo spirito del progetto
+1. Open a **discussion** on GitHub for the proposed change
+2. If clear, open a **pull request** against the `main` branch
+3. PRs are reviewed and merged if consistent with the project's spirit
 
 ## 🏗️ Stack
 
 - **Astro 5** (static site generator)
 - **Tailwind CSS v4** (styling)
-- **D3-force** (grafo interattivo nel vault)
-- **GitHub Discussions** (sistema di discussione)
-- **Coolify** (deploy automatico su push a `main`)
+- **D3-force** (interactive graph in the vault)
+- **GitHub Discussions** (commenting system)
+- **Coolify** (auto-deploy on push to `main`)
 
-## 📋 Log mensile
+## 📋 Monthly log
 
-Ogni 1° del mese un cron genera una entry in `/log/` con:
-- Discussioni attive su GitHub
-- Entry modificate nell'ultimo mese
-- Metriche del grafo aggiornate
+On the 1st of each month a cron generates an entry in `/log/` with:
+- Active GitHub Discussions
+- Entries modified in the last month
+- Updated graph metrics
 
-## 📄 Licenza
+## 📄 License
 
-Tutto il contenuto è **CC0 1.0 Universal (Public Domain)** — usa, copia, modifica, non chiedere permesso.
+All content is **CC0 1.0 Universal (Public Domain)** — use, copy, modify, don't ask permission.
