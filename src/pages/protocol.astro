@@ -3,7 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
 <BaseLayout title="Protocol — Unpeeragogy" description="A transparent, exploratory approach to bringing practitioner experience back into theory.">
-  <article class="prose prose-stone dark:prose-invert max-w-3xl mx-auto" data-pagefind-body>
+  <article class="prose prose-stone dark:prose-invert max-w-7xl mx-auto px-4 sm:px-12" data-pagefind-body>
 
     <h1 class="text-4xl font-bold tracking-tight mb-2">How UnPeeragogy Collects and Examines Evidence</h1>
     <p class="text-lg d-text-dim font-medium mb-12">A transparent, exploratory approach to bringing practitioner experience back into theory.</p>
@@ -365,3 +365,39 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
   </article>
 </BaseLayout>
+
+<style>
+  article.prose {
+    max-width: none;
+  }
+  article.prose, article.prose p {
+    font-size: 1.125rem;
+    line-height: 1.75;
+  }
+  article.prose h1 {
+    font-size: 2.75rem;
+    line-height: 1.15;
+  }
+  article.prose h2 {
+    font-size: 1.75rem;
+    margin-top: 2.75rem;
+    line-height: 1.3;
+  }
+  article.prose p.lead {
+    font-size: 1.35rem;
+    line-height: 1.6;
+  }
+  article.prose dl dt {
+    font-size: 1.1rem;
+  }
+  article.prose blockquote p {
+    font-size: 1.125rem;
+  }
+  article.prose table {
+    font-size: 0.95rem;
+  }
+  article.prose li {
+    font-size: 1.125rem;
+    line-height: 1.65;
+  }
+</style>
