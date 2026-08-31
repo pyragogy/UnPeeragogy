@@ -262,14 +262,5 @@ body:has(#vault-graph.fullscreen) main {
   min-height: 0;
 }
 #vault-graph.fullscreen #graph-legend {
-  bottom: 2.5rem;
-  left: 50%;
-  transform: translateX(-50%);
-  max-width: 90%;
-  padding: 0.5rem 1.25rem;
-  font-size: 0.85rem;
-  text-align: center;
-}
-#vault-graph.fullscreen #graph-legend span {
-  white-space: nowrap;
+  display: none;
 }
