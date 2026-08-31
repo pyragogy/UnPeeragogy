@@ -12,3 +12,6 @@ node_modules/
 # OS
 .DS_Store
 Thumbs.db
+
+# Operativa (locale, non pushato)
+GUIDA.md
