@@ -8,7 +8,7 @@
 
 <p align="center">
   <a href="https://unpeeragogy.pyragogy.org"><img src="https://img.shields.io/badge/site-unpeeragogy.pyragogy.org-teal?style=flat-square" alt="Site" /></a>
-  <a href="https://github.com/pyragogy/unpeeragogy/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-CC--BY--4.0-lightgrey?style=flat-square" alt="License" /></a>
+  <a href="https://github.com/pyragogy/unpeeragogy/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-CC0--1.0-lightgrey?style=flat-square" alt="License" /></a>
   <a href="https://github.com/pyragogy/unpeeragogy/actions"><img src="https://img.shields.io/github/actions/workflow/status/pyragogy/unpeeragogy/deploy.yml?branch=main&style=flat-square&label=deploy" alt="Deploy" /></a>
   <a href="./packages/mcp-server"><img src="https://img.shields.io/badge/MCP%20Server-available-teal?style=flat-square" alt="MCP Server" /></a>
   <a href="https://unpeeragogy.pyragogy.org/vault"><img src="https://img.shields.io/badge/vault-online-teal?style=flat-square" alt="Vault" /></a>
@@ -187,7 +187,7 @@ unpeeragogy/
 
 ## License
 
-[CC BY 4.0](LICENSE) — You are free to share and adapt, as long as you give appropriate credit.
+[CC0 1.0 Universal (Public Domain)](LICENSE) — No rights reserved. Use, copy, modify, don't ask permission.
 
 ---
 
