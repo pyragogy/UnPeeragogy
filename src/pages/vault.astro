@@ -205,7 +205,11 @@ for (const s of sectionOrder) {
 
 <BaseLayout title="Vault — Unpeeragogy Knowledge Base" description="Interactive 3D graph + tree navigation of the Unpeeragogy knowledge base.">
   <script set:html={JSON.stringify({ nodes: graphNodes, links: graphLinks, sections: sectionMap })} id="vault-data" type="application/json"></script>
-  <!-- d3-force loaded dynamically from CDN in inline script below -->
+  <!-- d3-force: caricamento sincrono (bloccante) — zero race condition, tutti i browser -->
+  <script is:inline src="https://cdn.jsdelivr.net/npm/d3-quadtree@3.0.1/dist/d3-quadtree.min.js"></script>
+  <script is:inline src="https://cdn.jsdelivr.net/npm/d3-dispatch@3.0.1/dist/d3-dispatch.min.js"></script>
+  <script is:inline src="https://cdn.jsdelivr.net/npm/d3-timer@3.0.1/dist/d3-timer.min.js"></script>
+  <script is:inline src="https://cdn.jsdelivr.net/npm/d3-force@3.0.0/dist/d3-force.min.js"></script>
   <section class="py-4 sm:py-8">
     <div class="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 mb-6">
       <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight">🗂️ Knowledge Base</h1>
@@ -345,20 +349,13 @@ for (const s of sectionOrder) {
 </BaseLayout>
 
 <script is:inline>
-  (async function(){
+  (function(){
   var d3 = null;
-  // Load d3-force from CDN (reliable on all browsers/devices)
-  try {
-    var m = await import('https://cdn.jsdelivr.net/npm/d3-force@3.0.0/dist/d3-force.min.js');
-    d3 = {
-      forceSimulation: m.forceSimulation,
-      forceLink: m.forceLink,
-      forceManyBody: m.forceManyBody,
-      forceCenter: m.forceCenter,
-      forceCollide: m.forceCollide,
-    };
-  } catch(e) {
-    console.warn('d3-force failed to load from CDN — graph disabled', e);
+  // d3-force caricato via script tag sincroni — già disponibile su window.d3
+  if (typeof window.d3 !== 'undefined' && typeof window.d3.forceSimulation === 'function') {
+    d3 = window.d3;
+  } else {
+    console.warn('d3-force non disponibile — grafo disabilitato');
   }
 
   let sim = null;
