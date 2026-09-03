@@ -2,55 +2,70 @@
 title: "Outtakes Are the Real Story"
 order: 1
 section: "Resources"
-readingTime: 3
+readingTime: 4
 tension_index: 1.2533
-tags: ["outtakes", "rejected", "revision", "audit-v2"]
-origin: "audit-v2"
+tags: ["outtakes", "rejected", "revision"]
 ---
 
-## Summary
+### Claim
 
-Documentation that hides governance fights teaches collaboration without showing how it breaks. Theory says peer learning needs clean patterns. Practice shows that GitLab handbooks and OpenStreetMap dispute logs work because they document the friction, not despite it.
+These seemed like useful ideas at the time: are they now just parts of our scrapbook?
 
-## Evidenze Grounded
+### Reality
 
-### 🔹 Confirming (2)
+A friend shows me their startup's Slack archive from three years back. Hundreds of channels, thousands of messages, all the energy of a team that believed they were building something that mattered. Now it reads like archaeology — inside jokes that no longer land, debates about features that never shipped, excitement about partnerships that dissolved. The company pivoted twice and sold for parts. The Slack archive is more honest about what happened than any post-mortem document.
 
-**Caso 1 — GitLab stewardship handbook**
-- **Fenomeno:** Explicit documentation of governance boundaries between corporate sponsor and community reduces friction in open-core projects.
-- **Fonte:** [https://about.gitlab.com/handbook/company/stewardship/](https://about.gitlab.com/handbook/company/stewardship/)
+Most project documentation lies by omission. We archive the decisions, not the indecision. The final architecture, not the three failed attempts. The successful collaboration, not the month when two key contributors wouldn't speak to each other. We curate out the human parts — the confusion, the false starts, the personality clashes that shaped everything but appear nowhere in the official record.
 
-**Caso 2 — OpenStreetMap Data Working Group resolution**
-- **Fenomeno:** Formal dispute resolution bodies with binding authority and published reasoning resolve peer production conflicts that informal consensus cannot.
-- **Fonte:** [https://wiki.osmfoundation.org/wiki/Data_Working_Group](https://wiki.osmfoundation.org/wiki/Data_Working_Group)
+The peeragogy handbook does this too. Seven patterns got relegated to "outtakes" — ideas that seemed promising but didn't make the final cut. Polling for ideas. Roles. Moderation. These weren't abstract failures. They were attempts by real people to solve real problems that kept recurring in their work together.
 
-### 🔸 Complicating (2)
+> What if the outtakes contain more truth about peer learning than the polished patterns ever could?
 
-**Caso 1 — WebAssembly Community Group governance**
-- **Fenomeno:** Choosing lighter governance models for standards development trades authority for speed, creating different failure modes for peer participation.
-- **Fonte:** [https://www.w3.org/community/webassembly/](https://www.w3.org/community/webassembly/)
+### Evidence That Supports
 
-**Caso 2 — Wikipedia Arbitration Committee (ArbCom)**
-- **Fenomeno:** Peer production communities develop formal judicial bodies when informal consensus fails, contradicting the assumption that peers can self-govern without hierarchy.
-- **Fonte:** [https://en.wikipedia.org/wiki/Arbitration_Committee_(Wikimedia)](https://en.wikipedia.org/wiki/Arbitration_Committee_(Wikimedia))
+**about.gitlab.com** -- Explicit documentation of governance boundaries between corporate sponsor and community reduces friction in open-core projects.
 
-## Euristiche Operative
+**wiki.osmfoundation.org** -- Formal dispute resolution bodies with binding authority and published reasoning resolve peer production conflicts that informal consensus cannot.
 
-### Positive Rule
 
-> This pattern works when documentation includes explicit governance boundaries and formal dispute resolution mechanisms with published reasoning. GitLab's stewardship handbook, OpenStreetMap's Data Working Group, and Wikipedia's Arbitration Committee all demonstrate that transparency about conflict resolution enables sustainable peer collaboration.
+### Evidence That Complicates
 
-### Negative Rule
+**w3.org** -- Choosing lighter governance models for standards development trades authority for speed, creating different failure modes for peer participation.
 
-> Do not curate out governance conflicts and dispute resolution mechanisms when documenting peer learning patterns. GitLab, OpenStreetMap, and Wikipedia all show that sanitized documentation fails to prepare participants for the governance tensions that every peer production system faces.
 
-## Sintesi Obliqua
+### Evidence That Contradicts
 
-The pattern claims sanitized documentation protects learners from messy governance reality. Partial verification — when you look at what actually sustains peer production. GitLab's stewardship boundaries and OpenStreetMap's Data Working Group both work precisely because they document conflicts with published reasoning, while WebAssembly's lighter governance shows the limits of consensus-only approaches. But the real mechanism isn't transparency about conflict resolution — it's that documenting friction creates the scaffolding for navigating it. Surgery without blood isn't surgery.
+*No case in the current corpus directly contradicts the pattern.*
 
-## Tracciabilità
+### Evidence That Is Ambiguous
 
-- **Audit:** `runs/audit-v2/outtakes.json`
-- **Delta:** 1.3 → 1.2533 (-0.0467)
-- **Evidenze:** 4 (2 confirming, 2 complicating)
+**en.wikipedia.org** -- Peer production communities develop formal judicial bodies when informal consensus fails, contradicting the assumption that peers can self-govern without hierarchy.
 
+
+### Synthesis
+
+The evidence suggests something uncomfortable about peer governance. Formal structures with clear authority can resolve conflicts that consensus cannot — but only by sacrificing the very openness that made peer collaboration attractive in the first place. Lighter governance models preserve participation but create different failure modes, different ways for the work to fall apart.
+
+What the outtakes reveal is the gap between intention and practice. Moderation seemed unnecessary until trolls arrived. Roles felt hierarchical until someone needed to make a decision quickly. Polling for ideas looked democratic until it became a way to avoid the harder work of building shared understanding.
+
+The real pattern may be that peer learning happens despite our governance models, not because of them — in the spaces between what we planned and what actually emerged.
+
+### Evidence Summary
+
+```
+Evidence examined: 4
+  Supports:       2
+  Complicates:     1
+  Contradicts:     0
+  Ambiguous:       1
+
+Status: PROVISIONAL
+This classification describes the state of the analysis, not the scientific validity of the theory.
+```
+
+### References
+
+- [https://about.gitlab.com/handbook/company/stewardship/](https://about.gitlab.com/handbook/company/stewardship/)
+- [https://en.wikipedia.org/wiki/Arbitration_Committee_(Wikimedia)](https://en.wikipedia.org/wiki/Arbitration_Committee_(Wikimedia))
+- [https://wiki.osmfoundation.org/wiki/Data_Working_Group](https://wiki.osmfoundation.org/wiki/Data_Working_Group)
+- [https://www.w3.org/community/webassembly/](https://www.w3.org/community/webassembly/)

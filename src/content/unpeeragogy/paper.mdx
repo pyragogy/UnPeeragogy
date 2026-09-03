@@ -2,53 +2,67 @@
 title: "Your Paper Changes Nothing"
 order: 1
 section: "Resources"
-readingTime: 3
+readingTime: 4
 tension_index: 1.2575
-tags: ["paper", "publication", "influence", "audit-v2"]
-origin: "audit-v2"
+tags: ["paper", "publication", "influence"]
 ---
 
-## Summary
+### Claim
 
-Papers accumulate without changing practice. Theory says documentation drives improvement — practice shows it creates process theater. The bottleneck shifts from making things work to validating that you made them work.
+We’ve written a few papers about different aspects of the peeragogy
 
-## Evidenze Grounded
+### Reality
 
-### 🔹 Confirming (2)
+Most academic papers about peer learning die in committee rooms where nobody practices peer learning. The authors write about collaboration while fighting over authorship order. They cite studies on open knowledge while hiding their data behind paywalls. The gap between what they recommend and how they work isn't hypocrisy — it's structural blindness.
 
-**Caso 1 — GitLab stewardship handbook**
-- **Fenomeno:** Explicit documentation of governance boundaries between corporate sponsor and community reduces friction in open-core projects.
-- **Fonte:** [https://about.gitlab.com/handbook/company/stewardship/](https://about.gitlab.com/handbook/company/stewardship/)
+I've watched teams spend months polishing papers about agile governance while their own decision-making process required three committee approvals to change a comma. Not broken process. Not poor execution. Not misaligned incentives. The paper itself becomes the performance of understanding, replacing the messy work of actually building what you claim to study.
 
-*Solo 1 evidenze confirming.*
+The real test isn't peer review. It's whether the people who wrote about peer learning can actually learn from their peers when the paper gets torn apart.
 
-### 🔸 Complicating (2)
+> What if the paper that changes nothing is the one that perfectly describes how things should work?
 
-**Caso 1 — Linux kernel Reviewed-by tag system**
-- **Fenomeno:** Formal peer assessment tags create accountability but also reveal review scarcity — the bottleneck shifts from writing code to getting it reviewed.
-- **Fonte:** [https://docs.kernel.org/process/submitting-patches.html](https://docs.kernel.org/process/submitting-patches.html)
+### Evidence That Supports
 
-**Caso 2 — Debian DPL bits newsletter**
-- **Fenomeno:** Regular leadership summaries in peer-governed projects create agenda-setting power — what gets summarized is what gets attention.
-- **Fonte:** [https://lists.debian.org/debian-devel-announce/](https://lists.debian.org/debian-devel-announce/)
+**about.gitlab.com** -- Explicit documentation of governance boundaries between corporate sponsor and community reduces friction in open-core projects.
 
-## Euristiche Operative
 
-### Positive Rule
+### Evidence That Complicates
 
-> This pattern works when documentation prioritizes theoretical exposition over operational clarity. The Linux kernel's Reviewed-by tag system shows that formal peer assessment creates accountability but also reveals review scarcity — the bottleneck shifts from creation to validation when process becomes more important than outcome.
+**docs.kernel.org** -- Formal peer assessment tags create accountability but also reveal review scarcity — the bottleneck shifts from writing code to getting it reviewed.
 
-### Negative Rule
 
-> Do not apply this pattern when documentation serves operational boundary-setting rather than theoretical exposition. GitLab's stewardship handbook shows that formal documentation reduces friction in open-core projects when it clarifies governance boundaries between sponsors and communities.
+### Evidence That Contradicts
 
-## Sintesi Obliqua
+*No case in the current corpus directly contradicts the pattern.*
 
-The pattern claims formal documentation pushes groups toward improvement through revision cycles. Partial verification — but only when the writing serves boundary-setting, not exposition. GitLab's stewardship handbook reduces friction because it defines who controls what, while Linux's Reviewed-by system creates accountability but reveals review scarcity as the new constraint. The mechanism isn't about paper quality. It's about whether the document answers operational questions or theoretical ones. Writing that doesn't allocate resources just allocates blame.
+### Evidence That Is Ambiguous
 
-## Tracciabilità
+**lists.debian.org** -- Regular leadership summaries in peer-governed projects create agenda-setting power — what gets summarized is what gets attention.
 
-- **Audit:** `runs/audit-v2/paper.json`
-- **Delta:** 1.2 → 1.2575 (+0.0575)
-- **Evidenze:** 3 (1 confirming, 2 complicating)
 
+### Synthesis
+
+These cases suggest that documentation and practice exist in different economies. A paper about governance boundaries may reduce friction precisely because it creates distance — the written rules become a buffer that prevents the human work of negotiating boundaries in real time. The formalization protects against the messiness it claims to solve.
+
+Peer assessment systems reveal this same pattern. The accountability they create often exposes the scarcity they were meant to address. More review requirements don't generate more reviewers — they make visible how few people actually want to do the unglamorous work of assessment. The bottleneck shifts but doesn't disappear.
+
+What remains to be tested is whether papers can resist their own tendency to substitute description for practice — or if the useful friction lies precisely in that gap between what we write and what we do.
+
+### Evidence Summary
+
+```
+Evidence examined: 3
+  Supports:       1
+  Complicates:     1
+  Contradicts:     0
+  Ambiguous:       1
+
+Status: PROVISIONAL
+This classification describes the state of the analysis, not the scientific validity of the theory.
+```
+
+### References
+
+- [https://about.gitlab.com/handbook/company/stewardship/](https://about.gitlab.com/handbook/company/stewardship/)
+- [https://docs.kernel.org/process/submitting-patches.html](https://docs.kernel.org/process/submitting-patches.html)
+- [https://lists.debian.org/debian-devel-announce/](https://lists.debian.org/debian-devel-announce/)

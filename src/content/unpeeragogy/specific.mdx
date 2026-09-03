@@ -2,55 +2,73 @@
 title: "Specific Cases Don't Generalize"
 order: 1
 section: "Peeragogy in Practice"
-readingTime: 3
+readingTime: 4
 tension_index: 1.2200
-tags: ["specific", "context", "generalization", "audit-v2"]
-origin: "audit-v2"
+tags: ["specific", "context", "generalization"]
 ---
 
-## Summary
+### Claim
 
-Context adaptation without structure is consulting theater. The pattern claims specificity beats generalization — but only when you document boundaries and build mechanisms for edge cases. Otherwise you're just saying 'it depends' with extra steps.
+You find yourself interested in or concerned about something, but you
 
-## Evidenze Grounded
+### Reality
 
-### 🔹 Confirming (2)
+The governance handbook for Apache projects runs 47 pages. It defines roles, voting procedures, conflict resolution paths. Most Apache projects ignore 80% of it. They use IRC channels and whoever shows up decides. This works until it doesn't — then they discover they needed those 47 pages after all.
 
-**Caso 1 — GitLab stewardship handbook**
-- **Fenomeno:** Explicit documentation of governance boundaries between corporate sponsor and community reduces friction in open-core projects.
-- **Fonte:** [https://about.gitlab.com/handbook/company/stewardship/](https://about.gitlab.com/handbook/company/stewardship/)
+Not bureaucracy. Not process for its own sake. Not even formal authority.
 
-**Caso 2 — OpenStreetMap Data Working Group resolution**
-- **Fenomeno:** Formal dispute resolution bodies with binding authority and published reasoning resolve peer production conflicts that informal consensus cannot.
-- **Fonte:** [https://wiki.osmfoundation.org/wiki/Data_Working_Group](https://wiki.osmfoundation.org/wiki/Data_Working_Group)
+The useful friction lives in the boundaries between what's documented and what actually happens. Kubernetes moved from Google's BDFL model to a community steering committee over three years. They didn't copy another project's constitution — they pressure-tested each governance layer against their specific contributor culture, their particular technical decisions, their earned trust patterns.
 
-### 🔸 Complicating (2)
+The human part resists templates.
 
-**Caso 1 — WebAssembly Community Group governance**
-- **Fenomeno:** Choosing lighter governance models for standards development trades authority for speed, creating different failure modes for peer participation.
-- **Fonte:** [https://www.w3.org/community/webassembly/](https://www.w3.org/community/webassembly/)
+> What if the consultant's "it depends" isn't evasion but the only honest answer to governance design?
 
-**Caso 2 — Drupal governance / community working groups**
-- **Fenomeno:** Intentional governance transition from BDFL to community model requires years of structural work, not organic emergence.
-- **Fonte:** [https://www.drupal.org/governance](https://www.drupal.org/governance)
+### Evidence That Supports
 
-## Euristiche Operative
+**about.gitlab.com** -- Explicit documentation of governance boundaries between corporate sponsor and community reduces friction in open-core projects.
 
-### Positive Rule
+**wiki.osmfoundation.org** -- Formal dispute resolution bodies with binding authority and published reasoning resolve peer production conflicts that informal consensus cannot.
 
-> This pattern works when context adaptation includes explicit documentation of governance boundaries and formal mechanisms for handling edge cases. GitLab's stewardship handbook and OpenStreetMap's Data Working Group show that successful context-specific governance requires systematic structural work, not intuitive adjustment.
 
-### Negative Rule
+### Evidence That Complicates
 
-> Do not apply this pattern by simply advising 'adapt to your context' without defining adaptation mechanisms. WebAssembly's lighter governance model shows that even intentional context-specific choices create different failure modes if the structural implications are not systematically analyzed.
+**w3.org** -- Choosing lighter governance models for standards development trades authority for speed, creating different failure modes for peer participation.
 
-## Sintesi Obliqua
+**drupal.org** -- Intentional governance transition from BDFL to community model requires years of structural work, not organic emergence.
 
-The pattern promises that context-specific governance beats generic templates. Partial verification — when adaptation includes explicit boundary documentation. GitLab's corporate-community handbook and OpenStreetMap's binding dispute resolution prove systematic structural work succeeds where intuitive adjustment fails, while WebAssembly's intentionally lighter governance shows even deliberate context choices create different failure modes than expected. The real mechanism isn't context sensitivity — it's the boring work of documenting what doesn't transfer. Quietly, if necessary.
 
-## Tracciabilità
+### Evidence That Contradicts
 
-- **Audit:** `runs/audit-v2/specific.json`
-- **Delta:** 1.2 → 1.2200 (+0.0200)
-- **Evidenze:** 4 (2 confirming, 2 complicating)
+*No case in the current corpus directly contradicts the pattern.*
 
+### Evidence That Is Ambiguous
+
+*No ambiguous evidence in the current corpus.*
+
+### Synthesis
+
+These cases suggest that governance specificity creates its own constraints. The Apache model works for Apache because it emerged from their particular history of corporate-academic tension. Kubernetes governance reflects their container orchestration complexity and Google's release patterns. Neither transfers cleanly.
+
+What may hold across contexts — the rhythm of documenting boundaries only after informal practice breaks down. The work of earning authority before claiming it. The struggle to resist both premature formalization and permanent informality.
+
+What remains to be tested — whether peer production governance can acknowledge its own non-generalizability without abandoning the search for useful patterns.
+
+### Evidence Summary
+
+```
+Evidence examined: 4
+  Supports:       2
+  Complicates:     2
+  Contradicts:     0
+  Ambiguous:       0
+
+Status: PROVISIONAL
+This classification describes the state of the analysis, not the scientific validity of the theory.
+```
+
+### References
+
+- [https://about.gitlab.com/handbook/company/stewardship/](https://about.gitlab.com/handbook/company/stewardship/)
+- [https://wiki.osmfoundation.org/wiki/Data_Working_Group](https://wiki.osmfoundation.org/wiki/Data_Working_Group)
+- [https://www.drupal.org/governance](https://www.drupal.org/governance)
+- [https://www.w3.org/community/webassembly/](https://www.w3.org/community/webassembly/)

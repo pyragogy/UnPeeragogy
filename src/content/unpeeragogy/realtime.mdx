@@ -2,53 +2,74 @@
 title: "Real-Time Doesn't Scale"
 order: 1
 section: "Technologies, Services, and Platforms"
-readingTime: 3
+readingTime: 4
 tension_index: 1.5792
-tags: ["realtime", "synchronous", "communication", "audit-v2"]
-origin: "audit-v2"
+tags: ["realtime", "synchronous", "communication"]
 ---
 
-## Summary
+### Claim
 
-Real-time democracy is just tyranny of the unemployed. Theory says synchronous tools add richness to async platforms — practice shows they create participation hierarchies based on schedule flexibility. The pattern works when real-time decisions stay provisional.
+> Web services that enable broadband-connected learners to communicate
+> in real time via audio, video, slides, whiteboards, chat, and
+> screen-sharing enable learning groups to add some of the audio-visual
+> dimensions familiar from synchronous face-to-face communication to
+> otherwise asynchronous
 
-## Evidenze Grounded
+### Reality
 
-### 🔹 Confirming (2)
+Three programmers join a video call to debug a critical system failure. The first lives in Berlin, just finished dinner. The second connects from São Paulo during lunch break. The third dials in from San Francisco at 6 AM, coffee still brewing. They share screens, point at code, interrupt each other with sudden insights. The bug gets fixed in forty minutes.
 
-**Caso 1 — OpenStreetMap Data Working Group resolution**
-- **Fenomeno:** Formal dispute resolution bodies with binding authority and published reasoning resolve peer production conflicts that informal consensus cannot.
-- **Fonte:** [https://wiki.osmfoundation.org/wiki/Data_Working_Group](https://wiki.osmfoundation.org/wiki/Data_Working_Group)
+Six months later, the same team tries to decide whether to rewrite their authentication system. The Berlin programmer has strong opinions about security architecture. São Paulo wants to ship fast. San Francisco stays quiet — it's 5 AM this time, and the decision feels too big for sleepy judgment. They schedule another call. Then another. The decision drifts for weeks because real-time works for debugging but breaks down when the stakes get higher and the timezone math gets uglier.
 
-*Solo 1 evidenze confirming.*
+Not every problem fits the rhythm of a video call. Not every voice carries the same weight when some people are sharp and others are barely awake. Not every decision should be made by whoever shows up.
 
-### 🔸 Complicating (2)
+The human part gets lost when we mistake presence for participation.
 
-**Caso 1 — Apache Software Foundation governance model**
-- **Fenomeno:** Meritocracy-based peer governance creates invisible barriers: those with more free time accumulate authority, creating a class system within the 'flat' organization.
-- **Fonte:** [https://www.apache.org/foundation/how-it-works.html](https://www.apache.org/foundation/how-it-works.html)
+> **Perturbatore:** *"E
 
-**Caso 2 — Debian init system transition (systemd)**
-- **Fenomeno:** Technical decisions in peer communities can cause permanent splits when decision-making authority is contested.
-- **Fonte:** [https://wiki.debian.org/Init](https://wiki.debian.org/Init)
+> What if the people who can't make the meeting are exactly the ones whose absence tells you the most about what you're really deciding?"*
 
-## Euristiche Operative
+### Evidence That Supports
 
-### Positive Rule
+**wiki.osmfoundation.org** -- Formal dispute resolution bodies with binding authority and published reasoning resolve peer production conflicts that informal consensus cannot.
 
-> This pattern works when real-time decisions are paired with formal dispute resolution mechanisms that operate asynchronously. The OpenStreetMap Data Working Group shows that binding authority with published reasoning can resolve peer production conflicts that informal real-time consensus cannot address.
 
-### Negative Rule
+### Evidence That Complicates
 
-> Do not rely on real-time decision-making when members have unequal time availability. The Apache Software Foundation model shows that those with more free time accumulate authority, creating a class system within the 'flat' organization that excludes time-constrained contributors.
+**apache.org** -- Meritocracy-based peer governance creates invisible barriers: those with more free time accumulate authority, creating a class system within the 'flat' organization.
 
-## Sintesi Obliqua
+**wiki.debian.org** -- Technical decisions in peer communities can cause permanent splits when decision-making authority is contested.
 
-The pattern claims real-time tools enhance peer learning by adding audio-visual richness to asynchronous platforms. Partial verification — but only when time availability is roughly equal across participants. OpenStreetMap's formal dispute resolution shows that binding authority with published reasoning resolves conflicts informal consensus cannot touch, while Apache's meritocracy demonstrates how free time becomes accumulated power within supposedly flat organizations. The mechanism missing: how to prevent schedule privilege from becoming governance privilege. Real-time works. Until Tuesday morning.
 
-## Tracciabilità
+### Evidence That Contradicts
 
-- **Audit:** `runs/audit-v2/realtime.json`
-- **Delta:** 1.4 → 1.5792 (+0.1792)
-- **Evidenze:** 3 (1 confirming, 2 complicating)
+*No case in the current corpus directly contradicts the pattern.*
 
+### Evidence That Is Ambiguous
+
+*No ambiguous evidence in the current corpus.*
+
+### Synthesis
+
+These cases suggest that real-time communication carries a hidden selection pressure — it favors those whose schedules, energy levels, and communication styles align with the dominant group's rhythm. The programmer who thinks best in writing gets drowned out by the one who thinks out loud. The parent who can't join evening calls gradually loses influence over decisions that shape their daily work.
+
+What holds in small, urgent situations — the bug fix, the crisis response — may fracture when applied to larger questions that require reflection rather than reaction. The same immediacy that makes real-time powerful for coordination makes it dangerous for governance, where the quality of a decision often depends on who wasn't in the room to rush it through.
+
+### Evidence Summary
+
+```
+Evidence examined: 3
+  Supports:       1
+  Complicates:     2
+  Contradicts:     0
+  Ambiguous:       0
+
+Status: PROVISIONAL
+This classification describes the state of the analysis, not the scientific validity of the theory.
+```
+
+### References
+
+- [https://wiki.debian.org/Init](https://wiki.debian.org/Init)
+- [https://wiki.osmfoundation.org/wiki/Data_Working_Group](https://wiki.osmfoundation.org/wiki/Data_Working_Group)
+- [https://www.apache.org/foundation/how-it-works.html](https://www.apache.org/foundation/how-it-works.html)

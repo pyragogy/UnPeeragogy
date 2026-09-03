@@ -2,55 +2,73 @@
 title: "Moderation Is a Dirty Job"
 order: 1
 section: "Peeragogy in Practice"
-readingTime: 3
+readingTime: 4
 tension_index: 1.4200
-tags: ["moderation", "conflict", "facilitation", "audit-v2"]
-origin: "audit-v2"
+tags: ["moderation", "conflict", "facilitation"]
 ---
 
-## Summary
+### Claim
 
-Moderation burns out volunteers faster than communities can replace them. Theory says shared responsibility distributes the load — practice shows it just diffuses accountability. The real mechanism isn't participation balance but authority backup.
+Moderation seems to have a double meaning: there's moderation as in
 
-## Evidenze Grounded
+### Reality
 
-### 🔹 Confirming (2)
+Wikipedia's arbitration committee handles about 30 cases per year. Real people with real names make binding decisions about content disputes that voluntary consensus couldn't resolve. They publish their reasoning. They enforce their rulings. The work is thankless, often brutal, and absolutely necessary for the encyclopedia to function.
 
-**Caso 1 — OpenStreetMap Data Working Group resolution**
-- **Fenomeno:** Formal dispute resolution bodies with binding authority and published reasoning resolve peer production conflicts that informal consensus cannot.
-- **Fonte:** [https://wiki.osmfoundation.org/wiki/Data_Working_Group](https://wiki.osmfoundation.org/wiki/Data_Working_Group)
+Not peer consensus. Not community self-regulation. Not emergent wisdom of crowds. A small group with actual authority making hard calls that stick.
 
-**Caso 2 — Wikipedia Good Article process**
-- **Fenomeno:** Peer assessment with transparent criteria and independent reviewers creates sustainable quality tiers in open communities.
-- **Fonte:** [https://en.wikipedia.org/wiki/Wikipedia:Good_articles](https://en.wikipedia.org/wiki/Wikipedia:Good_articles)
+Most peer learning spaces avoid this reality. They prefer the fiction that good intentions and shared values will somehow moderate themselves. I've watched brilliant learning communities collapse because nobody wanted to be the person who says "no" — who removes the disruptive member, who enforces the participation standards, who makes the call that someone else's contribution isn't good enough.
 
-### 🔸 Complicating (2)
+The human part of moderation isn't keeping things smooth. It's being willing to create useful friction when smoothness becomes the enemy of learning.
 
-**Caso 1 — Rust moderation team resignation**
-- **Fenomeno:** Governance crises in peer communities can erupt suddenly when delegated authority is perceived as unsupported by central leadership.
-- **Fonte:** [https://blog.rust-lang.org/2021/05/17/Moderation-team-resignation.html](https://blog.rust-lang.org/2021/05/17/Moderation-team-resignation.html)
+> What if the real test of peer governance isn't how well it works when everyone agrees, but how quickly it can make hard decisions when they don't?
 
-**Caso 2 — Fediverse / Mastodon moderation governance**
-- **Fenomeno:** Decentralized peer governance without shared authority produces inconsistent enforcement and can be exploited by bad actors playing instances against each other.
-- **Fonte:** [https://docs.joinmastodon.org/admin/moderation/](https://docs.joinmastodon.org/admin/moderation/)
+### Evidence That Supports
 
-## Euristiche Operative
+**wiki.osmfoundation.org** -- Formal dispute resolution bodies with binding authority and published reasoning resolve peer production conflicts that informal consensus cannot.
 
-### Positive Rule
+**en.wikipedia.org** -- Peer assessment with transparent criteria and independent reviewers creates sustainable quality tiers in open communities.
 
-> This pattern works when formal dispute resolution bodies have binding authority and published reasoning. The OpenStreetMap Data Working Group shows that transparent criteria with independent reviewers resolve conflicts that informal consensus cannot handle, creating sustainable quality control over 15+ years.
 
-### Negative Rule
+### Evidence That Complicates
 
-> Do not apply this pattern when authority delegation lacks formal backing from community leadership. The Rust moderation team resignation (2021) shows that moderators will abandon their roles when they perceive their authority as unsupported, creating sudden governance crises.
+**blog.rust-lang.org** -- Governance crises in peer communities can erupt suddenly when delegated authority is perceived as unsupported by central leadership.
 
-## Sintesi Obliqua
+**docs.joinmastodon.org** -- Decentralized peer governance without shared authority produces inconsistent enforcement and can be exploited by bad actors playing instances against each other.
 
-The pattern claims that stepping back creates space for others to engage, balancing participation through voluntary restraint. Partial verification — but only when formal structures exist to catch what voluntary moderation misses. OpenStreetMap's Data Working Group and Wikipedia's Good Article process work because they have binding authority and published reasoning, not because moderators practice self-restraint. Rust's moderation team collapse shows what happens when community backing evaporates. The missing piece isn't moderation technique but legitimacy infrastructure. Someone still has to take out the trash.
 
-## Tracciabilità
+### Evidence That Contradicts
 
-- **Audit:** `runs/audit-v2/moderation.json`
-- **Delta:** 1.4 → 1.4200 (+0.0200)
-- **Evidenze:** 4 (2 confirming, 2 complicating)
+*No case in the current corpus directly contradicts the pattern.*
 
+### Evidence That Is Ambiguous
+
+*No ambiguous evidence in the current corpus.*
+
+### Synthesis
+
+These cases suggest that sustainable peer learning requires someone willing to hold authority that the community cannot collectively exercise. Not because peers are incapable of good judgment, but because judgment at scale demands institutional memory, consistent application, and the courage to disappoint people.
+
+The Wikipedia model works because it separates different kinds of decisions — content editing remains radically open while dispute resolution becomes formally structured. Most learning communities try to keep everything at the same level of informality, which may explain why so many struggle with basic quality control.
+
+What remains to be tested is whether peer learning spaces can develop this kind of institutional maturity without losing the collaborative energy that makes them valuable in the first place — or whether the price of sustainable moderation is always some loss of the peer ideal.
+
+### Evidence Summary
+
+```
+Evidence examined: 4
+  Supports:       2
+  Complicates:     2
+  Contradicts:     0
+  Ambiguous:       0
+
+Status: PROVISIONAL
+This classification describes the state of the analysis, not the scientific validity of the theory.
+```
+
+### References
+
+- [https://blog.rust-lang.org/2021/05/17/Moderation-team-resignation.html](https://blog.rust-lang.org/2021/05/17/Moderation-team-resignation.html)
+- [https://docs.joinmastodon.org/admin/moderation/](https://docs.joinmastodon.org/admin/moderation/)
+- [https://en.wikipedia.org/wiki/Wikipedia:Good_articles](https://en.wikipedia.org/wiki/Wikipedia:Good_articles)
+- [https://wiki.osmfoundation.org/wiki/Data_Working_Group](https://wiki.osmfoundation.org/wiki/Data_Working_Group)

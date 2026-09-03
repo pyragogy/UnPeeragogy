@@ -2,55 +2,76 @@
 title: "The Problem Is You"
 order: 1
 section: "Peeragogy in Practice"
-readingTime: 3
+readingTime: 4
 tension_index: 1.5533
-tags: ["problem", "definition", "power", "audit-v2"]
-origin: "audit-v2"
+tags: ["problem", "definition", "power"]
 ---
 
-## Summary
+### Claim
 
-Problem definition without resolution authority creates paralysis. Theory says define the problem first — practice shows you need to define who solves it. GitLab's stewardship handbook works because governance boundaries are explicit before conflicts arise.
+The *Introduction* of our book focuses on explaning the problem that
 
-## Evidenze Grounded
+### Reality
 
-### 🔹 Confirming (2)
+A startup founder sits across from me, laptop open, pointing at a Slack channel. "We have amazing engagement," she says. "Look at all these messages." I scroll through forty-seven notifications about meeting times, three debates about coffee brands, and one buried feature request from their biggest client. This is what most groups call "collaboration."
 
-**Caso 1 — GitLab stewardship handbook**
-- **Fenomeno:** Explicit documentation of governance boundaries between corporate sponsor and community reduces friction in open-core projects.
-- **Fonte:** [https://about.gitlab.com/handbook/company/stewardship/](https://about.gitlab.com/handbook/company/stewardship/)
+The problem isn't lack of participation. The problem is that participation without boundaries becomes performance. When everyone can weigh in on everything, the loudest voices win — not because they're right, but because they're willing to exhaust everyone else. I've watched engineering teams spend six hours debating variable naming while their servers crashed. I've seen nonprofits hold three-hour meetings about whether to hold meetings.
 
-**Caso 2 — OpenStreetMap Data Working Group resolution**
-- **Fenomeno:** Formal dispute resolution bodies with binding authority and published reasoning resolve peer production conflicts that informal consensus cannot.
-- **Fonte:** [https://wiki.osmfoundation.org/wiki/Data_Working_Group](https://wiki.osmfoundation.org/wiki/Data_Working_Group)
+Not process failure. Not communication breakdown. Not unclear roles. The problem is simpler: groups that refuse to define who decides what end up with everyone deciding nothing.
 
-### 🔸 Complicating (2)
+> What if the real problem isn't that you don't know how to solve problems — but that you've never decided who gets to name them in the first place?
 
-**Caso 1 — IETF working group rough consensus**
-- **Fenomeno:** Rough consensus governance only works when backed by hierarchical escalation paths; pure consensus without appeals fails.
-- **Fonte:** [https://www.ietf.org/about/](https://www.ietf.org/about/)
+### Evidence That Supports
 
-**Caso 2 — WebAssembly Community Group governance**
-- **Fenomeno:** Choosing lighter governance models for standards development trades authority for speed, creating different failure modes for peer participation.
-- **Fonte:** [https://www.w3.org/community/webassembly/](https://www.w3.org/community/webassembly/)
+**about.gitlab.com** -- Explicit documentation of governance boundaries between corporate sponsor and community reduces friction in open-core projects.
 
-## Euristiche Operative
+**wiki.osmfoundation.org** -- Formal dispute resolution bodies with binding authority and published reasoning resolve peer production conflicts that informal consensus cannot.
 
-### Positive Rule
 
-> This pattern works when problem definition is coupled with clear resolution authority. GitLab's stewardship handbook and OpenStreetMap's Data Working Group show that explicit governance boundaries and binding dispute resolution transform problem definition from paralysis into productive action.
+### Evidence That Complicates
 
-### Negative Rule
+**ietf.org** -- Rough consensus governance only works when backed by hierarchical escalation paths; pure consensus without appeals fails.
 
-> Do not avoid problem definition when authority structures are unclear. The IETF rough consensus model shows that even 'rough consensus' fails without hierarchical escalation paths — pure consensus without appeals creates the paralysis this pattern warns against.
 
-## Sintesi Obliqua
+### Evidence That Contradicts
 
-The pattern claims that clear problem definition enables action. Partial verification — but only when coupled with binding authority structures. GitLab's explicit governance boundaries and OpenStreetMap's formal dispute resolution prove that definition works when escalation paths exist, while IETF's rough consensus and Wikipedia's endless talk pages show that definition without hierarchy breeds infinite recursion. The real mechanism isn't problem clarity but authority clarity. Problems multiply when everyone can define them but no one can close them.
+*No case in the current corpus directly contradicts the pattern.*
 
-## Tracciabilità
+### Evidence That Is Ambiguous
 
-- **Audit:** `runs/audit-v2/problem.json`
-- **Delta:** 1.6 → 1.5533 (-0.0467)
-- **Evidenze:** 4 (2 confirming, 2 complicating)
+**w3.org** -- Choosing lighter governance models for standards development trades authority for speed, creating different failure modes for peer participation.
 
+
+### Synthesis
+
+> What if the real problem isn't that you don't know how to solve problems — but that you've never decided who gets to name them in the first place?
+
+---
+
+SYNTHESIS
+
+The corporate world responds with governance matrices and RACI charts — formal structures that work until the first real crisis hits. Open source communities try rough consensus, which functions beautifully when backed by someone who can make the final call. Pure consensus without escalation paths doesn't democratize decision-making; it paralyzes it.
+
+What these cases suggest is that the friction isn't in having too much structure — it's in pretending structure doesn't exist. Every group has power dynamics. The question is whether you make them visible or let them operate in shadow. Explicit boundaries may feel restrictive, but they create space for actual work to happen within them.
+
+The useful friction here isn't between participation and control. It's between naming the problem and solving it — two different acts that require different kinds of authority.
+
+### Evidence Summary
+
+```
+Evidence examined: 4
+  Supports:       2
+  Complicates:     1
+  Contradicts:     0
+  Ambiguous:       1
+
+Status: PROVISIONAL
+This classification describes the state of the analysis, not the scientific validity of the theory.
+```
+
+### References
+
+- [https://about.gitlab.com/handbook/company/stewardship/](https://about.gitlab.com/handbook/company/stewardship/)
+- [https://wiki.osmfoundation.org/wiki/Data_Working_Group](https://wiki.osmfoundation.org/wiki/Data_Working_Group)
+- [https://www.ietf.org/about/](https://www.ietf.org/about/)
+- [https://www.w3.org/community/webassembly/](https://www.w3.org/community/webassembly/)

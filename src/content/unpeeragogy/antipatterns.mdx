@@ -2,55 +2,69 @@
 title: "Antipatterns Are a Mirror"
 order: 1
 section: "Peeragogy in Practice"
-readingTime: 3
+readingTime: 4
 tension_index: 1.5200
-tags: ["antipatterns", "failure", "practice", "audit-v2"]
-origin: "audit-v2"
+tags: ["antipatterns", "failure", "practice"]
 ---
 
-## Summary
+### Claim
 
-Naming dysfunction doesn't fix it. Theory says antipatterns guide prevention — practice shows they just redistribute failure modes. The real work happens after recognition.
+Here are some of the problems we noticed as we went along.  They seem
 
-## Evidenze Grounded
+### Reality
 
-### 🔹 Confirming (2)
+The Peeragogy Handbook lists six antipatterns like items in a field guide to dysfunction. Stuck. Magical Thinking. Stasis. Each gets its own page, its own definition, its own neat boundaries. The assumption runs deeper than the categories — that naming the problem halfway solves it.
 
-**Caso 1 — GitLab stewardship handbook**
-- **Fenomeno:** Explicit documentation of governance boundaries between corporate sponsor and community reduces friction in open-core projects.
-- **Fonte:** [https://about.gitlab.com/handbook/company/stewardship/](https://about.gitlab.com/handbook/company/stewardship/)
+But Wikipedia's consensus processes expose the gap between theory and practice. The project formally operates on peer equality, yet participation inequality creates de facto hierarchies. Those who show up consistently gain disproportionate influence — not through declared authority but through sustained presence. The antipattern isn't in the handbook. It emerges from the very solution the handbook would prescribe.
 
-**Caso 2 — OpenStreetMap Data Working Group resolution**
-- **Fenomeno:** Formal dispute resolution bodies with binding authority and published reasoning resolve peer production conflicts that informal consensus cannot.
-- **Fonte:** [https://wiki.osmfoundation.org/wiki/Data_Working_Group](https://wiki.osmfoundation.org/wiki/Data_Working_Group)
+Not documentation. Not governance boundaries. Not formal dispute resolution. The friction lives in the space between what we say we're doing and what actually happens when humans gather around shared work.
 
-### 🔸 Complicating (2)
+> What if antipatterns aren't problems to solve but mirrors we'd rather not look into?
 
-**Caso 1 — WebAssembly Community Group governance**
-- **Fenomeno:** Choosing lighter governance models for standards development trades authority for speed, creating different failure modes for peer participation.
-- **Fonte:** [https://www.w3.org/community/webassembly/](https://www.w3.org/community/webassembly/)
+### Evidence That Supports
 
-**Caso 2 — Wikipedia deletion debates and notability**
-- **Fenomeno:** Wikipedia's consensus processes produce de facto hierarchies through participation inequality — those who show up consistently gain disproportionate influence.
-- **Fonte:** [https://en.wikipedia.org/wiki/Wikipedia:Articles_for_deletion](https://en.wikipedia.org/wiki/Wikipedia:Articles_for_deletion)
+**about.gitlab.com** -- Explicit documentation of governance boundaries between corporate sponsor and community reduces friction in open-core projects.
 
-## Euristiche Operative
+**wiki.osmfoundation.org** -- Formal dispute resolution bodies with binding authority and published reasoning resolve peer production conflicts that informal consensus cannot.
 
-### Positive Rule
 
-> This pattern works when combined with explicit governance trade-off analysis. GitLab stewardship handbook and OpenStreetMap Data Working Group show that documenting boundaries and formal dispute resolution prevent specific antipatterns while acknowledging the new failure modes they create.
+### Evidence That Complicates
 
-### Negative Rule
+**w3.org** -- Choosing lighter governance models for standards development trades authority for speed, creating different failure modes for peer participation.
 
-> Do not apply antipattern recognition as a silver bullet for governance dysfunction. WebAssembly Community Group shows that lighter governance trades formal authority problems for speed-versus-consensus tensions, while Wikipedia deletion debates show consensus processes create participation inequality hierarchies.
+**en.wikipedia.org** -- Wikipedia's consensus processes produce de facto hierarchies through participation inequality — those who show up consistently gain disproportionate influence.
 
-## Sintesi Obliqua
 
-Antipattern documentation promises governance improvement through systematic failure recognition. Partial verification — GitLab's stewardship boundaries and OpenStreetMap's dispute resolution do prevent specific dysfunctions while creating new ones. WebAssembly's lighter governance trades formal authority problems for consensus-speed tensions, while Wikipedia's deletion debates show how process clarity can amplify rather than resolve conflict. The pattern assumes dysfunction is eliminable rather than redistributable. Quietly, the mirror shows you what you already are.
+### Evidence That Contradicts
 
-## Tracciabilità
+*No case in the current corpus directly contradicts the pattern.*
 
-- **Audit:** `runs/audit-v2/antipatterns.json`
-- **Delta:** 1.5 → 1.5200 (+0.0200)
-- **Evidenze:** 4 (2 confirming, 2 complicating)
+### Evidence That Is Ambiguous
 
+*No ambiguous evidence in the current corpus.*
+
+### Synthesis
+
+These cases suggest that antipatterns may function less as diagnostic tools than as comfortable distance from uncomfortable truths. Wikipedia's informal hierarchies persist precisely because they serve functions that formal equality cannot — they create accountability, continuity, institutional memory. The dysfunction is also the system working.
+
+Corporate open-core projects document governance boundaries not to eliminate friction but to make it visible and manageable. The antipattern becomes the pattern — useful friction that prevents worse outcomes. What remains to be tested is whether our discomfort with these emergent hierarchies reflects the problem or our own resistance to how peer production actually scales.
+
+### Evidence Summary
+
+```
+Evidence examined: 4
+  Supports:       2
+  Complicates:     2
+  Contradicts:     0
+  Ambiguous:       0
+
+Status: PROVISIONAL
+This classification describes the state of the analysis, not the scientific validity of the theory.
+```
+
+### References
+
+- [https://about.gitlab.com/handbook/company/stewardship/](https://about.gitlab.com/handbook/company/stewardship/)
+- [https://en.wikipedia.org/wiki/Wikipedia:Articles_for_deletion](https://en.wikipedia.org/wiki/Wikipedia:Articles_for_deletion)
+- [https://wiki.osmfoundation.org/wiki/Data_Working_Group](https://wiki.osmfoundation.org/wiki/Data_Working_Group)
+- [https://www.w3.org/community/webassembly/](https://www.w3.org/community/webassembly/)

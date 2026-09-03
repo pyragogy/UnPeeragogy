@@ -2,55 +2,69 @@
 title: "Polling for Ideas Is a Status Check"
 order: 1
 section: "Convening a Group"
-readingTime: 3
+readingTime: 4
 tension_index: 1.1138
-tags: ["polling_for_ideas", "collect", "direction", "audit-v2"]
-origin: "audit-v2"
+tags: ["polling_for_ideas", "collect", "direction"]
 ---
 
-## Summary
+### Claim
 
-Polling measures preferences without creating accountability for outcomes. Theory says ask the crowd — practice shows you need someone to count votes and enforce results. The mechanism works when authority structures exist to act on what gets measured.
+Polling for Ideas can happen at many junctures in a peer learning
 
-## Evidenze Grounded
+### Reality
 
-### 🔹 Confirming (2)
+A software collective spent three months polling contributors about which framework to adopt. Weekly surveys, ranked voting, endless Slack threads weighing technical debt against learning curves. The results shifted with each poll — React one week, Vue the next, back to vanilla JavaScript when someone shared a Medium post about bloat. Six months later, they were still using the legacy jQuery codebase because no decision stuck.
 
-**Caso 1 — OpenStreetMap Data Working Group resolution**
-- **Fenomeno:** Formal dispute resolution bodies with binding authority and published reasoning resolve peer production conflicts that informal consensus cannot.
-- **Fonte:** [https://wiki.osmfoundation.org/wiki/Data_Working_Group](https://wiki.osmfoundation.org/wiki/Data_Working_Group)
+Not consensus. Not democracy. Not wisdom of crowds.
 
-**Caso 2 — Wikipedia Good Article process**
-- **Fenomeno:** Peer assessment with transparent criteria and independent reviewers creates sustainable quality tiers in open communities.
-- **Fonte:** [https://en.wikipedia.org/wiki/Wikipedia:Good_articles](https://en.wikipedia.org/wiki/Wikipedia:Good_articles)
+The polling revealed what everyone already suspected but wouldn't say directly — nobody wanted to take responsibility for a choice that might fail. Each new poll became a way to defer the decision while appearing collaborative. The process had become the product.
 
-### 🔸 Complicating (2)
+> What if polling for ideas isn't about gathering intelligence, but about taking the temperature of a group's willingness to commit?
 
-**Caso 1 — WebAssembly Community Group governance**
-- **Fenomeno:** Choosing lighter governance models for standards development trades authority for speed, creating different failure modes for peer participation.
-- **Fonte:** [https://www.w3.org/community/webassembly/](https://www.w3.org/community/webassembly/)
+### Evidence That Supports
 
-**Caso 2 — MakerDAO Black Thursday**
-- **Fenomeno:** DAO governance mechanisms designed for normal operations can fail catastrophically under stress, requiring emergency governance that existing processes don't cover.
-- **Fonte:** [https://blog.makerdao.com/makerdao-community-emergency-response-to-black-thursday/](https://blog.makerdao.com/makerdao-community-emergency-response-to-black-thursday/)
+**wiki.osmfoundation.org** -- Formal dispute resolution bodies with binding authority and published reasoning resolve peer production conflicts that informal consensus cannot.
 
-## Euristiche Operative
+**en.wikipedia.org** -- Peer assessment with transparent criteria and independent reviewers creates sustainable quality tiers in open communities.
 
-### Positive Rule
 
-> This pattern works when polling lacks binding authority and transparent criteria. Informal polls without enforcement mechanisms do lead to decision-stagnation, as the original pattern describes, because they measure preferences without creating accountability for outcomes.
+### Evidence That Complicates
 
-### Negative Rule
+*No complicating evidence in the current corpus.*
 
-> Do not apply this pattern when formal governance structures with binding authority exist. OpenStreetMap's Data Working Group shows that peer groups can make accountable decisions when they have clear dispute resolution mechanisms and published reasoning requirements.
+### Evidence That Contradicts
 
-## Sintesi Obliqua
+*No case in the current corpus directly contradicts the pattern.*
 
-The pattern claims informal polling leads to decision-stagnation because groups don't know answers in advance. Partial verification — but only when polling lacks binding authority. OpenStreetMap's Data Working Group and Wikipedia's Good Article process both use peer input with enforcement mechanisms and transparent criteria, proving groups can make accountable decisions when structured properly. WebAssembly's lighter governance complicates this by showing some communities deliberately choose informal modes. What's missing is the recognition that polling isn't broken — it's just a measurement tool. The real question is whether anyone has the authority to act on what gets counted.
+### Evidence That Is Ambiguous
 
-## Tracciabilità
+**w3.org** -- Choosing lighter governance models for standards development trades authority for speed, creating different failure modes for peer participation.
 
-- **Audit:** `runs/audit-v2/polling_for_ideas.json`
-- **Delta:** 1.3 → 1.1138 (-0.1862)
-- **Evidenze:** 4 (2 confirming, 2 complicating)
+**blog.makerdao.com** -- DAO governance mechanisms designed for normal operations can fail catastrophically under stress, requiring emergency governance that existing processes don't cover.
 
+
+### Synthesis
+
+The software collective's endless surveys suggest something uncomfortable about peer learning environments. Polling often functions as a status check on group cohesion rather than genuine knowledge gathering. When a community keeps asking the same questions in different forms, they may be testing whether anyone will step forward to own an outcome.
+
+This doesn't make polling useless — it makes it diagnostic. The rhythm of questions reveals where confidence lives and where it doesn't. A group that polls frequently for direction may need structure more than input. The useful friction emerges when someone finally stops asking what everyone thinks and starts demonstrating what might work.
+
+### Evidence Summary
+
+```
+Evidence examined: 4
+  Supports:       2
+  Complicates:     0
+  Contradicts:     0
+  Ambiguous:       2
+
+Status: PROVISIONAL
+This classification describes the state of the analysis, not the scientific validity of the theory.
+```
+
+### References
+
+- [https://blog.makerdao.com/makerdao-community-emergency-response-to-black-thursday/](https://blog.makerdao.com/makerdao-community-emergency-response-to-black-thursday/)
+- [https://en.wikipedia.org/wiki/Wikipedia:Good_articles](https://en.wikipedia.org/wiki/Wikipedia:Good_articles)
+- [https://wiki.osmfoundation.org/wiki/Data_Working_Group](https://wiki.osmfoundation.org/wiki/Data_Working_Group)
+- [https://www.w3.org/community/webassembly/](https://www.w3.org/community/webassembly/)

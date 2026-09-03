@@ -2,55 +2,68 @@
 title: "The Wiki Is a Garden That Died"
 order: 1
 section: "Technologies, Services, and Platforms"
-readingTime: 3
+readingTime: 4
 tension_index: 1.2467
-tags: ["wiki", "collaboration", "writing", "audit-v2"]
-origin: "audit-v2"
+tags: ["wiki", "collaboration", "writing"]
 ---
 
-## Summary
+### Claim
 
-Equal access to the delete button doesn't make everyone an editor. Theory says wikis democratize knowledge — practice shows they need explicit governance boundaries before collaborative editing begins. The mechanism is authority structures, not participation structures.
+For [Ward Cunningham](http://en.wikipedia.org/wiki/Ward_cunningham)
 
-## Evidenze Grounded
+### Reality
 
-### 🔹 Confirming (2)
+The Peeragogy Handbook calls wikis "useful and powerful collaboration tools" for peer learning. I've watched three wiki projects die in the last two years. Not from technical failure — from human exhaustion. The MediaWiki software ran fine. The servers stayed up. People just stopped caring enough to fight the endless revert wars over stub articles and formatting disputes.
 
-**Caso 1 — GitLab stewardship handbook**
-- **Fenomeno:** Explicit documentation of governance boundaries between corporate sponsor and community reduces friction in open-core projects.
-- **Fonte:** [https://about.gitlab.com/handbook/company/stewardship/](https://about.gitlab.com/handbook/company/stewardship/)
+Wikipedia works because it has something most learning wikis lack — a massive population willing to police each other's contributions. Your peer learning group of twelve people doesn't have that luxury. When Sarah deletes Tom's carefully researched section because "it doesn't fit the structure," and Tom responds by removing Sarah's entire page, you need someone with actual authority to make a decision. Not consensus. Not discussion. Authority.
 
-**Caso 2 — OpenStreetMap Data Working Group resolution**
-- **Fenomeno:** Formal dispute resolution bodies with binding authority and published reasoning resolve peer production conflicts that informal consensus cannot.
-- **Fonte:** [https://wiki.osmfoundation.org/wiki/Data_Working_Group](https://wiki.osmfoundation.org/wiki/Data_Working_Group)
+The wiki-as-garden metaphor breaks down when you realize gardens need gardeners — not committees of gardeners arguing about whether roses belong next to tomatoes.
 
-### 🔸 Complicating (2)
+> What if the problem isn't that wikis are too open, but that we pretend openness scales without acknowledging the governance work it demands?
 
-**Caso 1 — WebAssembly Community Group governance**
-- **Fenomeno:** Choosing lighter governance models for standards development trades authority for speed, creating different failure modes for peer participation.
-- **Fonte:** [https://www.w3.org/community/webassembly/](https://www.w3.org/community/webassembly/)
+### Evidence That Supports
 
-**Caso 2 — IETF working group rough consensus**
-- **Fenomeno:** Rough consensus governance only works when backed by hierarchical escalation paths; pure consensus without appeals fails.
-- **Fonte:** [https://www.ietf.org/about/](https://www.ietf.org/about/)
+**about.gitlab.com** -- Explicit documentation of governance boundaries between corporate sponsor and community reduces friction in open-core projects.
 
-## Euristiche Operative
+**wiki.osmfoundation.org** -- Formal dispute resolution bodies with binding authority and published reasoning resolve peer production conflicts that informal consensus cannot.
 
-### Positive Rule
 
-> This pattern works when governance boundaries are explicitly documented before collaborative editing begins. GitLab's stewardship handbook demonstrates that explicit documentation of authority structures between different stakeholder groups reduces friction and sustains long-term collaborative knowledge work.
+### Evidence That Complicates
 
-### Negative Rule
+**w3.org** -- Choosing lighter governance models for standards development trades authority for speed, creating different failure modes for peer participation.
 
-> Do not apply this pattern without formal dispute resolution mechanisms. OpenStreetMap's Data Working Group shows that informal consensus fails to resolve peer production conflicts, requiring binding authority with published reasoning to maintain collaborative sustainability.
 
-## Sintesi Obliqua
+### Evidence That Contradicts
 
-The pattern claims wikis work through equal access and emergent consensus. Partial verification — but only when governance boundaries exist before editing starts. GitLab's stewardship handbook and OpenStreetMap's Data Working Group both confirm that documented authority structures reduce friction, while WebAssembly's lighter governance shows the limits of informal consensus in resolving conflicts. What's missing is the real engine: not democratic participation, but binding dispute resolution with published reasoning. The garden dies when everyone has pruning shears.
+*No case in the current corpus directly contradicts the pattern.*
 
-## Tracciabilità
+### Evidence That Is Ambiguous
 
-- **Audit:** `runs/audit-v2/wiki.json`
-- **Delta:** 1.3 → 1.2467 (-0.0533)
-- **Evidenze:** 4 (2 confirming, 2 complicating)
+**ietf.org** -- Rough consensus governance only works when backed by hierarchical escalation paths; pure consensus without appeals fails.
 
+
+### Synthesis
+
+These cases suggest that wiki success depends less on the technology than on the willingness to establish and enforce editorial boundaries. The projects that survived had clear hierarchies — someone who could say "this stays, this goes" without requiring group consensus on every edit. The ones that died treated equal access as equal authority.
+
+What remains to be tested is whether peer learning groups can explicitly negotiate these power structures before launching collaborative writing projects. The useful friction may not be in the editing process itself — but in the honest conversation about who gets to make final decisions when peers disagree.
+
+### Evidence Summary
+
+```
+Evidence examined: 4
+  Supports:       2
+  Complicates:     1
+  Contradicts:     0
+  Ambiguous:       1
+
+Status: PROVISIONAL
+This classification describes the state of the analysis, not the scientific validity of the theory.
+```
+
+### References
+
+- [https://about.gitlab.com/handbook/company/stewardship/](https://about.gitlab.com/handbook/company/stewardship/)
+- [https://wiki.osmfoundation.org/wiki/Data_Working_Group](https://wiki.osmfoundation.org/wiki/Data_Working_Group)
+- [https://www.ietf.org/about/](https://www.ietf.org/about/)
+- [https://www.w3.org/community/webassembly/](https://www.w3.org/community/webassembly/)

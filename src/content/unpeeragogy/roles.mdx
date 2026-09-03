@@ -2,53 +2,68 @@
 title: "Roles Are the Invisible Hierarchy"
 order: 1
 section: "Cooperation"
-readingTime: 3
+readingTime: 4
 tension_index: 1.6467
-tags: ["roles", "responsibilities", "distribution", "audit-v2"]
-origin: "audit-v2"
+tags: ["roles", "responsibilities", "distribution"]
 ---
 
-## Summary
+### Claim
 
-Roles emerge to hide power, not distribute it. Theory says peer governance flattens hierarchy — practice shows roles just make authority invisible. The question isn't whether you have roles, but whether you can see them working.
+Educational interactions tend to have a number of different roles
 
-## Evidenze Grounded
+### Reality
 
-### 🔹 Confirming (2)
+The technical steering committee meets every two weeks on Zoom. Seven volunteers review pull requests, debate architectural decisions, make binding choices about the project's future. Their names appear in the GOVERNANCE.md file. Their authority stems from community election, their scope from written charter, their accountability from public meeting notes. This looks like peer governance working.
 
-**Caso 1 — Fedora Engineering Steering Committee (FESCo)**
-- **Fenomeno:** Elected technical steering committees with defined scope and transparent records provide sustainable peer governance for large distributions.
-- **Fonte:** [https://docs.fedoraproject.org/en-US/fesco/](https://docs.fedoraproject.org/en-US/fesco/)
+The same three people do most of the talking. Two others attend but rarely speak. The remaining two show up sporadically, citing burnout from their day jobs. When a contentious decision arrives — say, breaking API compatibility — the vocal minority drives the outcome. The quiet majority either agrees by silence or stops attending entirely. Not hierarchy in the traditional sense. Not peer equality either. Something else — the drift toward informal power concentration that no charter can prevent.
 
-*Solo 1 evidenze confirming.*
+The DAO promises different mechanics. Token holders vote on proposals. Smart contracts execute decisions automatically. No human gatekeepers, no informal influence networks. Yet the largest token holder owns 12% of the supply, the top ten hold 47%. Their votes carry more weight than thousands of smaller participants combined. The system runs on mathematical equality — one token, one vote — while producing aristocratic outcomes.
 
-### 🔸 Complicating (2)
+> What if the problem isn't bad roles but the pretense that roles don't exist?
 
-**Caso 1 — Linux kernel maintainer burnout**
-- **Fenomeno:** Peer governance models that concentrate review authority on volunteers create burnout failure points that hierarchy would mitigate through role redundancy.
-- **Fonte:** [https://lwn.net/Articles/885941/](https://lwn.net/Articles/885941/)
+### Evidence That Supports
 
-**Caso 2 — Lido DAO governance centralization**
-- **Fenomeno:** Token-based governance in DAOs concentrates power among large holders, creating de facto plutocracy rather than peer equality.
-- **Fonte:** [https://lido.fi/governance](https://lido.fi/governance)
+**docs.fedoraproject.org** -- Elected technical steering committees with defined scope and transparent records provide sustainable peer governance for large distributions.
 
-## Euristiche Operative
 
-### Positive Rule
+### Evidence That Complicates
 
-> This pattern works when authority scope is explicitly bounded and transparent. Fedora Engineering Steering Committee shows that elected technical roles with defined scope and public records maintain peer governance while preventing both burnout and shadow hierarchies.
+**lwn.net** -- Peer governance models that concentrate review authority on volunteers create burnout failure points that hierarchy would mitigate through role redundancy.
 
-### Negative Rule
+**lido.fi** -- Token-based governance in DAOs concentrates power among large holders, creating de facto plutocracy rather than peer equality.
 
-> Do not apply fluid roles when decisions require specialized knowledge or have long-term maintenance burden. Linux kernel maintainer burnout shows that unlimited peer responsibility creates failure points that structured roles with redundancy could prevent.
 
-## Sintesi Obliqua
+### Evidence That Contradicts
 
-The pattern claims fluid roles prevent hierarchy while maintaining peer governance. Partial verification — when scope is bounded and records are transparent, elected technical committees like Fedora's FESCo do sustain peer decision-making without shadow authority. But Linux kernel maintainer burnout and Lido DAO token concentration show that unbounded peer responsibility creates failure points that structured redundancy could prevent. The mechanism missing here is how roles become visible before they become problems. Authority doesn't disappear when you refuse to name it.
+*No case in the current corpus directly contradicts the pattern.*
 
-## Tracciabilità
+### Evidence That Is Ambiguous
 
-- **Audit:** `runs/audit-v2/roles.json`
-- **Delta:** 1.5 → 1.6467 (+0.1467)
-- **Evidenze:** 3 (1 confirming, 2 complicating)
+*No ambiguous evidence in the current corpus.*
 
+### Synthesis
+
+These cases suggest that peer structures don't eliminate hierarchy — they obscure it. The steering committee creates formal equality while informal influence patterns emerge through participation gaps and communication styles. The DAO distributes power mathematically while economic inequality recreates the same concentration through different mechanics.
+
+What remains untested is whether acknowledging these power differentials openly produces better outcomes than maintaining the fiction of peer equality. The useful friction may lie not in designing perfect peer systems, but in making visible the hierarchies that form anyway — naming who actually decides, who gets heard, who burns out maintaining the infrastructure that others take for granted.
+
+The distinction worth holding: between systems that admit their power structures and systems that hide them behind peer rhetoric.
+
+### Evidence Summary
+
+```
+Evidence examined: 3
+  Supports:       1
+  Complicates:     2
+  Contradicts:     0
+  Ambiguous:       0
+
+Status: PROVISIONAL
+This classification describes the state of the analysis, not the scientific validity of the theory.
+```
+
+### References
+
+- [https://docs.fedoraproject.org/en-US/fesco/](https://docs.fedoraproject.org/en-US/fesco/)
+- [https://lido.fi/governance](https://lido.fi/governance)
+- [https://lwn.net/Articles/885941/](https://lwn.net/Articles/885941/)

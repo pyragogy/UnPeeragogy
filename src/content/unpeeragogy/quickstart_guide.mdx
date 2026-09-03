@@ -2,53 +2,66 @@
 title: "The Quickstart Guide Is a Cold Shower"
 order: 1
 section: "Resources"
-readingTime: 3
+readingTime: 4
 tension_index: 1.4217
-tags: ["quickstart_guide", "onboarding", "start", "audit-v2"]
-origin: "audit-v2"
+tags: ["quickstart_guide", "onboarding", "start"]
 ---
 
-## Summary
+### Claim
 
-Fast group formation works like fast food — fills you up quickly, leaves you hungry later. Theory says organic emergence builds community. Practice shows explicit governance boundaries prevent years of structural debt. GitLab's stewardship handbook proves documentation beats emergence for productive collaboration.
+| Just the links:                                                    |                                                                                                                   |
 
-## Evidenze Grounded
+### Reality
 
-### 🔹 Confirming (2)
+The quickstart guide promises immediate results. Click here, follow these steps, get productive in minutes. But watch what actually happens when someone opens your project's README at 2 AM, coffee cold, deadline tomorrow. They scan the installation steps, hit the first error, check Stack Overflow, find three contradictory answers from different years. Twenty minutes later they're installing Docker because someone said it might help.
 
-**Caso 1 — GitLab stewardship handbook**
-- **Fenomeno:** Explicit documentation of governance boundaries between corporate sponsor and community reduces friction in open-core projects.
-- **Fonte:** [https://about.gitlab.com/handbook/company/stewardship/](https://about.gitlab.com/handbook/company/stewardship/)
+Not the smooth onboarding you designed. Not the frictionless experience you tested on your own machine. The quickstart guide works perfectly — for you, with your specific setup, your accumulated context, your muscle memory of which steps the documentation skips because "everyone knows that part."
 
-*Solo 1 evidenze confirming.*
+The gap widens with every assumption. Your guide assumes they have the right version of Python, that their PATH is configured correctly, that they understand the difference between development and production environments. Each assumption is a trapdoor waiting to open under someone who just wants to see if your thing works.
 
-### 🔸 Complicating (2)
+> What if the quickstart guide's real job isn't to get people started quickly, but to expose exactly where your project breaks for newcomers?
 
-**Caso 1 — Drupal governance / community working groups**
-- **Fenomeno:** Intentional governance transition from BDFL to community model requires years of structural work, not organic emergence.
-- **Fonte:** [https://www.drupal.org/governance](https://www.drupal.org/governance)
+### Evidence That Supports
 
-**Caso 2 — Linux kernel Reviewed-by tag system**
-- **Fenomeno:** Formal peer assessment tags create accountability but also reveal review scarcity — the bottleneck shifts from writing code to getting it reviewed.
-- **Fonte:** [https://docs.kernel.org/process/submitting-patches.html](https://docs.kernel.org/process/submitting-patches.html)
+**about.gitlab.com** -- Explicit documentation of governance boundaries between corporate sponsor and community reduces friction in open-core projects.
 
-## Euristiche Operative
 
-### Positive Rule
+### Evidence That Complicates
 
-> This pattern works when governance boundaries are explicitly documented upfront. Evidence from GitLab's stewardship handbook shows that clear documentation of authority boundaries between different stakeholders reduces friction and enables rapid productive collaboration.
+**drupal.org** -- Intentional governance transition from BDFL to community model requires years of structural work, not organic emergence.
 
-### Negative Rule
+**docs.kernel.org** -- Formal peer assessment tags create accountability but also reveal review scarcity — the bottleneck shifts from writing code to getting it reviewed.
 
-> Do not apply this pattern for ongoing collaborative projects or work requiring quality validation. Evidence from Drupal's governance transition shows that community-based work without explicit authority structures leads to years of structural debt that must eventually be paid.
 
-## Sintesi Obliqua
+### Evidence That Contradicts
 
-The pattern claims rapid group formation through minimal structure creates sustainable collaboration. Partial verification — it works for short-term projects with clear endpoints. GitLab's explicit governance boundaries reduce friction in open-core development, while Drupal's organic transition required years of structural work to escape BDFL debt. Linux's Reviewed-by tags formalize peer assessment but reveal the accountability gaps that emerge when collaboration scales. The real mechanism isn't emergence versus structure — it's timing the transition from speed to sustainability.
+*No case in the current corpus directly contradicts the pattern.*
 
-## Tracciabilità
+### Evidence That Is Ambiguous
 
-- **Audit:** `runs/audit-v2/quickstart_guide.json`
-- **Delta:** 1.3 → 1.4217 (+0.1217)
-- **Evidenze:** 3 (1 confirming, 2 complicating)
+*No ambiguous evidence in the current corpus.*
 
+### Synthesis
+
+These installation failures suggest something useful about community formation. The person who struggles through your broken setup instructions and still contributes a pull request — they've already demonstrated persistence under friction. They've shown they can work with incomplete information, debug problems you didn't anticipate, fill gaps in your documentation.
+
+The quickstart guide becomes an accidental filter. Not for technical skill, but for tolerance of useful friction. The contributors who emerge from installation hell often become the ones who improve your onboarding process, who remember what it felt like to be lost in your assumptions. They've earned their understanding through struggle — and that changes how they help others navigate the same territory.
+
+### Evidence Summary
+
+```
+Evidence examined: 3
+  Supports:       1
+  Complicates:     2
+  Contradicts:     0
+  Ambiguous:       0
+
+Status: PROVISIONAL
+This classification describes the state of the analysis, not the scientific validity of the theory.
+```
+
+### References
+
+- [https://about.gitlab.com/handbook/company/stewardship/](https://about.gitlab.com/handbook/company/stewardship/)
+- [https://docs.kernel.org/process/submitting-patches.html](https://docs.kernel.org/process/submitting-patches.html)
+- [https://www.drupal.org/governance](https://www.drupal.org/governance)

@@ -2,53 +2,68 @@
 title: "Participation Isn't Automatic"
 order: 1
 section: "Motivation"
-readingTime: 3
+readingTime: 4
 tension_index: 1.7492
-tags: ["participation", "engagement", "activation", "audit-v2"]
-origin: "audit-v2"
+tags: ["participation", "engagement", "activation"]
 ---
 
-## Summary
+### Claim
 
-Participation creates hierarchy. Theory says peer groups self-organize through consensus — practice shows differential participation creates stealth authority structures. The groups that survive design governance for inequality, not against it.
+For teachers reading this, and wondering how to use peeragogy to improve
 
-## Evidenze Grounded
+### Reality
 
-### 🔹 Confirming (2)
+Three developers meet weekly for six months to build an open-source tool. By month four, only one still attends regularly. The project continues — decisions get made, code gets written, releases happen. The community adjusts to this reality: one person carries the work while two others drift in occasionally with opinions but no sustained commitment. This isn't dysfunction. It's what participation actually looks like when you strip away the mythology of equal engagement.
 
-**Caso 1 — OpenStreetMap Data Working Group resolution**
-- **Fenomeno:** Formal dispute resolution bodies with binding authority and published reasoning resolve peer production conflicts that informal consensus cannot.
-- **Fonte:** [https://wiki.osmfoundation.org/wiki/Data_Working_Group](https://wiki.osmfoundation.org/wiki/Data_Working_Group)
+Not shared ownership. Not distributed leadership. Not collective decision-making where everyone has equal voice because everyone showed up equally. The person who debugged the authentication system at 2 AM on a Tuesday gets to decide how authentication works going forward.
 
-*Solo 1 evidenze confirming.*
+The handbook promises equilibrium between order and chaos, everyone involved at their own pace. What it doesn't mention: pace determines power. Consistency trumps consensus when someone needs to ship code that actually runs.
 
-### 🔸 Complicating (2)
+> What if the real test of peer governance isn't how well it handles equal participation, but how honestly it acknowledges unequal commitment?
 
-**Caso 1 — WebAssembly Community Group governance**
-- **Fenomeno:** Choosing lighter governance models for standards development trades authority for speed, creating different failure modes for peer participation.
-- **Fonte:** [https://www.w3.org/community/webassembly/](https://www.w3.org/community/webassembly/)
+### Evidence That Supports
 
-**Caso 2 — Wikipedia deletion debates and notability**
-- **Fenomeno:** Wikipedia's consensus processes produce de facto hierarchies through participation inequality — those who show up consistently gain disproportionate influence.
-- **Fonte:** [https://en.wikipedia.org/wiki/Wikipedia:Articles_for_deletion](https://en.wikipedia.org/wiki/Wikipedia:Articles_for_deletion)
+**wiki.osmfoundation.org** -- Formal dispute resolution bodies with binding authority and published reasoning resolve peer production conflicts that informal consensus cannot.
 
-## Euristiche Operative
 
-### Positive Rule
+### Evidence That Complicates
 
-> This pattern works when governance structures are explicitly designed to handle participation inequality. OpenStreetMap's formal dispute resolution and WebAssembly's lighter governance models both acknowledge that participation creates authority and design structures accordingly.
+**w3.org** -- Choosing lighter governance models for standards development trades authority for speed, creating different failure modes for peer participation.
 
-### Negative Rule
+**en.wikipedia.org** -- Wikipedia's consensus processes produce de facto hierarchies through participation inequality — those who show up consistently gain disproportionate influence.
 
-> Do not assume informal consensus can handle all conflicts in peer groups. OpenStreetMap's Data Working Group exists because informal consensus failed to resolve data disputes that required binding decisions with published reasoning.
 
-## Sintesi Obliqua
+### Evidence That Contradicts
 
-The pattern claims equilibrium between order and chaos allows everyone to participate at their own pace. Partial verification — but only when governance structures are explicitly designed for participation inequality. OpenStreetMap's formal dispute resolution works because it acknowledges that informal consensus fails when binding decisions need published reasoning, while WebAssembly's lighter governance trades authority for speed, creating different failure modes but still designing for differential participation. The mechanism missing from the theory: participation isn't just about pace or involvement — it's about who shows up to every meeting and what that attendance means for power. Three wolves deciding consensus.
+*No case in the current corpus directly contradicts the pattern.*
 
-## Tracciabilità
+### Evidence That Is Ambiguous
 
-- **Audit:** `runs/audit-v2/participation.json`
-- **Delta:** 1.6 → 1.7492 (+0.1492)
-- **Evidenze:** 3 (1 confirming, 2 complicating)
+*No ambiguous evidence in the current corpus.*
 
+### Synthesis
+
+These cases suggest that participation creates its own hierarchies through the simple mathematics of showing up. The developer who commits code weekly carries more weight than the one who appears monthly with feedback. The Wikipedia editor who monitors recent changes daily shapes policy more than occasional contributors who voice strong opinions in talk pages.
+
+This may be less about formal versus informal governance and more about recognizing that sustained attention becomes informal authority. Lighter governance models don't eliminate power differentials — they make them less visible, harder to challenge, more dependent on endurance than expertise.
+
+What remains untested: whether acknowledging these participation inequalities openly creates better peer dynamics than pretending they don't exist — or whether honesty about unequal commitment simply accelerates the drift toward informal hierarchy.
+
+### Evidence Summary
+
+```
+Evidence examined: 3
+  Supports:       1
+  Complicates:     2
+  Contradicts:     0
+  Ambiguous:       0
+
+Status: PROVISIONAL
+This classification describes the state of the analysis, not the scientific validity of the theory.
+```
+
+### References
+
+- [https://en.wikipedia.org/wiki/Wikipedia:Articles_for_deletion](https://en.wikipedia.org/wiki/Wikipedia:Articles_for_deletion)
+- [https://wiki.osmfoundation.org/wiki/Data_Working_Group](https://wiki.osmfoundation.org/wiki/Data_Working_Group)
+- [https://www.w3.org/community/webassembly/](https://www.w3.org/community/webassembly/)

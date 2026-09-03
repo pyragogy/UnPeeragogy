@@ -2,53 +2,67 @@
 title: "The Community That Isn't There"
 order: 1
 section: "Resources"
-readingTime: 3
+readingTime: 4
 tension_index: 1.1450
-tags: ["community", "lurking", "learning", "audit-v2"]
-origin: "audit-v2"
+tags: ["community", "lurking", "learning"]
 ---
 
-## Summary
+### Claim
 
-Communities dissolve when authority is implicit. Theory says peer governance works through consensus — practice shows it works through documented boundaries. Without clear decision-making protocols, participants can't distinguish between discussion and power.
+Even though we’ve talked a lot about [Convening](/convene/) a group, you’re already
 
-## Evidenze Grounded
+### Reality
 
-### 🔹 Confirming (2)
+The Debian project has 1,000+ developers and runs on servers worldwide. But ask who decides package policy and you get a web of committees, technical leads, and informal influence networks. Not democracy. Not hierarchy. Something messier.
 
-**Caso 1 — GitLab stewardship handbook**
-- **Fenomeno:** Explicit documentation of governance boundaries between corporate sponsor and community reduces friction in open-core projects.
-- **Fonte:** [https://about.gitlab.com/handbook/company/stewardship/](https://about.gitlab.com/handbook/company/stewardship/)
+Most community-building advice assumes you're starting from zero — find your people, establish norms, scale gradually. But you're already embedded in multiple overlapping groups: your workplace, your neighborhood, the maintainers of software you depend on. The question isn't how to build community. It's how to navigate the communities that already claim pieces of your attention.
 
-*Solo 1 evidenze confirming.*
+Corporate open-source projects document their governance boundaries precisely because the alternative — ambiguous authority between sponsor and contributors — kills momentum faster than any technical debt.
 
-### 🔸 Complicating (2)
+> What if the communities we can't see are the ones that actually shape what we can do?
 
-**Caso 1 — Debian DPL bits newsletter**
-- **Fenomeno:** Regular leadership summaries in peer-governed projects create agenda-setting power — what gets summarized is what gets attention.
-- **Fonte:** [https://lists.debian.org/debian-devel-announce/](https://lists.debian.org/debian-devel-announce/)
+### Evidence That Supports
 
-**Caso 2 — WebAssembly Community Group governance**
-- **Fenomeno:** Choosing lighter governance models for standards development trades authority for speed, creating different failure modes for peer participation.
-- **Fonte:** [https://www.w3.org/community/webassembly/](https://www.w3.org/community/webassembly/)
+**about.gitlab.com** -- Explicit documentation of governance boundaries between corporate sponsor and community reduces friction in open-core projects.
 
-## Euristiche Operative
 
-### Positive Rule
+### Evidence That Complicates
 
-> This pattern works when governance boundaries are explicitly documented and regularly communicated. GitLab's stewardship handbook shows that transparent corporate-community boundaries enable sustained collaboration across different stakeholder interests.
+**lists.debian.org** -- Regular leadership summaries in peer-governed projects create agenda-setting power — what gets summarized is what gets attention.
 
-### Negative Rule
 
-> Do not apply this pattern when authority structures are implicit or undefined. The Peeragogy Project shows that communities claiming peer production without clear governance boundaries suffer authority-attrition as participants cannot distinguish between discussion and decision-making power.
+### Evidence That Contradicts
 
-## Sintesi Obliqua
+*No case in the current corpus directly contradicts the pattern.*
 
-The pattern claims that explicit governance documentation prevents community failure through authority confusion. Partial verification — GitLab's stewardship handbook does reduce corporate-community friction by mapping decision boundaries. But Debian's leadership newsletters show how regular summaries create agenda-setting power, while WebAssembly's lighter governance suggests the mechanism isn't always documentation weight. What's missing is the distinction between governing decisions and governing attention. The real breakdown isn't consensus failure — it's not knowing who controls the microphone.
+### Evidence That Is Ambiguous
 
-## Tracciabilità
+**w3.org** -- Choosing lighter governance models for standards development trades authority for speed, creating different failure modes for peer participation.
 
-- **Audit:** `runs/audit-v2/community.json`
-- **Delta:** 1.1 → 1.1450 (+0.0450)
-- **Evidenze:** 3 (1 confirming, 2 complicating)
 
+### Synthesis
+
+Regular leadership summaries in peer-governed projects create a subtle agenda-setting power. What gets summarized becomes what deserves attention. What doesn't get mentioned slowly disappears from collective memory. The summary-writers become the community's unconscious editors.
+
+This suggests that community formation might be less about bringing people together and more about making visible the decision-making patterns that already exist. The useful friction comes from exposing who actually gets to say no — not in theory, but when resources are scarce and choices must be made.
+
+What remains to be tested: whether communities can survive their own transparency about power.
+
+### Evidence Summary
+
+```
+Evidence examined: 3
+  Supports:       1
+  Complicates:     1
+  Contradicts:     0
+  Ambiguous:       1
+
+Status: PROVISIONAL
+This classification describes the state of the analysis, not the scientific validity of the theory.
+```
+
+### References
+
+- [https://about.gitlab.com/handbook/company/stewardship/](https://about.gitlab.com/handbook/company/stewardship/)
+- [https://lists.debian.org/debian-devel-announce/](https://lists.debian.org/debian-devel-announce/)
+- [https://www.w3.org/community/webassembly/](https://www.w3.org/community/webassembly/)

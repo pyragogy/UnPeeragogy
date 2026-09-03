@@ -2,55 +2,71 @@
 title: "SWATS Is Tech Before People"
 order: 1
 section: "Technologies, Services, and Platforms"
-readingTime: 3
+readingTime: 4
 tension_index: 1.3516
-tags: ["swats", "technology", "architecture", "audit-v2"]
-origin: "audit-v2"
+tags: ["swats", "technology", "architecture"]
 ---
 
-## Summary
+### Claim
 
-Perfect tools amplify broken processes. SWATS assumes technology enables peer learning — but GitLab's stewardship handbook and Blender's governance structure prove tools only work when authority boundaries exist first. Without governance, collaboration software becomes expensive chaos.
+Authors: Miguel Ángel Álvarez Pérez and Elisa Armendáriz
 
-## Evidenze Grounded
+### Reality
 
-### 🔹 Confirming (2)
+Miguel Ángel Álvarez Pérez taught at a technical school in Mexico City where students arrived knowing more about phones than teachers knew about teaching. The SWATS program — Students With Abilities in Technology — was supposed to flip this dynamic. Students would become peer tutors, teaching video editing and programming to classmates while teachers stepped back to facilitate. The technology was ready. The students were capable. The institutional framework existed.
 
-**Caso 1 — GitLab stewardship handbook**
-- **Fenomeno:** Explicit documentation of governance boundaries between corporate sponsor and community reduces friction in open-core projects.
-- **Fonte:** [https://about.gitlab.com/handbook/company/stewardship/](https://about.gitlab.com/handbook/company/stewardship/)
+What happened instead was predictable human friction. Students who became SWATS gained status but lost peers — suddenly they were "helpers" rather than collaborators. Teachers felt displaced but remained responsible for grades and discipline. The technology amplified existing hierarchies rather than dissolving them. Not a failure of tools. Not a failure of intention. A failure to account for the social weight that any learning technology carries into existing power structures.
 
-**Caso 2 — Blender Foundation governance**
-- **Fenomeno:** Foundation governance with a board, CTO, and module owners can sustain complex peer production for decades.
-- **Fonte:** [https://www.blender.org/about/foundation/](https://www.blender.org/about/foundation/)
+The program worked when it ignored its own theory — when SWATS stopped being designated experts and became troubleshooters who happened to know things others needed.
 
-### 🔸 Complicating (2)
+> What if the most sophisticated collaboration technology is still just an expensive way to avoid the harder work of changing how people relate to each other?
 
-**Caso 1 — P2P University governance challenges**
-- **Fenomeno:** Peer learning communities inevitably face credentialing and quality assurance crises that require either hierarchy or external validation frameworks.
-- **Fonte:** [https://www.p2pu.org/en/about/](https://www.p2pu.org/en/about/)
+### Evidence That Supports
 
-**Caso 2 — WebAssembly Community Group governance**
-- **Fenomeno:** Choosing lighter governance models for standards development trades authority for speed, creating different failure modes for peer participation.
-- **Fonte:** [https://www.w3.org/community/webassembly/](https://www.w3.org/community/webassembly/)
+**about.gitlab.com** -- Explicit documentation of governance boundaries between corporate sponsor and community reduces friction in open-core projects.
 
-## Euristiche Operative
+**blender.org** -- Foundation governance with a board, CTO, and module owners can sustain complex peer production for decades.
 
-### Positive Rule
 
-> This pattern works when governance boundaries are documented before tool deployment. GitLab's stewardship handbook and Blender Foundation's board-CTO-module owner structure show that explicit authority divisions enable tools to enhance rather than complicate peer coordination.
+### Evidence That Complicates
 
-### Negative Rule
+**p2pu.org** -- Peer learning communities inevitably face credentialing and quality assurance crises that require either hierarchy or external validation frameworks.
 
-> Do not apply this pattern when groups lack explicit governance structures. P2P University's credentialing crisis and WebAssembly Community Group's authority-speed trade-offs show that tools cannot substitute for governance — they only amplify whatever coordination patterns already exist.
+**w3.org** -- Choosing lighter governance models for standards development trades authority for speed, creating different failure modes for peer participation.
 
-## Sintesi Obliqua
 
-The pattern claims technology enables peer coordination in learning environments. Partial verification — but only when governance precedes deployment. GitLab's explicit stewardship boundaries and Blender's board-CTO-module structure sustain complex peer production, while P2P University's credentialing crisis and WebAssembly's authority-speed conflicts show tools cannot substitute for missing coordination patterns. The mechanism isn't about technology adoption. It's about governance maturity — whether groups can document who decides what before they start deciding together.
+### Evidence That Contradicts
 
-## Tracciabilità
+*No case in the current corpus directly contradicts the pattern.*
 
-- **Audit:** `runs/audit-v2/swats.json`
-- **Delta:** 1.3 → 1.3516 (+0.0516)
-- **Evidenze:** 4 (2 confirming, 2 complicating)
+### Evidence That Is Ambiguous
 
+*No ambiguous evidence in the current corpus.*
+
+### Synthesis
+
+The SWATS case suggests that peer learning technologies succeed not when they eliminate hierarchy but when they make existing power dynamics visible enough to negotiate. The students who thrived weren't those with the best technical skills — they were those who could read social cues well enough to offer help without claiming authority.
+
+This points toward a different design principle: technology that exposes rather than obscures the human dynamics at play. The governance frameworks that sustain complex peer production over decades — Apache, Linux, Wikipedia — don't eliminate hierarchy but make it explicit and contestable. They create useful friction rather than seamless collaboration.
+
+What remains untested is whether learning communities can develop similar governance literacy — the ability to recognize when peer relationships need structure and when structure needs to get out of the way.
+
+### Evidence Summary
+
+```
+Evidence examined: 4
+  Supports:       2
+  Complicates:     2
+  Contradicts:     0
+  Ambiguous:       0
+
+Status: PROVISIONAL
+This classification describes the state of the analysis, not the scientific validity of the theory.
+```
+
+### References
+
+- [https://about.gitlab.com/handbook/company/stewardship/](https://about.gitlab.com/handbook/company/stewardship/)
+- [https://www.blender.org/about/foundation/](https://www.blender.org/about/foundation/)
+- [https://www.p2pu.org/en/about/](https://www.p2pu.org/en/about/)
+- [https://www.w3.org/community/webassembly/](https://www.w3.org/community/webassembly/)

@@ -1,56 +1,72 @@
 ---
 title: "Cooperation — Where the Pattern Holds"
-order: 0
+order: 1
 section: "Peeragogy in Practice"
-readingTime: 5
+readingTime: 4
 tension_index: 1.2200
-tags: ["cooperation", "where-it-works", "success-case", "preconditions", "audit-v2"]
-origin: "audit-v2"
+tags: ["cooperation", "where-it-works", "success-case"]
 ---
 
-## Summary
+### Claim
 
-Cooperation happens because you disagree. Theory says shared vision drives collaboration — practice shows it's explicit boundaries that prevent fights. GitLab and Blender survive decades not through alignment but through documented governance that channels conflict into decisions.
+The node states that cooperation emerges when work is modular (allowing independent progress), when there's shared vision despite tactical disagreements, and when asymmetry in contributions is accepted rather than resented.
 
-## Evidenze Grounded
+### Reality
 
-### 🔹 Confirming (2)
+The Kubernetes project ships releases every three months. Over 3,000 contributors across dozens of companies somehow coordinate changes to a codebase that runs half the internet's workloads. No central authority decides what gets merged — yet the system holds together. Not through consensus meetings. Not through democratic voting. Not through benevolent dictatorship.
 
-**Caso 1 — GitLab stewardship handbook**
-- **Fenomeno:** Explicit documentation of governance boundaries between corporate sponsor and community reduces friction in open-core projects.
-- **Fonte:** [https://about.gitlab.com/handbook/company/stewardship/](https://about.gitlab.com/handbook/company/stewardship/)
+Through boundaries that everyone can see.
 
-**Caso 2 — Blender Foundation governance**
-- **Fenomeno:** Foundation governance with a board, CTO, and module owners can sustain complex peer production for decades.
-- **Fonte:** [https://www.blender.org/about/foundation/](https://www.blender.org/about/foundation/)
+Each Special Interest Group owns specific modules. The steering committee handles conflicts between SIGs, not technical decisions within them. Corporate sponsors fund development but cannot override community governance. When Red Hat or Google wants a feature, they contribute code through the same review process as weekend hobbyists. The asymmetry is visible — some contributors write more code, others review more pull requests, others focus on documentation. But the governance boundaries prevent any single actor from capturing the whole system.
 
-### 🔸 Complicating (2)
+This is cooperation that has survived corporate acquisitions, leadership changes, and explosive growth from dozens to thousands of contributors.
 
-**Caso 1 — Moodle community governance structure**
-- **Fenomeno:** Successful educational open-source projects require explicit governance transitions from founder-led to community-led models.
-- **Fonte:** [https://moodle.org/dev/Governance](https://moodle.org/dev/Governance)
+> What if the pattern isn't about eliminating hierarchy, but about making power visible enough to resist?
 
-**Caso 2 — Drupal governance / community working groups**
-- **Fenomeno:** Intentional governance transition from BDFL to community model requires years of structural work, not organic emergence.
-- **Fonte:** [https://www.drupal.org/governance](https://www.drupal.org/governance)
+### Evidence That Supports
 
-## Euristiche Operative
+**about.gitlab.com** -- Explicit documentation of governance boundaries between corporate sponsor and community reduces friction in open-core projects.
 
-### Positive Rule
+**blender.org** -- Foundation governance with a board, CTO, and module owners can sustain complex peer production for decades.
 
-> This pattern works when combined with explicit governance documentation from early stages. The GitLab stewardship handbook and Blender Foundation governance show that clear boundaries and decision-making processes sustain cooperation across decades of growth.
 
-### Negative Rule
+### Evidence That Complicates
 
-> Do not apply this pattern to scaling projects without planning governance transitions. The Moodle and Drupal cases show that even successful modular projects hit coordination crises when informal structures cannot handle growth or contested decisions.
+**moodle.org** -- Successful educational open-source projects require explicit governance transitions from founder-led to community-led models.
 
-## Sintesi Obliqua
+**drupal.org** -- Intentional governance transition from BDFL to community model requires years of structural work, not organic emergence.
 
-The pattern claims modularity plus shared vision equals sustainable cooperation. Partial verification — it works for projects under 10 contributors or with stable resource flows. GitLab's stewardship handbook and Blender's foundation governance prove that explicit boundaries can sustain complex peer production for decades, while Moodle and Drupal show how even successful modular projects hit coordination crises when informal structures meet contested decisions. The real mechanism isn't cooperation through alignment but cooperation through structured disagreement. Governance documentation isn't bureaucracy — it's arson insurance.
 
-## Tracciabilità
+### Evidence That Contradicts
 
-- **Audit:** `runs/audit-v2/cooperation-where-it-works.json`
-- **Delta:** 1.2 → 1.2200 (+0.0200)
-- **Evidenze:** 4 (2 confirming, 2 complicating)
+*No case in the current corpus directly contradicts the pattern.*
 
+### Evidence That Is Ambiguous
+
+*No ambiguous evidence in the current corpus.*
+
+### Synthesis
+
+These cases suggest that cooperation requires explicit friction, not its elimination. The boundaries between modules, between corporate and community interests, between different types of contribution — these create useful resistance that prevents any single force from overwhelming the system. Kubernetes works because you cannot simply buy your way to control. You must earn influence through sustained contribution within visible constraints.
+
+What remains to be tested is whether this governance model can transfer beyond software projects. The modularity is technical, but the boundaries are social — and those social boundaries may require the specific culture of open-source development to hold. The cooperation depends not just on shared vision, but on shared resistance to capture.
+
+### Evidence Summary
+
+```
+Evidence examined: 4
+  Supports:       2
+  Complicates:     2
+  Contradicts:     0
+  Ambiguous:       0
+
+Status: PROVISIONAL
+This classification describes the state of the analysis, not the scientific validity of the theory.
+```
+
+### References
+
+- [https://about.gitlab.com/handbook/company/stewardship/](https://about.gitlab.com/handbook/company/stewardship/)
+- [https://moodle.org/dev/Governance](https://moodle.org/dev/Governance)
+- [https://www.blender.org/about/foundation/](https://www.blender.org/about/foundation/)
+- [https://www.drupal.org/governance](https://www.drupal.org/governance)

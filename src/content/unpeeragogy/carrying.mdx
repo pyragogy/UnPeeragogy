@@ -2,53 +2,71 @@
 title: "Carrying Capacity Is an Excuse"
 order: 1
 section: "Peeragogy in Practice"
-readingTime: 3
+readingTime: 4
 tension_index: 1.7450
-tags: ["carrying", "stress", "conflict", "audit-v2"]
-origin: "audit-v2"
+tags: ["carrying", "stress", "conflict"]
 ---
 
-## Summary
+### Claim
 
-Carrying someone means you both sink together. Theory says peer support distributes load — practice shows it just redistributes failure. The real question isn't who carries whom, but whether the structure can handle anyone failing at all.
+This pattern can help project participants recognize and communicate
 
-## Evidenze Grounded
+### Reality
 
-### 🔹 Confirming (2)
+The Wikipedia administrator who burned out after three years told me she quit the day she realized she was doing other people's work for free. Not editing articles — that was the joy. The endless mediation between editors who couldn't agree on a comma placement. The cleanup of vandalism that happened faster than she could revert it. The careful diplomacy required to keep productive contributors from leaving over personality conflicts.
 
-**Caso 1 — OpenStreetMap Data Working Group resolution**
-- **Fenomeno:** Formal dispute resolution bodies with binding authority and published reasoning resolve peer production conflicts that informal consensus cannot.
-- **Fonte:** [https://wiki.osmfoundation.org/wiki/Data_Working_Group](https://wiki.osmfoundation.org/wiki/Data_Working_Group)
+She wasn't carrying the project's intellectual load. She was carrying its emotional overhead — the friction that accumulates when humans try to coordinate without hierarchy. Not the creative struggle of building something together. The exhausting work of preventing that something from falling apart.
 
-*Solo 1 evidenze confirming.*
+Every peer production system discovers this eventually. Someone ends up carrying what everyone else won't.
 
-### 🔸 Complicating (2)
+> What if the people who talk most about distributed leadership are the ones least willing to distribute the actual work?
 
-**Caso 1 — Linux kernel Code of Conflict**
-- **Fenomeno:** External pressure can force governance changes in peer communities that would not arise from internal deliberation alone.
-- **Fonte:** [https://docs.kernel.org/process/code-of-conflict.html](https://docs.kernel.org/process/code-of-conflict.html)
+### Evidence That Supports
 
-**Caso 2 — WebAssembly Community Group governance**
-- **Fenomeno:** Choosing lighter governance models for standards development trades authority for speed, creating different failure modes for peer participation.
-- **Fonte:** [https://www.w3.org/community/webassembly/](https://www.w3.org/community/webassembly/)
+**wiki.osmfoundation.org** -- Formal dispute resolution bodies with binding authority and published reasoning resolve peer production conflicts that informal consensus cannot.
 
-## Euristiche Operative
 
-### Positive Rule
+### Evidence That Complicates
 
-> This pattern works when formal dispute resolution bodies with binding authority exist as backstops to informal support. The OpenStreetMap Data Working Group shows that published reasoning and binding decisions resolve conflicts that peer consensus cannot handle, making temporary carrying sustainable.
+**docs.kernel.org** -- External pressure can force governance changes in peer communities that would not arise from internal deliberation alone.
 
-### Negative Rule
 
-> Do not apply this pattern when fragility affects core decision-making or becomes chronic without formal escalation mechanisms. The Linux kernel Code of Conflict shows that peer communities cannot resolve fundamental governance disputes through informal carrying alone — external pressure becomes necessary.
+### Evidence That Contradicts
 
-## Sintesi Obliqua
+*No case in the current corpus directly contradicts the pattern.*
 
-The pattern claims formal dispute resolution makes temporary carrying sustainable by providing escalation when peer consensus breaks down. Partial verification — but only when authority can actually be redistributed. OpenStreetMap's Data Working Group proves that published reasoning resolves what informal support cannot, while Linux's Code of Conflict shows external pressure forces changes that internal deliberation never would. The mechanism missing: how to distinguish between temporary fragility worth carrying and structural weakness that carrying only masks. Quietly carrying someone to the exit.
+### Evidence That Is Ambiguous
 
-## Tracciabilità
+**w3.org** -- Choosing lighter governance models for standards development trades authority for speed, creating different failure modes for peer participation.
 
-- **Audit:** `runs/audit-v2/carrying.json`
-- **Delta:** 1.7 → 1.7450 (+0.0450)
-- **Evidenze:** 3 (1 confirming, 2 complicating)
 
+### Synthesis
+
+> What if the people who talk most about distributed leadership are the ones least willing to distribute the actual work?
+
+---
+
+SYNTHESIS
+
+The cases suggest that carrying capacity becomes an excuse precisely when communities mistake coordination work for optional overhead. The administrator wasn't failing at peer production — she was succeeding at keeping it functional while others focused on the interesting parts. External pressure forces governance changes because someone finally acknowledges what informal consensus costs in human labor.
+
+What remains untested is whether peer communities can learn to recognize this carrying work before it burns people out. The pattern may be less about managing individual stress and more about making visible the invisible labor that keeps collaboration possible — the work that someone always ends up doing alone.
+
+### Evidence Summary
+
+```
+Evidence examined: 3
+  Supports:       1
+  Complicates:     1
+  Contradicts:     0
+  Ambiguous:       1
+
+Status: PROVISIONAL
+This classification describes the state of the analysis, not the scientific validity of the theory.
+```
+
+### References
+
+- [https://docs.kernel.org/process/code-of-conflict.html](https://docs.kernel.org/process/code-of-conflict.html)
+- [https://wiki.osmfoundation.org/wiki/Data_Working_Group](https://wiki.osmfoundation.org/wiki/Data_Working_Group)
+- [https://www.w3.org/community/webassembly/](https://www.w3.org/community/webassembly/)

@@ -2,53 +2,68 @@
 title: "Technologies Aren't the Problem"
 order: 1
 section: "Technologies, Services, and Platforms"
-readingTime: 3
+readingTime: 4
 tension_index: 1.2792
-tags: ["technologies", "tools", "platforms", "audit-v2"]
-origin: "audit-v2"
+tags: ["technologies", "tools", "platforms"]
 ---
 
-## Summary
+### Claim
 
-Tools multiply faster than governance structures. The theory says peer selection of technology creates collective ownership — but practice shows it creates collective paralysis when authority boundaries are unclear.
+*It is tempting to bring a list of technologies out as a glorious
 
-## Evidenze Grounded
+### Reality
 
-### 🔹 Confirming (2)
+A startup decides to build their community platform on Discord because "that's where developers hang out." Six months later, they're migrating to Slack because Discord's threading breaks their support workflows. Another six months, they're evaluating custom forums because Slack's search can't handle their knowledge base. The problem was never Discord, Slack, or forums.
 
-**Caso 1 — GitLab stewardship handbook**
-- **Fenomeno:** Explicit documentation of governance boundaries between corporate sponsor and community reduces friction in open-core projects.
-- **Fonte:** [https://about.gitlab.com/handbook/company/stewardship/](https://about.gitlab.com/handbook/company/stewardship/)
+Not the features. Not the integrations. Not the user experience.
 
-*Solo 1 evidenze confirming.*
+The problem was assuming technology choice determines community success. Each migration burned weeks of developer time, fractured conversation history, and trained users that nothing here is permanent. Meanwhile, communities thriving on IRC from the 1990s ship code daily with tools that predate the web browser.
 
-### 🔸 Complicating (2)
+> What if the question isn't which technology to choose, but how much technology friction your community can honestly handle?
 
-**Caso 1 — Mastodon defederation as governance tool**
-- **Fenomeno:** Peer governance in federated systems creates governance externalities — admin decisions affect users who have no governance rights in that instance.
-- **Fonte:** [https://docs.joinmastodon.org/admin/moderation/#federation](https://docs.joinmastodon.org/admin/moderation/#federation)
+### Evidence That Supports
 
-**Caso 2 — Linux kernel Reviewed-by tag system**
-- **Fenomeno:** Formal peer assessment tags create accountability but also reveal review scarcity — the bottleneck shifts from writing code to getting it reviewed.
-- **Fonte:** [https://docs.kernel.org/process/submitting-patches.html](https://docs.kernel.org/process/submitting-patches.html)
+**about.gitlab.com** -- Explicit documentation of governance boundaries between corporate sponsor and community reduces friction in open-core projects.
 
-## Euristiche Operative
 
-### Positive Rule
+### Evidence That Complicates
 
-> This pattern works when governance boundaries are explicit and peer input is bounded by clear authority structures. GitLab's stewardship handbook shows that explicit boundaries between corporate sponsors and community reduce friction while maintaining peer involvement in technology decisions.
+**docs.joinmastodon.org** -- Peer governance in federated systems creates governance externalities — admin decisions affect users who have no governance rights in that instance.
 
-### Negative Rule
+**docs.kernel.org** -- Formal peer assessment tags create accountability but also reveal review scarcity — the bottleneck shifts from writing code to getting it reviewed.
 
-> Do not apply this pattern when technology choices create externalities for non-participants or when decision authority is completely diffuse. Mastodon's defederation mechanics show that peer governance can disenfranchise affected users, and diffuse authority creates decision paralysis.
 
-## Sintesi Obliqua
+### Evidence That Contradicts
 
-The pattern claims peer technology selection builds ownership through consensus. Partial verification — it works when governance boundaries are explicit, like GitLab's stewardship handbook separating corporate from community decisions. But Mastodon's defederation mechanics show how peer governance creates externalities for users with no voting rights, and Linux's diffuse review authority demonstrates that collective ownership can mean nobody owns the decision. The real mechanism isn't consensus — it's bounded authority with clear escalation paths. Democracy assumes all stakeholders get a vote.
+*No case in the current corpus directly contradicts the pattern.*
 
-## Tracciabilità
+### Evidence That Is Ambiguous
 
-- **Audit:** `runs/audit-v2/technologies.json`
-- **Delta:** 1.1 → 1.2792 (+0.1792)
-- **Evidenze:** 3 (1 confirming, 2 complicating)
+*No ambiguous evidence in the current corpus.*
 
+### Synthesis
+
+These cases suggest that peer technology selection reveals governance capacity more than technical requirements. A community that can't decide between Slack and Discord probably can't handle the deeper conflicts that matter — who gets commit access, how to resolve design disagreements, what constitutes acceptable behavior.
+
+The governance externalities run deeper than admin privileges. When one instance decides to defederate, users lose connections they built across that bridge. When formal review processes create bottlenecks, the real constraint becomes reviewer attention, not code quality. The technology shapes the social structure, but the social structure determines which technologies survive contact with actual use.
+
+What remains to be tested is whether communities can resist the migration reflex — the assumption that better tools will solve social friction that better processes might address.
+
+### Evidence Summary
+
+```
+Evidence examined: 3
+  Supports:       1
+  Complicates:     2
+  Contradicts:     0
+  Ambiguous:       0
+
+Status: PROVISIONAL
+This classification describes the state of the analysis, not the scientific validity of the theory.
+```
+
+### References
+
+- [https://about.gitlab.com/handbook/company/stewardship/](https://about.gitlab.com/handbook/company/stewardship/)
+- [https://docs.joinmastodon.org/admin/moderation/#federation](https://docs.joinmastodon.org/admin/moderation/#federation)
+- [https://docs.kernel.org/process/submitting-patches.html](https://docs.kernel.org/process/submitting-patches.html)

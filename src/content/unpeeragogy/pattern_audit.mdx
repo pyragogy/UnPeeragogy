@@ -2,55 +2,73 @@
 title: "Auditing Patterns Is a Circular Habit"
 order: 1
 section: "Peeragogy in Practice"
-readingTime: 3
+readingTime: 4
 tension_index: 1.5288
-tags: ["pattern_audit", "review", "check", "audit-v2"]
-origin: "audit-v2"
+tags: ["pattern_audit", "review", "check"]
 ---
 
-## Summary
+### Claim
 
-Pattern audits without enforcement power become documentation theater. The theory promises iterative refinement — practice delivers endless meetings about meetings. Authority to implement changes separates functional review from organized procrastination.
+As a collection of patterns grows, some of them may lose relevance.
 
-## Evidenze Grounded
+### Reality
 
-### 🔹 Confirming (2)
+# REALITY
 
-**Caso 1 — OpenStreetMap Data Working Group resolution**
-- **Fenomeno:** Formal dispute resolution bodies with binding authority and published reasoning resolve peer production conflicts that informal consensus cannot.
-- **Fonte:** [https://wiki.osmfoundation.org/wiki/Data_Working_Group](https://wiki.osmfoundation.org/wiki/Data_Working_Group)
+A startup founder shows me their team retrospectives. Forty-three action items from the last six months. Color-coded spreadsheet. Progress tracking. Zero items actually closed. The founder keeps scheduling more retrospectives to figure out why the retrospectives aren't working.
 
-**Caso 2 — Fedora Engineering Steering Committee (FESCo)**
-- **Fenomeno:** Elected technical steering committees with defined scope and transparent records provide sustainable peer governance for large distributions.
-- **Fonte:** [https://docs.fedoraproject.org/en-US/fesco/](https://docs.fedoraproject.org/en-US/fesco/)
+Not broken process. Not missing tools. Not insufficient buy-in. The audit exists to avoid the authority to act. When you can measure everything, you never have to decide anything. The documentation becomes the work — safer than the friction of actually changing what doesn't serve.
 
-### 🔸 Complicating (2)
+I watch open source maintainers burn out while their communities debate governance frameworks in hundred-comment GitHub threads. The patterns get audited endlessly while the software rots. Someone always has a better process to propose, another template to fill out, one more stakeholder to consult before anyone can touch the actual problem.
 
-**Caso 1 — IETF working group rough consensus**
-- **Fenomeno:** Rough consensus governance only works when backed by hierarchical escalation paths; pure consensus without appeals fails.
-- **Fonte:** [https://www.ietf.org/about/](https://www.ietf.org/about/)
+> What if the urge to audit patterns is just the fear of admitting some experiments should die?
 
-**Caso 2 — Drupal governance / community working groups**
-- **Fenomeno:** Intentional governance transition from BDFL to community model requires years of structural work, not organic emergence.
-- **Fonte:** [https://www.drupal.org/governance](https://www.drupal.org/governance)
+### Evidence That Supports
 
-## Euristiche Operative
+**wiki.osmfoundation.org** -- Formal dispute resolution bodies with binding authority and published reasoning resolve peer production conflicts that informal consensus cannot.
 
-### Positive Rule
+**docs.fedoraproject.org** -- Elected technical steering committees with defined scope and transparent records provide sustainable peer governance for large distributions.
 
-> This pattern works when audit bodies have binding decision-making authority and published reasoning processes. The OpenStreetMap Data Working Group and Fedora Engineering Steering Committee demonstrate that formal authority structures with transparent records successfully resolve conflicts that informal auditing cannot address.
 
-### Negative Rule
+### Evidence That Complicates
 
-> Do not apply this pattern when the auditing group lacks authority to implement changes. The IETF rough consensus model shows that pure consensus auditing fails without appeals processes, creating decision paralysis rather than improvement.
+**ietf.org** -- Rough consensus governance only works when backed by hierarchical escalation paths; pure consensus without appeals fails.
 
-## Sintesi Obliqua
+**drupal.org** -- Intentional governance transition from BDFL to community model requires years of structural work, not organic emergence.
 
-The pattern claims systematic review creates adaptive collections. Partial verification — but only when auditors can act on findings. OpenStreetMap's Data Working Group and Fedora's Engineering Committee demonstrate that binding authority plus transparent reasoning resolves what consensus cannot, while IETF working groups show how rough consensus without appeals creates decision paralysis rather than pattern evolution. The mechanism missing from most implementations: the gap between identifying problems and having power to fix them. Auditing becomes circular when reviewers can only recommend.
 
-## Tracciabilità
+### Evidence That Contradicts
 
-- **Audit:** `runs/audit-v2/pattern_audit.json`
-- **Delta:** 1.5 → 1.5288 (+0.0288)
-- **Evidenze:** 4 (2 confirming, 2 complicating)
+*No case in the current corpus directly contradicts the pattern.*
 
+### Evidence That Is Ambiguous
+
+*No ambiguous evidence in the current corpus.*
+
+### Synthesis
+
+# SYNTHESIS
+
+These cases suggest that pattern auditing may serve institutional anxiety more than institutional health. The formal mechanisms — dispute resolution, steering committees, documented processes — work when they carry real authority to act on what they discover. The endless retrospectives and governance debates work as elaborate delay tactics when no one wants to wield that authority.
+
+What remains to be tested is whether pattern collections can survive honest pruning. The useful friction isn't in the auditing process itself but in the willingness to kill what you've built when it stops serving. Most audits discover problems everyone already knows — the question becomes who has permission to act on inconvenient truths.
+
+### Evidence Summary
+
+```
+Evidence examined: 4
+  Supports:       2
+  Complicates:     2
+  Contradicts:     0
+  Ambiguous:       0
+
+Status: PROVISIONAL
+This classification describes the state of the analysis, not the scientific validity of the theory.
+```
+
+### References
+
+- [https://docs.fedoraproject.org/en-US/fesco/](https://docs.fedoraproject.org/en-US/fesco/)
+- [https://wiki.osmfoundation.org/wiki/Data_Working_Group](https://wiki.osmfoundation.org/wiki/Data_Working_Group)
+- [https://www.drupal.org/governance](https://www.drupal.org/governance)
+- [https://www.ietf.org/about/](https://www.ietf.org/about/)

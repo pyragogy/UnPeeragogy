@@ -2,55 +2,70 @@
 title: "Context Is Everything"
 order: 1
 section: "Introduction"
-readingTime: 3
+readingTime: 4
 tension_index: 1.5417
-tags: ["context", "situation", "ground", "audit-v2"]
-origin: "audit-v2"
+tags: ["context", "situation", "ground"]
 ---
 
-## Summary
+### Claim
 
-Peeragogy patterns fail when dropped into any context. GitLab's stewardship handbook works — Drupal's governance transition doesn't. The difference is scaffolding, not methodology.
+The context in which Peeragogy is applied is explored in several case studies.
 
-## Evidenze Grounded
+### Reality
 
-### 🔹 Confirming (2)
+A friend runs a hackerspace in Milan. Same tools, same maker ethos, same Arduino workshops as hackerspaces everywhere. But it dies within eighteen months. The universal pattern — open access, collaborative tools, community governance — fits perfectly on paper. In practice, it crashes against Italian bureaucracy, insurance requirements that assume corporate liability structures, and a membership base that expects someone else to handle the boring parts.
 
-**Caso 1 — GitLab stewardship handbook**
-- **Fenomeno:** Explicit documentation of governance boundaries between corporate sponsor and community reduces friction in open-core projects.
-- **Fonte:** [https://about.gitlab.com/handbook/company/stewardship/](https://about.gitlab.com/handbook/company/stewardship/)
+Not the wrong pattern. Not bad execution. Not insufficient funding.
 
-**Caso 2 — LWN.net kernel development summaries**
-- **Fenomeno:** Independent third-party summaries of peer production activity create shared awareness that enables distributed governance at scale.
-- **Fonte:** [https://lwn.net/Kernel/](https://lwn.net/Kernel/)
+The context ate the theory.
 
-### 🔸 Complicating (2)
+You see this everywhere once you start looking. Agile works brilliantly in Silicon Valley startups with venture funding and disposable talent pools. Deploy it in a government agency with union contracts and procurement cycles, and watch the ceremonies become elaborate theater while the actual work happens in email threads and hallway conversations. The pattern holds in isolation — but isolation doesn't exist.
 
-**Caso 1 — Drupal governance / community working groups**
-- **Fenomeno:** Intentional governance transition from BDFL to community model requires years of structural work, not organic emergence.
-- **Fonte:** [https://www.drupal.org/governance](https://www.drupal.org/governance)
+> What if the most important part of any pattern is the list of contexts where it breaks?
 
-**Caso 2 — IETF working group rough consensus**
-- **Fenomeno:** Rough consensus governance only works when backed by hierarchical escalation paths; pure consensus without appeals fails.
-- **Fonte:** [https://www.ietf.org/about/](https://www.ietf.org/about/)
+### Evidence That Supports
 
-## Euristiche Operative
+**about.gitlab.com** -- Explicit documentation of governance boundaries between corporate sponsor and community reduces friction in open-core projects.
 
-### Positive Rule
+**lwn.net** -- Independent third-party summaries of peer production activity create shared awareness that enables distributed governance at scale.
 
-> Peeragogy patterns work when contextual scaffolding is explicitly constructed first. GitLab's stewardship handbook and LWN's kernel summaries show that documented governance boundaries and independent awareness mechanisms enable collaborative patterns to function at scale.
 
-### Negative Rule
+### Evidence That Complicates
 
-> Do not apply Peeragogy patterns assuming they work universally across contexts. The Drupal governance transition shows that moving between collaborative models requires years of structural work — patterns without contextual scaffolding produce governance theater, not actual peer learning.
+**drupal.org** -- Intentional governance transition from BDFL to community model requires years of structural work, not organic emergence.
 
-## Sintesi Obliqua
 
-Context-as-pattern claims that putting problems into communication with solutions manifests relationships. Partial verification — when the scaffolding exists first. GitLab's explicit boundaries and LWN's independent summaries create the infrastructure for peer governance to actually function, while Drupal's years-long transition from BDFL shows that structural work can't be skipped through pattern application. The theory misses the mechanism: patterns don't create context, they require it. You can't manifest relationships without first building the channels.
+### Evidence That Contradicts
 
-## Tracciabilità
+*No case in the current corpus directly contradicts the pattern.*
 
-- **Audit:** `runs/audit-v2/context.json`
-- **Delta:** 1.6 → 1.5417 (-0.0583)
-- **Evidenze:** 4 (2 confirming, 2 complicating)
+### Evidence That Is Ambiguous
 
+**ietf.org** -- Rough consensus governance only works when backed by hierarchical escalation paths; pure consensus without appeals fails.
+
+
+### Synthesis
+
+These failures suggest something the handbooks rarely admit: context isn't background noise you filter out to find the pure pattern. Context is the signal. The hackerspace pattern works when embedded in a regulatory environment that treats informal organizations as legitimate, a culture comfortable with distributed responsibility, and an economic base that can absorb the hidden costs of coordination.
+
+Remove any of those conditions and you're not implementing the pattern badly — you're implementing a different pattern entirely. What appears as the same structure performing differently may actually be different structures wearing the same name. The useful work isn't perfecting universal patterns but mapping the precise conditions where specific approaches hold their shape.
+
+### Evidence Summary
+
+```
+Evidence examined: 4
+  Supports:       2
+  Complicates:     1
+  Contradicts:     0
+  Ambiguous:       1
+
+Status: PROVISIONAL
+This classification describes the state of the analysis, not the scientific validity of the theory.
+```
+
+### References
+
+- [https://about.gitlab.com/handbook/company/stewardship/](https://about.gitlab.com/handbook/company/stewardship/)
+- [https://lwn.net/Kernel/](https://lwn.net/Kernel/)
+- [https://www.drupal.org/governance](https://www.drupal.org/governance)
+- [https://www.ietf.org/about/](https://www.ietf.org/about/)
