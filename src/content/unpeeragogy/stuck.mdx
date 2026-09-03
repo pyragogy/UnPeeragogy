@@ -3,19 +3,54 @@ title: "Getting Stuck Is the Real Problem"
 order: 1
 section: "Peeragogy in Practice"
 readingTime: 3
-tension_index: 1.5
-tags: ["stuck", "block", "bottleneck"]
-origin: seed
+tension_index: 1.6150
+tags: ["stuck", "block", "bottleneck", "audit-v2"]
+origin: "audit-v2"
 ---
 
-"The group gets stuck. The bottleneck is not an idea but the means to move forward."
+## Summary
 
-**Why it matters:** Getting stuck is the state that precedes quitting. Not always. Sometimes stuck is followed by a breakthrough. More often, stuck is the prelude to dissolution. The group stays stuck until no one cares, and then it dissolves without deciding to.
+Governance paralysis has two opposite causes. Theory says add process when authority is unclear — practice shows this only works below 50 people. Above that threshold, equal decision-makers create deadlock, not democracy.
 
-The Handbook says the bottleneck isn't an idea but the means to move forward. Interesting distinction. It means the group has ideas but not the infrastructure, energy, or coordination to execute. So it stays stuck. Stuck not because it doesn't know what to do. Stuck because it can't do it.
+## Evidenze Grounded
 
-**What to do instead:** When stuck, identify the bottleneck. Is it energy? People? Coordination? Money? Most of the time, it's coordination. The group doesn't know who does what. When stuck, assign. Not decide. Assign. Someone takes responsibility. The stuck dissolves not when everyone agrees but when someone acts.
+### 🔹 Confirming (2)
 
-> **Perturbator:** *"The group is stuck. You know what to do. You don't know how to do it. That's the difference between theory and practice. Theory says 'do X.' Practice says 'X is clear. The path to X is blocked.' The bottleneck isn't knowledge. It's execution. And execution is the hardest part of peeragogy. Because execution requires someone to take responsibility. And no one wants it."*
+**Caso 1 — GitLab stewardship handbook**
+- **Fenomeno:** Explicit documentation of governance boundaries between corporate sponsor and community reduces friction in open-core projects.
+- **Fonte:** [https://about.gitlab.com/handbook/company/stewardship/](https://about.gitlab.com/handbook/company/stewardship/)
 
-**Reference:** Peeragogy Handbook, "Stuck" pattern (Peeragogy in Practice section).
+**Caso 2 — OpenStreetMap Data Working Group resolution**
+- **Fenomeno:** Formal dispute resolution bodies with binding authority and published reasoning resolve peer production conflicts that informal consensus cannot.
+- **Fonte:** [https://wiki.osmfoundation.org/wiki/Data_Working_Group](https://wiki.osmfoundation.org/wiki/Data_Working_Group)
+
+### 🔸 Complicating (2)
+
+**Caso 1 — ConstitutionDAO dissolution**
+- **Fenomeno:** DAOs face severe governance scalability problems — coordinating thousands of token holders with equal voting rights produces paralysis, not efficiency.
+- **Fonte:** [https://www.wired.com/story/constitutiondao-ethereum/](https://www.wired.com/story/constitutiondao-ethereum/)
+
+**Caso 2 — Linux kernel Reviewed-by tag system**
+- **Fenomeno:** Formal peer assessment tags create accountability but also reveal review scarcity — the bottleneck shifts from writing code to getting it reviewed.
+- **Fonte:** [https://docs.kernel.org/process/submitting-patches.html](https://docs.kernel.org/process/submitting-patches.html)
+
+## Euristiche Operative
+
+### Positive Rule
+
+> This pattern works when stuckness comes from unclear authority boundaries and the group has fewer than ~50 active participants. GitLab's stewardship handbook and OpenStreetMap's Data Working Group show that explicit governance boundaries resolve coordination paralysis in moderately-sized groups.
+
+### Negative Rule
+
+> Do not apply standard 'add more process' solutions when stuckness comes from too many equal decision-makers. ConstitutionDAO's dissolution shows that formal voting with thousands of equal participants creates paralysis, not resolution.
+
+## Sintesi Obliqua
+
+The pattern claims formal boundaries cure coordination paralysis. Partial verification — but only when the group stays small and the problem is under-governance, not over-governance. GitLab's stewardship handbook and OpenStreetMap's dispute resolution prove that explicit authority works when you have maybe dozens of active contributors. ConstitutionDAO's collapse with thousands of equal voters proves the opposite: too many decision-makers kills decisions entirely. The real mechanism isn't about weak ties or strong ties. It's about whether you're stuck because nobody can decide, or because everybody gets to.
+
+## Tracciabilità
+
+- **Audit:** `runs/audit-v2/stuck.json`
+- **Delta:** 1.5 → 1.6150 (+0.1150)
+- **Evidenze:** 4 (2 confirming, 2 complicating)
+

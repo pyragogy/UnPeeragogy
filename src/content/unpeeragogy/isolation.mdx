@@ -3,19 +3,48 @@ title: "Isolation Is Invisible"
 order: 1
 section: "Motivation"
 readingTime: 3
-tension_index: 1.5
-tags: ["isolation", "burnout", "loneliness"]
-origin: seed
+tension_index: 1.8625
+tags: ["isolation", "burnout", "loneliness", "audit-v2"]
+origin: "audit-v2"
 ---
 
-"Isolation: when a participant feels disconnected from the group." "Loneliness in the middle of a crowd."
+## Summary
 
-**Why it matters:** Isolation is the most hidden force in peer groups. It's not announced. It's not visible. It manifests as decreased participation, shorter messages, missed meetings. The person doesn't leave. They fade.
+Isolation looks like a people problem but runs on power mechanics. Theory says unclear authority creates chaos — practice shows it creates rational withdrawal. When contribution paths don't map to influence, participants don't disconnect socially, they disconnect strategically.
 
-The theory treats isolation as a problem to solve. "Reach out, check in, create connection." But isolation is often a symptom of a deeper problem: the person doesn't feel needed. Their contribution isn't valued. Their presence isn't missed. Connection activities don't fix this. Only meaningful work does.
+## Evidenze Grounded
 
-**What to do instead:** If someone is isolated, ask: "what can they do that no one else can?" The answer is rarely nothing. If it's nothing, the group doesn't need them. And the isolation is honest. The group doesn't need isolated people. It needs people who are contributing. Isolation is the body's way of saying "I'm not useful here." Sometimes the body is right.
+### 🔹 Confirming (2)
 
-> **Perturbator:** *"Someone in your group is isolated. You notice they participate less. You reach out. 'How are you?' Fine. They're not fine. They're not fine because they don't feel useful. Connection activities don't fix this. You can't cheerlead someone into contribution. You need to give them something real to do. If there's nothing for them to do, the isolation is a signal. Not a problem to fix with kindness."*
+*Solo 0 evidenze confirming.*
 
-**Reference:** Peeragogy Handbook, "Isolation" pattern (Motivation section).
+### 🔸 Complicating (2)
+
+**Caso 1 — Drupal governance / community working groups**
+- **Fenomeno:** Intentional governance transition from BDFL to community model requires years of structural work, not organic emergence.
+- **Fonte:** [https://www.drupal.org/governance](https://www.drupal.org/governance)
+
+**Caso 2 — WebAssembly Community Group governance**
+- **Fenomeno:** Choosing lighter governance models for standards development trades authority for speed, creating different failure modes for peer participation.
+- **Fonte:** [https://www.w3.org/community/webassembly/](https://www.w3.org/community/webassembly/)
+
+## Euristiche Operative
+
+### Positive Rule
+
+> This pattern resolves when governance structures clearly map contribution to influence before addressing social connection. WebAssembly's explicit authority-for-speed trade shows that transparent governance trade-offs prevent isolation by giving participants clear expectations about their decision-making power.
+
+### Negative Rule
+
+> Do not treat isolation as purely individual pathology requiring connection activities. Drupal's governance transition shows that unclear authority structures produce rational withdrawal — participants isolate because their contributions lack decision-making influence, not because they need more social connection.
+
+## Sintesi Obliqua
+
+The pattern claims isolation stems from narrow focus versus chaotic openness — a calibration problem. Partial verification, conditional on governance visibility. WebAssembly's explicit authority-for-speed trade prevents isolation by giving clear expectations about decision-making power, while Drupal's years-long governance transition shows that structural ambiguity produces rational withdrawal, not antisocial behavior. But the mechanism isn't about social connection or focus width — it's about whether contribution translates to influence in predictable ways. The real isolation happens when you can't see the power structure you're feeding.
+
+## Tracciabilità
+
+- **Audit:** `runs/audit-v2/isolation.json`
+- **Delta:** 1.5 → 1.8625 (+0.3625)
+- **Evidenze:** 2 (0 confirming, 2 complicating)
+

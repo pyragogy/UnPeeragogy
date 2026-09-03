@@ -3,21 +3,54 @@ title: "The Wiki Is a Garden That Died"
 order: 1
 section: "Technologies, Services, and Platforms"
 readingTime: 3
-tension_index: 1.3
-tags: ["wiki", "collaboration", "writing"]
-origin: seed
+tension_index: 1.2467
+tags: ["wiki", "collaboration", "writing", "audit-v2"]
+origin: "audit-v2"
 ---
 
-"A wiki is a website that allows the collaborative development of content." "The Peeragogy wiki was the main tool for writing the Handbook."
+## Summary
 
-The wiki is the tool that produced the Handbook. It was the group's workshop.
+Equal access to the delete button doesn't make everyone an editor. Theory says wikis democratize knowledge — practice shows they need explicit governance boundaries before collaborative editing begins. The mechanism is authority structures, not participation structures.
 
-**Why it matters:** The wiki is where the Handbook was built. It's also a ghost town now. The pages are there, the discussions are there, the edits are there. But no one edits anymore. The workshop is empty.
+## Evidenze Grounded
 
-The wiki's ghostness is a lesson: even successful peeragogical tools have a life cycle. The wiki served its purpose. It produced the Handbook. Then it stopped. The group that used it dispersed. The tool didn't sustain the group. The group sustained the tool. When the group left, the tool died.
+### 🔹 Confirming (2)
 
-**What to do instead:** Accept that tools have life cycles. A wiki isn't a community. It's a place where a community works. If the community stops working, the wiki becomes an archive. Archives are useful. They preserve history. But they don't create future. Don't mistake a wiki for a community. A wiki is a tool. A community is a group of people who decide to use it.
+**Caso 1 — GitLab stewardship handbook**
+- **Fenomeno:** Explicit documentation of governance boundaries between corporate sponsor and community reduces friction in open-core projects.
+- **Fonte:** [https://about.gitlab.com/handbook/company/stewardship/](https://about.gitlab.com/handbook/company/stewardship/)
 
-> **Perturbator:** *"The wiki was the workshop. Now it's a museum. Beautiful pages, ancient edits, discussions that will never be resumed. The workshop is empty. The wiki didn't die. The group left. The wiki stayed. Empty spaces are the saddest proof that peeragogy has a cycle. It's born, it works, it ends. The wiki proves it."*
+**Caso 2 — OpenStreetMap Data Working Group resolution**
+- **Fenomeno:** Formal dispute resolution bodies with binding authority and published reasoning resolve peer production conflicts that informal consensus cannot.
+- **Fonte:** [https://wiki.osmfoundation.org/wiki/Data_Working_Group](https://wiki.osmfoundation.org/wiki/Data_Working_Group)
 
-**Reference:** Peeragogy Handbook, "Wiki" section (Technologies, Services, and Platforms).
+### 🔸 Complicating (2)
+
+**Caso 1 — WebAssembly Community Group governance**
+- **Fenomeno:** Choosing lighter governance models for standards development trades authority for speed, creating different failure modes for peer participation.
+- **Fonte:** [https://www.w3.org/community/webassembly/](https://www.w3.org/community/webassembly/)
+
+**Caso 2 — IETF working group rough consensus**
+- **Fenomeno:** Rough consensus governance only works when backed by hierarchical escalation paths; pure consensus without appeals fails.
+- **Fonte:** [https://www.ietf.org/about/](https://www.ietf.org/about/)
+
+## Euristiche Operative
+
+### Positive Rule
+
+> This pattern works when governance boundaries are explicitly documented before collaborative editing begins. GitLab's stewardship handbook demonstrates that explicit documentation of authority structures between different stakeholder groups reduces friction and sustains long-term collaborative knowledge work.
+
+### Negative Rule
+
+> Do not apply this pattern without formal dispute resolution mechanisms. OpenStreetMap's Data Working Group shows that informal consensus fails to resolve peer production conflicts, requiring binding authority with published reasoning to maintain collaborative sustainability.
+
+## Sintesi Obliqua
+
+The pattern claims wikis work through equal access and emergent consensus. Partial verification — but only when governance boundaries exist before editing starts. GitLab's stewardship handbook and OpenStreetMap's Data Working Group both confirm that documented authority structures reduce friction, while WebAssembly's lighter governance shows the limits of informal consensus in resolving conflicts. What's missing is the real engine: not democratic participation, but binding dispute resolution with published reasoning. The garden dies when everyone has pruning shears.
+
+## Tracciabilità
+
+- **Audit:** `runs/audit-v2/wiki.json`
+- **Delta:** 1.3 → 1.2467 (-0.0533)
+- **Evidenze:** 4 (2 confirming, 2 complicating)
+

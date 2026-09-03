@@ -3,19 +3,52 @@ title: "Welcome Isn't a Door"
 order: 1
 section: "Introduction"
 readingTime: 3
-tension_index: 1.1
-tags: ["welcome", "introduction", "onboarding"]
-origin: seed
+tension_index: 1.1575
+tags: ["welcome", "introduction", "onboarding", "audit-v2"]
+origin: "audit-v2"
 ---
 
-"Welcome to the Peeragogy Workbook: a practical introduction to peeragogy." The very first page of the Handbook.
+## Summary
 
-**Why it matters:** Welcome pages are invitations. "Come in. See what we have." The Handbook's welcome is warm, a bit generic, and long. By the time the reader reaches the patterns, they've read five pages of welcome.
+Welcome manuals kill peer learning. Theory promises horizontal collaboration — practice creates documentation bureaucracy. The friction isn't in the doing, it's in the explaining how to do.
 
-The problem is that a welcome that's too long doesn't welcome. It wears out. The reader wants to know what peeragogy is and how to use it. Not a history of how the Handbook was written. Not a list of contributors. Not an explanation of the structure. A welcome should be one page. Then the content.
+## Evidenze Grounded
 
-**What to do instead:** A welcome page should: (1) say what peeragogy is in one sentence, (2) say how the Handbook is structured, (3) point to the Quickstart Guide. That's it. Everything else can go in the preface. Welcome is a door. Doors don't need decoration. They need to open.
+### 🔹 Confirming (2)
 
-> **Perturbator:** *"Welcome. Then 300 pages of theory. Welcome is the edge of the forest. The patterns are the clearing. The Handbook makes you walk through the entire forest before reaching the clearing. The path should be shorter. If you've already read five pages of welcome, you're not welcomed anymore. You're tired."*
+**Caso 1 — GitLab stewardship handbook**
+- **Fenomeno:** Explicit documentation of governance boundaries between corporate sponsor and community reduces friction in open-core projects.
+- **Fonte:** [https://about.gitlab.com/handbook/company/stewardship/](https://about.gitlab.com/handbook/company/stewardship/)
 
-**Reference:** Peeragogy Handbook, "Welcome to the Peeragogy Workbook" section (Introduction).
+*Solo 1 evidenze confirming.*
+
+### 🔸 Complicating (2)
+
+**Caso 1 — BBC micro:bit foundation governance**
+- **Fenomeno:** Educational technology projects with multiple stakeholders require structured governance with defined roles, not open peer participation.
+- **Fonte:** [https://microbit.org/foundation/](https://microbit.org/foundation/)
+
+**Caso 2 — Apache Software Foundation governance model**
+- **Fenomeno:** Meritocracy-based peer governance creates invisible barriers: those with more free time accumulate authority, creating a class system within the 'flat' organization.
+- **Fonte:** [https://www.apache.org/foundation/how-it-works.html](https://www.apache.org/foundation/how-it-works.html)
+
+## Euristiche Operative
+
+### Positive Rule
+
+> This pattern works when governance boundaries are made explicit and participation structures account for varying time availability. GitLab's stewardship handbook shows that documented boundaries between different stakeholder roles reduce friction and create sustainable open collaboration.
+
+### Negative Rule
+
+> Do not assume that peer governance is naturally egalitarian or that extensive welcome content improves accessibility. Apache Software Foundation governance shows that meritocracy-based systems create class barriers based on time availability, while vault incidents demonstrate that long introductions tire readers before they reach content.
+
+## Sintesi Obliqua
+
+The pattern claims that extensive onboarding reduces barriers to peer participation. Partial verification — when boundaries are explicit and time constraints acknowledged upfront. GitLab's stewardship handbook works because it maps power, not process, while Apache's meritocracy and micro:bit's structured governance both prove that peer systems naturally stratify around availability rather than capability. The real mechanism isn't welcome content but power distribution design. Documentation as invitation becomes documentation as gate.
+
+## Tracciabilità
+
+- **Audit:** `runs/audit-v2/welcome_to_the_peeragogy_workbook.json`
+- **Delta:** 1.1 → 1.1575 (+0.0575)
+- **Evidenze:** 3 (1 confirming, 2 complicating)
+

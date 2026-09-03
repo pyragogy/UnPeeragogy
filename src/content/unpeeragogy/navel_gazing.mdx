@@ -3,21 +3,52 @@ title: "Navel Gazing Is the Only Pattern That Works"
 order: 1
 section: "Peeragogy in Practice"
 readingTime: 3
-tension_index: 1.5
-tags: ["navel_gazing", "reflection", "meta"]
-origin: seed
+tension_index: 1.6217
+tags: ["navel_gazing", "reflection", "meta", "audit-v2"]
+origin: "audit-v2"
 ---
 
-"Does the time the group spends on meta-reflection help or hinder?" "Time spent improving the way we work."
+## Summary
 
-Navel gazing is the pattern of reflecting on the group's process. "How are we doing? Are we working well?"
+Groups die from endless discussion when nobody can end the discussion. The pattern identifies paralysis, not productivity — talking becomes the work instead of fuel for work. Authority to decide matters more than quality of feedback.
 
-**Why it matters:** Navel gazing is the only pattern that's guaranteed to work. Because it requires no external validation. The group can always gather and discuss how it's going. Even if it produces nothing, it can talk about why it produces nothing. Navel gazing is self-sustaining. Unfortunately, it often replaces production.
+## Evidenze Grounded
 
-The problem with meta-reflection is that it becomes the group's activity. The group reflects more than it acts. It's safer to reflect than to produce. Reflection doesn't expose you to criticism. Production does. So the group spends weeks, months, discussing "how we work." Meanwhile, nothing is produced. The group becomes a conversation about itself.
+### 🔹 Confirming (2)
 
-**What to do instead:** Reflection is useful if it triggers change. If after reflection the group changes something, reflection worked. If after reflection the group reflects again, reflection became the activity. Set a rule: every reflection session produces at least one concrete change. If you can't find a change to make, stop reflecting. Start working.
+**Caso 1 — OpenStreetMap Data Working Group resolution**
+- **Fenomeno:** Formal dispute resolution bodies with binding authority and published reasoning resolve peer production conflicts that informal consensus cannot.
+- **Fonte:** [https://wiki.osmfoundation.org/wiki/Data_Working_Group](https://wiki.osmfoundation.org/wiki/Data_Working_Group)
 
-> **Perturbator:** *"Your group has spent the last three months reflecting on its process. You've identified patterns, problems, opportunities. Nothing has changed. You reflected correctly. You just didn't act on the reflection. That's not reflection. That's entertainment. Real reflection costs something. Real reflection changes behavior. If nothing changes, you didn't reflect. You watched."*
+*Solo 1 evidenze confirming.*
 
-**Reference:** Peeragogy Handbook, "Navel Gazing" pattern (Peeragogy in Practice section).
+### 🔸 Complicating (2)
+
+**Caso 1 — IETF working group rough consensus**
+- **Fenomeno:** Rough consensus governance only works when backed by hierarchical escalation paths; pure consensus without appeals fails.
+- **Fonte:** [https://www.ietf.org/about/](https://www.ietf.org/about/)
+
+**Caso 2 — WebAssembly Community Group governance**
+- **Fenomeno:** Choosing lighter governance models for standards development trades authority for speed, creating different failure modes for peer participation.
+- **Fonte:** [https://www.w3.org/community/webassembly/](https://www.w3.org/community/webassembly/)
+
+## Euristiche Operative
+
+### Positive Rule
+
+> This pattern accurately identifies dysfunction when groups lack both escalation paths and binding authority. WebAssembly Community Group governance shows that lighter models trade authority for speed, creating the exact paralysis conditions this pattern describes.
+
+### Negative Rule
+
+> Do not apply this pattern to groups with formal escalation mechanisms or binding decision authority. IETF working groups and OpenStreetMap's Data Working Group show that extensive reflection can be productive when institutional boundaries exist to terminate discussion and enforce decisions.
+
+## Sintesi Obliqua
+
+The pattern claims reflection without resolution kills peer production. Partially verified — but only when groups lack escalation paths. OpenStreetMap's Data Working Group shows extensive discussion works fine with binding authority, while WebAssembly Community Groups trade decision power for speed and hit exactly this paralysis. The real mechanism isn't navel gazing itself but institutional boundaries that terminate discussion. The father's double bind works because the son has no appeals court.
+
+## Tracciabilità
+
+- **Audit:** `runs/audit-v2/navel_gazing.json`
+- **Delta:** 1.5 → 1.6217 (+0.1217)
+- **Evidenze:** 3 (1 confirming, 2 complicating)
+

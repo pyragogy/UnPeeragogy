@@ -3,21 +3,48 @@ title: "The Guide Is a Labyrinth"
 order: 1
 section: "Resources"
 readingTime: 3
-tension_index: 1.3
-tags: ["creating_a_guide", "map", "documentation"]
-origin: seed
+tension_index: 1.7200
+tags: ["creating_a_guide", "map", "documentation", "audit-v2"]
+origin: "audit-v2"
 ---
 
-"Established ideas have knowledge cartography challenges for newcomers." "Deciphering a subway map in a foreign city."
+## Summary
 
-The metaphor is perfect: entering an existing project is like deciphering a subway map in a language you don't know.
+Comprehensive guides kill participation. Theory says documentation helps newcomers navigate complexity — practice shows that expert-authored guides become gatekeeping mechanisms. The cognitive load mismatch between veteran knowledge and newcomer capacity turns orientation into exclusion.
 
-**Why it matters:** Creating a guide for newcomers is an act of kindness. But the guide itself becomes a barrier. Because to understand the guide, you must already understand the project. And to understand the project, you must read the guide. It's a circular trap that veterans don't see because they've been inside it too long.
+## Evidenze Grounded
 
-The problem isn't creating the guide. The problem is that the guide is written by people who know the project. People who know the project don't know what a newcomer doesn't know. The obvious questions aren't written because for veterans they're obvious. The guide explains the hard things. But newcomers are stuck on the easy things. The guide doesn't serve them. It serves the veterans' need to feel organized.
+### 🔹 Confirming (2)
 
-**What to do instead:** A guide works if it's short, if it says what to do on day one, and if it gives an immediate task. It doesn't work if it explains history, vision, organizational structure. On day one, the newcomer doesn't need to understand everything. They need to *do* something. The guide to doing is different from the guide to understanding. Make the right one.
+*Solo 0 evidenze confirming.*
 
-> **Perturbator:** *"Your newcomer guide is 14 pages long. It's detailed. It's complete. It's also why newcomers don't arrive. No one reads 14 pages before participating. The perfect guide is one page. If you can't sum up your project in one page, you don't know what your project is."*
+### 🔸 Complicating (2)
 
-**Reference:** Peeragogy Handbook, "Creating a Guide" section.
+**Caso 1 — Wikidata governance and data quality disputes**
+- **Fenomeno:** Complex governance processes in peer production projects create participation barriers that entrench existing contributors and exclude newcomers.
+- **Fonte:** [https://www.wikidata.org/wiki/Wikidata:Governance](https://www.wikidata.org/wiki/Wikidata:Governance)
+
+**Caso 2 — Drupal governance / community working groups**
+- **Fenomeno:** Intentional governance transition from BDFL to community model requires years of structural work, not organic emergence.
+- **Fonte:** [https://www.drupal.org/governance](https://www.drupal.org/governance)
+
+## Euristiche Operative
+
+### Positive Rule
+
+> This pattern works when guides are tested with actual newcomers and revised based on their feedback. While no confirming evidence was identified in this synthesis, the pattern succeeds when guide complexity matches newcomer capacity, not veteran knowledge scope.
+
+### Negative Rule
+
+> Do not assume comprehensive guides increase participation. Wikidata governance documentation shows that complex processes create barriers that entrench existing contributors and exclude newcomers, turning guides into gatekeeping mechanisms.
+
+## Sintesi Obliqua
+
+The pattern claims that creating guides alongside learning produces better navigation tools for newcomers. Partial verification — but only when guides match newcomer capacity, not expert scope. Wikidata's governance documentation and Drupal's community working groups both demonstrate how comprehensive processes entrench existing contributors while systematically excluding newcomers through complexity barriers. The real mechanism isn't about guide creation as learning — it's about cognitive load distribution and who controls the documentation process. Guides work when they forget what experts know.
+
+## Tracciabilità
+
+- **Audit:** `runs/audit-v2/creating_a_guide.json`
+- **Delta:** 1.3 → 1.7200 (+0.4200)
+- **Evidenze:** 2 (0 confirming, 2 complicating)
+

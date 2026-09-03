@@ -3,21 +3,54 @@ title: "Antipatterns Are a Mirror"
 order: 1
 section: "Peeragogy in Practice"
 readingTime: 3
-tension_index: 1.5
-tags: ["antipatterns", "failure", "practice"]
-origin: seed
+tension_index: 1.5200
+tags: ["antipatterns", "failure", "practice", "audit-v2"]
+origin: "audit-v2"
 ---
 
-"Antipatterns: patterns that look good but lead to negative outcomes." "Recognizing antipatterns is the first step to avoiding them."
+## Summary
 
-An antipattern is a practice that seems reasonable but creates damage. "Too many facilitators." "Trying to force participation." "Consensus as a weapon."
+Naming dysfunction doesn't fix it. Theory says antipatterns guide prevention — practice shows they just redistribute failure modes. The real work happens after recognition.
 
-**Why it matters:** Antipatterns are the most honest part of the Handbook. They admit that peeragogy can fail. That what looks like a solution can be a trap. But listing antipatterns isn't enough. Because knowing an antipattern doesn't prevent it. It requires detection in real time. And detection is harder than recognition.
+## Evidenze Grounded
 
-The gap between "I know this antipattern" and "I see it happening now" is wide. In the moment, the antipattern feels right. It feels like the right thing to do. That's why it's an antipattern. It looks like a solution until it's not. The Handbook lists them. Practice must learn to spot them in the wild. That's a different skill.
+### 🔹 Confirming (2)
 
-**What to do instead:** Study antipatterns by examining your group's failures, not the Handbook's list. The list gives you categories. Your failures give you data. The most useful antipatterns are the ones your group actually falls into. Not the ones someone else documented.
+**Caso 1 — GitLab stewardship handbook**
+- **Fenomeno:** Explicit documentation of governance boundaries between corporate sponsor and community reduces friction in open-core projects.
+- **Fonte:** [https://about.gitlab.com/handbook/company/stewardship/](https://about.gitlab.com/handbook/company/stewardship/)
 
-> **Perturbator:** *"Antipatterns are the mistakes someone else made. They're comfortable. You read them and think 'we would never do that.' Then you do it three months later. Antipatterns are easy to recognize in theory. In practice, they feel like the right move. Until they're not. And by then it's too late."*
+**Caso 2 — OpenStreetMap Data Working Group resolution**
+- **Fenomeno:** Formal dispute resolution bodies with binding authority and published reasoning resolve peer production conflicts that informal consensus cannot.
+- **Fonte:** [https://wiki.osmfoundation.org/wiki/Data_Working_Group](https://wiki.osmfoundation.org/wiki/Data_Working_Group)
 
-**Reference:** Peeragogy Handbook, "Antipatterns" section.
+### 🔸 Complicating (2)
+
+**Caso 1 — WebAssembly Community Group governance**
+- **Fenomeno:** Choosing lighter governance models for standards development trades authority for speed, creating different failure modes for peer participation.
+- **Fonte:** [https://www.w3.org/community/webassembly/](https://www.w3.org/community/webassembly/)
+
+**Caso 2 — Wikipedia deletion debates and notability**
+- **Fenomeno:** Wikipedia's consensus processes produce de facto hierarchies through participation inequality — those who show up consistently gain disproportionate influence.
+- **Fonte:** [https://en.wikipedia.org/wiki/Wikipedia:Articles_for_deletion](https://en.wikipedia.org/wiki/Wikipedia:Articles_for_deletion)
+
+## Euristiche Operative
+
+### Positive Rule
+
+> This pattern works when combined with explicit governance trade-off analysis. GitLab stewardship handbook and OpenStreetMap Data Working Group show that documenting boundaries and formal dispute resolution prevent specific antipatterns while acknowledging the new failure modes they create.
+
+### Negative Rule
+
+> Do not apply antipattern recognition as a silver bullet for governance dysfunction. WebAssembly Community Group shows that lighter governance trades formal authority problems for speed-versus-consensus tensions, while Wikipedia deletion debates show consensus processes create participation inequality hierarchies.
+
+## Sintesi Obliqua
+
+Antipattern documentation promises governance improvement through systematic failure recognition. Partial verification — GitLab's stewardship boundaries and OpenStreetMap's dispute resolution do prevent specific dysfunctions while creating new ones. WebAssembly's lighter governance trades formal authority problems for consensus-speed tensions, while Wikipedia's deletion debates show how process clarity can amplify rather than resolve conflict. The pattern assumes dysfunction is eliminable rather than redistributable. Quietly, the mirror shows you what you already are.
+
+## Tracciabilità
+
+- **Audit:** `runs/audit-v2/antipatterns.json`
+- **Delta:** 1.5 → 1.5200 (+0.0200)
+- **Evidenze:** 4 (2 confirming, 2 complicating)
+

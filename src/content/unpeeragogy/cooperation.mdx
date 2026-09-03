@@ -3,21 +3,59 @@ title: "Cooperating Through Conflict Works"
 order: 1
 section: "Cooperation"
 readingTime: 3
-tension_index: 1.6
-tags: ["cooperation", "conflict", "coordination"]
-origin: seed
+tension_index: 1.553
+tags: ["cooperation", "conflict", "coordination", "audit-v2"]
+origin: "audit-v2"
 ---
 
-"Cooperating is one of the hardest things a group can do." "Conflict isn't a bug — it's the engine."
+Si coopera perché non si è d'accordo.
 
-The Handbook says cooperation requires shared goals, but the real fuel is friction. Two people who agree on everything don't cooperate. They mirror. Cooperation begins where agreement ends.
+Se lo fossimo, non servirebbe. Due persone che concordano su tutto non cooperano — si specchiano. Cooperazione è quello che succede *dopo* che il disaccordo è emerso e il gruppo non è collassato.
 
-**Why it matters:** Groups that avoid conflict never learn to cooperate. They stay in the polite phase, where everyone nods and nothing moves. Conflict isn't a failure of cooperation. It's the moment cooperation justifies its cost. Without friction, you don't need a group. You can agree with yourself.
+La teoria racconta cooperazione come armonia. La pratica sa che è logistica.
 
-The theory treats cooperation as harmony. Practice knows it's logistics. Someone carries the agenda. Someone calls out when trust is being weaponized. Someone says "this consensus is fake." Those moments are the only real output of cooperation. Everything else is coffee.
+## Evidenze Grounded
 
-**What to do instead:** Welcome conflict early. The first disagreement is the group's first real test. If the group survives it, it can work. If it smoothes it over, it has postponed a necessary confrontation. Conflict delayed is conflict amplified.
+### 🔹 Confirming (2)
 
-> **Perturbator:** *"You think cooperation means getting along. It doesn't. Cooperation means getting things done despite not getting along. The group that smiles through every disagreement isn't cooperating. It's postponing. Real cooperation starts when someone says 'I disagree' and the group doesn't collapse. That's the first cooperative act. Everything before that is just being nice."*
+**Caso 1 — GitLab stewardship handbook**
+- **Fenomeno:** GitLab Inc e la comunità open-core. Un patto scritto che dice: tu fai il tuo, noi facciamo il nostro, ecco dove finiscono i tuoi soldi e comincia la tua autonomia. Ha funzionato perché i confini erano espliciti.
+- **Fonte:** [about.gitlab.com/handbook/company/stewardship/](https://about.gitlab.com/handbook/company/stewardship/)
 
-**Reference:** Peeragogy Handbook, "Cooperation" section.
+**Caso 2 — Mondragon, la banca cooperativa che ha retto una crisi**
+- **Fenomeno:** Struttura multilivello — consigli, banche interne, meccanismi di contenimento. Quando è arrivata la crisi, la struttura ha incanalato il conflitto senza distruggere il gruppo. Non è successo per caso. È successo perché la governance c'era prima.
+- **Fonte:** [mondragon-corporation.com/en/about-us/governance/](https://www.mondragon-corporation.com/en/about-us/governance/)
+
+### 🔸 Complicating (2)
+
+**Caso 3 — Wikipedia ArbCom**
+- **Fenomeno:** La cooperazione informale falliva sistematicamente nelle dispute editoriali. Wikipedia ha dovuto creare un organo giudiziario formale — l'Arbitration Committee — perché il conflitto *non* catalizzava cooperazione. Serviva un'autorità terza.
+- **Fonte:** [en.wikipedia.org/wiki/Arbitration_Committee_(Wikimedia)](https://en.wikipedia.org/wiki/Arbitration_Committee_(Wikimedia))
+
+**Caso 4 — WebAssembly Community Group governance**
+- **Fenomeno:** Hanno scelto governance leggera per non rallentare lo sviluppo. Ne sono venuti failure mode prevedibili: decisioni contestate, partecipazione asimmetrica. Cooperazione senza governance non è cooperazione. È rinvio.
+- **Fonte:** [www.w3.org/community/webassembly/](https://www.w3.org/community/webassembly/)
+
+## Euristiche Operative
+
+### Positive Rule
+
+> Governance e confini chiari PRIMA del conflitto. GitLab e Mondragon avevano strutture pronte nel momento in cui servivano. La cooperazione non si improvvisa sotto pressione — si prepara.
+
+### Negative Rule
+
+> Non iniettare conflitto in un gruppo senza governance. Non è "coraggio". È incendio doloso. Wikipedia ArbCom dimostra che il conflitto senza struttura produce escalation, non cooperazione.
+
+## Sintesi Obliqua
+
+Il pattern dice: il conflitto catalizza cooperazione. Verifica parziale: *se* c'è infrastruttura di governance. GitLab e Mondragon confermano. Wikipedia e WebAssembly complicano.
+
+Il meccanismo è giusto. Ma descrive il carburante (conflitto) senza descrivere il motore (governance). Una teoria della cooperazione che parla di armonia e tace di potere non è una teoria — è una dichiarazione d'intenti.
+
+> **Perturbatore:** *"Credi che cooperare significhi andare d'accordo. No. Cooperare significa portare a casa il risultato nonostante non si vada d'accordo. Il gruppo che sorride a ogni disaccordo non coopera. Rimanda. La cooperazione vera comincia quando qualcuno dice 'non sono d'accordo' e il gruppo non collassa. Quello è il primo atto cooperativo. Tutto prima è solo essere gentili."*
+
+## Tracciabilità
+
+- **Audit:** `runs/audit-v2/cooperation.json`
+- **Delta:** 1.6 → 1.553 (−0.047)
+- **Evidenze:** 4 (2 confirming, 2 complicating)

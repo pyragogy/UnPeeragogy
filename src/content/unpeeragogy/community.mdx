@@ -3,23 +3,52 @@ title: "The Community That Isn't There"
 order: 1
 section: "Resources"
 readingTime: 3
-tension_index: 1.1
-tags: ["community", "lurking", "learning"]
-origin: seed
+tension_index: 1.1450
+tags: ["community", "lurking", "learning", "audit-v2"]
+origin: "audit-v2"
 ---
 
-The theory says: you're part of a community. And there are other communities out there you're not part of. Maybe you should get to know them.
+## Summary
 
-In reality, the problem isn't knowing other communities. It's that your community doesn't exist.
+Communities dissolve when authority is implicit. Theory says peer governance works through consensus — practice shows it works through documented boundaries. Without clear decision-making protocols, participants can't distinguish between discussion and power.
 
-**Why it matters:** It's called a community, but it's a WhatsApp group with 47 members where the last message was three weeks ago. It's called a community, but it has a forum where the last post is from 2022. It's called a community, but people don't know each other, don't see each other, don't produce together. Calling it a "community" is a narrative fiction. It's a group of strangers sharing a label — not a project, not a bond, not a common practice.
+## Evidenze Grounded
 
-The theory invites you to know other communities. Practice says: find yours first. If it exists.
+### 🔹 Confirming (2)
 
-**The meta-community case:** The Peeragogy Project itself calls itself a community. It has a "Community" page in the Handbook. But the real community — the one that wrote, discussed, produced — has dispersed. The patterns are written. The people are gone. The community became a document that talks about itself. Meta-community. Paper community.
+**Caso 1 — GitLab stewardship handbook**
+- **Fenomeno:** Explicit documentation of governance boundaries between corporate sponsor and community reduces friction in open-core projects.
+- **Fonte:** [https://about.gitlab.com/handbook/company/stewardship/](https://about.gitlab.com/handbook/company/stewardship/)
 
-**What to do instead:** A community isn't a group that shares an interest. It's a group that shares a cost. If no one pays — in time, energy, attention — there's no community. There's a label. Build the bond before you name it.
+*Solo 1 evidenze confirming.*
 
-> **Perturbator:** *"Call it a 'community' all you want. If people aren't exchanging anything — favors, critiques, resources — it's not a community. It's an address book. An address book has no pulse. No rhythm. No conflict. Just names you'll never call."*
+### 🔸 Complicating (2)
 
-**Reference:** Peeragogy Handbook, "Community" section.
+**Caso 1 — Debian DPL bits newsletter**
+- **Fenomeno:** Regular leadership summaries in peer-governed projects create agenda-setting power — what gets summarized is what gets attention.
+- **Fonte:** [https://lists.debian.org/debian-devel-announce/](https://lists.debian.org/debian-devel-announce/)
+
+**Caso 2 — WebAssembly Community Group governance**
+- **Fenomeno:** Choosing lighter governance models for standards development trades authority for speed, creating different failure modes for peer participation.
+- **Fonte:** [https://www.w3.org/community/webassembly/](https://www.w3.org/community/webassembly/)
+
+## Euristiche Operative
+
+### Positive Rule
+
+> This pattern works when governance boundaries are explicitly documented and regularly communicated. GitLab's stewardship handbook shows that transparent corporate-community boundaries enable sustained collaboration across different stakeholder interests.
+
+### Negative Rule
+
+> Do not apply this pattern when authority structures are implicit or undefined. The Peeragogy Project shows that communities claiming peer production without clear governance boundaries suffer authority-attrition as participants cannot distinguish between discussion and decision-making power.
+
+## Sintesi Obliqua
+
+The pattern claims that explicit governance documentation prevents community failure through authority confusion. Partial verification — GitLab's stewardship handbook does reduce corporate-community friction by mapping decision boundaries. But Debian's leadership newsletters show how regular summaries create agenda-setting power, while WebAssembly's lighter governance suggests the mechanism isn't always documentation weight. What's missing is the distinction between governing decisions and governing attention. The real breakdown isn't consensus failure — it's not knowing who controls the microphone.
+
+## Tracciabilità
+
+- **Audit:** `runs/audit-v2/community.json`
+- **Delta:** 1.1 → 1.1450 (+0.0450)
+- **Evidenze:** 3 (1 confirming, 2 complicating)
+

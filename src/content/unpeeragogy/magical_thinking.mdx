@@ -3,21 +3,54 @@ title: "Magical Thinking Is the Default"
 order: 1
 section: "Peeragogy in Practice"
 readingTime: 3
-tension_index: 1.7
-tags: ["magical_thinking", "projection", "fantasy"]
-origin: seed
+tension_index: 1.7200
+tags: ["magical_thinking", "projection", "fantasy", "audit-v2"]
+origin: "audit-v2"
 ---
 
-"When a group starts, people often imagine an idyllic community." "They project fantasies of belonging onto the group."
+## Summary
 
-Magical thinking is the default state of any new group. "We'll be different. We'll collaborate better. Here, hierarchy won't exist."
+Groups default to magical thinking when formal coordination fails. Theory says explicit governance replaces fantasy — practice shows the fantasy often works better than broken formal structures. It matters because premature formalization can destroy functioning informal coordination.
 
-**Why it matters:** Magical thinking isn't a bug. It's the engine of the first phase. Without it, groups wouldn't form. You need a dose of fantasy to start something uncertain. The problem is when magical thinking doesn't transition to realism. When the group stays in the fantasy for months and never faces operational reality.
+## Evidenze Grounded
 
-The gap between fantasy and reality is where groups dissolve. They can't maintain the fantasy (too much friction) and can't accept reality (too much work). So they float. Meetings where nothing happens. Discussions that don't advance. Decisions that aren't made. The group is neither the paradise imagined nor the functioning group it could become. It's stuck.
+### 🔹 Confirming (2)
 
-**What to do instead:** Fantasy is fuel. Not a destination. Use the energy of the first phase to create something real before the fantasy fades. If after two months the group is still discussing "how wonderful it would be if...," the fuel is gone. And the vehicle hasn't moved.
+**Caso 1 — GitLab stewardship handbook**
+- **Fenomeno:** Explicit documentation of governance boundaries between corporate sponsor and community reduces friction in open-core projects.
+- **Fonte:** [https://about.gitlab.com/handbook/company/stewardship/](https://about.gitlab.com/handbook/company/stewardship/)
 
-> **Perturbator:** *"You imagined the group would be wonderful. It's not. There's conflict, confusion, laziness. You have two options: accept the disappointment and work, or keep fantasizing about the group that could be and do nothing. The second option is more common. It's also more comfortable. And it leads nowhere."*
+**Caso 2 — OpenStreetMap Data Working Group resolution**
+- **Fenomeno:** Formal dispute resolution bodies with binding authority and published reasoning resolve peer production conflicts that informal consensus cannot.
+- **Fonte:** [https://wiki.osmfoundation.org/wiki/Data_Working_Group](https://wiki.osmfoundation.org/wiki/Data_Working_Group)
 
-**Reference:** Peeragogy Handbook, "Magical Thinking" pattern (Peeragogy in Practice section).
+### 🔸 Complicating (2)
+
+**Caso 1 — Drupal governance / community working groups**
+- **Fenomeno:** Intentional governance transition from BDFL to community model requires years of structural work, not organic emergence.
+- **Fonte:** [https://www.drupal.org/governance](https://www.drupal.org/governance)
+
+**Caso 2 — RISC-V foundation governance / move to Switzerland**
+- **Fenomeno:** Foundation-govered open-source projects can make binding legal decisions (domicile, IP) without community consent, exposing the limits of peer governance in incorporated projects.
+- **Fonte:** [https://riscv.org/announcements/risc-v-foundation-to-move-to-switzerland/](https://riscv.org/announcements/risc-v-foundation-to-move-to-switzerland/)
+
+## Euristiche Operative
+
+### Positive Rule
+
+> This pattern works when explicit governance alternatives exist and can be implemented immediately. GitLab stewardship handbook and OpenStreetMap Data Working Group show that formal boundaries and dispute resolution mechanisms can replace magical thinking with functional coordination structures.
+
+### Negative Rule
+
+> Do not apply this pattern when groups lack governance infrastructure but are still coordinating effectively. The Drupal governance transition shows that moving from informal to formal structures requires years of deliberate work — premature intervention destroys working coordination without providing alternatives.
+
+## Sintesi Obliqua
+
+The pattern claims magical thinking robs contexts of process and learning. Partial verification — when GitLab's stewardship handbook and OpenStreetMap's Data Working Group show formal boundaries can work. But Drupal's governance transition reveals the complication: moving from informal to formal takes years of deliberate work, and premature intervention destroys what's already functioning. The real mechanism isn't replacing magic with structure. It's recognizing when the magic is load-bearing.
+
+## Tracciabilità
+
+- **Audit:** `runs/audit-v2/magical_thinking.json`
+- **Delta:** 1.7 → 1.7200 (+0.0200)
+- **Evidenze:** 4 (2 confirming, 2 complicating)
+

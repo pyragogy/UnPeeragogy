@@ -3,19 +3,52 @@ title: "Real-Time Doesn't Scale"
 order: 1
 section: "Technologies, Services, and Platforms"
 readingTime: 3
-tension_index: 1.4
-tags: ["realtime", "synchronous", "communication"]
-origin: seed
+tension_index: 1.5792
+tags: ["realtime", "synchronous", "communication", "audit-v2"]
+origin: "audit-v2"
 ---
 
-"Real-time interaction and synchronous media often support quick decision-making and help with community building."
+## Summary
 
-**Why it matters:** Real-time interaction is powerful and expensive. It creates connection. It also consumes attention. A group that relies on real-time interaction limits its capacity to those who can be present at the same time. This excludes time zones, work schedules, and family obligations.
+Real-time democracy is just tyranny of the unemployed. Theory says synchronous tools add richness to async platforms — practice shows they create participation hierarchies based on schedule flexibility. The pattern works when real-time decisions stay provisional.
 
-The theory says real-time helps decision-making. True. But it also creates an invisible hierarchy: those who can be present decide more than those who can't. A group that decides everything in real-time meetings is a group where absent members have less power. The hierarchy isn't named. It's just factual.
+## Evidenze Grounded
 
-**What to do instead:** Use real-time for connection, not decisions. Decisions should be asynchronous. Real-time for building trust, discussing complex issues. Asynchronous for deciding. If you decide everything during calls, the call becomes the center of power. And power in peeragogy should be distributed. Asynchronous tools distribute it better.
+### 🔹 Confirming (2)
 
-> **Perturbator:** *"You decide everything during the weekly call. Good for those who attend. Bad for those who can't. Every real-time decision is a decision made without the group. It's made with the subgroup that showed up. Real-time is useful. It's not democratic. The faster you decide, the more people you exclude."*
+**Caso 1 — OpenStreetMap Data Working Group resolution**
+- **Fenomeno:** Formal dispute resolution bodies with binding authority and published reasoning resolve peer production conflicts that informal consensus cannot.
+- **Fonte:** [https://wiki.osmfoundation.org/wiki/Data_Working_Group](https://wiki.osmfoundation.org/wiki/Data_Working_Group)
 
-**Reference:** Peeragogy Handbook, "Real-time" section (Technologies, Services, and Platforms).
+*Solo 1 evidenze confirming.*
+
+### 🔸 Complicating (2)
+
+**Caso 1 — Apache Software Foundation governance model**
+- **Fenomeno:** Meritocracy-based peer governance creates invisible barriers: those with more free time accumulate authority, creating a class system within the 'flat' organization.
+- **Fonte:** [https://www.apache.org/foundation/how-it-works.html](https://www.apache.org/foundation/how-it-works.html)
+
+**Caso 2 — Debian init system transition (systemd)**
+- **Fenomeno:** Technical decisions in peer communities can cause permanent splits when decision-making authority is contested.
+- **Fonte:** [https://wiki.debian.org/Init](https://wiki.debian.org/Init)
+
+## Euristiche Operative
+
+### Positive Rule
+
+> This pattern works when real-time decisions are paired with formal dispute resolution mechanisms that operate asynchronously. The OpenStreetMap Data Working Group shows that binding authority with published reasoning can resolve peer production conflicts that informal real-time consensus cannot address.
+
+### Negative Rule
+
+> Do not rely on real-time decision-making when members have unequal time availability. The Apache Software Foundation model shows that those with more free time accumulate authority, creating a class system within the 'flat' organization that excludes time-constrained contributors.
+
+## Sintesi Obliqua
+
+The pattern claims real-time tools enhance peer learning by adding audio-visual richness to asynchronous platforms. Partial verification — but only when time availability is roughly equal across participants. OpenStreetMap's formal dispute resolution shows that binding authority with published reasoning resolves conflicts informal consensus cannot touch, while Apache's meritocracy demonstrates how free time becomes accumulated power within supposedly flat organizations. The mechanism missing: how to prevent schedule privilege from becoming governance privilege. Real-time works. Until Tuesday morning.
+
+## Tracciabilità
+
+- **Audit:** `runs/audit-v2/realtime.json`
+- **Delta:** 1.4 → 1.5792 (+0.1792)
+- **Evidenze:** 3 (1 confirming, 2 complicating)
+

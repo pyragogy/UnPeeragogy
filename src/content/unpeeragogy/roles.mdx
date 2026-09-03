@@ -3,19 +3,52 @@ title: "Roles Are the Invisible Hierarchy"
 order: 1
 section: "Cooperation"
 readingTime: 3
-tension_index: 1.5
-tags: ["roles", "responsibilities", "distribution"]
-origin: seed
+tension_index: 1.6467
+tags: ["roles", "responsibilities", "distribution", "audit-v2"]
+origin: "audit-v2"
 ---
 
-"Roles: assignments of responsibility in the group." "Who does what."
+## Summary
 
-**Why it matters:** Roles are never neutral. Every role distribution is a power distribution. The person who manages the agenda has power over the meeting. The person who manages the platform has power over communication. The person who manages the budget has power over resources.
+Roles emerge to hide power, not distribute it. Theory says peer governance flattens hierarchy — practice shows roles just make authority invisible. The question isn't whether you have roles, but whether you can see them working.
 
-The theory presents roles as functional. "We need someone to facilitate." Practice knows that the person who facilitates also influences decisions. The role amplifies their voice. The group pretends it's flat. But roles create micro-hierarchies. Every role is a small throne. Small thrones are still thrones.
+## Evidenze Grounded
 
-**What to do instead:** Roles should rotate. If the same person facilitates for six months, they're not facilitating. They're leading. Rotation keeps roles functional, not hierarchical. But rotation creates inefficiency. The new person takes time to learn. The trade-off is between efficiency and equality. Choose consciously. Don't pretend the trade-off doesn't exist.
+### 🔹 Confirming (2)
 
-> **Perturbator:** *"Roles are power. You say 'roles are functional distribution.' They are. They're also power distribution. The person who decides the agenda decides what's discussed. The person who decides what's discussed decides what's decided. Roles are stairs. The group is flat until someone climbs. And someone always climbs."*
+**Caso 1 — Fedora Engineering Steering Committee (FESCo)**
+- **Fenomeno:** Elected technical steering committees with defined scope and transparent records provide sustainable peer governance for large distributions.
+- **Fonte:** [https://docs.fedoraproject.org/en-US/fesco/](https://docs.fedoraproject.org/en-US/fesco/)
 
-**Reference:** Peeragogy Handbook, "Roles" pattern (Cooperation section).
+*Solo 1 evidenze confirming.*
+
+### 🔸 Complicating (2)
+
+**Caso 1 — Linux kernel maintainer burnout**
+- **Fenomeno:** Peer governance models that concentrate review authority on volunteers create burnout failure points that hierarchy would mitigate through role redundancy.
+- **Fonte:** [https://lwn.net/Articles/885941/](https://lwn.net/Articles/885941/)
+
+**Caso 2 — Lido DAO governance centralization**
+- **Fenomeno:** Token-based governance in DAOs concentrates power among large holders, creating de facto plutocracy rather than peer equality.
+- **Fonte:** [https://lido.fi/governance](https://lido.fi/governance)
+
+## Euristiche Operative
+
+### Positive Rule
+
+> This pattern works when authority scope is explicitly bounded and transparent. Fedora Engineering Steering Committee shows that elected technical roles with defined scope and public records maintain peer governance while preventing both burnout and shadow hierarchies.
+
+### Negative Rule
+
+> Do not apply fluid roles when decisions require specialized knowledge or have long-term maintenance burden. Linux kernel maintainer burnout shows that unlimited peer responsibility creates failure points that structured roles with redundancy could prevent.
+
+## Sintesi Obliqua
+
+The pattern claims fluid roles prevent hierarchy while maintaining peer governance. Partial verification — when scope is bounded and records are transparent, elected technical committees like Fedora's FESCo do sustain peer decision-making without shadow authority. But Linux kernel maintainer burnout and Lido DAO token concentration show that unbounded peer responsibility creates failure points that structured redundancy could prevent. The mechanism missing here is how roles become visible before they become problems. Authority doesn't disappear when you refuse to name it.
+
+## Tracciabilità
+
+- **Audit:** `runs/audit-v2/roles.json`
+- **Delta:** 1.5 → 1.6467 (+0.1467)
+- **Evidenze:** 3 (1 confirming, 2 complicating)
+

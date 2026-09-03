@@ -3,21 +3,54 @@ title: "Auditing Patterns Is a Circular Habit"
 order: 1
 section: "Peeragogy in Practice"
 readingTime: 3
-tension_index: 1.5
-tags: ["pattern_audit", "review", "check"]
-origin: seed
+tension_index: 1.5288
+tags: ["pattern_audit", "review", "check", "audit-v2"]
+origin: "audit-v2"
 ---
 
-"They evaluate the patterns based on their experience at the event." "They identify patterns that work and those that need adjustment."
+## Summary
 
-Pattern audit: checking whether the group's patterns are still working.
+Pattern audits without enforcement power become documentation theater. The theory promises iterative refinement — practice delivers endless meetings about meetings. Authority to implement changes separates functional review from organized procrastination.
 
-**Why it matters:** Auditing patterns is another meta-activity that tends to replace the activity. The group audits its patterns, discovers which ones are broken, and instead of fixing them, audits again. Because auditing is easier than fixing. Fixing requires effort. Auditing requires a meeting.
+## Evidenze Grounded
 
-The pattern audit is useful if it's followed by concrete action. "Pattern X isn't working. We'll replace it with Y by next meeting." Without a decision and a deadline, the audit becomes a report. Reports don't change behavior.
+### 🔹 Confirming (2)
 
-**What to do instead:** Every audit must generate at least one action. Not a recommendation. An action. If the audit generates no actions, it's not an audit. It's a conversation. And the group doesn't need more conversations. It needs decisions.
+**Caso 1 — OpenStreetMap Data Working Group resolution**
+- **Fenomeno:** Formal dispute resolution bodies with binding authority and published reasoning resolve peer production conflicts that informal consensus cannot.
+- **Fonte:** [https://wiki.osmfoundation.org/wiki/Data_Working_Group](https://wiki.osmfoundation.org/wiki/Data_Working_Group)
 
-> **Perturbator:** *"You audited the patterns. Found five that don't work. Now what? If the answer is 'we'll discuss how to fix them at the next meeting,' the audit didn't work. The audit worked when one of the five patterns was replaced by the end of the meeting. Action is the only valid output of an audit. Everything else is conversation pretending to be analysis."*
+**Caso 2 — Fedora Engineering Steering Committee (FESCo)**
+- **Fenomeno:** Elected technical steering committees with defined scope and transparent records provide sustainable peer governance for large distributions.
+- **Fonte:** [https://docs.fedoraproject.org/en-US/fesco/](https://docs.fedoraproject.org/en-US/fesco/)
 
-**Reference:** Peeragogy Handbook, "Pattern Audit" pattern (Peeragogy in Practice section).
+### 🔸 Complicating (2)
+
+**Caso 1 — IETF working group rough consensus**
+- **Fenomeno:** Rough consensus governance only works when backed by hierarchical escalation paths; pure consensus without appeals fails.
+- **Fonte:** [https://www.ietf.org/about/](https://www.ietf.org/about/)
+
+**Caso 2 — Drupal governance / community working groups**
+- **Fenomeno:** Intentional governance transition from BDFL to community model requires years of structural work, not organic emergence.
+- **Fonte:** [https://www.drupal.org/governance](https://www.drupal.org/governance)
+
+## Euristiche Operative
+
+### Positive Rule
+
+> This pattern works when audit bodies have binding decision-making authority and published reasoning processes. The OpenStreetMap Data Working Group and Fedora Engineering Steering Committee demonstrate that formal authority structures with transparent records successfully resolve conflicts that informal auditing cannot address.
+
+### Negative Rule
+
+> Do not apply this pattern when the auditing group lacks authority to implement changes. The IETF rough consensus model shows that pure consensus auditing fails without appeals processes, creating decision paralysis rather than improvement.
+
+## Sintesi Obliqua
+
+The pattern claims systematic review creates adaptive collections. Partial verification — but only when auditors can act on findings. OpenStreetMap's Data Working Group and Fedora's Engineering Committee demonstrate that binding authority plus transparent reasoning resolves what consensus cannot, while IETF working groups show how rough consensus without appeals creates decision paralysis rather than pattern evolution. The mechanism missing from most implementations: the gap between identifying problems and having power to fix them. Auditing becomes circular when reviewers can only recommend.
+
+## Tracciabilità
+
+- **Audit:** `runs/audit-v2/pattern_audit.json`
+- **Delta:** 1.5 → 1.5288 (+0.0288)
+- **Evidenze:** 4 (2 confirming, 2 complicating)
+

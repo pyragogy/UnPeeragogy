@@ -3,19 +3,54 @@ title: "Outtakes Are the Real Story"
 order: 1
 section: "Resources"
 readingTime: 3
-tension_index: 1.3
-tags: ["outtakes", "rejected", "revision"]
-origin: seed
+tension_index: 1.2533
+tags: ["outtakes", "rejected", "revision", "audit-v2"]
+origin: "audit-v2"
 ---
 
-"Outtakes: material that was cut from the Handbook." "What didn't make it."
+## Summary
 
-**Why it matters:** Outtakes are the most honest pages of the Handbook. They show what the group considered and rejected. They reveal the editorial process. They show the boundaries of the Handbook's thinking.
+Documentation that hides governance fights teaches collaboration without showing how it breaks. Theory says peer learning needs clean patterns. Practice shows that GitLab handbooks and OpenStreetMap dispute logs work because they document the friction, not despite it.
 
-The problem with outtakes is that they're curated. They're the material the editors decided to share. The truly rejected material — the arguments, the conflicts, the personal attacks — those aren't in the outtakes. The outtakes are edited too. They show what the group is willing to admit about its process. Not the full process.
+## Evidenze Grounded
 
-**What to do instead:** Real outtakes would include the fights. The disagreements about what a pattern means. The moments someone left the group. The decisions that reduced participation. Those outtakes would be more instructive than any pattern. But they're not in the Handbook. Because they're uncomfortable. And the Handbook prefers comfort.
+### 🔹 Confirming (2)
 
-> **Perturbator:** *"Outtakes. Material that didn't fit. Edits that were rejected. Fascinating. Now show me the ones that reveal real conflict. Who fought? About what? Who left? That's the real outtakes. The Handbook's outtakes are safe. They're the disagreements resolved. Not the ones that ended relationships."*
+**Caso 1 — GitLab stewardship handbook**
+- **Fenomeno:** Explicit documentation of governance boundaries between corporate sponsor and community reduces friction in open-core projects.
+- **Fonte:** [https://about.gitlab.com/handbook/company/stewardship/](https://about.gitlab.com/handbook/company/stewardship/)
 
-**Reference:** Peeragogy Handbook, "Outtakes" section (Resources).
+**Caso 2 — OpenStreetMap Data Working Group resolution**
+- **Fenomeno:** Formal dispute resolution bodies with binding authority and published reasoning resolve peer production conflicts that informal consensus cannot.
+- **Fonte:** [https://wiki.osmfoundation.org/wiki/Data_Working_Group](https://wiki.osmfoundation.org/wiki/Data_Working_Group)
+
+### 🔸 Complicating (2)
+
+**Caso 1 — WebAssembly Community Group governance**
+- **Fenomeno:** Choosing lighter governance models for standards development trades authority for speed, creating different failure modes for peer participation.
+- **Fonte:** [https://www.w3.org/community/webassembly/](https://www.w3.org/community/webassembly/)
+
+**Caso 2 — Wikipedia Arbitration Committee (ArbCom)**
+- **Fenomeno:** Peer production communities develop formal judicial bodies when informal consensus fails, contradicting the assumption that peers can self-govern without hierarchy.
+- **Fonte:** [https://en.wikipedia.org/wiki/Arbitration_Committee_(Wikimedia)](https://en.wikipedia.org/wiki/Arbitration_Committee_(Wikimedia))
+
+## Euristiche Operative
+
+### Positive Rule
+
+> This pattern works when documentation includes explicit governance boundaries and formal dispute resolution mechanisms with published reasoning. GitLab's stewardship handbook, OpenStreetMap's Data Working Group, and Wikipedia's Arbitration Committee all demonstrate that transparency about conflict resolution enables sustainable peer collaboration.
+
+### Negative Rule
+
+> Do not curate out governance conflicts and dispute resolution mechanisms when documenting peer learning patterns. GitLab, OpenStreetMap, and Wikipedia all show that sanitized documentation fails to prepare participants for the governance tensions that every peer production system faces.
+
+## Sintesi Obliqua
+
+The pattern claims sanitized documentation protects learners from messy governance reality. Partial verification — when you look at what actually sustains peer production. GitLab's stewardship boundaries and OpenStreetMap's Data Working Group both work precisely because they document conflicts with published reasoning, while WebAssembly's lighter governance shows the limits of consensus-only approaches. But the real mechanism isn't transparency about conflict resolution — it's that documenting friction creates the scaffolding for navigating it. Surgery without blood isn't surgery.
+
+## Tracciabilità
+
+- **Audit:** `runs/audit-v2/outtakes.json`
+- **Delta:** 1.3 → 1.2533 (-0.0467)
+- **Evidenze:** 4 (2 confirming, 2 complicating)
+

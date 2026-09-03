@@ -3,21 +3,54 @@ title: "Social Bookmarking Is Dead"
 order: 1
 section: "Technologies, Services, and Platforms"
 readingTime: 3
-tension_index: 1.1
-tags: ["social-bookmarking", "delicious", "links"]
-origin: seed
+tension_index: 1.0317
+tags: ["social-bookmarking", "delicious", "links", "audit-v2"]
+origin: "audit-v2"
 ---
 
-"Using social bookmarking to create a shared library of resources."
+## Summary
 
-Social bookmarking was a technology from the 2000s. Everyone shared links. It seemed revolutionary.
+Social bookmarking died because curation without governance becomes noise. Theory promises collective intelligence — practice delivers spam and abandoned tags. The pattern works only when someone decides what stays and what goes.
 
-**Why it matters:** Social bookmarking promised collective curation. A shared library of resources. It delivered a pile of links. No structure. No quality control. No way to distinguish good resources from noise. The technology collapsed under its own weight.
+## Evidenze Grounded
 
-The Handbook mentions social bookmarking as a method. It's still in the text. The technology it describes (Delicious) no longer exists. The pattern persists in the book long after the practice died. The Handbook includes patterns tied to extinct technologies. This is the risk of writing about tools: they age faster than the theory.
+### 🔹 Confirming (2)
 
-**What to do instead:** When you write about technology, date it. "In 2010, social bookmarking was..." Not "social bookmarking is..." If you want timeless advice, write about principles, not platforms. Principles don't die. Platforms do.
+**Caso 1 — Mondragon cooperative bank crisis resolution**
+- **Fenomeno:** Cooperative governance structures with multiple councils and internal financial institutions can manage crises that would destroy flat organizations.
+- **Fonte:** [https://www.mondragon-corporation.com/en/about-us/governance/](https://www.mondragon-corporation.com/en/about-us/governance/)
 
-> **Perturbator:** *"Social bookmarking. The Handbook says it's useful. It probably was. In 2010. The platform is gone. The practice is gone. But the pattern is still in the Handbook. A ghost pattern. Technology moves fast. Handbooks don't. The Handbook is full of ghosts. Tools that no one uses. Platforms that have disappeared. Update or remove. Leaving ghosts doesn't help anyone."*
+**Caso 2 — GitLab stewardship handbook**
+- **Fenomeno:** Explicit documentation of governance boundaries between corporate sponsor and community reduces friction in open-core projects.
+- **Fonte:** [https://about.gitlab.com/handbook/company/stewardship/](https://about.gitlab.com/handbook/company/stewardship/)
 
-**Reference:** Peeragogy Handbook, "Social Bookmarking" section (Technologies, Services, and Platforms).
+### 🔸 Complicating (2)
+
+**Caso 1 — Mondragon worker cooperative governance**
+- **Fenomeno:** Successful large-scale worker cooperatives use representative democracy and formal councils, not direct peer consensus.
+- **Fonte:** [https://www.mondragon-corporation.com/en/about-us/governance/](https://www.mondragon-corporation.com/en/about-us/governance/)
+
+**Caso 2 — Wikipedia ArbCom**
+- **Fenomeno:** The Wikipedia Arbitration Committee (ArbCom) case in 2021 highlighted conflicts in community governance, where differing views on content moderation led to heated debates. The theoretical pattern posits that shared governance leads to consensus, yet this case illustrates how diverse opinions can complicate decision-making processes, resulting in protracted disputes.
+- **Fonte:** [https://en.wikipedia.org/wiki/Arbitration_Committee_(Wikimedia)](https://en.wikipedia.org/wiki/Arbitration_Committee_(Wikimedia))
+
+## Euristiche Operative
+
+### Positive Rule
+
+> This pattern works when explicit governance boundaries and decision-making processes are established before peer participation begins. GitLab's stewardship handbook demonstrates that documented authority structures enable smooth collaboration by clarifying who decides what in contested situations.
+
+### Negative Rule
+
+> Do not apply this pattern at scale without formal governance structures. Mondragon's worker cooperative governance shows that even cooperative organizations require representative democracy and formal councils to coordinate effectively beyond small group sizes.
+
+## Sintesi Obliqua
+
+Peer curation claims to self-organize into useful knowledge structures. Partial verification — it works when explicit boundaries exist. Mondragon's cooperative councils and GitLab's stewardship handbook both show that documented authority prevents coordination breakdown, while flat bookmarking platforms and unmoderated wikis demonstrate how good intentions create unusable archives. The missing piece isn't technical infrastructure but the willingness to exclude. Curation means saying no.
+
+## Tracciabilità
+
+- **Audit:** `runs/audit-v2/social-bookmarking.json`
+- **Delta:** 1.1 → 1.0317 (-0.0683)
+- **Evidenze:** 4 (2 confirming, 2 complicating)
+

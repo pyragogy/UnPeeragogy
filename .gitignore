@@ -15,3 +15,5 @@ Thumbs.db
 
 # Operativa (locale, non pushato)
 GUIDA.md
+runs/
+scripts/__pycache__/

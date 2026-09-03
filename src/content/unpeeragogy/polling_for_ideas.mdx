@@ -3,21 +3,54 @@ title: "Polling for Ideas Is a Status Check"
 order: 1
 section: "Convening a Group"
 readingTime: 3
-tension_index: 1.3
-tags: ["polling_for_ideas", "collect", "direction"]
-origin: seed
+tension_index: 1.1138
+tags: ["polling_for_ideas", "collect", "direction", "audit-v2"]
+origin: "audit-v2"
 ---
 
-"Once you have a group, you need to co-create the direction." "Collect ideas for what the group should do."
+## Summary
 
-Polling: collecting ideas from the group to decide direction.
+Polling measures preferences without creating accountability for outcomes. Theory says ask the crowd — practice shows you need someone to count votes and enforce results. The mechanism works when authority structures exist to act on what gets measured.
 
-**Why it matters:** Polling is the most democratic way to decide nothing. Everyone gives their opinion. No one decides. The result is a list of preferences with no priority. A list is not a direction.
+## Evidenze Grounded
 
-The problem with polling is that it distributes responsibility. If everyone contributed an idea, everyone is responsible. Which means no one is responsible. The direction doesn't emerge from the poll. It emerges from whoever champions an idea and pushes it through. But the champion isn't chosen by the poll. The poll gave the illusion that everyone decides. In reality, someone decides. The poll just hid it.
+### 🔹 Confirming (2)
 
-**What to do instead:** If you want to decide a direction, don't poll. Discuss. Argue. Choose. Polling is appropriate when there are clear options and clear criteria. In the early phase of a group, neither exists. Polling is premature. You're not ready to vote. You're ready to talk.
+**Caso 1 — OpenStreetMap Data Working Group resolution**
+- **Fenomeno:** Formal dispute resolution bodies with binding authority and published reasoning resolve peer production conflicts that informal consensus cannot.
+- **Fonte:** [https://wiki.osmfoundation.org/wiki/Data_Working_Group](https://wiki.osmfoundation.org/wiki/Data_Working_Group)
 
-> **Perturbator:** *"You polled the group. Everyone gave an idea. Now you have a list of 12 ideas. Which one do you pursue? The answer is: none. Because polling gave you a list, not a decision. A decision requires someone to say 'this one.' Polling avoids decisions. It distributes them so no one has to take responsibility."*
+**Caso 2 — Wikipedia Good Article process**
+- **Fenomeno:** Peer assessment with transparent criteria and independent reviewers creates sustainable quality tiers in open communities.
+- **Fonte:** [https://en.wikipedia.org/wiki/Wikipedia:Good_articles](https://en.wikipedia.org/wiki/Wikipedia:Good_articles)
 
-**Reference:** Peeragogy Handbook, "Polling for Ideas" pattern (Convening a Group section).
+### 🔸 Complicating (2)
+
+**Caso 1 — WebAssembly Community Group governance**
+- **Fenomeno:** Choosing lighter governance models for standards development trades authority for speed, creating different failure modes for peer participation.
+- **Fonte:** [https://www.w3.org/community/webassembly/](https://www.w3.org/community/webassembly/)
+
+**Caso 2 — MakerDAO Black Thursday**
+- **Fenomeno:** DAO governance mechanisms designed for normal operations can fail catastrophically under stress, requiring emergency governance that existing processes don't cover.
+- **Fonte:** [https://blog.makerdao.com/makerdao-community-emergency-response-to-black-thursday/](https://blog.makerdao.com/makerdao-community-emergency-response-to-black-thursday/)
+
+## Euristiche Operative
+
+### Positive Rule
+
+> This pattern works when polling lacks binding authority and transparent criteria. Informal polls without enforcement mechanisms do lead to decision-stagnation, as the original pattern describes, because they measure preferences without creating accountability for outcomes.
+
+### Negative Rule
+
+> Do not apply this pattern when formal governance structures with binding authority exist. OpenStreetMap's Data Working Group shows that peer groups can make accountable decisions when they have clear dispute resolution mechanisms and published reasoning requirements.
+
+## Sintesi Obliqua
+
+The pattern claims informal polling leads to decision-stagnation because groups don't know answers in advance. Partial verification — but only when polling lacks binding authority. OpenStreetMap's Data Working Group and Wikipedia's Good Article process both use peer input with enforcement mechanisms and transparent criteria, proving groups can make accountable decisions when structured properly. WebAssembly's lighter governance complicates this by showing some communities deliberately choose informal modes. What's missing is the recognition that polling isn't broken — it's just a measurement tool. The real question is whether anyone has the authority to act on what gets counted.
+
+## Tracciabilità
+
+- **Audit:** `runs/audit-v2/polling_for_ideas.json`
+- **Delta:** 1.3 → 1.1138 (-0.1862)
+- **Evidenze:** 4 (2 confirming, 2 complicating)
+

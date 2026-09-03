@@ -3,21 +3,52 @@ title: "Carrying Capacity Is an Excuse"
 order: 1
 section: "Peeragogy in Practice"
 readingTime: 3
-tension_index: 1.7
-tags: ["carrying", "stress", "conflict"]
-origin: seed
+tension_index: 1.7450
+tags: ["carrying", "stress", "conflict", "audit-v2"]
+origin: "audit-v2"
 ---
 
-"This pattern helps participants recognize and communicate their stress." "Given enough eyeballs, all bugs are shallow."
+## Summary
 
-The Carrying Capacity pattern is about resilience. Recognizing your limits. Communicating them. Not burning out.
+Carrying someone means you both sink together. Theory says peer support distributes load — practice shows it just redistributes failure. The real question isn't who carries whom, but whether the structure can handle anyone failing at all.
 
-**Why it matters:** Recognizing your limits is the first step toward quitting. Not cynicism. Physiology. The person who says "I can't do this" is usually not asking for help. They're looking for an exit. And the group, which doesn't want pressure, gives it to them. "Sure, take a break." The break becomes permanent.
+## Evidenze Grounded
 
-The theory says: "communicate your stress." But communication doesn't resolve stress. It shifts it. The person communicating stress is asking the group to carry some of it. But the group already has its own stress. It has no extra carrying capacity. A group's resilience is inversely proportional to the number of people declaring fragility. The more people declare fragility, the less resilient the group becomes. Fragility is contagious.
+### 🔹 Confirming (2)
 
-**What to do instead:** Before you tell someone "take a break," ask: "what would need to change so you don't need a break?" Sometimes the honest answer is: "this project is too big for us." There's no pattern that fixes an under-resourced group. Recognizing limits also means knowing when to stop.
+**Caso 1 — OpenStreetMap Data Working Group resolution**
+- **Fenomeno:** Formal dispute resolution bodies with binding authority and published reasoning resolve peer production conflicts that informal consensus cannot.
+- **Fonte:** [https://wiki.osmfoundation.org/wiki/Data_Working_Group](https://wiki.osmfoundation.org/wiki/Data_Working_Group)
 
-> **Perturbator:** *"Is your group resilient, or just tolerant? Resilience shows when someone is under pressure and the group supports them. Tolerance shows when someone says 'I can't do this' and the group says 'ok, stop.' Tolerance is kind. Resilience is expensive. Most groups choose kindness. Then they dissolve."*
+*Solo 1 evidenze confirming.*
 
-**Reference:** Peeragogy Handbook, "Carrying Capacity" pattern (Peeragogy in Practice section).
+### 🔸 Complicating (2)
+
+**Caso 1 — Linux kernel Code of Conflict**
+- **Fenomeno:** External pressure can force governance changes in peer communities that would not arise from internal deliberation alone.
+- **Fonte:** [https://docs.kernel.org/process/code-of-conflict.html](https://docs.kernel.org/process/code-of-conflict.html)
+
+**Caso 2 — WebAssembly Community Group governance**
+- **Fenomeno:** Choosing lighter governance models for standards development trades authority for speed, creating different failure modes for peer participation.
+- **Fonte:** [https://www.w3.org/community/webassembly/](https://www.w3.org/community/webassembly/)
+
+## Euristiche Operative
+
+### Positive Rule
+
+> This pattern works when formal dispute resolution bodies with binding authority exist as backstops to informal support. The OpenStreetMap Data Working Group shows that published reasoning and binding decisions resolve conflicts that peer consensus cannot handle, making temporary carrying sustainable.
+
+### Negative Rule
+
+> Do not apply this pattern when fragility affects core decision-making or becomes chronic without formal escalation mechanisms. The Linux kernel Code of Conflict shows that peer communities cannot resolve fundamental governance disputes through informal carrying alone — external pressure becomes necessary.
+
+## Sintesi Obliqua
+
+The pattern claims formal dispute resolution makes temporary carrying sustainable by providing escalation when peer consensus breaks down. Partial verification — but only when authority can actually be redistributed. OpenStreetMap's Data Working Group proves that published reasoning resolves what informal support cannot, while Linux's Code of Conflict shows external pressure forces changes that internal deliberation never would. The mechanism missing: how to distinguish between temporary fragility worth carrying and structural weakness that carrying only masks. Quietly carrying someone to the exit.
+
+## Tracciabilità
+
+- **Audit:** `runs/audit-v2/carrying.json`
+- **Delta:** 1.7 → 1.7450 (+0.0450)
+- **Evidenze:** 3 (1 confirming, 2 complicating)
+

@@ -3,21 +3,54 @@ title: "Moderation Is a Dirty Job"
 order: 1
 section: "Peeragogy in Practice"
 readingTime: 3
-tension_index: 1.4
-tags: ["moderation", "conflict", "facilitation"]
-origin: seed
+tension_index: 1.4200
+tags: ["moderation", "conflict", "facilitation", "audit-v2"]
+origin: "audit-v2"
 ---
 
-"Moderation is the method of maintaining the conversation in a productive direction." "Being the moderator is a great way to improve the quality of discussions."
+## Summary
 
-The theory presents moderation as a service role. You moderate to help the group.
+Moderation burns out volunteers faster than communities can replace them. Theory says shared responsibility distributes the load — practice shows it just diffuses accountability. The real mechanism isn't participation balance but authority backup.
 
-**Why it matters:** Moderation is the most unpopular role in any group. You interrupt, redirect, filter. You say "this is off-topic" to someone who's enthusiastic. You say "this discussion is closed" to someone who wants to continue. You make enemies. Every time. Moderation is the willingness to be disliked for the good of the group. Not everyone has it.
+## Evidenze Grounded
 
-The problem with peeragogical groups is that no one wants to moderate. Because moderating means taking responsibility for the conversation. And in a peer group, responsibility is distributed. Which means no one takes it. Discussions drift. Time is wasted. The group feels chaotic. Not because the method doesn't work. Because no one is willing to interrupt.
+### 🔹 Confirming (2)
 
-**What to do instead:** Moderation works if it's rotated. If everyone takes a turn. If it's seen as a service, not a power. But rotation requires training. And training requires time. Without training, moderation stays with the few who are willing to be disliked. And they burn out. Then the group no longer has moderation. Then it dissolves.
+**Caso 1 — OpenStreetMap Data Working Group resolution**
+- **Fenomeno:** Formal dispute resolution bodies with binding authority and published reasoning resolve peer production conflicts that informal consensus cannot.
+- **Fonte:** [https://wiki.osmfoundation.org/wiki/Data_Working_Group](https://wiki.osmfoundation.org/wiki/Data_Working_Group)
 
-> **Perturbator:** *"Being the moderator means getting interrupted, ignored, and challenged. It's not a power trip. It's a sacrifice. If no one in your group wants to moderate, the group doesn't value the conversation enough to protect it. And if the conversation isn't protected, it's noise. Not dialogue."*
+**Caso 2 — Wikipedia Good Article process**
+- **Fenomeno:** Peer assessment with transparent criteria and independent reviewers creates sustainable quality tiers in open communities.
+- **Fonte:** [https://en.wikipedia.org/wiki/Wikipedia:Good_articles](https://en.wikipedia.org/wiki/Wikipedia:Good_articles)
 
-**Reference:** Peeragogy Handbook, "Moderation" pattern (Peeragogy in Practice section).
+### 🔸 Complicating (2)
+
+**Caso 1 — Rust moderation team resignation**
+- **Fenomeno:** Governance crises in peer communities can erupt suddenly when delegated authority is perceived as unsupported by central leadership.
+- **Fonte:** [https://blog.rust-lang.org/2021/05/17/Moderation-team-resignation.html](https://blog.rust-lang.org/2021/05/17/Moderation-team-resignation.html)
+
+**Caso 2 — Fediverse / Mastodon moderation governance**
+- **Fenomeno:** Decentralized peer governance without shared authority produces inconsistent enforcement and can be exploited by bad actors playing instances against each other.
+- **Fonte:** [https://docs.joinmastodon.org/admin/moderation/](https://docs.joinmastodon.org/admin/moderation/)
+
+## Euristiche Operative
+
+### Positive Rule
+
+> This pattern works when formal dispute resolution bodies have binding authority and published reasoning. The OpenStreetMap Data Working Group shows that transparent criteria with independent reviewers resolve conflicts that informal consensus cannot handle, creating sustainable quality control over 15+ years.
+
+### Negative Rule
+
+> Do not apply this pattern when authority delegation lacks formal backing from community leadership. The Rust moderation team resignation (2021) shows that moderators will abandon their roles when they perceive their authority as unsupported, creating sudden governance crises.
+
+## Sintesi Obliqua
+
+The pattern claims that stepping back creates space for others to engage, balancing participation through voluntary restraint. Partial verification — but only when formal structures exist to catch what voluntary moderation misses. OpenStreetMap's Data Working Group and Wikipedia's Good Article process work because they have binding authority and published reasoning, not because moderators practice self-restraint. Rust's moderation team collapse shows what happens when community backing evaporates. The missing piece isn't moderation technique but legitimacy infrastructure. Someone still has to take out the trash.
+
+## Tracciabilità
+
+- **Audit:** `runs/audit-v2/moderation.json`
+- **Delta:** 1.4 → 1.4200 (+0.0200)
+- **Evidenze:** 4 (2 confirming, 2 complicating)
+

@@ -89,3 +89,11 @@ Giscus embedding is not yet active. The system currently uses GitHub Discussions
 4. Update `src/components/SectionDiscussion.astro` with `data-repo-id` and `data-category-id`
 
 The current design intentionally prefers **external linking** over embedding — lower maintenance, no moderation burden, and the link to GitHub Discussions shows repository activity even when no one is commenting.
+
+## Engine Runs
+
+When working on Pyragogy Engine runs, load the run agent context:
+
+> `pi load /home/coder/project/unpeeragogy/runs/RUN_AGENT.md`
+
+This file contains the full protocol, current state, run history, and decision log for every run executed against the vault.

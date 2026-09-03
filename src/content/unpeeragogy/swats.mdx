@@ -3,21 +3,54 @@ title: "SWATS Is Tech Before People"
 order: 1
 section: "Technologies, Services, and Platforms"
 readingTime: 3
-tension_index: 1.3
-tags: ["swats", "technology", "architecture"]
-origin: seed
+tension_index: 1.3516
+tags: ["swats", "technology", "architecture", "audit-v2"]
+origin: "audit-v2"
 ---
 
-"SWATS: Some Wonderful Architecture for Tutoring Systems." "A peer-to-peer architecture for learning."
+## Summary
 
-A technology platform for peer learning. A specific architectural proposal.
+Perfect tools amplify broken processes. SWATS assumes technology enables peer learning — but GitLab's stewardship handbook and Blender's governance structure prove tools only work when authority boundaries exist first. Without governance, collaboration software becomes expensive chaos.
 
-**Why it matters:** SWATS is a technology solution. Technology is the easiest part of peeragogy. The hardest part is human coordination. SWATS solves the technology part and assumes the human part will follow. It rarely does.
+## Evidenze Grounded
 
-The Handbook gives space to technology. It has a whole section. But the technology section is the least used of the entire Handbook. Why? Because peeragogy's problems aren't technological. They're relational, organizational, motivational. Better software won't make a group more trusting, more committed, or more productive.
+### 🔹 Confirming (2)
 
-**What to do instead:** Technology should follow practice. Not precede it. First, understand how the group works. Then, find or build technology that supports that work. SWATS was built before the practice was understood. It's architecture looking for a group. Architecture without a group is just architecture.
+**Caso 1 — GitLab stewardship handbook**
+- **Fenomeno:** Explicit documentation of governance boundaries between corporate sponsor and community reduces friction in open-core projects.
+- **Fonte:** [https://about.gitlab.com/handbook/company/stewardship/](https://about.gitlab.com/handbook/company/stewardship/)
 
-> **Perturbator:** *"SWATS is a technology platform. Beautiful architecture. Well-designed. It also doesn't matter. Because the problem isn't the platform. It's the group. A group that doesn't know how to cooperate won't be saved by better software. Better software just makes a failing group fail faster. Technology amplifies existing behavior. It doesn't create new behavior."*
+**Caso 2 — Blender Foundation governance**
+- **Fenomeno:** Foundation governance with a board, CTO, and module owners can sustain complex peer production for decades.
+- **Fonte:** [https://www.blender.org/about/foundation/](https://www.blender.org/about/foundation/)
 
-**Reference:** Peeragogy Handbook, "SWATS" section (Technologies, Services, and Platforms).
+### 🔸 Complicating (2)
+
+**Caso 1 — P2P University governance challenges**
+- **Fenomeno:** Peer learning communities inevitably face credentialing and quality assurance crises that require either hierarchy or external validation frameworks.
+- **Fonte:** [https://www.p2pu.org/en/about/](https://www.p2pu.org/en/about/)
+
+**Caso 2 — WebAssembly Community Group governance**
+- **Fenomeno:** Choosing lighter governance models for standards development trades authority for speed, creating different failure modes for peer participation.
+- **Fonte:** [https://www.w3.org/community/webassembly/](https://www.w3.org/community/webassembly/)
+
+## Euristiche Operative
+
+### Positive Rule
+
+> This pattern works when governance boundaries are documented before tool deployment. GitLab's stewardship handbook and Blender Foundation's board-CTO-module owner structure show that explicit authority divisions enable tools to enhance rather than complicate peer coordination.
+
+### Negative Rule
+
+> Do not apply this pattern when groups lack explicit governance structures. P2P University's credentialing crisis and WebAssembly Community Group's authority-speed trade-offs show that tools cannot substitute for governance — they only amplify whatever coordination patterns already exist.
+
+## Sintesi Obliqua
+
+The pattern claims technology enables peer coordination in learning environments. Partial verification — but only when governance precedes deployment. GitLab's explicit stewardship boundaries and Blender's board-CTO-module structure sustain complex peer production, while P2P University's credentialing crisis and WebAssembly's authority-speed conflicts show tools cannot substitute for missing coordination patterns. The mechanism isn't about technology adoption. It's about governance maturity — whether groups can document who decides what before they start deciding together.
+
+## Tracciabilità
+
+- **Audit:** `runs/audit-v2/swats.json`
+- **Delta:** 1.3 → 1.3516 (+0.0516)
+- **Evidenze:** 4 (2 confirming, 2 complicating)
+

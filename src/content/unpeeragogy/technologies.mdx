@@ -3,19 +3,52 @@ title: "Technologies Aren't the Problem"
 order: 1
 section: "Technologies, Services, and Platforms"
 readingTime: 3
-tension_index: 1.1
-tags: ["technologies", "tools", "platforms"]
-origin: seed
+tension_index: 1.2792
+tags: ["technologies", "tools", "platforms", "audit-v2"]
+origin: "audit-v2"
 ---
 
-"This section collects patterns and resources related to technologies, services, and platforms." The menu of tools.
+## Summary
 
-**Why it matters:** The technology section is a list of tools. Some used, some recommended, some discussed. It's a catalog. Catalogs are useful for shopping. Not for solving problems.
+Tools multiply faster than governance structures. The theory says peer selection of technology creates collective ownership — but practice shows it creates collective paralysis when authority boundaries are unclear.
 
-The problem with technology sections in handbooks is that they age. Tools change. Platforms disappear. The Handbook's technology section has patterns (social bookmarking) that no longer exist. Others (real-time) describe problems that have been solved differently. The technology section is the most dated part of the Handbook.
+## Evidenze Grounded
 
-**What to do instead:** If you discuss technology, describe principles. Not platforms. "Use a tool that allows asynchronous participation." Not "use Discourse." The principle survives. The platform dies. The Handbook has too many platforms, not enough principles.
+### 🔹 Confirming (2)
 
-> **Perturbator:** *"The technology section is a list of tools. Some exist. Some don't. Some are useful. Some aren't. But the real issue is: does the group need better tools or better practices? Usually, the practices are the bottleneck. Tools are an excuse. 'We need a better platform.' No. You need to use the platform you have better."*
+**Caso 1 — GitLab stewardship handbook**
+- **Fenomeno:** Explicit documentation of governance boundaries between corporate sponsor and community reduces friction in open-core projects.
+- **Fonte:** [https://about.gitlab.com/handbook/company/stewardship/](https://about.gitlab.com/handbook/company/stewardship/)
 
-**Reference:** Peeragogy Handbook, "Technologies, Services, and Platforms" section.
+*Solo 1 evidenze confirming.*
+
+### 🔸 Complicating (2)
+
+**Caso 1 — Mastodon defederation as governance tool**
+- **Fenomeno:** Peer governance in federated systems creates governance externalities — admin decisions affect users who have no governance rights in that instance.
+- **Fonte:** [https://docs.joinmastodon.org/admin/moderation/#federation](https://docs.joinmastodon.org/admin/moderation/#federation)
+
+**Caso 2 — Linux kernel Reviewed-by tag system**
+- **Fenomeno:** Formal peer assessment tags create accountability but also reveal review scarcity — the bottleneck shifts from writing code to getting it reviewed.
+- **Fonte:** [https://docs.kernel.org/process/submitting-patches.html](https://docs.kernel.org/process/submitting-patches.html)
+
+## Euristiche Operative
+
+### Positive Rule
+
+> This pattern works when governance boundaries are explicit and peer input is bounded by clear authority structures. GitLab's stewardship handbook shows that explicit boundaries between corporate sponsors and community reduce friction while maintaining peer involvement in technology decisions.
+
+### Negative Rule
+
+> Do not apply this pattern when technology choices create externalities for non-participants or when decision authority is completely diffuse. Mastodon's defederation mechanics show that peer governance can disenfranchise affected users, and diffuse authority creates decision paralysis.
+
+## Sintesi Obliqua
+
+The pattern claims peer technology selection builds ownership through consensus. Partial verification — it works when governance boundaries are explicit, like GitLab's stewardship handbook separating corporate from community decisions. But Mastodon's defederation mechanics show how peer governance creates externalities for users with no voting rights, and Linux's diffuse review authority demonstrates that collective ownership can mean nobody owns the decision. The real mechanism isn't consensus — it's bounded authority with clear escalation paths. Democracy assumes all stakeholders get a vote.
+
+## Tracciabilità
+
+- **Audit:** `runs/audit-v2/technologies.json`
+- **Delta:** 1.1 → 1.2792 (+0.1792)
+- **Evidenze:** 3 (1 confirming, 2 complicating)
+

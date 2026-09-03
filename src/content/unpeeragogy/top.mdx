@@ -3,19 +3,52 @@ title: "Top Is the Bottom"
 order: 1
 section: "Peeragogy in Practice"
 readingTime: 3
-tension_index: 1.3
-tags: ["top", "top ten", "list"]
-origin: seed
+tension_index: 1.5117
+tags: ["top", "top ten", "list", "audit-v2"]
+origin: "audit-v2"
 ---
 
-"Top Ten: patterns that stand out from the rest." A list of the most useful patterns.
+## Summary
 
-**Why it matters:** A "top ten" list is a selection. It says "these are the most useful." But the selection reveals the selector's bias. The top ten tells you what the editors found valuable. Not what's universally valuable.
+Canonical lists become governance documents. Theory says they organize knowledge — practice shows they organize power. The friction happens when 'best practices' become enforcement mechanisms.
 
-The problem with top lists is that they're treated as definitive. Users focus on the top ten and ignore the rest. The list becomes a filter that hides the diversity of patterns. A pattern that isn't in the top ten is perceived as less important. Maybe it's just more specific.
+## Evidenze Grounded
 
-**What to do instead:** A top ten should come with a warning: "these are the most general patterns. Specific problems require specific patterns. Don't limit yourself to the top ten." The Handbook doesn't give this warning. The top ten is presented as "the best." In reality, it's "the most general."
+### 🔹 Confirming (2)
 
-> **Perturbator:** *"Top ten patterns. A list of the best. According to whom? The editors. Their experience. Their context. Does that match yours? Probably not entirely. A top ten is a shortcut. Shortcuts are useful when you're in a hurry. But they're also omissions. Omissions that might cost you."*
+**Caso 1 — GitLab stewardship handbook**
+- **Fenomeno:** Explicit documentation of governance boundaries between corporate sponsor and community reduces friction in open-core projects.
+- **Fonte:** [https://about.gitlab.com/handbook/company/stewardship/](https://about.gitlab.com/handbook/company/stewardship/)
 
-**Reference:** Peeragogy Handbook, "Top Ten Patterns" (Peeragogy in Practice).
+*Solo 1 evidenze confirming.*
+
+### 🔸 Complicating (2)
+
+**Caso 1 — Node.js/io.js merger**
+- **Fenomeno:** Node.js and io.js merger challenges, 2015
+- **Fonte:** [https://sdtimes.com/io-js/node-js-and-io-js-to-merge-under-node-js-foundation/](https://sdtimes.com/io-js/node-js-and-io-js-to-merge-under-node-js-foundation/)
+
+**Caso 2 — Wikipedia ArbCom**
+- **Fenomeno:** Wikipedia ArbCom disputes and governance challenges, 2021
+- **Fonte:** [https://en.wikipedia.org/wiki/Arbitration_Committee_(Wikimedia)](https://en.wikipedia.org/wiki/Arbitration_Committee_(Wikimedia))
+
+## Euristiche Operative
+
+### Positive Rule
+
+> This pattern works when selection criteria are made explicit and the list includes clear disclaimers about its scope. GitLab's stewardship handbook (ongoing) shows that transparent governance boundaries prevent the friction that emerges when authority is implicit or contested.
+
+### Negative Rule
+
+> Do not apply this pattern when community members have diverse expertise levels or contested views on priorities. The Node.js/io.js merger (2015) and Wikipedia ArbCom disputes (2021) show that canonical lists become political battlegrounds when stakeholders have different visions for what constitutes 'top' knowledge.
+
+## Sintesi Obliqua
+
+The pattern claims that explicit curation prevents community fragmentation. Partial verification — it works when boundaries are clear and disclaimers are honest. GitLab's stewardship handbook shows transparent governance can defuse authority contests, but Node.js/io.js merger and Wikipedia ArbCom disputes prove that canonical status becomes a political target when stakeholders have competing visions. The real mechanism isn't about organizing information. It's about who gets to decide what counts as legitimate knowledge — quietly, if necessary.
+
+## Tracciabilità
+
+- **Audit:** `runs/audit-v2/top.json`
+- **Delta:** 1.3 → 1.5117 (+0.2117)
+- **Evidenze:** 3 (1 confirming, 2 complicating)
+

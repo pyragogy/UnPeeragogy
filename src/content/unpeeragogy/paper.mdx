@@ -3,21 +3,52 @@ title: "Your Paper Changes Nothing"
 order: 1
 section: "Resources"
 readingTime: 3
-tension_index: 1.2
-tags: ["paper", "publication", "influence"]
-origin: seed
+tension_index: 1.2575
+tags: ["paper", "publication", "influence", "audit-v2"]
+origin: "audit-v2"
 ---
 
-"GETTING STARTED WITH PEERAGOGY." "A conference paper."
+## Summary
 
-A paper about peeragogy. Presented at a conference. One paper. Among thousands.
+Papers accumulate without changing practice. Theory says documentation drives improvement — practice shows it creates process theater. The bottleneck shifts from making things work to validating that you made them work.
 
-**Why it matters:** Academic papers are the currency of academia. They're also the most inefficient way to spread an idea. A paper reaches hundreds of people. An open-source project reaches thousands. A practice reaches those who practice it.
+## Evidenze Grounded
 
-The Handbook is full of academic references. It has a section of Resources. But the resources are almost exclusively textual. Books, papers, bibliographies. The Handbook is an academic document about a practice. It suffers from the same bias it criticizes: privileging theory over practice.
+### 🔹 Confirming (2)
 
-**What to do instead:** Papers are fine for tenure. For spreading peeragogy, you need examples, tools, stories. Not more text about text. If you want to spread peeragogy, create something people can use. Not something they can cite.
+**Caso 1 — GitLab stewardship handbook**
+- **Fenomeno:** Explicit documentation of governance boundaries between corporate sponsor and community reduces friction in open-core projects.
+- **Fonte:** [https://about.gitlab.com/handbook/company/stewardship/](https://about.gitlab.com/handbook/company/stewardship/)
 
-> **Perturbator:** *"You wrote a paper about peeragogy. Good. Now look at the citation count. Low, right? Because papers about peeragogy are read by people who already know peeragogy. The paper isn't spreading the practice. It's feeding the theory. And the theory doesn't need more food. The practice needs more practitioners."*
+*Solo 1 evidenze confirming.*
 
-**Reference:** Peeragogy Handbook, "Paper" section (Resources).
+### 🔸 Complicating (2)
+
+**Caso 1 — Linux kernel Reviewed-by tag system**
+- **Fenomeno:** Formal peer assessment tags create accountability but also reveal review scarcity — the bottleneck shifts from writing code to getting it reviewed.
+- **Fonte:** [https://docs.kernel.org/process/submitting-patches.html](https://docs.kernel.org/process/submitting-patches.html)
+
+**Caso 2 — Debian DPL bits newsletter**
+- **Fenomeno:** Regular leadership summaries in peer-governed projects create agenda-setting power — what gets summarized is what gets attention.
+- **Fonte:** [https://lists.debian.org/debian-devel-announce/](https://lists.debian.org/debian-devel-announce/)
+
+## Euristiche Operative
+
+### Positive Rule
+
+> This pattern works when documentation prioritizes theoretical exposition over operational clarity. The Linux kernel's Reviewed-by tag system shows that formal peer assessment creates accountability but also reveals review scarcity — the bottleneck shifts from creation to validation when process becomes more important than outcome.
+
+### Negative Rule
+
+> Do not apply this pattern when documentation serves operational boundary-setting rather than theoretical exposition. GitLab's stewardship handbook shows that formal documentation reduces friction in open-core projects when it clarifies governance boundaries between sponsors and communities.
+
+## Sintesi Obliqua
+
+The pattern claims formal documentation pushes groups toward improvement through revision cycles. Partial verification — but only when the writing serves boundary-setting, not exposition. GitLab's stewardship handbook reduces friction because it defines who controls what, while Linux's Reviewed-by system creates accountability but reveals review scarcity as the new constraint. The mechanism isn't about paper quality. It's about whether the document answers operational questions or theoretical ones. Writing that doesn't allocate resources just allocates blame.
+
+## Tracciabilità
+
+- **Audit:** `runs/audit-v2/paper.json`
+- **Delta:** 1.2 → 1.2575 (+0.0575)
+- **Evidenze:** 3 (1 confirming, 2 complicating)
+

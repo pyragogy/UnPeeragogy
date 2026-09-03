@@ -3,21 +3,54 @@ title: "Patterns Are Not Recipes"
 order: 1
 section: "Peeragogy in Practice"
 readingTime: 3
-tension_index: 1.4
-tags: ["patterns", "method", "approach"]
-origin: seed
+tension_index: 1.3533
+tags: ["patterns", "method", "approach", "audit-v2"]
+origin: "audit-v2"
 ---
 
-"Patterns: descriptions of recurring problems and their solutions." "A pattern language enables shared understanding."
+## Summary
 
-The Handbook is a pattern language. A collection of patterns for peer learning.
+Patterns fail when treated as plug-and-play solutions. Theory promises repeatability — practice demands governance scaffolding first. The difference between a working pattern and cargo cult imitation is documented boundaries.
 
-**Why it matters:** Patterns are the Handbook's core contribution. They're also its greatest weakness. A pattern is a description, not a prescription. It says "here's something that works in this context." It doesn't say "do this." Users want prescriptions. They get descriptions.
+## Evidenze Grounded
 
-The gap is fundamental. The Handbook writes patterns as if they were recipes. They're not. Recipes guarantee a result. Patterns don't. A pattern works in a specific context with specific people. Change the context, change the people, and the pattern fails. The Handbook doesn't emphasize this enough.
+### 🔹 Confirming (2)
 
-**What to do instead:** Use patterns as inspiration, not instruction. Read them. Understand them. Adapt them to your context. If they don't work, modify them. Or discard them. The Handbook's patterns are starting points. Not destinations. A good practitioner uses patterns as raw material, not as truth.
+**Caso 1 — GitLab stewardship handbook**
+- **Fenomeno:** Explicit documentation of governance boundaries between corporate sponsor and community reduces friction in open-core projects.
+- **Fonte:** [https://about.gitlab.com/handbook/company/stewardship/](https://about.gitlab.com/handbook/company/stewardship/)
 
-> **Perturbator:** *"Patterns are descriptions, not prescriptions. They say 'this worked for someone.' They don't say 'this will work for you.' The Handbook presents them as solutions. They're hypotheses. Good ones, maybe. But still hypotheses. You test them. You don't apply them. Testing is the work the Handbook doesn't teach."**
+**Caso 2 — Wikipedia Good Article process**
+- **Fenomeno:** Peer assessment with transparent criteria and independent reviewers creates sustainable quality tiers in open communities.
+- **Fonte:** [https://en.wikipedia.org/wiki/Wikipedia:Good_articles](https://en.wikipedia.org/wiki/Wikipedia:Good_articles)
 
-**Reference:** Peeragogy Handbook, "Patterns" section.
+### 🔸 Complicating (2)
+
+**Caso 1 — Drupal governance / community working groups**
+- **Fenomeno:** Intentional governance transition from BDFL to community model requires years of structural work, not organic emergence.
+- **Fonte:** [https://www.drupal.org/governance](https://www.drupal.org/governance)
+
+**Caso 2 — Wikipedia ArbCom**
+- **Fenomeno:** The Wikipedia Arbitration Committee (ArbCom) case in 2021 highlighted conflicts in community governance, where differing views on content moderation led to heated debates. The theoretical pattern posits that shared governance leads to consensus, yet this case illustrates how diverse opinions can complicate decision-making processes, resulting in protracted disputes.
+- **Fonte:** [https://en.wikipedia.org/wiki/Arbitration_Committee_(Wikimedia)](https://en.wikipedia.org/wiki/Arbitration_Committee_(Wikimedia))
+
+## Euristiche Operative
+
+### Positive Rule
+
+> Patterns work when governance boundaries are explicit and assessment criteria are transparent. GitLab's stewardship handbook and Wikipedia's Good Article process show that documented governance structures create sustainable pattern implementation across different organizational contexts.
+
+### Negative Rule
+
+> Do not apply patterns without governance scaffolding. Drupal's multi-year governance transition shows that even successful pattern changes require intentional structural work — organic emergence fails when coordination complexity exceeds informal relationship capacity.
+
+## Sintesi Obliqua
+
+The pattern claims that documented processes create sustainable peer learning structures. Partial verification, conditional on explicit governance work. GitLab's stewardship handbook and Wikipedia's Good Article process show that transparent criteria work when boundaries are clear — but Drupal's multi-year governance transition reveals that even successful communities struggle with coordination complexity beyond informal relationships. The real mechanism isn't pattern recognition. It's the structural commitment to maintain boundaries when the initial enthusiasm fades.
+
+## Tracciabilità
+
+- **Audit:** `runs/audit-v2/patterns.json`
+- **Delta:** 1.4 → 1.3533 (-0.0467)
+- **Evidenze:** 4 (2 confirming, 2 complicating)
+

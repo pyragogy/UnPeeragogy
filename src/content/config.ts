@@ -21,6 +21,7 @@ const unpeeragogy = defineCollection({
     readingTime: z.number().optional(),
     tags: z.array(z.string()).optional(),
     tension_index: z.number().optional(),
+    origin: z.enum(["seed", "audit-v2"]).default("seed"),
   }),
 });
 

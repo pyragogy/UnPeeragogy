@@ -3,19 +3,52 @@ title: "The Index Is a Reflection"
 order: 1
 section: "Peeragogy in Practice"
 readingTime: 3
-tension_index: 1.2
-tags: ["index", "navigation", "participation"]
-origin: seed
+tension_index: 1.3792
+tags: ["index", "navigation", "participation", "audit-v2"]
+origin: "audit-v2"
 ---
 
-"List the patterns by title; give them a unique number; assign them to categories." A tool for organizing patterns. A reference system.
+## Summary
 
-**Why it matters:** An index serves as memory for the group. It says "these are our patterns." It gives the illusion of order. But an index doesn't tell you which patterns are active, which are abandoned, which are aspirational. An index tells you what exists. Not what works.
+Pattern catalogs promise equal access to all techniques. Theory says documentation enables selection. Practice shows undifferentiated indexes kill projects — you pick the wrong tool because nothing warns you it's broken.
 
-The Handbook's index is a map. Beautiful, organized, complete. But maps don't say which territories are safe and which are dangerous. They say: "here is something." They don't say "this pattern failed three times." The index is the place where failures don't exist because they've been removed.
+## Evidenze Grounded
 
-**What to do instead:** An index needs metadata. Not just "what pattern." Also "what condition." Active, tested, discarded, aspirational. An index of living patterns is different from an index of dead patterns. The Handbook's index makes all patterns look alive. That's dishonest.
+### 🔹 Confirming (2)
 
-> **Perturbator:** *"Your index has 40 patterns. How many are active? No idea, right? Because the index doesn't say. It lists everything. Alive and dead. Patterns that work and patterns that were written and never tested. An index without status is a cemetery that calls itself a garden."*
+**Caso 1 — GitLab stewardship handbook**
+- **Fenomeno:** Explicit documentation of governance boundaries between corporate sponsor and community reduces friction in open-core projects.
+- **Fonte:** [https://about.gitlab.com/handbook/company/stewardship/](https://about.gitlab.com/handbook/company/stewardship/)
 
-**Reference:** Peeragogy Handbook, "Index" section.
+*Solo 1 evidenze confirming.*
+
+### 🔸 Complicating (2)
+
+**Caso 1 — Drupal governance / community working groups**
+- **Fenomeno:** Intentional governance transition from BDFL to community model requires years of structural work, not organic emergence.
+- **Fonte:** [https://www.drupal.org/governance](https://www.drupal.org/governance)
+
+**Caso 2 — MakerDAO Black Thursday**
+- **Fenomeno:** DAO governance mechanisms designed for normal operations can fail catastrophically under stress, requiring emergency governance that existing processes don't cover.
+- **Fonte:** [https://blog.makerdao.com/makerdao-community-emergency-response-to-black-thursday/](https://blog.makerdao.com/makerdao-community-emergency-response-to-black-thursday/)
+
+## Euristiche Operative
+
+### Positive Rule
+
+> This index works when it explicitly documents governance boundaries and structural requirements for each pattern. The GitLab stewardship handbook shows that explicit documentation of pattern constraints and success conditions enables effective pattern selection and implementation.
+
+### Negative Rule
+
+> Do not present all patterns as equally viable when evidence shows distinct failure modes. The MakerDAO Black Thursday crisis and Drupal's governance transition show that pattern selection without validation context leads to catastrophic misapplication in high-stakes situations.
+
+## Sintesi Obliqua
+
+The index claims all patterns work if you follow the steps. Partial verification — when governance boundaries get explicit documentation, like GitLab's stewardship handbook, friction drops and communities function. But Drupal needed years of structural work to transition from BDFL to community governance, and MakerDAO's governance mechanisms collapsed under Black Thursday stress. The missing piece: failure mode documentation. Patterns without headstones.
+
+## Tracciabilità
+
+- **Audit:** `runs/audit-v2/index.json`
+- **Delta:** 1.2 → 1.3792 (+0.1792)
+- **Evidenze:** 3 (1 confirming, 2 complicating)
+
