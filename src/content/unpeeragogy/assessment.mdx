@@ -1,56 +1,49 @@
 ---
-title: "Measuring Is Worse Than Not Measuring"
+title: "Assessment"
 order: 1
 section: "Assessment"
 readingTime: 3
-tension_index: 1.4800
-tags: ["assessment", "evaluation", "feedback", "audit-v2"]
-origin: "audit-v2"
+tension_index: 1.48
+tags: ["assessment", "hierarchy", "quality"]
 ---
 
-## Summary
+### Claim
 
-Peer assessment kills peer governance. Theory promises flat evaluation — practice demands someone with authority to say no. Communities that refuse this choice fragment.
+Peeragogy presents assessment as a collaborative, formative practice. Peers evaluate each other not to judge but to learn together. The theory dedicates an entire section to it — self-assessment, peer feedback, iterative improvement. The promise: evaluation without hierarchy, quality without gatekeepers.
 
-## Evidenze Grounded
+### Reality
 
-### 🔹 Confirming (2)
+Peer assessment creates quality hierarchies. And then those hierarchies eat the peer governance that created them.
 
-**Caso 1 — Wikipedia Good Article process**
-- **Fenomeno:** Peer assessment with transparent criteria and independent reviewers creates sustainable quality tiers in open communities.
-- **Fonte:** [https://en.wikipedia.org/wiki/Wikipedia:Good_articles](https://en.wikipedia.org/wiki/Wikipedia:Good_articles)
+The problem is not that people evaluate badly. The problem is that evaluation requires someone to say no — and in a peer group, saying no means risking the relationship. So nobody says no. Everyone gives 10 out of 10. Feedback becomes "nice work!" and the group never learns because it never names what went wrong.
 
-**Caso 2 — Moodle community QA process**
-- **Fenomeno:** Structured peer assessment with nominated integrators and transparent criteria scales quality control in large plugin ecosystems.
-- **Fonte:** [https://moodle.org/plugins/](https://moodle.org/plugins/)
+Wikipedia's Good Article process works for exactly the opposite reason the theory predicts: not because peers evaluate each other, but because nominated reviewers with binding authority apply transparent criteria. It is not peer assessment. It is lightweight hierarchy dressed in peer language.
 
-### 🔸 Complicating (2)
+> **Perturbatore:** *"You don't evaluate because you are afraid of hurting each other. So nobody improves. Peer assessment requires more courage than most groups have. You keep calling it 'formative assessment' because it sounds better than 'we don't have the guts to tell each other the truth.'"*
 
-**Caso 1 — Wikipedia Featured Article Candidate process**
-- **Fenomeno:** Peer assessment systems in open communities produce quality hierarchies that conflict with flat peer governance ideals.
-- **Fonte:** [https://en.wikipedia.org/wiki/Wikipedia:Featured_article_candidates](https://en.wikipedia.org/wiki/Wikipedia:Featured_article_candidates)
+### Positive Examples
 
-**Caso 2 — Linux kernel Reviewed-by tag system**
-- **Fenomeno:** Formal peer assessment tags create accountability but also reveal review scarcity — the bottleneck shifts from writing code to getting it reviewed.
-- **Fonte:** [https://docs.kernel.org/process/submitting-patches.html](https://docs.kernel.org/process/submitting-patches.html)
+**Wikipedia Good Article process** — Transparent criteria plus independent reviewers with binding authority. It creates sustainable quality tiers in a community of thousands. The key is not the peer mechanism. The key is that reviewers can reject a nomination without the author's consent.
 
-## Euristiche Operative
+**Moodle plugin QA system** — Nominated integrators review community contributions against clear criteria. Scales because maintainers are explicitly authorized to say no. The community accepts the hierarchy because the criteria are transparent and the integrators are known.
 
-### Positive Rule
+### Negative Examples
 
-> This pattern works when communities explicitly accept quality hierarchies and nominate specific integrators with binding authority. Wikipedia's Good Article process and Moodle's plugin QA system show that transparent criteria plus empowered reviewers creates sustainable quality control across thousands of contributions.
+**Wikipedia Featured Article Candidate process** — The same community, stricter criteria, higher quality bar. Here the peer assessment system produces exactly the contradiction the theory ignores: quality tiers create an elite, and the elite conflicts with the egalitarian ideals of the community. The system works technically. It fails socially.
 
-### Negative Rule
+**Linux kernel Reviewed-by tag** — Formal peer review tags create accountability. But they also reveal the scarcity: the bottleneck shifts from writing code to getting it reviewed. Peer assessment does not distribute the work. It concentrates the bottleneck.
 
-> Do not apply this pattern expecting flat peer participation. Wikipedia's Featured Article process shows that peer assessment systems inevitably create quality hierarchies that conflict with egalitarian community ideals, leading to governance tensions.
+### Synthesis
 
-## Sintesi Obliqua
+What works: do not pretend assessment is flat. Accept that quality control requires someone with the authority to say no. Make the criteria transparent. Make the reviewers known. Make the rejection impersonal.
 
-The pattern claims assessment can scale without hierarchy. Partial verification — when communities explicitly accept quality tiers and nominate integrators. Wikipedia's Good Article process works because reviewers have binding authority and transparent criteria. Moodle's plugin QA scales because nominated maintainers can reject contributions. But Wikipedia's Featured Article process shows the contradiction: peer assessment creates the very hierarchies that contradict peer principles. The real mechanism isn't assessment design — it's whether a community can stomach its own stratification. Quality control is arson against egalitarian ideals.
+What fails: hoping that peers will evaluate each other honestly without structure. They will not. They like each other too much. And liking each other too much is the fastest path to mediocre work.
 
-## Tracciabilità
+If you want assessment in a peer group, drop the pretense of horizontality. Appoint reviewers. Give them criteria. Accept that the group will stratify. The alternative is not flat assessment — it is no assessment at all.
 
-- **Audit:** `runs/audit-v2/assessment.json`
-- **Delta:** 1.7 → 1.4800 (-0.2200)
-- **Evidenze:** 4 (2 confirming, 2 complicating)
+### References
 
+- [en.wikipedia.org/wiki/Wikipedia:Good_articles](https://en.wikipedia.org/wiki/Wikipedia:Good_articles)
+- [moodle.org/plugins/](https://moodle.org/plugins/)
+- [en.wikipedia.org/wiki/Wikipedia:Featured_article_candidates](https://en.wikipedia.org/wiki/Wikipedia:Featured_article_candidates)
+- [docs.kernel.org/process/submitting-patches.html](https://docs.kernel.org/process/submitting-patches.html)

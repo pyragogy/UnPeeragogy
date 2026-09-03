@@ -1,56 +1,53 @@
 ---
-title: "Getting Stuck Is the Real Problem"
+title: "Stuck"
 order: 1
 section: "Peeragogy in Practice"
 readingTime: 3
-tension_index: 1.6150
-tags: ["stuck", "block", "bottleneck", "audit-v2"]
-origin: "audit-v2"
+tension_index: 1.62
+tags: ["stuck", "paralysis", "authority"]
 ---
 
-## Summary
+### Claim
 
-Governance paralysis has two opposite causes. Theory says add process when authority is unclear — practice shows this only works below 50 people. Above that threshold, equal decision-makers create deadlock, not democracy.
+Peeragogy says getting stuck is a problem of weak ties. The theory frames it as a network issue: you do not have the right connections to the right people, so you cannot move forward. The solution is to activate your weak ties — reach beyond your immediate circle, find diverse perspectives, and the bottleneck will dissolve.
 
-## Evidenze Grounded
+### Reality
 
-### 🔹 Confirming (2)
+Getting stuck has two opposite causes, and the wrong diagnosis makes it worse.
 
-**Caso 1 — GitLab stewardship handbook**
-- **Fenomeno:** Explicit documentation of governance boundaries between corporate sponsor and community reduces friction in open-core projects.
-- **Fonte:** [https://about.gitlab.com/handbook/company/stewardship/](https://about.gitlab.com/handbook/company/stewardship/)
+Sometimes you are stuck because nobody has the authority to decide. Power is too distributed. Everyone can block, nobody can push. The solution is to concentrate decision-making — which Peeragogy's flat governance ideals resist.
 
-**Caso 2 — OpenStreetMap Data Working Group resolution**
-- **Fenomeno:** Formal dispute resolution bodies with binding authority and published reasoning resolve peer production conflicts that informal consensus cannot.
-- **Fonte:** [https://wiki.osmfoundation.org/wiki/Data_Working_Group](https://wiki.osmfoundation.org/wiki/Data_Working_Group)
+Other times you are stuck because everybody gets to decide. Thousands of equal voices, each with veto power, and nothing moves. ConstitutionDAO is the textbook case: 17,000 token holders, one vote each, the DAO dissolved without executing its single purpose. Not because they lacked weak ties. Because they had too many decision-makers.
 
-### 🔸 Complicating (2)
+Peeragogy's theory points to weak ties as the bottleneck. But the real question is not who you know. The real question is who gets to decide.
 
-**Caso 1 — ConstitutionDAO dissolution**
-- **Fenomeno:** DAOs face severe governance scalability problems — coordinating thousands of token holders with equal voting rights produces paralysis, not efficiency.
-- **Fonte:** [https://www.wired.com/story/constitutiondao-ethereum/](https://www.wired.com/story/constitutiondao-ethereum/)
+> **Perturbatore:** *"The group is stuck. You know what to do. You do not know how to do it. That is the difference between theory and practice. Theory says 'do X.' Practice says 'X is clear. The path to X is blocked.' The bottleneck is not knowledge. It is execution. And execution requires someone to take responsibility. Nobody wants it."*
 
-**Caso 2 — Linux kernel Reviewed-by tag system**
-- **Fenomeno:** Formal peer assessment tags create accountability but also reveal review scarcity — the bottleneck shifts from writing code to getting it reviewed.
-- **Fonte:** [https://docs.kernel.org/process/submitting-patches.html](https://docs.kernel.org/process/submitting-patches.html)
+### Positive Examples
 
-## Euristiche Operative
+**GitLab stewardship handbook** — Explicit documentation of who decides what. GitLab Inc and the community have clear boundaries: corporate strategy vs community contributions. When the boundary is clear, stuckness dissolves. The bottleneck was never weak ties. It was undefined authority.
 
-### Positive Rule
+**OpenStreetMap Data Working Group** — A formal dispute resolution body with binding authority. When informal consensus fails, the DWG decides. The cases are published, the reasoning is transparent, and the decision is final. Stuckness ends because someone has the last word.
 
-> This pattern works when stuckness comes from unclear authority boundaries and the group has fewer than ~50 active participants. GitLab's stewardship handbook and OpenStreetMap's Data Working Group show that explicit governance boundaries resolve coordination paralysis in moderately-sized groups.
+### Negative Examples
 
-### Negative Rule
+**ConstitutionDAO dissolution** — 17,000 token holders with equal voting rights. One purpose: buy a rare copy of the US Constitution at auction. The group could not coordinate effectively enough to execute the plan. The DAO dissolved. Not because of weak ties — because of too many decision-makers with equal power.
 
-> Do not apply standard 'add more process' solutions when stuckness comes from too many equal decision-makers. ConstitutionDAO's dissolution shows that formal voting with thousands of equal participants creates paralysis, not resolution.
+**Linux kernel Reviewed-by tag bottleneck** — The review process creates accountability, but the bottleneck shifts from writing code to getting it reviewed. Peer review does not distribute the work. It concentrates the waiting.
 
-## Sintesi Obliqua
+### Synthesis
 
-The pattern claims formal boundaries cure coordination paralysis. Partial verification — but only when the group stays small and the problem is under-governance, not over-governance. GitLab's stewardship handbook and OpenStreetMap's dispute resolution prove that explicit authority works when you have maybe dozens of active contributors. ConstitutionDAO's collapse with thousands of equal voters proves the opposite: too many decision-makers kills decisions entirely. The real mechanism isn't about weak ties or strong ties. It's about whether you're stuck because nobody can decide, or because everybody gets to.
+If you are stuck, diagnose the cause before applying the cure.
 
-## Tracciabilità
+If nobody can decide, concentrate authority. Name a decision-maker. Give them the last word. The group will survive the loss of horizontality better than it survives paralysis.
 
-- **Audit:** `runs/audit-v2/stuck.json`
-- **Delta:** 1.5 → 1.6150 (+0.1150)
-- **Evidenze:** 4 (2 confirming, 2 complicating)
+If everybody can decide and nothing moves, reduce the number of decision-makers. Not all voices need veto power. Some voices need to be consultative.
 
+The weak ties framework is not wrong. It is incomplete. The bottleneck is not who you know. It is who can say yes — and who can say no.
+
+### References
+
+- [about.gitlab.com/handbook/company/stewardship/](https://about.gitlab.com/handbook/company/stewardship/)
+- [wiki.osmfoundation.org/wiki/Data_Working_Group](https://wiki.osmfoundation.org/wiki/Data_Working_Group)
+- [wired.com/story/constitutiondao-ethereum/](https://www.wired.com/story/constitutiondao-ethereum/)
+- [docs.kernel.org/process/submitting-patches.html](https://docs.kernel.org/process/submitting-patches.html)
