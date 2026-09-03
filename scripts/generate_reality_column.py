@@ -266,16 +266,22 @@ This classification describes the state of the analysis, not the scientific vali
     if not ref_str:
         ref_str = '*No references in the current corpus.*'
     
-    # Build Claim from theory (first substantive sentence)
-    claim_lines = theory.split('\n')
-    claim_text = ""
-    for line in claim_lines:
-        line = line.strip()
-        if line and not line.startswith('#') and not line.startswith('>'):
-            claim_text = line[:300]
-            break
-    if not claim_text:
-        claim_text = theory[:300]
+    # Build Claim: use audit synthesis.source first (best description),
+    # fall back to peeragogy theory
+    audit_source = str(synth.get('source', '')).strip()
+    if audit_source and len(audit_source) > 40:
+        claim_text = audit_source[:300]
+    else:
+        # Fallback: first substantive sentence from peeragogy theory
+        claim_lines = theory.split('\n')
+        claim_text = ""
+        for line in claim_lines:
+            line = line.strip()
+            if line and not line.startswith('#') and not line.startswith('>') and len(line) > 30:
+                claim_text = line[:300]
+                break
+        if not claim_text or len(claim_text) < 20:
+            claim_text = theory[:300]
     
     # Assemble MDX
     mdx = f"""---
