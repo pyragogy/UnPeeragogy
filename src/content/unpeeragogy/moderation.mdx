@@ -8,53 +8,58 @@ tags: ["moderation", "conflict", "facilitation"]
 origin: "audit-v2"
 ---
 
-### Il Dogma
+### The Assumption
 
 Moderation in peer learning requires balancing authority with participation, where moderators guide without dominating. Successful moderation emerges from shared responsibility rather than centralized control.
 
-### La Realtà
+### Operational Reality
 
-Wikipedia's arbitration committee handles about 30 cases per year. Real people with real names make binding decisions about content disputes that voluntary consensus couldn't resolve. They publish their reasoning. They enforce their rulings. The work is thankless, often brutal, and absolutely necessary for the encyclopedia to function.
+Wikipedia's arbitration committee handles about 30 cases per year. Real people with real names make binding decisions about content disputes that voluntary consensus could not resolve. They publish their reasoning. They enforce their rulings. The work is thankless, often brutal, and absolutely necessary for the encyclopedia to function.
 
 Not peer consensus. Not community self-regulation. Not emergent wisdom of crowds. A small group with actual authority making hard calls that stick.
 
-Most peer learning spaces avoid this reality. They prefer the fiction that good intentions and shared values will somehow moderate themselves. I've watched brilliant learning communities collapse because nobody wanted to be the person who says "no" — who removes the disruptive member, who enforces the participation standards, who makes the call that someone else's contribution isn't good enough.
+Most peer learning spaces avoid this reality. They prefer the fiction that good intentions and shared values will somehow moderate themselves. Brilliant learning communities collapse because nobody wants to be the person who says "no" — who removes the disruptive member, who enforces the participation standards, who makes the call that someone else's contribution is not good enough.
 
-The human part of moderation isn't keeping things smooth. It's being willing to create useful friction when smoothness becomes the enemy of learning.
+OpenStreetMap shows that transparent criteria with independent reviewers resolve conflicts that consensus cannot. Wikipedia's Good Article process demonstrates that structured moderation creates sustainable quality. Rust's moderation team resignation (2021) shows that moderators abandon roles when authority is unsupported. Mastodon demonstrates that moderation without shared authority becomes exploitable by bad actors playing instances against each other.
 
-### Perturbatore
+> **Perturbatore:** *"What if shared responsibility for moderation is like shared responsibility for taking out the trash — it works until someone has to actually do it — and the real test of peer governance is not how well it works when everyone agrees, but how quickly it can make hard decisions when they do not?"*
 
-> **Perturbatore:** *"What if shared responsibility for moderation is like shared responsibility for taking out the trash — it works until someone has to actually do it — and the real test of peer governance isn't how well it works when everyone agrees, but how quickly it can make hard decisions when they don't?"*
+### Empirical Evidence
 
-### Evidenze di Tenuta
+**Resilience Cases (Confirming):**
+- [OpenStreetMap Data Working Group](https://wiki.osmfoundation.org/wiki/Data_Working_Group) — Formal dispute resolution bodies with binding authority and published reasoning resolve peer production conflicts that informal consensus cannot. Transparent criteria with independent reviewers resolve conflicts that consensus cannot.
+- [Wikipedia Good Article Process](https://en.wikipedia.org/wiki/Wikipedia:Good_articles) — Peer assessment with transparent criteria and independent reviewers creates sustainable quality tiers in open communities. Structured moderation creates sustainable quality.
 
-**wiki.osmfoundation.org** — Formal dispute resolution bodies with binding authority and published reasoning resolve peer production conflicts that informal consensus cannot. OpenStreetMap shows that transparent criteria with independent reviewers resolve conflicts that consensus cannot.
+**Fracture Cases (Complicating):**
+- [Rust Moderation Team Resignation](https://blog.rust-lang.org/2021/05/17/Moderation-team-resignation.html) — Governance crises in peer communities can erupt suddenly when delegated authority is perceived as unsupported by central leadership. Moderators abandon roles when authority is unsupported.
+- [Mastodon Moderation Governance](https://docs.joinmastodon.org/admin/moderation/) — Decentralized peer governance without shared authority produces inconsistent enforcement. Moderation without shared authority becomes exploitable by bad actors playing instances against each other.
 
-**en.wikipedia.org** — Peer assessment with transparent criteria and independent reviewers creates sustainable quality tiers in open communities. Wikipedia's Good Article process demonstrates that structured moderation creates sustainable quality.
+### Operational Heuristics
 
-### Evidenze di Faglia
+**Positive Boundary:** Moderation works when formal dispute resolution bodies have binding authority and published reasoning — transparent criteria with independent reviewers resolve conflicts that informal consensus cannot handle.
 
-**blog.rust-lang.org** — Governance crises in peer communities can erupt suddenly when delegated authority is perceived as unsupported by central leadership. Rust's moderation team resignation (2021) shows that moderators abandon roles when authority is unsupported.
+**Negative Boundary:** Do not apply this pattern when delegation of authority lacks formal support from community leadership — moderators abandon roles when they perceive their authority as unsupported; shared responsibility without shared authority is not sustainable.
 
-**docs.joinmastodon.org** — Decentralized peer governance without shared authority produces inconsistent enforcement. Mastodon demonstrates that moderation without shared authority becomes exploitable by bad actors playing instances against each other.
+### Epistemic Synthesis
 
-### Euristiche Operative
+Sustainable peer learning requires someone willing to hold authority that the community cannot exercise collectively. Not because peers are incapable of good judgment, but because judgment at scale requires institutional memory, consistent application, and the courage to disappoint people. Wikipedia's model works because it separates different types of decisions — content editing remains radically open while dispute resolution becomes formally structured. Whether peer learning spaces can develop this institutional maturity without losing the collaborative energy that makes them valuable remains to be tested.
 
-**Regola Positiva:** La moderazione funziona quando i corpi di risoluzione dispute formali hanno autorità vincolante e ragionamento pubblicato. OpenStreetMap e Wikipedia mostrano che criteri trasparenti con revisori indipendenti risolvono conflitti che il consenso informale non può gestire.
+### Evidence Status
 
-**Regola Negativa:** Non applicare questo pattern quando la delega di autorità manca di supporto formale dalla leadership della comunità. Rust mostra che i moderatori abbandonano i loro ruoli quando percepiscono la loro autorità come non supportata — la responsabilità condivisa senza autorità condivisa non è sostenibile.
+| Status | Count |
+|--------|------:|
+| **Confirmed cases** | 2 |
+| **Cases under study** | 0 |
+| **Unverified cases** | 0 |
+| **Ambiguous cases** | 0 |
 
-### Sintesi & Tracciabilità
+### Traceability
 
-**Riferimento:** audit-v2 (delta tensione: 1.4 → 1.42, +0.02)
-**Evidenze esaminate:** 4 (2 confermanti, 2 complicanti)
-**Stato:** PROVVISORIO
-
-Il peer learning sostenibile richiede qualcuno disposto a detenere autorità che la comunità non può esercitare collettivamente. Non perché i pari siano incapaci di buon giudizio, ma perché il giudizio su scala richiede memoria istituzionale, applicazione coerente e il coraggio di deludere le persone. Il modello Wikipedia funziona perché separa diversi tipi di decisioni — il editing dei contenuti rimane radicalmente aperto mentre la risoluzione dispute diventa formalmente strutturata. Resta da testare se gli spazi di peer learning possano sviluppare questa maturità istituzionale senza perdere l'energia collaborativa che li rende preziosi.
+`Run: audit-v2 · Delta: 1.4 → 1.42 (±0.02) · Diversity D: 2`
 
 ### References
 
-- [https://blog.rust-lang.org/2021/05/17/Moderation-team-resignation.html](https://blog.rust-lang.org/2021/05/17/Moderation-team-resignation.html)
-- [https://docs.joinmastodon.org/admin/moderation/](https://docs.joinmastodon.org/admin/moderation/)
-- [https://en.wikipedia.org/wiki/Wikipedia:Good_articles](https://en.wikipedia.org/wiki/Wikipedia:Good_articles)
-- [https://wiki.osmfoundation.org/wiki/Data_Working_Group](https://wiki.osmfoundation.org/wiki/Data_Working_Group)
+- [Rust Moderation Team Resignation](https://blog.rust-lang.org/2021/05/17/Moderation-team-resignation.html)
+- [Mastodon Moderation](https://docs.joinmastodon.org/admin/moderation/)
+- [Wikipedia Good Articles](https://en.wikipedia.org/wiki/Wikipedia:Good_articles)
+- [OpenStreetMap Data Working Group](https://wiki.osmfoundation.org/wiki/Data_Working_Group)
