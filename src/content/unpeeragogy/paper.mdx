@@ -8,48 +8,54 @@ tags: ["paper", "academia", "theory"]
 origin: "audit-v2"
 ---
 
-### Il Dogma
+### The Assumption
 
-Academic papers are inefficient for spreading ideas compared to open-source projects. The Handbook prioritizes theory over practice, limiting its effectiveness. Papers are read by those already familiar with peeragogy, limiting outreach.
+Academic papers are inefficient for spreading ideas compared to open-source projects. The handbook prioritizes theory over practice, limiting its effectiveness. Papers are read by those already familiar with peeragogy, limiting outreach.
 
-### La Realtà
+### Operational Reality
 
-GitLab's stewardship handbook is the most-cited document in this entire audit. Not because it's peer-reviewed. Not because it's published in a prestigious journal. Not because it advances theory. Because it documents operational boundaries that people need to navigate their actual work.
+GitLab's stewardship handbook is the most-cited document in this entire audit. Not because it is peer-reviewed. Not because it is published in a prestigious journal. Not because it advances theory. Because it documents operational boundaries that people need to navigate their actual work.
 
 Compare that to the academic papers on peer learning. The theories are elegant. The citations are thorough. The contribution to knowledge is real. And nobody building a community garden or starting a co-learning group reads them.
 
-The gap isn't between theory and practice. It's between documentation that answers "what should I do on Monday morning?" and documentation that explains "why this matters in general." The Linux kernel's Reviewed-by tag system is a paper-worthy innovation — but its real impact comes from being embedded in a tool that enforces it, not from being read.
+The gap is not between theory and practice. It is between documentation that answers "what should I do on Monday morning?" and documentation that explains "why this matters in general." The Linux kernel's Reviewed-by tag system is a paper-worthy innovation — but its real impact comes from being embedded in a tool that enforces it, not from being read. Debian shows that communication practices embedded in governance structures matter more than abstract models of peer coordination.
 
-### Perturbatore
+> **Perturbatore:** *"What if papers do not kill ideas — bad papers kill ideas — and good papers kill bad governance, but only if someone actually reads them before the crisis hits?"*
 
-> **Perturbatore:** *"What if papers don't kill ideas — bad papers kill ideas — and good papers kill bad governance, but only if someone actually reads them before the crisis hits?"*
+### Empirical Evidence
 
-### Evidenze di Tenuta
+**Resilience Cases (Confirming):**
+- [GitLab Stewardship Handbook](https://about.gitlab.com/handbook/company/stewardship/) — Explicit documentation of governance boundaries between corporate sponsor and community reduces friction in open-core projects. Operational documentation is more effective than theoretical exposition for changing how people collaborate.
 
-**about.gitlab.com** — Explicit documentation of governance boundaries between corporate sponsor and community reduces friction in open-core projects. GitLab shows that operational documentation is more effective than theoretical exposition for changing how people collaborate.
+**Fracture Cases (Complicating):**
+- [Linux Kernel Reviewed-by Tag System](https://docs.kernel.org/process/submitting-patches.html) — Formal peer assessment accountability through tooling reveals review scarcity as the bottleneck. Operational documentation with enforcement mechanisms outperforms theoretical papers.
+- [Debian DPL Bits Newsletter](https://lists.debian.org/debian-devel-announce/) — Regular leadership summaries in peer-governed projects create agenda-setting power. Communication practices embedded in governance structures matter more than abstract models of peer coordination.
 
-### Evidenze di Faglia
+### Operational Heuristics
 
-**docs.kernel.org** — The Linux kernel's Reviewed-by tag system creates formal peer assessment accountability through tooling, revealing review scarcity as the bottleneck. Linux demonstrates that operational documentation with enforcement mechanisms outperforms theoretical papers.
+**Positive Boundary:** The pattern works when documentation serves operational boundary-setting rather than theoretical exposition — formal documentation reduces friction when it clarifies governance boundaries, not when it expands theory.
 
-**lists.debian.org** — Regular leadership summaries in peer-governed projects create agenda-setting power. Debian shows that communication practices embedded in governance structures matter more than abstract models of peer coordination.
+**Negative Boundary:** Do not apply this pattern when documentation concerns boundary-setting rather than theory — the Reviewed-by system shows that formal peer assessment creates accountability but reveals queuing problems that papers alone cannot solve.
 
-### Euristiche Operative
+### Epistemic Synthesis
 
-**Regola Positiva:** Il pattern funziona quando la documentazione serve il boundary-setting operativo piuttosto che l'esposizione teorica. GitLab mostra che la documentazione formale riduce l'attrito quando chiarisce i confini di governance — non quando espande la teoria.
+Papers are less efficient than open projects for spreading ideas not because theory is useless, but because the medium privileges completeness over operability. GitLab's stewardship handbook is more cited than any peer-reviewed paper on open source not because it is more true, but because it answers the question practitioners have at 9 AM on Monday. The tension is not between theory and practice, but between documentation that serves those who operate and documentation that serves those who publish.
 
-**Regola Negativa:** Non applicare questo pattern quando la documentazione riguarda il boundary-setting piuttosto che la teoria. Il sistema Reviewed-by di Linux mostra che il peer assessment formale crea accountability — ma rivela anche che il collo di bottiglia è la scarsità di revisori, non la chiarezza della teoria.
+### Evidence Status
 
-### Sintesi & Tracciabilità
+| Status | Count |
+|--------|------:|
+| **Confirmed cases** | 1 |
+| **Cases under study** | 0 |
+| **Unverified cases** | 0 |
+| **Ambiguous cases** | 0 |
 
-**Riferimento:** audit-v2 (delta tensione: 1.2 → 1.2575, +0.0575)
-**Evidenze esaminate:** 3 (1 confermante, 2 complicanti)
-**Stato:** PROVVISORIO
+### Traceability
 
-I paper sono meno efficienti dei progetti open per diffondere idee non perché la teoria sia inutile, ma perché il medium privilegia la completezza sull'operatività. Il manuale di stewardship GitLab è più citato di qualsiasi paper peer-reviewed sull'open source non perché sia più vero, ma perché risponde alla domanda che i practitioner hanno alle 9 di lunedì mattina. La tensione non è tra teoria e pratica, ma tra documentazione che serve chi opera e documentazione che serve chi pubblica.
+`Run: audit-v2 · Delta: 1.2 → 1.2575 (±0.0575) · Diversity D: 2`
 
 ### References
 
-- [https://about.gitlab.com/handbook/company/stewardship/](https://about.gitlab.com/handbook/company/stewardship/)
-- [https://docs.kernel.org/process/submitting-patches.html](https://docs.kernel.org/process/submitting-patches.html)
-- [https://lists.debian.org/debian-devel-announce/](https://lists.debian.org/debian-devel-announce/)
+- [GitLab Stewardship Handbook](https://about.gitlab.com/handbook/company/stewardship/)
+- [Linux Kernel Submitting Patches](https://docs.kernel.org/process/submitting-patches.html)
+- [Debian Devel Announce](https://lists.debian.org/debian-devel-announce/)
