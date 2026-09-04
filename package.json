@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "start": "npx -y serve dist -l 80 -s --no-clipboard",
+    "start": "npx -y http-server dist -p 80 --silent",
     "build": "astro build && node scripts/generate-seo.mjs && npx -y pagefind --site dist",
     "preview": "npx -y serve dist --listen 4321",
     "astro": "astro",
