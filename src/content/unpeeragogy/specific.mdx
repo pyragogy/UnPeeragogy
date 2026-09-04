@@ -8,51 +8,56 @@ tags: ["specific", "context", "adaptation"]
 origin: "audit-v2"
 ---
 
-### Il Dogma
+### The Assumption
 
 Patterns must be adapted to specific contexts rather than applied universally. Assuming a pattern works without testing it in your context can lead to failure.
 
-### La Realtà
+### Operational Reality
 
-Every consultant says "it depends on your context" — that's not wisdom, that's a billable hour.
+Every consultant says "it depends on your context" — that is not wisdom, that is a billable hour.
 
-The pattern is trivially true and practically useless. Of course context matters. The question is how to adapt. GitLab's stewardship handbook doesn't advise "adapt to context" — it documents specific governance boundaries that transfer across contexts. OpenStreetMap's Data Working Group doesn't recommend "test in your environment" — it publishes enforceable dispute resolution mechanisms. WebAssembly's lighter governance model shows that even intentional context-specific choices have predictable failure modes.
+The pattern is trivially true and practically useless. Of course context matters. The question is how to adapt. GitLab's stewardship handbook does not advise "adapt to context" — it documents specific governance boundaries that transfer across contexts. OpenStreetMap's Data Working Group does not recommend "test in your environment" — it publishes enforceable dispute resolution mechanisms. WebAssembly's lighter governance model shows that even intentional context-specific choices have predictable failure modes. Drupal's governance transition demonstrates that context adaptation without governance design produces the same failure modes regardless of context.
 
-The pattern mistakes truism for insight. The adaptation that matters is structural, not attitudinal. Document what won't change, not what might.
-
-### Perturbatore
+The pattern mistakes truism for insight. The adaptation that matters is structural, not attitudinal. Document what will not change, not what might.
 
 > **Perturbatore:** *"What if every consultant says 'it depends on your context' — that's not wisdom, that's a billable hour — and the adaptation that matters is structural, not attitudinal?"*
 
-### Evidenze di Tenuta
+### Empirical Evidence
 
-**about.gitlab.com** — Explicit documentation of governance boundaries reduces friction. GitLab shows that cross-context adaptation works when governance boundaries are explicitly documented, not when adaptation is advised generically.
+**Resilience Cases (Confirming):**
+- [GitLab Stewardship Handbook](https://about.gitlab.com/handbook/company/stewardship/) — Explicit documentation of governance boundaries between corporate sponsor and community reduces friction. Cross-context adaptation works when governance boundaries are explicitly documented, not when adaptation is advised generically.
+- [OpenStreetMap Data Working Group](https://wiki.osmfoundation.org/wiki/Data_Working_Group) — Formal dispute resolution bodies with binding authority and published reasoning resolve peer production conflicts. Portable governance mechanisms outperform context-specific advice.
 
-**wiki.osmfoundation.org** — Formal dispute resolution bodies with binding authority publish enforceable mechanisms. OpenStreetMap demonstrates that portable governance mechanisms outperform context-specific advice.
+**Fracture Cases (Complicating):**
+- [WebAssembly Community Group](https://www.w3.org/community/webassembly/) — Choosing lighter governance models for standards development trades authority for speed, creating different failure modes. Even intentional context-specific choices have predictable failure modes.
+- [Drupal Governance](https://www.drupal.org/governance) — Intentional governance transition from BDFL to community model required years of structural work. Context adaptation without governance design produces the same failure modes regardless of context.
 
-### Evidenze di Faglia
+### Operational Heuristics
 
-**w3.org** — Choosing lighter governance models trades authority for speed. WebAssembly shows that even intentional context-specific choices have predictable failure modes.
+**Positive Boundary:** Contextual adaptation works when it includes explicit documentation of governance boundaries and formal mechanisms for handling edge cases — portable mechanisms outperform context-specific advice.
 
-**drupal.org** — Intentional governance transition required years of structural work. Drupal demonstrates that context adaptation without governance design produces the same failure modes regardless of context.
+**Negative Boundary:** Do not apply this pattern by merely advising "adapt to your context" without defining adaptation mechanisms — even intentional context-specific choices have predictable failure modes.
 
-### Euristiche Operative
+### Epistemic Synthesis
 
-**Regola Positiva:** L'adattamento contestuale funziona quando include documentazione esplicita dei confini di governance e meccanismi formali per gestire i casi limite. GitLab e OpenStreetMap mostrano che i meccanismi portabili funzionano meglio dei consigli specifici al contesto.
+The pattern is trivially true and practically useless. Of course context matters. The question is how to adapt. GitLab does not advise "adapt to context" — it documents specific governance boundaries that transfer across contexts. OpenStreetMap publishes enforceable dispute resolution mechanisms. The adaptation that matters is structural, not attitudinal. Document what will not change, not what might.
 
-**Regola Negativa:** Non applicare questo pattern limitandosi a consigliare "adatta al tuo contesto" senza definire meccanismi di adattamento. WebAssembly mostra che anche scelte contestuali intenzionali hanno modalità di fallimento prevedibili.
+### Evidence Status
 
-### Sintesi & Tracciabilità
+| Status | Count |
+|--------|------:|
+| **Confirmed cases** | 2 |
+| **Cases under study** | 0 |
+| **Unverified cases** | 0 |
+| **Ambiguous cases** | 0 |
 
-**Riferimento:** audit-v2 (delta tensione: 1.2 → 1.22, +0.02)
-**Evidenze esaminate:** 4 (2 confermanti, 2 complicanti)
-**Stato:** PROVVISORIO
+### Traceability
 
-Il pattern è banalmente vero e praticamente inutile. Certo che il contesto conta. La domanda è come adattarsi. GitLab non consiglia "adatta al contesto" — documenta confini di governance specifici che trasferiscono attraverso contesti. OpenStreetMap pubblica meccanismi di risoluzione dispute applicabili. L'adattamento che conta è strutturale, non attitudinale.
+`Run: audit-v2 · Delta: 1.2 → 1.22 (±0.02) · Diversity D: 2`
 
 ### References
 
-- [https://about.gitlab.com/handbook/company/stewardship/](https://about.gitlab.com/handbook/company/stewardship/)
-- [https://wiki.osmfoundation.org/wiki/Data_Working_Group](https://wiki.osmfoundation.org/wiki/Data_Working_Group)
-- [https://www.drupal.org/governance](https://www.drupal.org/governance)
-- [https://www.w3.org/community/webassembly/](https://www.w3.org/community/webassembly/)
+- [GitLab Stewardship Handbook](https://about.gitlab.com/handbook/company/stewardship/)
+- [OpenStreetMap Data Working Group](https://wiki.osmfoundation.org/wiki/Data_Working_Group)
+- [WebAssembly Community Group](https://www.w3.org/community/webassembly/)
+- [Drupal Governance](https://www.drupal.org/governance)
