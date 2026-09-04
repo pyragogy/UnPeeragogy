@@ -8,51 +8,56 @@ tags: ["antipatterns", "failure", "practice"]
 origin: "audit-v2"
 ---
 
-### Il Dogma
+### The Assumption
 
 Antipatterns are recognizable dysfunctional patterns that lead to negative outcomes despite appearing reasonable at first glance. The handbook catalogs specific failure modes — consensus-paralysis, authority-attrition, free-rider problems — with the implicit claim that recognition enables prevention.
 
-### La Realtà
+### Operational Reality
 
-The Peeragogy Handbook lists six antipatterns like items in a field guide to dysfunction. Stuck. Magical Thinking. Stasis. Each gets its own page, its own definition, its own neat boundaries. The assumption runs deeper than the categories — that naming the problem halfway solves it.
+The Peeragogy Handbook lists six antipatterns like items in a field guide to dysfunction. Stuck. Magical Thinking. Stasis. Each gets its own definition, its own boundaries. The assumption runs deeper than the categories: that naming the problem solves half of it.
 
-But Wikipedia's consensus processes expose the gap between theory and practice. The project formally operates on peer equality, yet participation inequality creates de facto hierarchies. Those who show up consistently gain disproportionate influence — not through declared authority but through sustained presence. The antipattern isn't in the handbook. It emerges from the very solution the handbook would prescribe.
+But Wikipedia's consensus processes expose the gap. The project formally operates on peer equality, yet participation inequality creates de facto hierarchies. Those who show up consistently gain disproportionate influence — not through declared authority but through sustained presence. This antipattern is not in the handbook. It emerges from the very solution the handbook would prescribe.
 
-Not documentation. Not governance boundaries. Not formal dispute resolution. The friction lives in the space between what we say we're doing and what actually happens when humans gather around shared work.
+GitLab shows that designing governance boundaries in advance prevents the most common antipatterns. OpenStreetMap shows that formal dispute resolution bodies are required for what informal consensus cannot resolve. WebAssembly shows that every governance choice prevents one antipattern while creating another. Wikipedia Articles for Deletion shows that consensus processes produce de facto hierarchies through participation inequality — the antipattern is not a bug but an emergent property of how peer production scales.
 
-### Perturbatore
+> **Perturbatore:** *"What if knowing the name of your dysfunction does not cure it — it just makes you sound smarter while you repeat it?"*
 
-> **Perturbatore:** *"What if knowing the name of your dysfunction doesn't cure it — it just makes you sound smarter while you repeat it?"*
+### Empirical Evidence
 
-### Evidenze di Tenuta
+**Resilience Cases (Confirming):**
+- [GitLab Stewardship Handbook](https://about.gitlab.com/handbook/company/stewardship/) — Explicit documentation of governance boundaries between corporate sponsor and community reduces friction. Designing boundaries in advance prevents the most common antipatterns.
+- [OpenStreetMap Data Working Group](https://wiki.osmfoundation.org/wiki/Data_Working_Group) — Formal dispute resolution bodies with binding authority resolve peer production conflicts that informal consensus cannot. Some antipatterns require formal mechanisms, not just awareness.
 
-**about.gitlab.com** — Explicit documentation of governance boundaries between corporate sponsor and community reduces friction in open-core projects. GitLab shows that naming potential dysfunction and designing boundaries in advance prevents the most common antipatterns.
+**Fracture Cases (Complicating):**
+- [WebAssembly Community Group](https://www.w3.org/community/webassembly/) — Lighter governance prevents bureaucracy but creates speed-versus-consensus trade-offs. Every governance choice prevents one antipattern while creating another.
+- [Wikipedia Articles for Deletion](https://en.wikipedia.org/wiki/Wikipedia:Articles_for_deletion) — Consensus processes produce de facto hierarchies through participation inequality. The antipattern is not a bug but an emergent property of how peer production scales.
 
-**wiki.osmfoundation.org** — Formal dispute resolution bodies with binding authority and published reasoning resolve peer production conflicts that informal consensus cannot. OpenStreetMap demonstrates that some antipatterns require formal mechanisms, not just awareness.
+### Operational Heuristics
 
-### Evidenze di Faglia
+**Positive Boundary:** Apply antipattern analysis only when combined with explicit governance trade-off documentation — identifying failure modes is useful when paired with design decisions that address them.
 
-**w3.org** — Choosing lighter governance models for standards development trades authority for speed, creating different failure modes. WebAssembly Community Group shows that lighter governance prevents one antipattern (bureaucracy) while creating another (speed versus consensus trade-offs).
+**Negative Boundary:** Do not use antipattern recognition as a cure for governance dysfunction — antipatterns are emergent properties of governance choices, and knowing their name does not prevent them.
 
-**en.wikipedia.org** — Wikipedia's consensus processes produce de facto hierarchies through participation inequality — those who show up consistently gain disproportionate influence. The antipattern is not a bug but an emergent property of how peer production scales.
+### Epistemic Synthesis
 
-### Euristiche Operative
+The central assumption — that recognizing antipatterns prevents their recurrence — is structurally contradicted by the evidence. Antipatterns are not bugs to fix but emergent properties of governance choices. Every governance choice prevents some antipatterns and creates others. The theoretical pattern is useful only if reread as a map of trade-offs, not as a diagnosis.
 
-**Regola Positiva:** Applica l'analisi degli antipattern solo quando combinata con un esplicito trade-off di governance. GitLab e OpenStreetMap dimostrano che documentare i confini e progettare meccanismi di risoluzione previene le disfunzioni più comuni.
+### Evidence Status
 
-**Regola Negativa:** Non usare il riconoscimento degli antipattern come soluzione magica per disfunzioni di governance. Wikipedia e WebAssembly dimostrano che gli antipattern sono proprietà emergenti inevitabili delle scelte di governance — conoscerne il nome non li previene.
+| Status | Count |
+|--------|------:|
+| **Confirmed cases** | 2 |
+| **Cases under study** | 2 |
+| **Unverified cases** | 0 |
+| **Ambiguous cases** | 0 |
 
-### Sintesi & Tracciabilità
+### Traceability
 
-**Riferimento:** audit-v2 (delta tensione: 1.5 → 1.52, +0.02)
-**Evidenze esaminate:** 4 (2 confermanti, 2 complicanti)
-**Stato:** PROVVISORIO
-
-L'assunzione centrale — che riconoscere gli antipattern ne prevenga la ricorrenza — è strutturalmente contraddetta dall'evidenza. Gli antipattern non sono bug da fixare ma proprietà emergenti inevitabili delle scelte di governance. Ogni scelta di governance previene alcuni antipattern e ne crea altri. Il pattern teorico è utile se riletto come mappa dei trade-off, non come diagnosi.
+`Run: audit-v2 · Delta: 1.5 → 1.52 · Diversity D: 2`
 
 ### References
 
-- [https://about.gitlab.com/handbook/company/stewardship/](https://about.gitlab.com/handbook/company/stewardship/)
-- [https://en.wikipedia.org/wiki/Wikipedia:Articles_for_deletion](https://en.wikipedia.org/wiki/Wikipedia:Articles_for_deletion)
-- [https://wiki.osmfoundation.org/wiki/Data_Working_Group](https://wiki.osmfoundation.org/wiki/Data_Working_Group)
-- [https://www.w3.org/community/webassembly/](https://www.w3.org/community/webassembly/)
+- [GitLab Stewardship Handbook](https://about.gitlab.com/handbook/company/stewardship/)
+- [Wikipedia Articles for Deletion](https://en.wikipedia.org/wiki/Wikipedia:Articles_for_deletion)
+- [OpenStreetMap Data Working Group](https://wiki.osmfoundation.org/wiki/Data_Working_Group)
+- [WebAssembly Community Group](https://www.w3.org/community/webassembly/)
