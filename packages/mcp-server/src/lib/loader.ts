@@ -78,6 +78,9 @@ function parseFrontmatter(raw: string): { frontmatter: EntryFrontmatter; body: s
     const description = yamlBlock.match(/description:\s*"([^"]+)"/);
     const readingTime = yamlBlock.match(/readingTime:\s*(\d+)/);
 
+    // Extract tension_index
+    const tensionIndexStr = yamlBlock.match(/tension_index:\s*([\d.]+)/);
+
     // Extract tags array
     const tagsMatch = yamlBlock.match(/tags:\s*(\[[\s\S]*?\])/);
     let tags: string[] = [];
@@ -99,6 +102,7 @@ function parseFrontmatter(raw: string): { frontmatter: EntryFrontmatter; body: s
       description: description?.[1] || undefined,
       readingTime: readingTime ? parseInt(readingTime[1]) : undefined,
       tags: tags.length > 0 ? tags : undefined,
+      tension_index: tensionIndexStr ? parseFloat(tensionIndexStr[1]) : undefined,
     };
   }
 
@@ -151,7 +155,11 @@ export function loadAllEntries(): ContentEntry[] {
       const slug = file.replace(/\.mdx$/, "");
 
       const vectors = detectVectors(frontmatter, body);
-      const tensionIndex = frontmatterToErrorCount(frontmatter);
+
+      // Use canonical tension_index if present, fall back to synthetic calculation
+      const canonicalTi = frontmatter.tension_index;
+      const syntheticTi = frontmatterToErrorCount(frontmatter);
+      const tensionIndex = canonicalTi !== undefined ? canonicalTi : (syntheticTi > 0 ? Math.min(syntheticTi / 4, 2.0) : undefined);
 
       entries.push({
         slug,
@@ -159,7 +167,7 @@ export function loadAllEntries(): ContentEntry[] {
         frontmatter: {
           ...frontmatter,
           vectors: vectors.length > 0 ? vectors : undefined,
-          tension_index: tensionIndex > 0 ? Math.min(tensionIndex / 4, 2.0) : undefined,
+          tension_index: tensionIndex,
         },
         body,
         filePath,
