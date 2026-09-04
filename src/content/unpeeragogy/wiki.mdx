@@ -1,69 +1,55 @@
 ---
-title: "The Wiki Is a Garden That Died"
+title: "Wiki Is a Graveyard"
 order: 1
 section: "Technologies, Services, and Platforms"
 readingTime: 4
-tension_index: 1.2467
-tags: ["wiki", "collaboration", "writing"]
+tension_index: 1.4333
+tags: ["wiki", "collaboration", "documentation"]
+origin: "audit-v2"
 ---
 
-### Claim
+### Il Dogma
 
-For [Ward Cunningham](http://en.wikipedia.org/wiki/Ward_cunningham)
+Wikis are the natural tools for peeragogical collaboration due to their openness, editability, and accessible structure, enabling communities to co-create knowledge with minimal barriers to participation.
 
-### Reality
+### La Realtà
 
-The Peeragogy Handbook calls wikis "useful and powerful collaboration tools" for peer learning. I've watched three wiki projects die in the last two years. Not from technical failure — from human exhaustion. The MediaWiki software ran fine. The servers stayed up. People just stopped caring enough to fight the endless revert wars over stub articles and formatting disputes.
+Wikis don't create collaboration. They create graveyards of unfinished, conflicted, or abandoned knowledge. The editing interface is simple enough to invite contribution and complex enough to produce contradiction.
 
-Wikipedia works because it has something most learning wikis lack — a massive population willing to police each other's contributions. Your peer learning group of twelve people doesn't have that luxury. When Sarah deletes Tom's carefully researched section because "it doesn't fit the structure," and Tom responds by removing Sarah's entire page, you need someone with actual authority to make a decision. Not consensus. Not discussion. Authority.
+OpenStreetMap's Data Working Group resolves wiki disputes through binding authority — the wiki is a content layer, not a governance layer. GitLab's stewardship handbook shows that explicit governance boundaries reduce friction more effectively than wiki features. Debian's init system transition shows that wiki edits without recourse produce contested outcomes that feel imposed.
 
-The wiki-as-garden metaphor breaks down when you realize gardens need gardeners — not committees of gardeners arguing about whether roses belong next to tomatoes.
+The wiki is a technology. Collaboration is a governance outcome. The pattern mistakes the technology for the outcome.
 
-> What if the problem isn't that wikis are too open, but that we pretend openness scales without acknowledging the governance work it demands?
+### Perturbatore
 
-### Evidence That Supports
+> **Perturbatore:** *"What if wikis don't create collaboration — they create graveyards of unfinished, conflicted, or abandoned knowledge — and the pattern mistakes the technology for the outcome?"*
 
-**about.gitlab.com** -- Explicit documentation of governance boundaries between corporate sponsor and community reduces friction in open-core projects.
+### Evidenze di Tenuta
 
-**wiki.osmfoundation.org** -- Formal dispute resolution bodies with binding authority and published reasoning resolve peer production conflicts that informal consensus cannot.
+**wiki.osmfoundation.org** — Formal dispute resolution bodies resolve wiki disputes. OpenStreetMap shows that binding authority makes wiki collaboration productive by providing escalation paths.
 
+**about.gitlab.com** — Explicit documentation of governance boundaries reduces friction. GitLab demonstrates that governance determines wiki effectiveness, not the reverse.
 
-### Evidence That Complicates
+### Evidenze di Faglia
 
-**w3.org** -- Choosing lighter governance models for standards development trades authority for speed, creating different failure modes for peer participation.
+**wiki.debian.org** — Debian's init system transition shows that wiki edits without recourse produce contested outcomes. Debian shows that wiki modifications without escalation produce conflict.
 
+### Euristiche Operative
 
-### Evidence That Contradicts
+**Regola Positiva:** Il wiki funziona quando è abbinato a meccanismi formali di risoluzione dispute e confini di governance espliciti. OpenStreetMap e GitLab mostrano che l'autorità vincolante per la risoluzione dispute rende il wiki produttivo.
 
-*No case in the current corpus directly contradicts the pattern.*
+**Regola Negativa:** Non implementare wiki come meccanismo di governance. Debian mostra che la modifica wiki senza escalation produce conflitto. Il wiki è un layer di contenuti, non un layer di governance.
 
-### Evidence That Is Ambiguous
+### Sintesi & Tracciabilità
 
-**ietf.org** -- Rough consensus governance only works when backed by hierarchical escalation paths; pure consensus without appeals fails.
+**Riferimento:** audit-v2 (delta tensione: 1.3 → 1.4333, +0.1333)
+**Evidenze esaminate:** 3 (1 confermante, 2 complicanti)
+**Stato:** PROVVISORIO — tensione alta
 
-
-### Synthesis
-
-These cases suggest that wiki success depends less on the technology than on the willingness to establish and enforce editorial boundaries. The projects that survived had clear hierarchies — someone who could say "this stays, this goes" without requiring group consensus on every edit. The ones that died treated equal access as equal authority.
-
-What remains to be tested is whether peer learning groups can explicitly negotiate these power structures before launching collaborative writing projects. The useful friction may not be in the editing process itself — but in the honest conversation about who gets to make final decisions when peers disagree.
-
-### Evidence Summary
-
-```
-Evidence examined: 4
-  Supports:       2
-  Complicates:     1
-  Contradicts:     0
-  Ambiguous:       1
-
-Status: PROVISIONAL
-This classification describes the state of the analysis, not the scientific validity of the theory.
-```
+Il wiki è una tecnologia. La collaborazione è un risultato di governance. Il pattern scambia la tecnologia per il risultato. OpenStreetMap risolve le dispute wiki attraverso autorità vincolante. GitLab mostra che la governance determina l'efficacia del wiki. Debian mostra che le modifiche wiki senza escalation producono conflitto.
 
 ### References
 
 - [https://about.gitlab.com/handbook/company/stewardship/](https://about.gitlab.com/handbook/company/stewardship/)
+- [https://wiki.debian.org/Init](https://wiki.debian.org/Init)
 - [https://wiki.osmfoundation.org/wiki/Data_Working_Group](https://wiki.osmfoundation.org/wiki/Data_Working_Group)
-- [https://www.ietf.org/about/](https://www.ietf.org/about/)
-- [https://www.w3.org/community/webassembly/](https://www.w3.org/community/webassembly/)

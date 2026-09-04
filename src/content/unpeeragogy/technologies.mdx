@@ -4,63 +4,49 @@ order: 1
 section: "Technologies, Services, and Platforms"
 readingTime: 4
 tension_index: 1.2792
-tags: ["technologies", "tools", "platforms"]
+tags: ["technologies", "selection", "governance"]
+origin: "audit-v2"
 ---
 
-### Claim
+### Il Dogma
 
-The node advocates for peer-driven technology selection where communities collectively evaluate and adopt tools based on shared needs rather than top-down mandates or vendor influence.
+Peer-driven technology selection where communities collectively evaluate and adopt tools based on shared needs rather than top-down mandates or vendor influence.
 
-### Reality
+### La Realtà
 
-A startup decides to build their community platform on Discord because "that's where developers hang out." Six months later, they're migrating to Slack because Discord's threading breaks their support workflows. Another six months, they're evaluating custom forums because Slack's search can't handle their knowledge base. The problem was never Discord, Slack, or forums.
+Democracy is two wolves and a sheep voting on what to have for lunch. Peer technology selection is five developers and a designer voting on whether to rewrite everything in Rust.
 
-Not the features. Not the integrations. Not the user experience.
+GitLab's stewardship handbook shows that explicit boundaries between corporate sponsor and community make technology selection less contested — not because the right tool is chosen, but because it's clear who decides. Mastodon's defederation mechanics show that peer technology choices create externalities for non-participants — the group that chooses ActivityPub imposes protocol decisions on everyone it interacts with. The Linux kernel's Reviewed-by system shows that technology selection without formal peer review produces quality variation.
 
-The problem was assuming technology choice determines community success. Each migration burned weeks of developer time, fractured conversation history, and trained users that nothing here is permanent. Meanwhile, communities thriving on IRC from the 1990s ship code daily with tools that predate the web browser.
+The problem isn't technology selection method. It's that technology decisions have externalities that peer voting cannot contain.
 
-> What if the question isn't which technology to choose, but how much technology friction your community can honestly handle?
+### Perturbatore
 
-### Evidence That Supports
+> **Perturbatore:** *"What if democracy is two wolves and a sheep voting on lunch — and peer technology selection is five developers and a designer voting on whether to rewrite everything in Rust?"*
 
-**about.gitlab.com** -- Explicit documentation of governance boundaries between corporate sponsor and community reduces friction in open-core projects.
+### Evidenze di Tenuta
 
+**about.gitlab.com** — Explicit documentation of governance boundaries reduces friction. GitLab shows that explicit authority boundaries make technology selection less contested.
 
-### Evidence That Complicates
+### Evidenze di Faglia
 
-**docs.joinmastodon.org** -- Peer governance in federated systems creates governance externalities — admin decisions affect users who have no governance rights in that instance.
+**docs.joinmastodon.org** — Mastodon's defederation mechanics show that peer technology choices create externalities for non-participants. Mastodon demonstrates that technology selection cannot be contained by peer voting.
 
-**docs.kernel.org** -- Formal peer assessment tags create accountability but also reveal review scarcity — the bottleneck shifts from writing code to getting it reviewed.
+**docs.kernel.org** — Linux kernel's Reviewed-by system shows that technology selection without formal peer review produces quality variation. Linux demonstrates that peer technology evaluation requires formal mechanisms.
 
+### Euristiche Operative
 
-### Evidence That Contradicts
+**Regola Positiva:** La selezione tecnologica peer funziona quando i confini di governance sono espliciti e l'input peer è delimitato da strutture di autorità chiare. GitLab mostra che confini espliciti tra sponsor aziendale e comunità rendono la selezione tecnologica meno contestata.
 
-*No case in the current corpus directly contradicts the pattern.*
+**Regola Negativa:** Non applicare questo pattern quando le scelte tecnologiche creano esternalità per i non partecipanti o quando l'autorità decisionale è completamente diffusa. Mastodon mostra che le scelte tecnologiche peer hanno conseguenze che il voto non può contenere.
 
-### Evidence That Is Ambiguous
+### Sintesi & Tracciabilità
 
-*No ambiguous evidence in the current corpus.*
+**Riferimento:** audit-v2 (delta tensione: 1.1 → 1.2792, +0.1792)
+**Evidenze esaminate:** 3 (1 confermante, 2 complicanti)
+**Stato:** PROVVISORIO
 
-### Synthesis
-
-These cases suggest that peer technology selection reveals governance capacity more than technical requirements. A community that can't decide between Slack and Discord probably can't handle the deeper conflicts that matter — who gets commit access, how to resolve design disagreements, what constitutes acceptable behavior.
-
-The governance externalities run deeper than admin privileges. When one instance decides to defederate, users lose connections they built across that bridge. When formal review processes create bottlenecks, the real constraint becomes reviewer attention, not code quality. The technology shapes the social structure, but the social structure determines which technologies survive contact with actual use.
-
-What remains to be tested is whether communities can resist the migration reflex — the assumption that better tools will solve social friction that better processes might address.
-
-### Evidence Summary
-
-```
-Evidence examined: 3
-  Supports:       1
-  Complicates:     2
-  Contradicts:     0
-  Ambiguous:       0
-
-Status: PROVISIONAL
-This classification describes the state of the analysis, not the scientific validity of the theory.
-```
+Il problema non è il metodo di selezione tecnologica. È che le decisioni tecnologiche hanno esternalità che il voto peer non può contenere. GitLab mostra che confini di autorità espliciti riducono la contestazione. Mastodon mostra che le scelte tecnologiche peer hanno conseguenze oltre il gruppo votante. Linux mostra che la valutazione tecnologica peer richiede meccanismi formali.
 
 ### References
 

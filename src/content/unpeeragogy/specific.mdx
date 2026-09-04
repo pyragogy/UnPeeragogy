@@ -4,67 +4,51 @@ order: 1
 section: "Peeragogy in Practice"
 readingTime: 4
 tension_index: 1.2200
-tags: ["specific", "context", "generalization"]
+tags: ["specific", "context", "adaptation"]
+origin: "audit-v2"
 ---
 
-### Claim
+### Il Dogma
 
-You find yourself interested in or concerned about something, but you
+Patterns must be adapted to specific contexts rather than applied universally. Assuming a pattern works without testing it in your context can lead to failure.
 
-### Reality
+### La Realtà
 
-The governance handbook for Apache projects runs 47 pages. It defines roles, voting procedures, conflict resolution paths. Most Apache projects ignore 80% of it. They use IRC channels and whoever shows up decides. This works until it doesn't — then they discover they needed those 47 pages after all.
+Every consultant says "it depends on your context" — that's not wisdom, that's a billable hour.
 
-Not bureaucracy. Not process for its own sake. Not even formal authority.
+The pattern is trivially true and practically useless. Of course context matters. The question is how to adapt. GitLab's stewardship handbook doesn't advise "adapt to context" — it documents specific governance boundaries that transfer across contexts. OpenStreetMap's Data Working Group doesn't recommend "test in your environment" — it publishes enforceable dispute resolution mechanisms. WebAssembly's lighter governance model shows that even intentional context-specific choices have predictable failure modes.
 
-The useful friction lives in the boundaries between what's documented and what actually happens. Kubernetes moved from Google's BDFL model to a community steering committee over three years. They didn't copy another project's constitution — they pressure-tested each governance layer against their specific contributor culture, their particular technical decisions, their earned trust patterns.
+The pattern mistakes truism for insight. The adaptation that matters is structural, not attitudinal. Document what won't change, not what might.
 
-The human part resists templates.
+### Perturbatore
 
-> What if the consultant's "it depends" isn't evasion but the only honest answer to governance design?
+> **Perturbatore:** *"What if every consultant says 'it depends on your context' — that's not wisdom, that's a billable hour — and the adaptation that matters is structural, not attitudinal?"*
 
-### Evidence That Supports
+### Evidenze di Tenuta
 
-**about.gitlab.com** -- Explicit documentation of governance boundaries between corporate sponsor and community reduces friction in open-core projects.
+**about.gitlab.com** — Explicit documentation of governance boundaries reduces friction. GitLab shows that cross-context adaptation works when governance boundaries are explicitly documented, not when adaptation is advised generically.
 
-**wiki.osmfoundation.org** -- Formal dispute resolution bodies with binding authority and published reasoning resolve peer production conflicts that informal consensus cannot.
+**wiki.osmfoundation.org** — Formal dispute resolution bodies with binding authority publish enforceable mechanisms. OpenStreetMap demonstrates that portable governance mechanisms outperform context-specific advice.
 
+### Evidenze di Faglia
 
-### Evidence That Complicates
+**w3.org** — Choosing lighter governance models trades authority for speed. WebAssembly shows that even intentional context-specific choices have predictable failure modes.
 
-**w3.org** -- Choosing lighter governance models for standards development trades authority for speed, creating different failure modes for peer participation.
+**drupal.org** — Intentional governance transition required years of structural work. Drupal demonstrates that context adaptation without governance design produces the same failure modes regardless of context.
 
-**drupal.org** -- Intentional governance transition from BDFL to community model requires years of structural work, not organic emergence.
+### Euristiche Operative
 
+**Regola Positiva:** L'adattamento contestuale funziona quando include documentazione esplicita dei confini di governance e meccanismi formali per gestire i casi limite. GitLab e OpenStreetMap mostrano che i meccanismi portabili funzionano meglio dei consigli specifici al contesto.
 
-### Evidence That Contradicts
+**Regola Negativa:** Non applicare questo pattern limitandosi a consigliare "adatta al tuo contesto" senza definire meccanismi di adattamento. WebAssembly mostra che anche scelte contestuali intenzionali hanno modalità di fallimento prevedibili.
 
-*No case in the current corpus directly contradicts the pattern.*
+### Sintesi & Tracciabilità
 
-### Evidence That Is Ambiguous
+**Riferimento:** audit-v2 (delta tensione: 1.2 → 1.22, +0.02)
+**Evidenze esaminate:** 4 (2 confermanti, 2 complicanti)
+**Stato:** PROVVISORIO
 
-*No ambiguous evidence in the current corpus.*
-
-### Synthesis
-
-These cases suggest that governance specificity creates its own constraints. The Apache model works for Apache because it emerged from their particular history of corporate-academic tension. Kubernetes governance reflects their container orchestration complexity and Google's release patterns. Neither transfers cleanly.
-
-What may hold across contexts — the rhythm of documenting boundaries only after informal practice breaks down. The work of earning authority before claiming it. The struggle to resist both premature formalization and permanent informality.
-
-What remains to be tested — whether peer production governance can acknowledge its own non-generalizability without abandoning the search for useful patterns.
-
-### Evidence Summary
-
-```
-Evidence examined: 4
-  Supports:       2
-  Complicates:     2
-  Contradicts:     0
-  Ambiguous:       0
-
-Status: PROVISIONAL
-This classification describes the state of the analysis, not the scientific validity of the theory.
-```
+Il pattern è banalmente vero e praticamente inutile. Certo che il contesto conta. La domanda è come adattarsi. GitLab non consiglia "adatta al contesto" — documenta confini di governance specifici che trasferiscono attraverso contesti. OpenStreetMap pubblica meccanismi di risoluzione dispute applicabili. L'adattamento che conta è strutturale, non attitudinale.
 
 ### References
 

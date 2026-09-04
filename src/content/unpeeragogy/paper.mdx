@@ -4,62 +4,49 @@ order: 1
 section: "Resources"
 readingTime: 4
 tension_index: 1.2575
-tags: ["paper", "publication", "influence"]
+tags: ["paper", "academia", "theory"]
+origin: "audit-v2"
 ---
 
-### Claim
+### Il Dogma
 
-We’ve written a few papers about different aspects of the peeragogy
+Academic papers are inefficient for spreading ideas compared to open-source projects. The Handbook prioritizes theory over practice, limiting its effectiveness. Papers are read by those already familiar with peeragogy, limiting outreach.
 
-### Reality
+### La Realtà
 
-Most academic papers about peer learning die in committee rooms where nobody practices peer learning. The authors write about collaboration while fighting over authorship order. They cite studies on open knowledge while hiding their data behind paywalls. The gap between what they recommend and how they work isn't hypocrisy — it's structural blindness.
+GitLab's stewardship handbook is the most-cited document in this entire audit. Not because it's peer-reviewed. Not because it's published in a prestigious journal. Not because it advances theory. Because it documents operational boundaries that people need to navigate their actual work.
 
-I've watched teams spend months polishing papers about agile governance while their own decision-making process required three committee approvals to change a comma. Not broken process. Not poor execution. Not misaligned incentives. The paper itself becomes the performance of understanding, replacing the messy work of actually building what you claim to study.
+Compare that to the academic papers on peer learning. The theories are elegant. The citations are thorough. The contribution to knowledge is real. And nobody building a community garden or starting a co-learning group reads them.
 
-The real test isn't peer review. It's whether the people who wrote about peer learning can actually learn from their peers when the paper gets torn apart.
+The gap isn't between theory and practice. It's between documentation that answers "what should I do on Monday morning?" and documentation that explains "why this matters in general." The Linux kernel's Reviewed-by tag system is a paper-worthy innovation — but its real impact comes from being embedded in a tool that enforces it, not from being read.
 
-> What if the paper that changes nothing is the one that perfectly describes how things should work?
+### Perturbatore
 
-### Evidence That Supports
+> **Perturbatore:** *"What if papers don't kill ideas — bad papers kill ideas — and good papers kill bad governance, but only if someone actually reads them before the crisis hits?"*
 
-**about.gitlab.com** -- Explicit documentation of governance boundaries between corporate sponsor and community reduces friction in open-core projects.
+### Evidenze di Tenuta
 
+**about.gitlab.com** — Explicit documentation of governance boundaries between corporate sponsor and community reduces friction in open-core projects. GitLab shows that operational documentation is more effective than theoretical exposition for changing how people collaborate.
 
-### Evidence That Complicates
+### Evidenze di Faglia
 
-**docs.kernel.org** -- Formal peer assessment tags create accountability but also reveal review scarcity — the bottleneck shifts from writing code to getting it reviewed.
+**docs.kernel.org** — The Linux kernel's Reviewed-by tag system creates formal peer assessment accountability through tooling, revealing review scarcity as the bottleneck. Linux demonstrates that operational documentation with enforcement mechanisms outperforms theoretical papers.
 
+**lists.debian.org** — Regular leadership summaries in peer-governed projects create agenda-setting power. Debian shows that communication practices embedded in governance structures matter more than abstract models of peer coordination.
 
-### Evidence That Contradicts
+### Euristiche Operative
 
-*No case in the current corpus directly contradicts the pattern.*
+**Regola Positiva:** Il pattern funziona quando la documentazione serve il boundary-setting operativo piuttosto che l'esposizione teorica. GitLab mostra che la documentazione formale riduce l'attrito quando chiarisce i confini di governance — non quando espande la teoria.
 
-### Evidence That Is Ambiguous
+**Regola Negativa:** Non applicare questo pattern quando la documentazione riguarda il boundary-setting piuttosto che la teoria. Il sistema Reviewed-by di Linux mostra che il peer assessment formale crea accountability — ma rivela anche che il collo di bottiglia è la scarsità di revisori, non la chiarezza della teoria.
 
-**lists.debian.org** -- Regular leadership summaries in peer-governed projects create agenda-setting power — what gets summarized is what gets attention.
+### Sintesi & Tracciabilità
 
+**Riferimento:** audit-v2 (delta tensione: 1.2 → 1.2575, +0.0575)
+**Evidenze esaminate:** 3 (1 confermante, 2 complicanti)
+**Stato:** PROVVISORIO
 
-### Synthesis
-
-These cases suggest that documentation and practice exist in different economies. A paper about governance boundaries may reduce friction precisely because it creates distance — the written rules become a buffer that prevents the human work of negotiating boundaries in real time. The formalization protects against the messiness it claims to solve.
-
-Peer assessment systems reveal this same pattern. The accountability they create often exposes the scarcity they were meant to address. More review requirements don't generate more reviewers — they make visible how few people actually want to do the unglamorous work of assessment. The bottleneck shifts but doesn't disappear.
-
-What remains to be tested is whether papers can resist their own tendency to substitute description for practice — or if the useful friction lies precisely in that gap between what we write and what we do.
-
-### Evidence Summary
-
-```
-Evidence examined: 3
-  Supports:       1
-  Complicates:     1
-  Contradicts:     0
-  Ambiguous:       1
-
-Status: PROVISIONAL
-This classification describes the state of the analysis, not the scientific validity of the theory.
-```
+I paper sono meno efficienti dei progetti open per diffondere idee non perché la teoria sia inutile, ma perché il medium privilegia la completezza sull'operatività. Il manuale di stewardship GitLab è più citato di qualsiasi paper peer-reviewed sull'open source non perché sia più vero, ma perché risponde alla domanda che i practitioner hanno alle 9 di lunedì mattina. La tensione non è tra teoria e pratica, ma tra documentazione che serve chi opera e documentazione che serve chi pubblica.
 
 ### References
 

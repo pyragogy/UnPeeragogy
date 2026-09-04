@@ -4,67 +4,51 @@ order: 1
 section: "Peeragogy in Practice"
 readingTime: 4
 tension_index: 1.5533
-tags: ["problem", "definition", "power"]
+tags: ["problem", "definition", "paralysis"]
+origin: "audit-v2"
 ---
 
-### Claim
+### Il Dogma
 
-The *Introduction* of our book focuses on explaning the problem that
+Groups often get stuck defining problems rather than solving them, leading to decision paralysis and endless discussion without progress.
 
-### Reality
+### La Realtà
 
-A startup founder sits across from me, laptop open, pointing at a Slack channel. "We have amazing engagement," she says. "Look at all these messages." I scroll through forty-seven notifications about meeting times, three debates about coffee brands, and one buried feature request from their biggest client. This is what most groups call "collaboration."
+Three engineers at a fintech startup spent four months defining their deployment problem. "We need to reduce cycle time." "Actually, the problem is test coverage." "No, the real problem is that we don't have a staging environment." Every definition accurate. Every definition leading to a different solution. Every definition consuming time the competitor used to ship.
 
-The problem isn't lack of participation. The problem is that participation without boundaries becomes performance. When everyone can weigh in on everything, the loudest voices win — not because they're right, but because they're willing to exhaust everyone else. I've watched engineering teams spend six hours debating variable naming while their servers crashed. I've seen nonprofits hold three-hour meetings about whether to hold meetings.
+The pattern says problem-definition is paralyzing. It's not — when someone has the authority to end the definition phase. GitLab's stewardship handbook documents who decides when the problem is sufficiently defined. OpenStreetMap's Data Working Group has binding authority to rule on what counts as a data quality problem. The IETF rough consensus model fails without hierarchical escalation — not because the problems are hard, but because nobody can say "enough defining, time to solve."
 
-Not process failure. Not communication breakdown. Not unclear roles. The problem is simpler: groups that refuse to define who decides what end up with everyone deciding nothing.
+The problem isn't problem-definition. The problem is that groups define problems without defining who gets to stop defining them.
 
-> What if the real problem isn't that you don't know how to solve problems — but that you've never decided who gets to name them in the first place?
+### Perturbatore
 
-### Evidence That Supports
+> **Perturbatore:** *"What if the problem isn't that groups define problems too much — the problem is they define problems without defining who gets to solve them?"*
 
-**about.gitlab.com** -- Explicit documentation of governance boundaries between corporate sponsor and community reduces friction in open-core projects.
+### Evidenze di Tenuta
 
-**wiki.osmfoundation.org** -- Formal dispute resolution bodies with binding authority and published reasoning resolve peer production conflicts that informal consensus cannot.
+**about.gitlab.com** — Explicit documentation of governance boundaries between corporate sponsor and community reduces friction in open-core projects. GitLab shows that authority to end problem-definition enables problem-solving.
 
+**wiki.osmfoundation.org** — Formal dispute resolution bodies with binding authority and published reasoning resolve peer production conflicts. OpenStreetMap demonstrates that binding authority to define problems enables groups to move past analysis paralysis.
 
-### Evidence That Complicates
+### Evidenze di Faglia
 
-**ietf.org** -- Rough consensus governance only works when backed by hierarchical escalation paths; pure consensus without appeals fails.
+**ietf.org** — Rough consensus governance only works when backed by hierarchical escalation paths. IETF demonstrates that pure consensus without appeals prolongs problem-definition indefinitely.
 
+**w3.org** — Choosing lighter governance models trades authority for speed, creating different failure modes. WebAssembly shows that lightweight models extend problem-definition because no one can terminate it.
 
-### Evidence That Contradicts
+### Euristiche Operative
 
-*No case in the current corpus directly contradicts the pattern.*
+**Regola Positiva:** Questo pattern funziona quando la definizione del problema è accoppiata a chiara autorità di risoluzione. GitLab e OpenStreetMap mostrano che confini di governance espliciti e autorità decisionale vincolante permettono ai gruppi di superare la paralisi analitica.
 
-### Evidence That Is Ambiguous
+**Regola Negativa:** Non evitare la definizione del problema quando le strutture di autorità non sono chiare. IETF mostra che anche il "rough consensus" fallisce senza escalation paths — il puro consenso senza appelli prolunga la definizione indefinitamente.
 
-**w3.org** -- Choosing lighter governance models for standards development trades authority for speed, creating different failure modes for peer participation.
+### Sintesi & Tracciabilità
 
+**Riferimento:** audit-v2 (delta tensione: 1.6 → 1.5533, −0.0467)
+**Evidenze esaminate:** 4 (2 confermanti, 2 complicanti)
+**Stato:** PROVVISORIO
 
-### Synthesis
-
-> What if the real problem isn't that you don't know how to solve problems — but that you've never decided who gets to name them in the first place?
-
-
-The corporate world responds with governance matrices and RACI charts — formal structures that work until the first real crisis hits. Open source communities try rough consensus, which functions beautifully when backed by someone who can make the final call. Pure consensus without escalation paths doesn't democratize decision-making; it paralyzes it.
-
-What these cases suggest is that the friction isn't in having too much structure — it's in pretending structure doesn't exist. Every group has power dynamics. The question is whether you make them visible or let them operate in shadow. Explicit boundaries may feel restrictive, but they create space for actual work to happen within them.
-
-The useful friction here isn't between participation and control. It's between naming the problem and solving it — two different acts that require different kinds of authority.
-
-### Evidence Summary
-
-```
-Evidence examined: 4
-  Supports:       2
-  Complicates:     1
-  Contradicts:     0
-  Ambiguous:       1
-
-Status: PROVISIONAL
-This classification describes the state of the analysis, not the scientific validity of the theory.
-```
+Il pattern dice che la definizione del problema è paralizzante. Non lo è — quando qualcuno ha l'autorità di terminare la fase di definizione. GitLab documenta chi decide quando il problema è sufficientemente definito. OpenStreetMap ha autorità vincolante per decidere cosa conta come problema di qualità dei dati. Il problema non è la definizione del problema. Il problema è che i gruppi definiscono problemi senza definire chi può smettere di definirli.
 
 ### References
 
