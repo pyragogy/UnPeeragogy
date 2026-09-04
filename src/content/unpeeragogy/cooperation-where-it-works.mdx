@@ -8,53 +8,56 @@ tags: ["cooperation", "where-it-works", "success-case"]
 origin: "audit-v2"
 ---
 
-### Il Dogma
+### The Assumption
 
-Cooperation emerges when work is modular (allowing independent progress), when there's shared vision despite tactical disagreements, and when asymmetry in contributions is accepted rather than resented. The theory assumes these conditions produce sustainable collaboration without explicit governance overhead.
+Cooperation emerges when work is modular (allowing independent progress), when there is shared vision despite tactical disagreements, and when asymmetry in contributions is accepted rather than resented. These conditions produce sustainable collaboration without explicit governance overhead.
 
-### La Realtà
+### Operational Reality
 
-The Kubernetes project ships releases every three months. Over 3,000 contributors across dozens of companies somehow coordinate changes to a codebase that runs half the internet's workloads. No central authority decides what gets merged — yet the system holds together. Not through consensus meetings. Not through democratic voting. Not through benevolent dictatorship.
-
-Through boundaries that everyone can see.
+The Kubernetes project ships releases every three months. Over 3,000 contributors across dozens of companies coordinate changes to a codebase that runs half the internet's workloads. No central authority decides what gets merged — yet the system holds together. Not through consensus meetings. Not through democratic voting. Not through benevolent dictatorship. Through boundaries that everyone can see.
 
 Each Special Interest Group owns specific modules. The steering committee handles conflicts between SIGs, not technical decisions within them. Corporate sponsors fund development but cannot override community governance. When Red Hat or Google wants a feature, they contribute code through the same review process as weekend hobbyists. The asymmetry is visible — some contributors write more code, others review more pull requests, others focus on documentation. But the governance boundaries prevent any single actor from capturing the whole system.
 
-This is cooperation that has survived corporate acquisitions, leadership changes, and explosive growth from dozens to thousands of contributors.
+GitLab shows that modularity without boundaries is just fragmentation. Blender demonstrates that explicit governance — not just modular work — enables long-term cooperation. Moodle shows that the assumption "modularity enables cooperation" misses the governance transition problem entirely. Drupal confirms that even modular projects hit coordination crises when informal structures meet scaling pressure.
 
-### Perturbatore
+> **Perturbatore:** *"What if modularity gets you started, but governance keeps you alive — and the pattern is not about eliminating hierarchy, but about making power visible enough to resist?"*
 
-> **Perturbatore:** *"What if modularity gets you started, but governance keeps you alive — and the pattern isn't about eliminating hierarchy, but about making power visible enough to resist?"*
+### Empirical Evidence
 
-### Evidenze di Tenuta
+**Resilience Cases (Confirming):**
+- [GitLab Stewardship Handbook](https://about.gitlab.com/handbook/company/stewardship/) — Explicit documentation of governance boundaries between corporate sponsor and community reduces friction in open-core projects. Modularity without boundaries is just fragmentation.
+- [Blender Foundation Governance](https://www.blender.org/about/foundation/) — Foundation governance with a board, CTO, and module owners can sustain complex peer production for decades. Explicit governance — not just modular work — enables long-term cooperation.
 
-**about.gitlab.com** — Explicit documentation of governance boundaries between corporate sponsor and community reduces friction in open-core projects. GitLab shows that modularity without boundaries is just fragmentation.
+**Fracture Cases (Complicating):**
+- [Moodle Community Governance](https://moodle.org/dev/Governance) — Successful educational open-source projects require explicit governance transitions from founder-led to community-led models. The assumption "modularity enables cooperation" misses the governance transition problem entirely.
+- [Drupal Governance](https://www.drupal.org/governance) — Intentional governance transition from BDFL to community model required years of structural work, not organic emergence. Even modular projects hit coordination crises when informal structures meet scaling pressure.
 
-**blender.org** — Foundation governance with a board, CTO, and module owners can sustain complex peer production for decades. Blender demonstrates that explicit governance — not just modular work — enables long-term cooperation.
+### Operational Heuristics
 
-### Evidenze di Faglia
+**Positive Boundary:** Apply cooperative modular patterns only when combined with explicit governance documentation from the start — GitLab and Blender demonstrate that clear boundaries and defined decision-making processes make modular cooperation sustainable.
 
-**moodle.org** — Successful educational open-source projects require explicit governance transitions from founder-led to community-led models. Moodle shows that the assumption "modularity enables cooperation" misses the governance transition problem entirely.
+**Negative Boundary:** Do not apply modular cooperation to scaling projects without planning governance transitions — Moodle and Drupal show that even successful modular projects hit coordination crises when informal structures meet scaling pressure.
 
-**drupal.org** — Intentional governance transition from BDFL to community model required years of structural work, not organic emergence. Drupal confirms that even modular projects hit coordination crises when informal structures meet scaling pressure.
+### Epistemic Synthesis
 
-### Euristiche Operative
+The evidence challenges the assumption that modularity + shared vision + accepted asymmetry are sufficient conditions. Kubernetes and Blender work because their governance structures — not just work modularity — prevent capture by single actors. Moodle and Drupal show that cooperation crises are not caused by lack of modularity but by invisible governance that does not scale. Modularity gets you started. Governance keeps you alive.
 
-**Regola Positiva:** Applica questo pattern solo quando combinato con documentazione esplicita di governance dall'inizio. GitLab e Blender dimostrano che confini chiari e processi decisionali definiti rendono sostenibile la cooperazione modulare.
+### Evidence Status
 
-**Regola Negativa:** Non applicare questo pattern a progetti in scaling senza pianificare transizioni di governance. Moodle e Drupal mostrano che anche progetti modulari di successo incontrano crisi di coordinazione quando le strutture informali incontrano la pressione della scala.
+| Status | Count |
+|--------|------:|
+| **Confirmed cases** | 2 |
+| **Cases under study** | 0 |
+| **Unverified cases** | 0 |
+| **Ambiguous cases** | 0 |
 
-### Sintesi & Tracciabilità
+### Traceability
 
-**Riferimento:** audit-v2 (delta tensione: 1.2 → 1.22, +0.02)
-**Evidenze esaminate:** 4 (2 confermanti, 2 complicanti)
-**Stato:** PROVVISORIO
-
-L'evidenza sfida l'assunzione che modularità + visione condivisa + accettazione dell'asimmetria siano condizioni sufficienti. Kubernetes e Blender funzionano perché le loro strutture di governance — non solo la modularità del lavoro — prevengono la cattura da parte di attori singoli. Moodle e Drupal mostrano che le crisi di cooperazione non sono causate da mancanza di modularità ma da governance invisibile che non scala. La modularità ti fa partire. La governance ti tiene vivo.
+`Run: audit-v2 · Delta: 1.2 → 1.22 (±0.02) · Diversity D: 2`
 
 ### References
 
-- [https://about.gitlab.com/handbook/company/stewardship/](https://about.gitlab.com/handbook/company/stewardship/)
-- [https://moodle.org/dev/Governance](https://moodle.org/dev/Governance)
-- [https://www.blender.org/about/foundation/](https://www.blender.org/about/foundation/)
-- [https://www.drupal.org/governance](https://www.drupal.org/governance)
+- [GitLab Stewardship Handbook](https://about.gitlab.com/handbook/company/stewardship/)
+- [Moodle Governance](https://moodle.org/dev/Governance)
+- [Blender Foundation](https://www.blender.org/about/foundation/)
+- [Drupal Governance](https://www.drupal.org/governance)
