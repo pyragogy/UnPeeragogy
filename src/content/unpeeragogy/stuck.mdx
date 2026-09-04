@@ -3,18 +3,20 @@ title: "Stuck"
 order: 1
 section: "Peeragogy in Practice"
 readingTime: 4
+tension_index: 1.6150
 tags: ["stuck", "paralysis", "authority"]
+origin: "audit-v2"
 ---
 
-### Claim
+### The Assumption
 
 The Peeragogy Handbook identifies getting stuck as a problem of weak ties. The theory frames it as a network issue: the group lacks connections to diverse perspectives, so it cannot find a way forward. The proposed solution is to activate weak ties — reach beyond the immediate circle — and the bottleneck will dissolve through access to new information and resources.
 
-### Reality
+### Operational Reality
 
 Getting stuck has two opposite causes. The wrong diagnosis makes it worse.
 
-Sometimes a group is stuck because nobody has the authority to decide. Power is too distributed. Everyone can block, nobody can push. The solution would be to concentrate decision-making — but Peeragogy's flat governance ideals resist that move.
+Sometimes a group is stuck because nobody has the authority to decide. Power is too distributed. Everyone can block, nobody can push. The solution would be to concentrate decision-making — but flat governance ideals resist that move.
 
 Other times a group is stuck because everybody gets to decide. Thousands of voices, each with equal weight, and nothing moves. ConstitutionDAO is the case: 17,000 token holders, one vote each, the DAO dissolved without executing its single purpose. Not because they lacked weak ties. Because they had too many decision-makers with equal power.
 
@@ -22,53 +24,42 @@ The weak ties framework is not wrong. It is incomplete. The bottleneck is not al
 
 > **Perturbatore:** *"What if stuckness is not a network problem but an authority problem? Weak ties bring information. But information does not make a decision. Maybe the group is not stuck because it lacks connections. Maybe it is stuck because it lacks a mechanism to convert connections into decisions."*
 
-### Evidence That Supports
+### Empirical Evidence
 
-**GitLab stewardship handbook** — Explicit documentation of who decides what. GitLab Inc and the community have clear boundaries: corporate strategy versus community contributions. When the boundary is clear, stuckness dissolves. The bottleneck was not weak ties. It was undefined authority.
+**Resilience Cases (Confirming):**
+- [GitLab Stewardship Handbook](https://about.gitlab.com/handbook/company/stewardship/) — Explicit documentation of governance boundaries between corporate sponsor and community reduces friction. When authority boundaries are clear, stuckness dissolves.
+- [OpenStreetMap Data Working Group](https://wiki.osmfoundation.org/wiki/Data_Working_Group) — Formal dispute resolution bodies with binding authority resolve conflicts when informal consensus fails. Stuckness ends because someone — not everyone — has the last word.
 
-**OpenStreetMap Data Working Group** — A formal dispute resolution body with binding authority. When informal consensus fails, the DWG decides. The cases are published, the reasoning is transparent, and the decision is final. Stuckness ends because someone — not everyone — has the last word.
+**Fracture Cases (Complicating):**
+- [ConstitutionDAO Dissolution](https://www.wired.com/story/constitutiondao-ethereum/) — 17,000 token holders with equal voting rights could not coordinate effectively enough to execute their single purpose. This was a failure of decision-making structure, not weak ties.
+- [Linux Kernel Reviewed-by Tag System](https://docs.kernel.org/process/submitting-patches.html) — Formal peer assessment creates accountability, but the bottleneck shifts from writing code to getting it reviewed. Peer review concentrates the waiting.
 
-### Evidence That Complicates
+### Operational Heuristics
 
-**ConstitutionDAO dissolution** — 17,000 token holders with equal voting rights. One purpose: buy a rare copy of the US Constitution at auction. The group could not coordinate effectively enough to execute. The DAO dissolved. Was this a failure of weak ties? Or a failure of decision-making structure? The evidence points to the second.
+**Positive Boundary:** The stuck pattern works when the cause is diagnosed before the cure is applied — if nobody can decide, concentrate authority; if everybody can decide and nothing moves, reduce the number of decision-makers.
 
-**Linux kernel Reviewed-by tag bottleneck** — The review process creates accountability, but the bottleneck shifts from writing code to getting it reviewed. Peer review does not distribute the work. It concentrates the waiting. The group is stuck not because of weak ties — but because the review process itself creates a new bottleneck.
+**Negative Boundary:** Do not apply the weak ties framework when the bottleneck is authority, not information — weak ties bring information, but information does not make a decision.
 
-### Evidence That Contradicts
+### Epistemic Synthesis
 
-*No case in the current corpus directly contradicts the pattern.*
+Getting stuck has two opposite causes, and the wrong diagnosis makes it worse. Sometimes power is too distributed — everyone can block, nobody can push. Sometimes everybody gets to decide and nothing moves. ConstitutionDAO shows the second case: 17,000 token holders, one vote each, dissolved without executing. The weak ties framework is useful but incomplete. The bottleneck is not always who you know. Sometimes it is who can say yes — and who can say no.
 
-### Evidence That Is Ambiguous
+### Evidence Status
 
-**Wikipedia Arbitration Committee** — A formal judicial body for disputes that informal consensus cannot resolve. It works. But it was created after years of failure, not before. Whether proactive authority design prevents stuckness better than reactive authority design is not tested by this case.
+| Status | Count |
+|--------|------:|
+| **Confirmed cases** | 2 |
+| **Cases under study** | 0 |
+| **Unverified cases** | 0 |
+| **Ambiguous cases** | 0 |
 
-### Synthesis
+### Traceability
 
-What these cases suggest: diagnose the cause before applying the cure.
-
-If nobody can decide, concentrate authority. Name a decision-maker. Give them the last word. The group may survive the loss of horizontality better than it survives paralysis.
-
-If everybody can decide and nothing moves, reduce the number of decision-makers. Not all voices need veto power. Some voices can be consultative.
-
-The weak ties framework is useful. But it may describe the symptom, not the cause. What remains to be tested: whether groups that explicitly design for decision-making authority are less likely to get stuck in the first place.
-
-### Evidence Summary
-
-```
-Evidence examined: 5
-  Supports:      2
-  Complicates:    2
-  Contradicts:    0
-  Ambiguous:       1
-
-Status: PROVISIONAL
-This classification describes the state of the analysis, not the scientific validity of the theory.
-```
+`Run: audit-v2 · Delta: 1.5 → 1.615 (±0.115) · Diversity D: 2`
 
 ### References
 
-- [about.gitlab.com/handbook/company/stewardship/](https://about.gitlab.com/handbook/company/stewardship/)
-- [wiki.osmfoundation.org/wiki/Data_Working_Group](https://wiki.osmfoundation.org/wiki/Data_Working_Group)
-- [wired.com/story/constitutiondao-ethereum/](https://www.wired.com/story/constitutiondao-ethereum/)
-- [docs.kernel.org/process/submitting-patches.html](https://docs.kernel.org/process/submitting-patches.html)
-- [en.wikipedia.org/wiki/Arbitration_Committee_(Wikimedia)](https://en.wikipedia.org/wiki/Arbitration_Committee_(Wikimedia))
+- [GitLab Stewardship Handbook](https://about.gitlab.com/handbook/company/stewardship/)
+- [OpenStreetMap Data Working Group](https://wiki.osmfoundation.org/wiki/Data_Working_Group)
+- [ConstitutionDAO Dissolution (Wired)](https://www.wired.com/story/constitutiondao-ethereum/)
+- [Linux Kernel Submitting Patches](https://docs.kernel.org/process/submitting-patches.html)
