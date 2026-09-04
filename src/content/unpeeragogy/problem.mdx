@@ -8,51 +8,56 @@ tags: ["problem", "definition", "paralysis"]
 origin: "audit-v2"
 ---
 
-### Il Dogma
+### The Assumption
 
 Groups often get stuck defining problems rather than solving them, leading to decision paralysis and endless discussion without progress.
 
-### La Realtà
+### Operational Reality
 
-Three engineers at a fintech startup spent four months defining their deployment problem. "We need to reduce cycle time." "Actually, the problem is test coverage." "No, the real problem is that we don't have a staging environment." Every definition accurate. Every definition leading to a different solution. Every definition consuming time the competitor used to ship.
+Three engineers at a fintech startup spent four months defining their deployment problem. "We need to reduce cycle time." "Actually, the problem is test coverage." "No, the real problem is that we do not have a staging environment." Every definition accurate. Every definition leading to a different solution. Every definition consuming time the competitor used to ship.
 
-The pattern says problem-definition is paralyzing. It's not — when someone has the authority to end the definition phase. GitLab's stewardship handbook documents who decides when the problem is sufficiently defined. OpenStreetMap's Data Working Group has binding authority to rule on what counts as a data quality problem. The IETF rough consensus model fails without hierarchical escalation — not because the problems are hard, but because nobody can say "enough defining, time to solve."
+The pattern says problem-definition is paralyzing. It is not — when someone has the authority to end the definition phase. GitLab's stewardship handbook documents who decides when the problem is sufficiently defined. OpenStreetMap's Data Working Group has binding authority to rule on what counts as a data quality problem. The IETF rough consensus model fails without hierarchical escalation — not because the problems are hard, but because nobody can say "enough defining, time to solve."
 
-The problem isn't problem-definition. The problem is that groups define problems without defining who gets to stop defining them.
-
-### Perturbatore
+The problem is not problem-definition. The problem is that groups define problems without defining who gets to stop defining them.
 
 > **Perturbatore:** *"What if the problem isn't that groups define problems too much — the problem is they define problems without defining who gets to solve them?"*
 
-### Evidenze di Tenuta
+### Empirical Evidence
 
-**about.gitlab.com** — Explicit documentation of governance boundaries between corporate sponsor and community reduces friction in open-core projects. GitLab shows that authority to end problem-definition enables problem-solving.
+**Resilience Cases (Confirming):**
+- [GitLab Stewardship Handbook](https://about.gitlab.com/handbook/company/stewardship/) — Explicit documentation of governance boundaries between corporate sponsor and community reduces friction in open-core projects. Authority to end problem-definition enables problem-solving.
+- [OpenStreetMap Data Working Group](https://wiki.osmfoundation.org/wiki/Data_Working_Group) — Formal dispute resolution bodies with binding authority and published reasoning resolve peer production conflicts. Binding authority to define problems enables groups to move past analysis paralysis.
 
-**wiki.osmfoundation.org** — Formal dispute resolution bodies with binding authority and published reasoning resolve peer production conflicts. OpenStreetMap demonstrates that binding authority to define problems enables groups to move past analysis paralysis.
+**Fracture Cases (Complicating):**
+- [IETF Rough Consensus](https://www.ietf.org/about/) — Rough consensus governance only works when backed by hierarchical escalation paths. Pure consensus without appeals prolongs problem-definition indefinitely.
+- [WebAssembly Community Group](https://www.w3.org/community/webassembly/) — Choosing lighter governance models for standards development trades authority for speed, creating different failure modes. Lightweight models extend problem-definition because no one can terminate it.
 
-### Evidenze di Faglia
+### Operational Heuristics
 
-**ietf.org** — Rough consensus governance only works when backed by hierarchical escalation paths. IETF demonstrates that pure consensus without appeals prolongs problem-definition indefinitely.
+**Positive Boundary:** This pattern works when problem-definition is coupled with clear resolution authority — explicit governance boundaries and binding decision-making authority enable groups to move past analysis paralysis.
 
-**w3.org** — Choosing lighter governance models trades authority for speed, creating different failure modes. WebAssembly shows that lightweight models extend problem-definition because no one can terminate it.
+**Negative Boundary:** Do not avoid problem-definition when authority structures are not clear — even rough consensus fails without escalation paths; pure consensus without appeals prolongs definition indefinitely.
 
-### Euristiche Operative
+### Epistemic Synthesis
 
-**Regola Positiva:** Questo pattern funziona quando la definizione del problema è accoppiata a chiara autorità di risoluzione. GitLab e OpenStreetMap mostrano che confini di governance espliciti e autorità decisionale vincolante permettono ai gruppi di superare la paralisi analitica.
+The pattern says problem-definition is paralyzing. It is not — when someone has the authority to end the definition phase. GitLab documents who decides when the problem is sufficiently defined. OpenStreetMap has binding authority to rule on what counts as a problem. The problem is not problem-definition. The problem is that groups define problems without defining who gets to stop defining them.
 
-**Regola Negativa:** Non evitare la definizione del problema quando le strutture di autorità non sono chiare. IETF mostra che anche il "rough consensus" fallisce senza escalation paths — il puro consenso senza appelli prolunga la definizione indefinitamente.
+### Evidence Status
 
-### Sintesi & Tracciabilità
+| Status | Count |
+|--------|------:|
+| **Confirmed cases** | 2 |
+| **Cases under study** | 0 |
+| **Unverified cases** | 0 |
+| **Ambiguous cases** | 0 |
 
-**Riferimento:** audit-v2 (delta tensione: 1.6 → 1.5533, −0.0467)
-**Evidenze esaminate:** 4 (2 confermanti, 2 complicanti)
-**Stato:** PROVVISORIO
+### Traceability
 
-Il pattern dice che la definizione del problema è paralizzante. Non lo è — quando qualcuno ha l'autorità di terminare la fase di definizione. GitLab documenta chi decide quando il problema è sufficientemente definito. OpenStreetMap ha autorità vincolante per decidere cosa conta come problema di qualità dei dati. Il problema non è la definizione del problema. Il problema è che i gruppi definiscono problemi senza definire chi può smettere di definirli.
+`Run: audit-v2 · Delta: 1.6 → 1.5533 (±0.0467) · Diversity D: 2`
 
 ### References
 
-- [https://about.gitlab.com/handbook/company/stewardship/](https://about.gitlab.com/handbook/company/stewardship/)
-- [https://wiki.osmfoundation.org/wiki/Data_Working_Group](https://wiki.osmfoundation.org/wiki/Data_Working_Group)
-- [https://www.ietf.org/about/](https://www.ietf.org/about/)
-- [https://www.w3.org/community/webassembly/](https://www.w3.org/community/webassembly/)
+- [GitLab Stewardship Handbook](https://about.gitlab.com/handbook/company/stewardship/)
+- [OpenStreetMap Data Working Group](https://wiki.osmfoundation.org/wiki/Data_Working_Group)
+- [IETF About](https://www.ietf.org/about/)
+- [WebAssembly Community Group](https://www.w3.org/community/webassembly/)

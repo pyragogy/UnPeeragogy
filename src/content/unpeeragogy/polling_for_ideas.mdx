@@ -8,51 +8,56 @@ tags: ["polling", "ideas", "decision"]
 origin: "audit-v2"
 ---
 
-### Il Dogma
+### The Assumption
 
 Polling for ideas leads to decision-stagnation, distributes responsibility to avoid accountability, and real direction emerges from champions rather than polls.
 
-### La Realtà
+### Operational Reality
 
-A community garden project spent three months polling members about what to plant. Google Forms, ranked choice, discussion threads — every participatory tool in the book. The results were clear: tomatoes, basil, zucchini. Nobody planted anything. The poll had distributed responsibility so evenly that no one felt authorized to buy seeds.
+A community garden project spent three months polling members about what to plant. Google Forms, ranked choice, discussion threads — every participatory tool available. The results were clear: tomatoes, basil, zucchini. Nobody planted anything. The poll had distributed responsibility so evenly that no one felt authorized to buy seeds.
 
-Then one member showed up with tomato starts and planted them without asking. The garden produced tomatoes that year.
+Then one member showed up with tomato starts and planted them without asking. The garden produced tomatoes that season.
 
-The pattern correctly diagnoses the problem: polling without authority produces paralysis. But it misses the counter-case. OpenStreetMap's Data Working Group uses formal voting with binding authority. Wikipedia's Good Article process uses structured peer review with published criteria. These aren't polls — they're decision systems with consequences. The difference isn't the mechanism. The difference is whether someone enforces the result.
-
-### Perturbatore
+The pattern correctly diagnoses the problem: polling without authority produces paralysis. But it misses the counter-case. OpenStreetMap's Data Working Group uses formal voting with binding authority. Wikipedia's Good Article process uses structured peer review with published criteria. These are not polls — they are decision systems with consequences. The difference is not the mechanism. It is whether someone enforces the result.
 
 > **Perturbatore:** *"What if sometimes the crowd actually knows what it wants — it just needs someone to count the votes and enforce the result?"*
 
-### Evidenze di Tenuta
+### Empirical Evidence
 
-**wiki.osmfoundation.org** — Formal dispute resolution bodies with binding authority and published reasoning resolve peer production conflicts. OpenStreetMap shows that polling with binding authority produces accountable decisions.
+**Resilience Cases (Confirming):**
+- [OpenStreetMap Data Working Group](https://wiki.osmfoundation.org/wiki/Data_Working_Group) — Formal dispute resolution bodies with binding authority and published reasoning resolve peer production conflicts. Polling with binding authority produces accountable decisions.
+- [Wikipedia Good Article Process](https://en.wikipedia.org/wiki/Wikipedia:Good_articles) — Peer assessment with transparent criteria and independent reviewers creates sustainable quality tiers. Structured peer review with enforcement mechanisms produces better outcomes than informal champion emergence.
 
-**en.wikipedia.org** — Peer assessment with transparent criteria and independent reviewers creates sustainable quality tiers. Wikipedia demonstrates that structured peer review with enforcement mechanisms produces better outcomes than informal champion emergence.
+**Fracture Cases (Complicating):**
+- [WebAssembly Community Group](https://www.w3.org/community/webassembly/) — Choosing lighter governance models for standards development trades authority for speed, creating different failure modes. Polling without binding mechanisms produces the exact paralysis the pattern diagnoses.
+- [MakerDAO Black Thursday](https://blog.makerdao.com/makerdao-community-emergency-response-to-black-thursday/) — DAO governance mechanisms designed for normal operations can fail catastrophically under stress. Polling without emergency override produces systemic failure.
 
-### Evidenze di Faglia
+### Operational Heuristics
 
-**w3.org** — Choosing lighter governance models trades authority for speed, creating different failure modes. WebAssembly shows that polling without binding mechanisms produces the exact paralysis the pattern diagnoses.
+**Positive Boundary:** Polling works when combined with binding authority and transparent criteria — structured peer review with enforcement mechanisms produces better outcomes than informal champion emergence.
 
-**blog.makerdao.com** — DAO governance mechanisms designed for normal operations can fail catastrophically under stress. MakerDAO's Black Thursday demonstrates that polling without emergency override produces systemic failure.
+**Negative Boundary:** Do not apply this pattern when formal governance structures with binding authority already exist — the problem is not polling itself, but the absence of enforcement.
 
-### Euristiche Operative
+### Epistemic Synthesis
 
-**Regola Positiva:** I sondaggi funzionano quando combinati con autorità vincolante e criteri trasparenti. OpenStreetMap e Wikipedia mostrano che i gruppi peer possono prendere decisioni accountable quando hanno strutture decisionali chiare.
+The pattern correctly identifies the problem: polling without authority produces paralysis. But the counter-case is instructive. OpenStreetMap votes with binding authority. Wikipedia evaluates with published criteria. The difference is not the mechanism — it is whether someone enforces the result. A poll without consequences is a thermometer, not a steering wheel.
 
-**Regola Negativa:** Non applicare questo pattern quando strutture di governance formali con autorità vincolante esistono già. OpenStreetMap mostra che il problema non è il polling — è l'assenza di enforcement.
+### Evidence Status
 
-### Sintesi & Tracciabilità
+| Status | Count |
+|--------|------:|
+| **Confirmed cases** | 2 |
+| **Cases under study** | 0 |
+| **Unverified cases** | 0 |
+| **Ambiguous cases** | 0 |
 
-**Riferimento:** audit-v2 (delta tensione: 1.3 → 1.1138, −0.1862)
-**Evidenze esaminate:** 4 (2 confermanti, 2 complicanti)
-**Stato:** PROVVISORIO
+### Traceability
 
-Il pattern identifica correttamente la paralisi da polling senza autorità. Ma il contro-caso è istruttivo: OpenStreetMap vota con autorità vincolante, Wikipedia valuta con criteri pubblicati. La differenza non è il meccanismo — è se qualcuno enforce il risultato. Un sondaggio senza conseguenze è un termometro. Non un volante.
+`Run: audit-v2 · Delta: 1.3 → 1.1138 (±0.1862) · Diversity D: 2`
 
 ### References
 
-- [https://blog.makerdao.com/makerdao-community-emergency-response-to-black-thursday/](https://blog.makerdao.com/makerdao-community-emergency-response-to-black-thursday/)
-- [https://en.wikipedia.org/wiki/Wikipedia:Good_articles](https://en.wikipedia.org/wiki/Wikipedia:Good_articles)
-- [https://wiki.osmfoundation.org/wiki/Data_Working_Group](https://wiki.osmfoundation.org/wiki/Data_Working_Group)
-- [https://www.w3.org/community/webassembly/](https://www.w3.org/community/webassembly/)
+- [OpenStreetMap Data Working Group](https://wiki.osmfoundation.org/wiki/Data_Working_Group)
+- [Wikipedia Good Article Process](https://en.wikipedia.org/wiki/Wikipedia:Good_articles)
+- [WebAssembly Community Group](https://www.w3.org/community/webassembly/)
+- [MakerDAO Black Thursday](https://blog.makerdao.com/makerdao-community-emergency-response-to-black-thursday/)
