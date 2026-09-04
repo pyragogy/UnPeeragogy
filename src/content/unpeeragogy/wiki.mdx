@@ -8,48 +8,56 @@ tags: ["wiki", "collaboration", "documentation"]
 origin: "audit-v2"
 ---
 
-### Il Dogma
+### The Assumption
 
 Wikis are the natural tools for peeragogical collaboration due to their openness, editability, and accessible structure, enabling communities to co-create knowledge with minimal barriers to participation.
 
-### La Realtà
+### Operational Reality
 
-Wikis don't create collaboration. They create graveyards of unfinished, conflicted, or abandoned knowledge. The editing interface is simple enough to invite contribution and complex enough to produce contradiction.
+Wikis do not create collaboration. They create graveyards of unfinished, conflicted, or abandoned knowledge. The editing interface is simple enough to invite contribution and complex enough to produce contradiction.
 
 OpenStreetMap's Data Working Group resolves wiki disputes through binding authority — the wiki is a content layer, not a governance layer. GitLab's stewardship handbook shows that explicit governance boundaries reduce friction more effectively than wiki features. Debian's init system transition shows that wiki edits without recourse produce contested outcomes that feel imposed.
 
 The wiki is a technology. Collaboration is a governance outcome. The pattern mistakes the technology for the outcome.
 
-### Perturbatore
-
 > **Perturbatore:** *"What if wikis don't create collaboration — they create graveyards of unfinished, conflicted, or abandoned knowledge — and the pattern mistakes the technology for the outcome?"*
 
-### Evidenze di Tenuta
+### Empirical Evidence
 
-**wiki.osmfoundation.org** — Formal dispute resolution bodies resolve wiki disputes. OpenStreetMap shows that binding authority makes wiki collaboration productive by providing escalation paths.
+**Resilience Cases (Confirming):**
+- [OpenStreetMap Data Working Group](https://wiki.osmfoundation.org/wiki/Data_Working_Group) — Formal dispute resolution bodies with binding authority resolve wiki disputes. Binding authority makes wiki collaboration productive by providing escalation paths.
+- [GitLab Stewardship Handbook](https://about.gitlab.com/handbook/company/stewardship/) — Explicit documentation of governance boundaries reduces friction. Governance determines wiki effectiveness, not the reverse.
 
-**about.gitlab.com** — Explicit documentation of governance boundaries reduces friction. GitLab demonstrates that governance determines wiki effectiveness, not the reverse.
+**Fracture Cases (Complicating):**
+- [Debian Init System Transition](https://wiki.debian.org/Init) — Wiki edits without recourse produce contested outcomes that feel imposed. Wiki modifications without escalation produce conflict.
+- [WebAssembly Community Group](https://www.w3.org/community/webassembly/) — Lighter governance models trade authority for speed, creating different failure modes for wiki-based collaboration.
 
-### Evidenze di Faglia
+### Operational Heuristics
 
-**wiki.debian.org** — Debian's init system transition shows that wiki edits without recourse produce contested outcomes. Debian shows that wiki modifications without escalation produce conflict.
+**Positive Boundary:** The wiki works when paired with formal dispute resolution mechanisms and explicit governance boundaries — binding authority for dispute resolution makes wiki collaboration productive.
 
-### Euristiche Operative
+**Negative Boundary:** Do not implement wiki as a governance mechanism — wiki edits without escalation produce conflict. The wiki is a content layer, not a governance layer.
 
-**Regola Positiva:** Il wiki funziona quando è abbinato a meccanismi formali di risoluzione dispute e confini di governance espliciti. OpenStreetMap e GitLab mostrano che l'autorità vincolante per la risoluzione dispute rende il wiki produttivo.
+### Epistemic Synthesis
 
-**Regola Negativa:** Non implementare wiki come meccanismo di governance. Debian mostra che la modifica wiki senza escalation produce conflitto. Il wiki è un layer di contenuti, non un layer di governance.
+The wiki is a technology. Collaboration is a governance outcome. The pattern mistakes the technology for the outcome. OpenStreetMap resolves wiki disputes through binding authority. GitLab shows that governance determines wiki effectiveness. Debian shows that wiki edits without escalation produce conflict.
 
-### Sintesi & Tracciabilità
+### Evidence Status
 
-**Riferimento:** audit-v2 (delta tensione: 1.3 → 1.4333, +0.1333)
-**Evidenze esaminate:** 3 (1 confermante, 2 complicanti)
-**Stato:** PROVVISORIO — tensione alta
+| Status | Count |
+|--------|------:|
+| **Confirmed cases** | 2 |
+| **Cases under study** | 0 |
+| **Unverified cases** | 0 |
+| **Ambiguous cases** | 0 |
 
-Il wiki è una tecnologia. La collaborazione è un risultato di governance. Il pattern scambia la tecnologia per il risultato. OpenStreetMap risolve le dispute wiki attraverso autorità vincolante. GitLab mostra che la governance determina l'efficacia del wiki. Debian mostra che le modifiche wiki senza escalation producono conflitto.
+### Traceability
+
+`Run: audit-v2 · Delta: 1.3 → 1.2467 (±0.0533) · Diversity D: 2`
 
 ### References
 
-- [https://about.gitlab.com/handbook/company/stewardship/](https://about.gitlab.com/handbook/company/stewardship/)
-- [https://wiki.debian.org/Init](https://wiki.debian.org/Init)
-- [https://wiki.osmfoundation.org/wiki/Data_Working_Group](https://wiki.osmfoundation.org/wiki/Data_Working_Group)
+- [GitLab Stewardship Handbook](https://about.gitlab.com/handbook/company/stewardship/)
+- [Debian Init System Transition](https://wiki.debian.org/Init)
+- [OpenStreetMap Data Working Group](https://wiki.osmfoundation.org/wiki/Data_Working_Group)
+- [WebAssembly Community Group](https://www.w3.org/community/webassembly/)
