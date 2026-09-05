@@ -1,0 +1,166 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Audit Report — Unpeeragogy" description="A systematic evidence-grounded audit of the Peeragogy Handbook across 88 nodes, using a multi-agent pipeline.">
+  <article class="prose prose-stone dark:prose-invert max-w-7xl mx-auto px-4 sm:px-12" data-pagefind-body>
+
+    <h1 class="text-4xl font-bold tracking-tight mb-2">Full Audit Report</h1>
+    <p class="text-lg d-text-dim font-medium mb-8">An evidence-grounded audit of the Peeragogy Handbook across 88 nodes, using a multi-agent pipeline.</p>
+
+    <div class="bg-amber-50 dark:bg-(--red-bg) border border-amber-200 d-border rounded-lg p-5 mb-10 text-sm d-text-sec">
+      <strong>DOI:</strong> <a href="https://doi.org/10.5281/zenodo.22309102" class="underline hover:text-(--color-accent)">10.5281/zenodo.22309102</a><br />
+      <strong>Repository:</strong> <a href="https://github.com/pyragogy/UnPeeragogy" class="underline hover:text-(--color-accent)">github.com/pyragogy/UnPeeragogy</a><br />
+      <strong>Protocol version:</strong> v2.0.0
+    </div>
+
+    <!-- ─── Context ────────────── -->
+    <h2>Context</h2>
+
+    <p class="lead">Most social knowledge in the peer-production literature exists as theory without systematic feedback.</p>
+
+    <p>The Peeragogy Handbook codifies patterns for peer learning — but like almost all social knowledge, those patterns were written by people who had time to write them, tested by people who had time to test them, and generalised far beyond the context where they were first observed. No systematic loop brings operational reality back into the theoretical corpus.</p>
+
+    <p>UnPeeragogy was built to close that loop. The audit is its first full-scale application.</p>
+
+    <!-- ─── The Pipeline ────────── -->
+    <h2>The Pipeline</h2>
+
+    <p>The audit was executed by a multi-agent orchestration pipeline designed around a strict principle:</p>
+
+    <blockquote>
+      <p>The model may propose. The evidence must dispose.</p>
+    </blockquote>
+
+    <p>Each of the 88 nodes of the Peeragogy Handbook was subjected to a pipeline with five specialised functions:</p>
+
+    <dl class="space-y-3">
+      <div>
+        <dt class="font-semibold">1. Interpretation</dt>
+        <dd class="d-text-sec">Parses the theoretical claim of each pattern. What is it asserting? What conditions does it assume? What is left unspecified?</dd>
+      </div>
+      <div>
+        <dt class="font-semibold">2. Evidence Hunter</dt>
+        <dd class="d-text-sec">Uses parametric knowledge to surface candidate evidence — known cases, research, phenomena — that may be relevant to the pattern's claim.</dd>
+      </div>
+      <div>
+        <dt class="font-semibold">3. Grounding Gate</dt>
+        <dd class="d-text-sec">Critical check: can this candidate actually be connected to a real source, an empirical case, or a documented observation? If not, it is rejected — regardless of how plausible the model made it sound.</dd>
+      </div>
+      <div>
+        <dt class="font-semibold">4. Critical Analysis</dt>
+        <dd class="d-text-sec">Assesses what the grounded evidence means for the pattern's claim. Does it support, complicate, contradict, or leave the claim ambiguous?</dd>
+      </div>
+      <div>
+        <dt class="font-semibold">5. Tension Computation</dt>
+        <dd class="d-text-sec">Computes a raw tension delta between the theoretical claim and the evidence set. The tension is not a judgment of validity — it is a measure of observable friction.</dd>
+      </div>
+    </dl>
+
+    <p>Every step is recorded. Every candidate has an identifier. Every source has a provenance trail. The full run produces an audit trail and a reproducibility manifest.</p>
+
+    <!-- ─── Results ────────────── -->
+    <h2>Results in brief</h2>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 my-8">
+      <div class="p-5 border border-stone-200 d-border rounded-lg bg-white d-surface text-center">
+        <div class="text-2xl font-bold text-(--color-accent)">88</div>
+        <div class="text-sm d-text-dim">Nodes audited</div>
+      </div>
+      <div class="p-5 border border-stone-200 d-border rounded-lg bg-white d-surface text-center">
+        <div class="text-2xl font-bold text-(--color-accent)">304</div>
+        <div class="text-sm d-text-dim">Evidence items across 52 entities</div>
+      </div>
+      <div class="p-5 border border-stone-200 d-border rounded-lg bg-white d-surface text-center">
+        <div class="text-2xl font-bold text-(--color-accent)">50</div>
+        <div class="text-sm d-text-dim">Distinct source URLs</div>
+      </div>
+      <div class="p-5 border border-stone-200 d-border rounded-lg bg-white d-surface text-center">
+        <div class="text-2xl font-bold text-(--color-accent)">0.609</div>
+        <div class="text-sm d-text-dim">Source diversity metric</div>
+      </div>
+    </div>
+
+    <p class="d-text-sec mb-6">Mean raw tension delta: <strong class="text-amber-600 dark:text-amber-400">+0.027</strong> — the resultant of the current evidence set. The tension is real but not catastrophic. Some patterns hold under specific conditions; others show clear gaps between the theoretical claim and operational reality.</p>
+
+    <p>All 88 nodes produced structured vault actions with both positive and negative operational rules. No pattern was dismissed as "simply wrong". Every pattern received at least one supporting observation and at least one complicating observation — which is exactly what a useful stress test should produce.</p>
+
+    <!-- ─── The Report ─────────── -->
+    <h2>The full report</h2>
+
+    <p>The complete PDF contains the pipeline methodology, the detailed results for each of the 88 nodes, and a section of conjectures for future research. It is the same document archived on Zenodo under a CC Zero dedication.</p>
+
+    <div class="my-8">
+      <iframe
+        src="/audit/Unpeeragogy-An-Evidence-Grounded-Audit-Protocol-v0.2.pdf"
+        title="UnPeeragogy Audit — full report"
+        loading="lazy"
+        class="w-full rounded-lg border border-stone-300 d-border bg-white"
+        style="height: 80vh;"
+      ></iframe>
+    </div>
+
+    <p class="text-sm d-text-dim">
+      If the viewer doesn't start,
+      <a href="/audit/Unpeeragogy-An-Evidence-Grounded-Audit-Protocol-v0.2.pdf" class="underline hover:text-(--color-accent)">download the PDF directly</a>
+      — it's the same file as the
+      <a href="https://zenodo.org/records/22309102" class="underline hover:text-(--color-accent)">Zenodo record</a>.
+    </p>
+
+    <!-- ─── What this means ────── -->
+    <h2>What this means for UnPeeragogy</h2>
+
+    <p>The audit is not a conclusion. It is a starting point.</p>
+
+    <p>The tension deltas tell us <em>where</em> to look, not <em>what</em> to conclude. A pattern with near-zero tension may not be "true" — it may simply lack sufficient evidence to challenge it. A pattern with high tension may not be "false" — it may operate well under conditions the corpus has not yet captured positively.</p>
+
+    <p>What the audit <em>does</em> provide is a structured, reproducible, evidence-anchored map of where the Peeragogy corpus holds, where it frays, and where it would benefit from closer observation. The 52 unique entities and 50 distinct source URLs give the map a grounding that unaided intuition cannot.</p>
+
+    <p>And — critically — every tension value in the audit can be revised when new evidence arrives. The loop is not closed after a single run.</p>
+
+    <!-- ─── Reproducibility ────── -->
+    <h2>Reproducibility</h2>
+
+    <p>The audit was executed with a deterministic pipeline. The same inputs, run through the same orchestration, should produce the same outputs — within the limits of LLM variance. A reproducibility manifest accompanies the report, documenting every parameter, every prompt template, and every model configuration used in the run.</p>
+
+    <p>The pipeline is open-source and designed to be applicable to other corpora. Its generalizability to domains beyond peeragogy remains to be tested — but the architecture is domain-agnostic by design.</p>
+
+    <hr class="my-12" />
+
+    <div class="d-text-sec text-sm space-y-2">
+      <p><strong>Audit DOI:</strong> <a href="https://doi.org/10.5281/zenodo.22309102" class="underline hover:text-(--color-accent)">10.5281/zenodo.22309102</a></p>
+      <p><strong>Pipeline repository:</strong> <a href="https://github.com/pyragogy/UnPeeragogy" class="underline hover:text-(--color-accent)">github.com/pyragogy/UnPeeragogy</a></p>
+      <p><strong>License:</strong> CC Zero — Public Domain Dedication</p>
+    </div>
+
+  </article>
+</BaseLayout>
+
+<style>
+  article.prose {
+    max-width: none;
+  }
+  article.prose, article.prose p {
+    font-size: 1.125rem;
+    line-height: 1.75;
+  }
+  article.prose h1 {
+    font-size: 2.75rem;
+    line-height: 1.15;
+  }
+  article.prose h2 {
+    font-size: 1.75rem;
+    margin-top: 2.75rem;
+    line-height: 1.3;
+  }
+  article.prose p.lead {
+    font-size: 1.35rem;
+    line-height: 1.6;
+  }
+  article.prose dl dt {
+    font-size: 1.1rem;
+  }
+  article.prose blockquote p {
+    font-size: 1.125rem;
+  }
+</style>
