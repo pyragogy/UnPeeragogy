@@ -31,6 +31,7 @@ services:
     environment:
       - MCP_AUTH_TOKEN=${MCP_AUTH_TOKEN:-change-me}
       - MCP_FRICTION_MODE=${MCP_FRICTION_MODE:-soft}
+      - HETZNER_API_KEY=${HETZNER_API_KEY}
       # CONTENT_ROOT punta al volume condiviso delle content collections
       - CONTENT_ROOT=/app/content
       - PORT=3001

@@ -41,30 +41,45 @@ const sorted = allPeeragogy.sort((a, b) => (a.data.order || 99) - (b.data.order 
 const currentIndex = sorted.findIndex((e) => e.slug === peeragogyEntry?.slug);
 const prev = currentIndex > 0 ? sorted[currentIndex - 1] : null;
 const next = currentIndex < sorted.length - 1 ? sorted[currentIndex + 1] : null;
+
+// Article JSON-LD for GEO
+const articleLd = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "@id": `https://unpeeragogy.pyragogy.org${Astro.url.pathname}#article`,
+  "headline": title,
+  "description": peeragogyEntry?.data?.description || unpeeragogyEntry?.data?.description || "",
+  "isPartOf": { "@id": `https://unpeeragogy.pyragogy.org${Astro.url.pathname}` },
+  "inLanguage": "en",
+  "license": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "isAccessibleForFree": true
+});
 ---
 
 <BaseLayout title={title} description={peeragogyEntry?.data?.description || unpeeragogyEntry?.data?.description}>
+  <!-- Article schema for content pages -->
+  <Fragment slot="head" set:html={`<script type="application/ld+json">${articleLd}</script>`} />
   <!-- View Toggle (hidden for single-column Foreword) -->
   {peeragogyEntry?.slug !== 'foreword' ? (
-  <div class="flex items-center justify-center gap-2 mb-6 p-2 bg-stone-100 d-surface rounded-lg mx-auto max-w-full overflow-x-auto">
+  <div class="flex items-center justify-center gap-1.5 sm:gap-2 mb-6 p-1.5 sm:p-2 bg-stone-100 d-surface rounded-lg mx-auto max-w-full overflow-x-auto">
     <button
       @click="view = 'dual'"
       :class="view === 'dual' ? 'bg-white d-raised shadow-sm font-semibold text-(--color-accent)' : 'd-text-sec hover:text-(--color-text)'"
-      class="rounded-md px-3 sm:px-4 py-2 text-xs sm:text-sm transition-all whitespace-nowrap"
+      class="rounded-md px-2.5 sm:px-4 py-1.5 sm:py-2 text-[10px] sm:text-sm transition-all whitespace-nowrap"
     >
       ⿻ Dual
     </button>
     <button
       @click="view = 'peeragogy'"
       :class="view === 'peeragogy' ? 'bg-white d-raised shadow-sm font-semibold text-(--color-accent)' : 'd-text-sec hover:text-(--color-text)'"
-      class="rounded-md px-3 sm:px-4 py-2 text-xs sm:text-sm transition-all whitespace-nowrap"
+      class="rounded-md px-2.5 sm:px-4 py-1.5 sm:py-2 text-[10px] sm:text-sm transition-all whitespace-nowrap"
     >
       📖 Theory
     </button>
     <button
       @click="view = 'unpeeragogy'"
       :class="view === 'unpeeragogy' ? 'bg-white d-raised shadow-sm font-semibold text-(--color-accent)' : 'd-text-sec hover:text-(--color-text)'"
-      class="rounded-md px-3 sm:px-4 py-2 text-xs sm:text-sm transition-all whitespace-nowrap"
+      class="rounded-md px-2.5 sm:px-4 py-1.5 sm:py-2 text-[10px] sm:text-sm transition-all whitespace-nowrap"
     >
       ⚡ Friction
     </button>

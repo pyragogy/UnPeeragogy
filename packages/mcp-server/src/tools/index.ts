@@ -4,6 +4,12 @@ import {
   type ContentEntry,
   type EntryFrontmatter,
 } from "../lib/loader.js";
+import {
+  callPerturbatore,
+  isPerturbatoreEnabled,
+  type PerturbatoreInput,
+  type PerturbatoreOutput,
+} from "../lib/perturbatore.js";
 
 // Build miniSearch index from all entries
 function buildSearchIndex(): MiniSearch {
@@ -287,6 +293,81 @@ function interpretTension(index: number): string {
 /**
  * Inject friction into a response for a given topic
  */
+/**
+ * Agente Perturbatore — chiamata live all'AI via Hetzner Inference API.
+ * Usa GLM-5.2 (reasoning_effort: max) per generare un'analisi con attrito
+ * strutturale. Richiede HETZNER_API_KEY configurata.
+ */
+export async function agentPerturbatore(
+  topic: string,
+  mode: "soft" | "hard" | "max" = "hard",
+  theoryContext?: string
+): Promise<string> {
+  if (!isPerturbatoreEnabled()) {
+    return (
+      `**⚡ Agente Perturbatore — NON CONFIGURATO**\n\n` +
+      `Per attivare l'Agente Perturbatore live con GLM-5.2 su Hetzner:\n` +
+      `1. Ottieni un token su https://experiments.hetzner.com (App > Inference)\n` +
+      `2. Imposta \`HETZNER_API_KEY\` nell'ambiente\n` +
+      `3. Riavvia il server MCP\n\n` +
+      `Intanto, ecco l'analisi statica basata sul corpus esistente:\n\n` +
+      injectFriction(topic, mode === "max" ? "hard" : mode)
+    );
+  }
+
+  // Trova contesto teoria se disponibile
+  if (!theoryContext) {
+    const entries = loadAllEntries();
+    const lowerTopic = topic.toLowerCase();
+    const peerEntry = entries.find(
+      (e) =>
+        e.collection === "peeragogy" &&
+        (e.slug.toLowerCase().includes(lowerTopic) ||
+          e.frontmatter.title.toLowerCase().includes(lowerTopic))
+    );
+    if (peerEntry) {
+      theoryContext = peerEntry.body.slice(0, 3000);
+    }
+  }
+
+  const result = await callPerturbatore({
+    topic,
+    theoryContext,
+    mode,
+  });
+
+  if (result.error) {
+    return (
+      `**⚡ Agente Perturbatore — ERRORE**\n\n` +
+      `Model: ${result.model}\n` +
+      `Errore: ${result.error}\n\n` +
+      `Fallback all'analisi statica:\n\n` +
+      injectFriction(topic, mode === "max" ? "hard" : mode)
+    );
+  }
+
+  let output = `## ⚡ Agente Perturbatore — Analisi con Attrito Strutturale\n\n`;
+  output += `*Modello: ${result.model}*\n`;
+  output += `*Tempo: ${(result.durationMs / 1000).toFixed(1)}s*\n`;
+  output += `*Costo: $0 (Hetzner Inference API experimental)*\n\n`;
+  output += `---\n\n`;
+
+  if (result.reasoning) {
+    output += `### 🧠 Ragionamento\n\n${result.reasoning}\n\n---\n\n`;
+  }
+
+  output += result.analysis;
+
+  return output;
+}
+
+/**
+ * Verifica se l'Agente Perturbatore AI è disponibile.
+ */
+export function isPerturbatoreAvailable(): boolean {
+  return isPerturbatoreEnabled();
+}
+
 export function injectFriction(
   topic: string,
   mode: "soft" | "hard" = "soft"

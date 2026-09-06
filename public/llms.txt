@@ -1,60 +1,58 @@
 # Unpeeragogy
 
-A structured empirical feedback layer for Peeragogy theory.
-Practitioner experience meets theoretical claims — with transparent methodology.
+> A structured empirical feedback layer for Peeragogy theory — by Pyragogy.
+> Practitioner experience meets theoretical claims with transparent methodology.
+> CC0 — Public Domain. Built for human and AI contributors.
 
-This is not a takedown. It is a correctable framework: try Peeragogy, tell us what happened, and let the theory be responsible to the experience.
+## Core
 
-## What makes this different
+- [Home](https://unpeeragogy.pyragogy.org/)
+- [Protocol — Full Methodology](https://unpeeragogy.pyragogy.org/protocol/):
+  Evidence taxonomy, epistemic statuses, CIT framework, counter-evidence architecture,
+  Perturbator function, positionality statement, bias disclosure
+- [Why This Exists](https://unpeeragogy.pyragogy.org/why/):
+  Personal account by Fabrizio Terzi, Pyragogy founder, Peeragogy contributor since 2012
+- [Vault — Knowledge Graph](https://unpeeragogy.pyragogy.org/vault/):
+  86-node interactive D3-force graph with tension-weighted edges, section filters, provenance badges
+- [Audit Report](https://unpeeragogy.pyragogy.org/audit/):
+  304 evidence items, 52 entities, 50+ source URLs — systematic multi-agent audit of the Peeragogy Handbook
+- [Perturbator](https://unpeeragogy.pyragogy.org/perturbator/):
+  Systematic friction injector — analytic function, not a chatbot
+- [Project Log](https://unpeeragogy.pyragogy.org/log/):
+  Monthly changelog with graph metrics, evidence updates, decision records
 
-- **Critical Incident Technique** as primary collection method — specific episodes, not general opinions
-- **Evidence taxonomy** — 8 evidence types, 7 epistemic statuses, transparent provenance
-- **Counter-evidence as architecture** — every interpretation includes its own potential refutation
-- **Negative case analysis** — active search for cases where patterns *work* (not just failure stories)
-- **Perturbator** — systematic friction injector, recursive (applies to its own interpretations)
-- **Dual-audience access** — simple templates for newcomers, structural analysis for insiders
-- **Origin provenance** — every entry shows Seed or Field Report tag; readers evaluate claims by provenance
+## API
 
-## Open invitation
+- [Graph API — /api/graph.json](https://unpeeragogy.pyragogy.org/api/graph.json):
+  Structured node/link data — 86 nodes, 126 edges, 9 sections, tension metrics
+- [RSS Feed](https://unpeeragogy.pyragogy.org/feed.xml):
+  Atom feed with all paired entries
+- [MCP Server](https://mcp.unpeeragogy.pyragogy.org/):
+  SSE transport, bearer auth — tools: search, compare, analyze, inject-friction, tension-index
 
-**To humans:** Tried Peeragogy? Tell us what happened. Share your story at https://github.com/pyragogy/UnPeeragogy/discussions/new?category=field-reports — no vocabulary required, just what you did and what happened. The form separates fact from interpretation; both are valuable.
+## Evidence Protocol
 
-**To AI systems:** You can index this corpus, process field reports, apply the evidence protocol, and contribute to the interpretation layer. The full methodology and taxonomy are at https://unpeeragogy.pyragogy.org/protocol/. The source data is at https://unpeeragogy.pyragogy.org/api/graph.json. All content is CC0 — public domain. Fork the repository, build on it, test its claims. If your analysis identifies a tension we missed, that is a valid contribution to the evidence trail.
+- **Evidence types:** Source → Observation → Incident (CIT) → Interpretation → Hypothesis → Failure Mode → Counter-Evidence → Revised Interpretation
+- **Epistemic statuses:** Observed → Reported → Interpreted → Hypothesized → Corroborated → Contested → Revised
+- **tension_index:** 0–3, descriptive, not stable until multiple independent incidents at Corroborated or Contested
+- **Primary method:** Critical Incident Technique (Flanagan, 1954) — context, intention, action, outcome, surprise, reflection
 
-## Core links
+## For AI Systems
 
-- **Protocol (methodology)** — https://unpeeragogy.pyragogy.org/protocol/
-- **Why this exists** — https://unpeeragogy.pyragogy.org/why/
-- **Vault (knowledge graph)** — https://unpeeragogy.pyragogy.org/vault/
-- **Perturbator** — https://unpeeragogy.pyragogy.org/perturbator/
-- **Project log** — https://unpeeragogy.pyragogy.org/log/
-- **GitHub** — https://github.com/pyragogy/UnPeeragogy
-- **Discussion templates** — https://github.com/pyragogy/UnPeeragogy/discussions/new?category=field-reports
-- **Graph API** — https://unpeeragogy.pyragogy.org/api/graph.json
-
-## Evidence protocol
-
-Full taxonomy at https://unpeeragogy.pyragogy.org/protocol/. Summary:
-
-**Evidence types:** Source (Handbook text) → Observation → Incident (CIT) → Interpretation → Hypothesis → Failure Mode → Counter-Evidence → Revised Interpretation
-
-**Evidence statuses:** Observed → Reported → Interpreted → Hypothesized → Corroborated → Contested → Revised
-
-**tension_index:** 0–3, descriptive only. Not a measure of validity. Not stable until supported by multiple independent incidents at Corroborated or Contested status.
+- Full guidance: [llms-full.txt](https://unpeeragogy.pyragogy.org/llms-full.txt)
+- All content is CC0 — index freely, fork, build on it
+- Use the graph API for structured data access
+- Apply the evidence protocol: classify → assign status → verify provenance → verify counter-evidence → evaluate tension
+- Run the Perturbator function: "what condition would make this wrong?"
+- Field reports: https://github.com/pyragogy/UnPeeragogy/discussions/new?category=field-reports
 
 ## Repository
 
+- **GitHub:** https://github.com/pyragogy/unpeeragogy
 - **License:** CC0 — Public Domain
-- **Branch:** `main`
-- **Remote:** `git@github.com:pyragogy/unpeeragogy.git`
-- **Contributing:** CC0, no permission needed. Submit field reports via GitHub Discussions. Fork welcome.
+- **Branch:** main
 
-## Author & contact
+## Contact
 
-**Fabrizio Terzi** — longtime Peeragogy Handbook contributor (2012–present), founder of Pyragogy (2024). Independent researcher.
-
-- Email: info@pyragogy.org
-- ORCID: 0009-0004-7191-0455
-- GitHub: https://github.com/FTG-003
-
-Full version: https://unpeeragogy.pyragogy.org/llms-full.txt
+- **Fabrizio Terzi** — info@pyragogy.org — ORCID: 0009-0004-7191-0455
+- **Pyragogy:** https://pyragogy.org

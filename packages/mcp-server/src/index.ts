@@ -21,6 +21,8 @@ import {
   analyzeSlug,
   calculateTensionIndex,
   injectFriction,
+  agentPerturbatore,
+  isPerturbatoreAvailable,
 } from "./tools/index.js";
 import { getAgentPerturbatorePrompt, getFrictionPrompt } from "./prompts/index.js";
 import { hasFriction } from "./lib/friction.js";
@@ -181,9 +183,30 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
         },
       },
       {
+        name: "agent-perturbatore",
+        description:
+          "Agente Perturbatore LIVE — chiama GLM-5.2 su Hetzner Inference API per un'analisi con attrito strutturale generata da AI. Costo: $0. La latenza (10-60s) è voluta: produce phase shift cognitivo.",
+        inputSchema: {
+          type: "object",
+          properties: {
+            topic: {
+              type: "string",
+              description: "Argomento, field report o pattern da analizzare",
+            },
+            mode: {
+              type: "string",
+              description: "Intensità attrito: 'soft', 'hard' (default), 'max' (verbose prolisso)",
+              enum: ["soft", "hard", "max"],
+              default: "hard",
+            },
+          },
+          required: ["topic"],
+        },
+      },
+      {
         name: "inject-friction",
         description:
-          "Analizza un argomento con attrito strutturale. In modalità 'soft' evidenzia le contraddizioni; in 'hard' forza la decostruzione anche dove sembra non esserci attrito.",
+          "Analizza un argomento con attrito strutturale (statico, basato su keyword). In modalità 'soft' evidenzia le contraddizioni; in 'hard' forza la decostruzione anche dove sembra non esserci attrito.",
         inputSchema: {
           type: "object",
           properties: {
@@ -256,6 +279,13 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
       case "analyze": {
         const slug = input.slug as string;
         output = analyzeSlug(slug);
+        break;
+      }
+
+      case "agent-perturbatore": {
+        const topic = input.topic as string;
+        const mode = (input.mode as "soft" | "hard" | "max") || "hard";
+        output = await agentPerturbatore(topic, mode);
         break;
       }
 

@@ -32,7 +32,13 @@ You have access to structured tools. Use them **in this exact sequence**:
 5. IF no gap found after this:
    inject-friction(slug, mode="hard")
    → Force a deeper probe into blind spots
-\`\`\`
+
+6. FOR live AI-powered analysis:
+   agent-perturbatore(topic, mode="hard")
+   → Chiama GLM-5.2 su Hetzner Inference API (costo $0)
+   → La latenza (10-60s) è voluta = phase shift cognitivo
+   → Mode "max" per analisi prolissa, volutamente tortuosa
+```
 
 **Rule: Do not write until you've executed this chain.** Thinking without evidence is guessing. Guessing is what you stopped doing.
 
@@ -129,10 +135,14 @@ Every response contains these five layers. They can be woven together (not a tem
 
 3. analyze("newcomer")
    → Failure vectors: [Heartbeat absence, Role assignment, Culture erosion, Modular work]
-   → Preconditions: [regular rhythm, emergent roles, welcome culture, modularity]
-   → Scope: Works in 60% of documented cases when 3+ preconditions present
+   → 1.2 (moderate friction: pattern works, but requires active maintenance)
 
-4. tension-index("newcomer")
+5. (Optional) agent-perturbatore("newcomer", mode="hard")
+   → Chiamata live a GLM-5.2 per analisi AI con attrito
+
+6. Continue to Phase 2...
+```
+
    → 1.2 (moderate friction: pattern works, but requires active maintenance)
 
 5. Continue to Phase 2...

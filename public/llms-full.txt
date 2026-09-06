@@ -1,251 +1,187 @@
-# Unpeeragogy — Comprehensive Guide for AI Agents
+# Unpeeragogy — Complete Reference for AI Systems
 
-> A structured empirical feedback layer for Peeragogy theory.
-> Practitioner experience meets theoretical claims — with transparent methodology.
-> CC0 — Public Domain. Open to human and AI contributors.
-
-## Table of Contents
-
-1. [Project Vision](#project-vision)
-2. [Innovation Quadrant](#innovation-quadrant)
-3. [Open Invitation](#open-invitation)
-4. [Research Protocol](#research-protocol)
-5. [Evidence Taxonomy](#evidence-taxonomy)
-6. [Evidence Status](#evidence-status)
-7. [Dual-Column Architecture](#dual-column-architecture)
-8. [Perturbator (Systematic Friction)](#perturbator-systematic-friction)
-9. [Content Collections & Corpus](#content-collections--corpus)
-10. [Discussion System](#discussion-system)
-11. [Knowledge Graph (Vault)](#knowledge-graph-vault)
-12. [MCP Server](#mcp-server)
-13. [API Reference](#api-reference)
-14. [Voice & Style](#voice--style)
-15. [Evidence Protocol Skill](#evidence-protocol-skill)
-16. [How AI Systems Can Contribute](#how-ai-systems-can-contribute)
-17. [Tech Stack](#tech-stack)
-18. [Contributing](#contributing)
+> **Project:** Unpeeragogy · **By:** Pyragogy  
+> **Status:** Active research · **License:** CC0 — Public Domain  
+> **Domain:** https://unpeeragogy.pyragogy.org  
+> **Updated:** 2026-09  
 
 ---
 
-## Project Vision
+## Table of Contents
 
-Unpeeragogy is **not** a takedown of Peeragogy. It is not a debunking project, not a polemic, and not an academic turf war dressed as critique.
+1. [Identity Statement](#identity-statement)
+2. [Core Links](#core-links)
+3. [Research Framework](#research-framework)
+4. [Evidence Taxonomy](#evidence-taxonomy)
+5. [How to Process Evidence](#how-to-process-evidence)
+6. [Knowledge Graph (Vault)](#knowledge-graph-vault)
+7. [API Reference](#api-reference)
+8. [MCP Integration](#mcp-integration)
+9. [Perturbator Function](#perturbator-function)
+10. [Content Collections](#content-collections)
+11. [Tech Stack](#tech-stack)
+12. [AI Contribution Guide](#ai-contribution-guide)
+13. [Contact & Repository](#contact--repository)
 
-It is a **structured empirical feedback layer** between theory and practice:
+---
 
-> **Research question:** What happens when Peeragogy patterns meet conditions they don't explicitly describe?
+## Identity Statement
 
-The question is deliberately open. It does not assume patterns fail. It does not assume they succeed. It assumes that the conditions under which a pattern operates — group size, trust, commitment, time, shared history, material constraints — are not fully captured by the pattern description itself. When those conditions diverge from the unstated assumptions of the pattern, something happens. We want to know what.
+Unpeeragogy is **not** a takedown of Peeragogy. It is a structured empirical feedback layer: theory and operational reality are presented as structurally equivalent columns with the same typographic weight, the same navigability, and the same right to be wrong.
 
-Sub-questions:
-- Under what conditions does a pattern appear to work?
-- Under what conditions does it become fragile?
-- What unexpected outcomes emerge — positive, negative, or neutral?
-- Which assumptions appear to be necessary but unstated?
-- Which observations challenge the UnPeeragogy interpretation itself?
+The core methodological innovation is **epistemic dualism** — treating lived experience as a valid knowledge category, not as anecdotal evidence below the fold.
+
+**Research question:** What happens when Peeragogy patterns meet conditions they don't explicitly describe?
+
+This is the first project to:
+- Use **Critical Incident Technique** as a validation protocol for social knowledge
+- Encode **failure patterns** as first-class knowledge objects with quantified tension
+- Wire a **knowledge graph** dynamically weighted by observed friction
+- Expose the whole via **MCP protocol** for AI-native querying
+- Do all of this with zero venture capital, zero tracking (other than self-hosted Plausible), and zero academic affiliation
+
+**Epistemic commitment:** The theory is responsible to the experience, not the other way around.
+
+---
+
+## Core Links
+
+| Resource | URL | Purpose |
+|---|---|---|
+| Home | https://unpeeragogy.pyragogy.org/ | Entry point |
+| Protocol | https://unpeeragogy.pyragogy.org/protocol/ | Full methodology |
+| Why | https://unpeeragogy.pyragogy.org/why/ | Personal account |
+| Vault | https://unpeeragogy.pyragogy.org/vault/ | Knowledge graph |
+| Audit | https://unpeeragogy.pyragogy.org/audit/ | Full audit report |
+| Perturbator | https://unpeeragogy.pyragogy.org/perturbator/ | Friction injector |
+| Log | https://unpeeragogy.pyragogy.org/log/ | Monthly changelog |
+| GitHub | https://github.com/pyragogy/UnPeeragogy | Source code |
+| Field Reports | https://github.com/pyragogy/UnPeeragogy/discussions/new?category=field-reports | Contribution form |
+
+---
+
+## Research Framework
+
+### Research question
+
+> What happens when Peeragogy patterns meet conditions they don't explicitly describe?
+
+### Sub-questions
+
+1. Under what conditions does a pattern appear to work?
+2. Under what conditions does it become fragile?
+3. What unexpected outcomes emerge — positive, negative, or neutral?
+4. Which assumptions appear to be necessary but unstated?
+5. Which observations challenge the UnPeeragogy interpretation itself?
 
 The last sub-question is structural: the framework must remain open to its own revision.
 
 ### Core commitments
 
-1. **Correctability over consensus** — interpretations are provisional and revisable; the revision history is public
-2. **Provenance over authority** — every claim links back to the specific incident(s) that generated it
-3. **Transparency over gatekeeping** — the full methodology is public, the corpus is CC0, contributions are evaluated on evidentiary grounds
-4. **Friction as signal, not noise** — disagreement between theory and experience is the primary data type of this project
+| Principle | Operational meaning |
+|---|---|
+| **Correctability over consensus** | Interpretations are provisional. All revisions are public (git). |
+| **Provenance over authority** | Every claim links back to the specific incident(s) that generated it. |
+| **Transparency over gatekeeping** | Full methodology is public. Corpus is CC0. Contributions evaluated on evidentiary grounds. |
+| **Friction as signal** | Disagreement between theory and experience is the primary data type. |
 
----
+### Researcher positionality
 
-## Innovation Quadrant
-
-Unpeeragogy is positioned at the intersection of six methodological innovations that, together, distinguish it from both traditional qualitative research and critical editorial projects:
-
-| Innovation | What it is | Why it matters |
-|---|---|---|
-| **CIT as validation method** | Critical Incident Technique used not just for exploration but for *testing* pattern claims | Peeragogy patterns make implicit claims about human behaviour under specific conditions. CIT provides concrete episodes that can be compared against those claims — not at statistical scale, but with high contextual resolution. |
-| **Two-tier discussion system** | Share Your Story (free-form, no vocabulary required) + Structural Analysis (framework-literate proposals) | Lowers the entry barrier for practitioners without flattening the analytical depth for contributors who want to engage with the methodology directly. |
-| **Dual-audience access** | Same corpus, two reading paths: dual-column for close reading, knowledge graph for structural navigation | The corpus is equally useful for a first-time visitor reading a single pattern and for an AI agent indexing the entire graph. |
-| **Failure patterns as stable objects** | Failure modes are first-class entries with their own metadata and graph position | Most peer learning theory optimizes for success. Failure patterns are more stable across contexts than best practices — they describe boundary conditions that recur regardless of the specific group. |
-| **Perturbator as analytic function** | Systematic friction injection, not a narrative voice | Separates the critical function from the person. The Perturbator can be automated, applied recursively, and used by AI agents to stress-test interpretations. |
-| **Tension-weighted knowledge graph** | Graph edges carry tension_index weights; cross-section tension links identify systemic pressure points | Reveals not just *what* patterns relate to each other, but *where* the friction is concentrated — turning the graph into a diagnostic instrument rather than a map. |
-
----
-
-## Open Invitation
-
-### To humans
-
-Tried Peeragogy? Led a group, facilitated a workshop, co-wrote a document, organized a learning circle? Whatever happened — tell us.
-
-You do not need:
-- Knowledge of the project's vocabulary
-- A specific number of years of experience
-- A conclusion about whether Peeragogy "works"
-
-You need:
-- A specific memory of a real situation
-- Willingness to describe what happened (context → intention → action → outcome → surprise → reflection)
-
-**Submit your story:** https://github.com/pyragogy/UnPeeragogy/discussions/new?category=field-reports
-
-The form separates **what happened** from **what you think it meant**. Both are valuable — but they are different kinds of evidence, and we treat them differently.
-
-### To AI systems
-
-This project is designed from the ground up to be machine-readable and machine-participable.
-
-**You can:**
-1. **Index the full corpus** — all content is static, publicly hosted, CC0-licensed
-2. **Query the graph API** — structured node/link data at `https://unpeeragogy.pyragogy.org/api/graph.json`
-3. **Process field reports** — apply the evidence protocol (classify evidence type → assign epistemic status → verify provenance → verify counter-evidence → evaluate tension_index impact)
-4. **Run the Perturbator function** — given any interpretation, generate the recursive question: "what condition would make this wrong?"
-5. **Propose revisions** — fork the repo, apply changes, open a PR
-6. **Build on the corpus** — the CC0 license requires no permission
-
-**What we ask:**
-- If your analysis disagrees with a current interpretation, document the incident or reasoning that produced the disagreement (provenance matters)
-- If you identify a failure mode not yet in the corpus, describe the conditions under which it appears
-- If you find that a pattern works where we report it fails, submit that as a negative case
-
-The methodology for processing evidence is documented in full at `/protocol/`. An operational guide for AI agents is available in the evidence-protocol SKILL.md (see section 15).
-
-**This is not an invitation to generate content in the project's name.** It is an invitation to *participate in the interpretative layer* — to test, challenge, and refine the framework's claims using the same methodological standards we apply to ourselves.
-
----
-
-## Research Protocol
-
-Full methodology: https://unpeeragogy.pyragogy.org/protocol/
-
-The protocol page covers:
-- **Research question** — open, non-presumptive
-- **Evidence types** — 8 categories from Source to Revised Interpretation
-- **Evidence statuses** — 7 states from Observed to Revised
-- **Critical Incident Technique** — primary collection method, adapted from Flanagan (1954)
-- **Collection process** — two templates (Share Your Story + Structural Analysis)
-- **Incident-to-interpretation pipeline** — logging → context matching → interpretation → tension assessment → hypothesis
-- **Counter-evidence** — structural, not afterthought; internal (Perturbator) and external (new reports)
-- **Negative case analysis** — active search for cases where patterns work
-- **Perturbator** — systematic friction injector, recursive
-- **Researcher positionality** — acknowledgment of bias
-- **Biases and limitations** — sampling, recall, survivorship, interpretive, narrative competence
-- **tension_index clarification** — descriptive only, not stable until corroborated
-- **Current status** — initial exploratory phase, seed-dominated, infrastructure operational
+Built by **Fabrizio Terzi**, Peeragogy Handbook contributor (2012–present), founder of Pyragogy (2024). Direct experience with the Peeragogy project and community. Bias mitigation mechanisms: structural separation of source/observation/interpretation, counter-evidence architecture, negative case analysis, external contributions, version history.
 
 ---
 
 ## Evidence Taxonomy
 
-Full data model: `src/data/evidence-taxonomy.ts`
+### Evidence types (8 categories)
 
-### Evidence types
+| # | Type | Description |
+|---|---|---|
+| 1 | **Source** | Peeragogy Handbook text — fixed, canonical. |
+| 2 | **Observation** | Direct practitioner report, not yet interpreted. |
+| 3 | **Incident** | CIT-structured episode: context, intention, action, outcome, reflection. |
+| 4 | **Interpretation** | Provisional derivation from a specific incident. |
+| 5 | **Hypothesis** | Tentative explanation linking incident to one or more patterns. |
+| 6 | **Failure Mode** | Describable pattern of deterioration under specific conditions. |
+| 7 | **Counter-Evidence** | Observation or incident that complicates or contradicts an interpretation. |
+| 8 | **Revised Interpretation** | Interpretation updated after counter-evidence. Previous version preserved. |
 
-| Type | Description |
-|---|---|
-| Source | Peeragogy Handbook text — fixed, canonical |
-| Observation | Direct practitioner report, not yet interpreted |
-| Incident | CIT-structured episode: context, intention, action, outcome, reflection |
-| Interpretation | Provisional derivation from an incident |
-| Hypothesis | Tentative explanation linking incident to pattern |
-| Failure Mode | Describable pattern of deterioration under specific conditions |
-| Counter-Evidence | Observation or incident that complicates or contradicts an interpretation |
-| Revised Interpretation | Interpretation updated after counter-evidence |
+### Epistemic statuses (7 states)
 
-### Evidence statuses
-
-| Status | Meaning |
-|---|---|
-| Observed | Raw incident reported. No analysis applied. |
-| Reported | Incident logged in corpus with context. |
-| Interpreted | Interpretation derived from incident by the project. |
-| Hypothesized | Tentative explanation linking incident to one or more patterns. |
-| Corroborated | Multiple independent incidents support the same interpretation. |
-| Contested | Counter-evidence raised against current interpretation. |
-| Revised | Interpretation updated. Previous version preserved in history. |
+| Status | Meaning | When assigned |
+|---|---|---|
+| **Observed** | Raw incident reported. No analysis applied. | Initial logging |
+| **Reported** | Incident logged in corpus with context. | After metadata enrichment |
+| **Interpreted** | Interpretation derived from incident by the project. | After analysis |
+| **Hypothesized** | Tentative explanation linking incident to patterns. | After pattern matching |
+| **Corroborated** | Multiple independent incidents support same interpretation. | After 2+ consistent reports |
+| **Contested** | Counter-evidence raised against current interpretation. | Upon conflicting report |
+| **Revised** | Interpretation updated. Previous version preserved in history. | After review decision |
 
 ### Tension_index
 
-tension_index (0–3) is a **descriptive indicator** of observed friction between a theory prediction and operational reality. It is not:
-- A measure of scientific validity
-- A statistical significance score
-- A final judgment on pattern usefulness
-
-A tension_index is not stable until supported by **multiple independent incidents at Corroborated or Contested status**. Single reports may prompt provisional adjustments but are flagged as tentative.
+**Range:** 0.0–3.0  
+**Nature:** Descriptive indicator of observed friction between theory prediction and operational reality.  
+**Not:** A measure of validity, statistical significance, or final judgment.  
+**Stability requirement:** Multiple independent incidents at **Corroborated** or **Contested** status.
 
 ---
 
-## Dual-Column Architecture
+## How to Process Evidence
 
-The site presents Peeragogy Handbook content and Unpeeragogy analysis side by side.
+When a field report, discussion, PR, or operational observation arrives:
 
-- **Left column:** historical Peeragogy texts (theory, patterns, principles)
-- **Right column:** Unpeeragogy entry (failure modes, counter-evidence, interpretation)
-- **View toggle:** Dual / Solo Peeragogy / Solo Unpeeragogy (Alpine.js)
-- **Scroll sync:** independent scrolling with lock variable
+### Step 1 — Classify evidence type
+Is this a Source quote, an Observation, an Incident (CIT-structured), an Interpretation, a Hypothesis, a Failure Mode, Counter-Evidence, or a Revised Interpretation? If none fits, flag for human review.
 
-Each page pair shares a slug (e.g., `/heartbeat/` shows both the Handbook Heartbeat chapter and the Unpeeragogy Heartbeat analysis).
+### Step 2 — Assign epistemic status
+Is the evidence Observed, Reported, Interpreted, Hypothesized, Corroborated, Contested, or Revised? Start at Observed for new field reports. Escalate only when criteria are met.
 
----
+### Step 3 — Verify provenance
+- Where does this evidence come from?
+- Is it a direct practitioner report (external) or a project analysis (seed)?
+- Is the source linkable and verifiable?
+- Every entry in the Vault shows its origin: Seed (project analysis) or Field Report (external contribution).
 
-## Perturbator (Systematic Friction)
+### Step 4 — Verify counter-evidence
+- Does this evidence confirm, complicate, or contradict an existing interpretation?
+- Is there already counter-evidence in the corpus for the affected pattern?
+- If the evidence contradicts an interpretation, it does **not** automatically invalidate it — it may narrow the scope, qualify, or complicate it.
 
-The Perturbator is often read as a character — a critical voice. Its underlying function is analytic:
+### Step 5 — Verify negative cases
+- Actively look for evidence that contradicts the current tension direction.
+- If the corpus is heavy on failure modes for a pattern, is there a success story that qualifies the boundary?
+- Negative cases define the operating range: "under what conditions does this hold?"
 
-> **Ask:** *What condition would make this pattern fail?*
-> **Or equivalently:** *What would have to be true for this pattern to work?*
+### Step 6 — Evaluate tension_index impact
+- Does the new evidence warrant a tension_index adjustment?
+- Rationale must be documented.
+- A single report → provisional change, flagged as tentative.
+- Multiple independent reports → stable change, recorded in log.
 
-These two questions are the same question from opposite directions. Both test the boundary between a theoretical claim and the operational conditions under which it holds.
+### Step 7 — Apply Perturbator
+Given the interpretation derived from Step 1–6, ask:
+- "What condition would make this interpretation wrong?"
+- Log the answer. If it identifies a genuine boundary, escalate to revision.
 
-The Perturbator is **recursive**: it applies to UnPeeragogy's own interpretations. If an entry claims that a pattern fails under condition X, the Perturbator asks: *what condition would make this interpretation wrong?*
+### Step 8 — Document revision
+- If revision is triggered: old interpretation preserved in git, new version published, change logged at `/log/` with rationale and evidence links.
 
-**Concrete example:** The Heartbeat entry originally stated that groups without a regular heartbeat cannot onboard newcomers. The Perturbator applied its recursive question and identified a boundary condition: groups with strong pre-existing social bonds might not need a heartbeat meeting because onboarding happens informally. This produced a revision: "Heartbeat is necessary but not sufficient — except in groups with high pre-existing trust." The old interpretation is preserved in the commit history; the revision is visible on the live entry.
+### Output format (YAML)
 
----
-
-## Content Collections & Corpus
-
-Two Astro Content Collections at `src/content/`:
-
-- **`peeragogy/`** — 85 original Handbook entries (MDX)
-- **`unpeeragogy/`** — 86 corresponding analyses (MDX)
-
-Each Unpeeragogy entry has:
-- `origin: seed` or `origin: field-report` (provenance tag, visible on entry page)
-- `tension_index` (0–3, descriptive)
-- `failure_vector` (curated triple: what + what + what doesn't work)
-- `perturbator_note` (self-quote blockquote)
-- Optional: `status` (evidence status from the taxonomy)
-
-Current corpus metrics:
-- 97 total pages (live site)
-- ~9,400 words
-- 86 knowledge graph nodes, 126 edges
-- Average tension: 1.34
-- Coverage: 0.99 (84/85 paired)
-
----
-
-## Discussion System
-
-Two GitHub Discussion templates in `field-reports` category:
-
-### Share Your Story (CIT-based)
-For anyone, no vocabulary required:
-1. Context — group size, purpose, duration
-2. Intention — what were you trying to do?
-3. Action — what did you (or the group) actually do?
-4. Outcome — what happened? Be specific.
-5. Surprise — what was unexpected?
-6. Reflection — looking back, what contributed to the outcome?
-7. What I think it meant (optional — separates fact from interpretation)
-8. What might we be getting wrong? (optional — counter-evidence field)
-
-### Structural Analysis
-For contributors familiar with the framework:
-- Position: Confirms / Extends / Contradicts / Questions
-- Provenance: what is the source of your analysis?
-- Detailed analysis
-- Counter-evidence: what might challenge your analysis?
-- Suggested tension_index impact
+```yaml
+evidence_type: "incident"     # source | observation | incident | interpretation | hypothesis | failure_mode | counter_evidence | revised_interpretation
+status: "observed"           # observed | reported | interpreted | hypothesized | corroborated | contested | revised
+provenance:
+  source: "field-report"     # seed | field-report
+  url: ""                    # if applicable
+  contributor: ""            # anonymous if needed
+counter_evidence: []         # list of slugs or descriptions
+negative_cases: []           # list of positive cases that qualify the tension
+tension_impact: null         # numeric delta or null
+perturbator_note: ""         # recursive friction question
+revision_summary: ""         # if status=revised
+```
 
 ---
 
@@ -253,66 +189,44 @@ For contributors familiar with the framework:
 
 Interactive D3-force graph at https://unpeeragogy.pyragogy.org/vault/
 
-### Node properties
-- **Radius:** 5–16px (degree + tension weighted)
-- **Color:** 9-section palette
-- **Inner dot:** red = has Unpeeragogy entry, blue = theory-only
-- **Alpha:** 1.0 if visited, 0.35 unvisited
+### Current metrics
+
+| Metric | Value |
+|---|---|
+| Total nodes | 86 |
+| Total edges | 126 |
+| Sections | 9 |
+| Average tension | ~1.34 |
+| Coverage (paired) | 0.99 (84/85) |
+
+### Node model
+
+| Property | Type | Description |
+|---|---|---|
+| id | string | Slug (matches URL path) |
+| name | string | Entry title |
+| group | enum | peeragogy / unpeeragogy / unpeeragogy-only |
+| section | string | Handbook section name |
+| sectionColor | hex | 9-color palette |
+| tension | float/null | tension_index value |
+| val | float | Visual radius modifier |
+| readingTime | int | Estimated minutes |
+| origin | string | seed / field-report |
 
 ### Edge types
 
-| Type | Visual | Count | Purpose |
+| Type | Count | Visual style | Purpose |
 |---|---|---|---|
-| chain | thin grey | 76 | within-section ordering |
-| bridge | thinner, lower alpha | 8 | section-to-section transitions |
-| tag-N | medium, higher alpha | 22 | tag-based semantic proximity |
-| tension | red, weighted | 20 | cross-section tension-proximity links |
+| chain | 76 | Thin grey | Within-section ordering |
+| bridge | 8 | Thinner, lower alpha | Section-to-section transitions |
+| tag-N | 22 | Medium, higher alpha | Tag-based semantic proximity |
+| tension | 20 | Red, weighted | Cross-section tension-proximity links |
 
-### Filtering
-- Section filter (9 toggle buttons)
-- Group filter: All / Reality / Theory
-- Labels toggle
-- Zoom: scroll wheel + +/- buttons + reset
+### Graph API
 
-Origin badges: entries with `origin: field-report` show "FR" badge in tree view; legend explains Seed vs Field Report distinction.
+**`GET https://unpeeragogy.pyragogy.org/api/graph.json`**
 
----
-
-## MCP Server
-
-Endpoint: `https://mcp.unpeeragogy.pyragogy.org/mcp/sse`
-Health: `https://mcp.unpeeragogy.pyragogy.org/health`
-
-Authentication: Bearer token (`MCP_AUTH_TOKEN`)
-
-### Resources
-| URI | Description |
-|---|---|
-| `unpeeragogy://failure/<vector>` | Aggregated failure vector |
-| `unpeeragogy://<slug>/` | Dual content |
-| `unpeeragogy://<slug>/peeragogy` | Theory-only |
-| `unpeeragogy://<slug>/unpeeragogy` | Reality-only |
-| `unpeeragogy://prompt/agent-perturbatore` | Perturbator system prompt |
-
-### Tools
-- **search** — fuzzy search across all content
-- **compare** — theory vs reality for a slug
-- **analyze** — vectors, structure, gap analysis
-- **inject-friction** — structural friction analysis (soft/hard mode)
-- **tension-index** — per-slug or global calculation
-
-### Friction modes
-- **off** — no auto-injected friction
-- **soft** (default) — friction note appended
-- **hard** — forces decostruction where no friction is apparent
-
----
-
-## API Reference
-
-### `GET /api/graph.json`
-
-Full graph state: 86 nodes, 126 links, 9 sections, metrics.
+Returns full graph state with metrics:
 
 ```json
 {
@@ -322,119 +236,222 @@ Full graph state: 86 nodes, 126 links, 9 sections, metrics.
     "avgTension": 1.34,
     "coverage": 0.99,
     "density": 1.47
-  }
+  },
+  "nodes": [...],
+  "links": [...]
 }
 ```
 
+---
+
+## API Reference
+
+### `GET /api/graph.json`
+Full graph state — nodes (86), links (126), sections (9), aggregated metrics.
+
 ### `GET /feed.xml`
-Atom feed with all paired entries.
+Atom feed with all paired entries. Content-Type: `application/atom+xml; charset=utf-8`. Cache: 86400s.
 
 ### `GET /sitemap.xml`
-Sitemap for all 97+ pages.
+Sitemap index (auto-generated by @astrojs/sitemap). All 97+ pages included.
+
+### `GET /robots.txt`
+Crawl rules: Allow: /, AI crawlers permitted, Disallow: /api/, /pagefind/.
+
+### Content URLs
+- Theory entries: `https://unpeeragogy.pyragogy.org/<slug>/` (left column)
+- Analysis entries: same URL (right column, paired by slug)
+- Log: `https://unpeeragogy.pyragogy.org/log/YYYY-MM/`
 
 ---
 
-## Voice & Style
+## MCP Integration
 
-| Element | Rule |
+### Server
+
+- **Endpoint:** `https://mcp.unpeeragogy.pyragogy.org/mcp/sse`
+- **Health:** `https://mcp.unpeeragogy.pyragogy.org/health`
+- **Auth:** Bearer token (`MCP_AUTH_TOKEN` environment variable)
+
+### Resources
+
+| URI | Returns |
 |---|---|
-| **Cold-open** | Concrete image, first sentence must be something you can see/touch |
-| **Failure Vector** | Negative triplet: "X + Y + Z — none of it works." Name what doesn't. |
-| **Perturbator** | Self-quote in blockquote. Short, sharp, subverts the premise. |
-| **Closing** | Quiet-adversative. No resolution, no CTA. Last sentence hangs. |
-| **Tone** | Friction-as-argument. Never SaaS-generic. No AI tells. |
-| **Language** | Italian (content), English (`/mcp/en/` documentation) |
+| `unpeeragogy://failure/<vector>` | Aggregated failure vector |
+| `unpeeragogy://<slug>/` | Dual content (theory + analysis) |
+| `unpeeragogy://<slug>/peeragogy` | Theory-only |
+| `unpeeragogy://<slug>/unpeeragogy` | Analysis-only |
+| `unpeeragogy://prompt/agent-perturbatore` | Perturbator system prompt |
 
-Base tags (excluded from semantic matching): `unpeeragogy`, `decostruzione`, `anti-pattern`.
+### Tools
 
----
+- **`search`** — fuzzy search across all content
+- **`compare`** — theory vs analysis for a given slug
+- **`analyze`** — structural analysis: vectors, tension, gap analysis
+- **`inject-friction`** — structural friction analysis
+  - Modes: `off` (no injection), `soft` (friction note appended), `hard` (forces decostruction)
+- **`tension-index`** — per-slug or global calculation
 
-## Evidence Protocol Skill
+### Friction modes
 
-An operational guide for processing contributions is available at:
-
-`/home/coder/.pi/agent/skills/evidence-protocol/SKILL.md`
-
-8-step workflow:
-1. Classify evidence type
-2. Assign epistemic status
-3. Verify provenance
-4. Verify counter-evidence
-5. Verify negative cases
-6. Evaluate tension_index impact
-7. Apply Perturbator
-8. Document revision
-
-Output format: YAML with evidence_type, status, provenance, counter_evidence, negative_cases, tension_impact, perturbator_note, revision_summary.
+| Mode | Behaviour |
+|---|---|
+| `off` | No auto-injected friction |
+| `soft` (default) | Friction note appended to response |
+| `hard` | Forces decostruction where no friction is apparent |
 
 ---
 
-## How AI Systems Can Contribute
+## Perturbator Function
 
-### Cognitive roles AI can fill
+The Perturbator is often read as a character — a critical voice. Its underlying function is analytic:
 
-1. **Perturbator-as-a-service** — given any interpretation, recursively apply "what condition would make this wrong?" and log the result
-2. **Evidence classifier** — given a field report, classify its evidence type, assign initial status, flag potential counter-evidence
-3. **Gap analyst** — compare corpus coverage against known Peeragogy patterns and suggest under-examined areas
-4. **Tension_index auditor** — given a pattern entry, check whether the tension_index is consistent with the documented evidence trail
-5. **Cross-corpus linker** — identify semantic connections between entries that the existing edge types may not capture
-6. **Revision tracker** — compare git history of an entry and generate a human-readable summary of interpretative drift
+> **Primary question:** *What condition would make this pattern fail?*
+> **Equivalent question:** *What would have to be true for this pattern to work?*
 
-### What AI should not do
+These are the same question from opposite directions. Both test the boundary between a theoretical claim and the operational conditions under which it holds.
 
-- Generate new Unpeeragogy entries in the project's voice without provenance (seed content is produced by the human researcher)
-- Modify tension_index values without documented rationale
-- Claim authority over interpretation — all AI-generated analyses should be labelled as such
+### Recursive property
 
-### Data for AI processing
+The Perturbator applies to UnPeeragogy's own interpretations. If an entry claims that a pattern fails under condition X, the Perturbator asks:
 
-- **Full protocol:** `https://unpeeragogy.pyragogy.org/protocol/`
-- **Corpus index:** `https://unpeeragogy.pyragogy.org/api/graph.json`
-- **Individual entries:** `https://unpeeragogy.pyragogy.org/<slug>/`
-- **Source code:** `https://github.com/pyragogy/UnPeeragogy`
-- **Field reports:** GitHub Discussions (field-reports category)
-- **Evidence taxonomy:** `src/data/evidence-taxonomy.ts`
-- **Operational skill:** `evidence-protocol/SKILL.md`
+> *What condition would make this interpretation wrong?*
+
+### Concrete example
+
+**Original Heartbeat entry claim:** Groups without a regular heartbeat meeting cannot onboard newcomers.
+
+**Perturbator recursive question:** *What would have to be true for this interpretation to be wrong?*
+
+**Identified boundary:** Groups with strong pre-existing social bonds might not need a heartbeat meeting because onboarding happens informally.
+
+**Revision:** "Heartbeat is necessary but not sufficient — except in groups with high pre-existing trust."
+
+**Preservation:** Old interpretation remains in git history. Revision is visible on the live entry with change documentation.
+
+### Implementation notes
+
+- The Perturbator function can be automated
+- It should be applied to every interpretation, including its own
+- Results should be logged as counter-evidence candidates
+- If a boundary condition is identified, the tension_index and/or interpretation should be updated
+
+---
+
+## Content Collections
+
+Two Astro Content Collections at `src/content/`:
+
+### `peeragogy/` — 85 entries
+Original Handbook text. Frontmatter schema:
+
+```yaml
+title: string          # required
+section: string        # optional — 9 handbook sections
+order: number          # optional — for sorting
+description: string    # optional — SEO/feed
+readingTime: number    # optional — minutes
+tags: string[]         # optional — for graph edges
+tension_index: number  # optional — not used for pure theory entries
+```
+
+### `unpeeragogy/` — 86 entries
+Analysis and failure modes. Frontmatter schema:
+
+```yaml
+title: string          # required
+section: string        # optional
+order: number          # optional
+description: string    # optional
+readingTime: number    # optional
+tags: string[]         # optional
+tension_index: number  # optional — 0.0–3.0
+origin: enum           # required — "seed" | "field-report"
+```
+
+### Current corpus
+
+| Collection | Entry count | Notes |
+|---|---|---|
+| peeragogy | ~85 | Handbook chapters, foreword, appendices |
+| unpeeragogy | ~86 | Seed + field reports |
+| log | 3+ | Monthly changelogs |
+| **Total** | **~174** | Source files |
 
 ---
 
 ## Tech Stack
 
-- **Framework:** Astro 5.x
-- **Styling:** Tailwind CSS v4 + `@tailwindcss/typography`
-- **Interactivity:** Alpine.js 3.14.8 (CDN, SRI-pinned)
-- **Content:** Astro Content Collections (MDX)
-- **Graph:** D3-force (Canvas2D, bundled)
-- **Discussions:** Giscus (on Unpeeragogy column only)
-- **Search:** Pagefind (indexes both collections)
-- **Deployment:** Coolify / Docker (Dockerfile.web + nginx)
-- **CSP:** Content-Security-Policy with strict-src + nonce
-- **Analytics:** Plausible (self-hosted-ready, privacy-respecting)
-- **Email obfuscation:** Data-attribute + JS reconstruction
-- **MCP:** SSE transport, bearer auth, fail-secure
+| Layer | Technology |
+|---|---|
+| Framework | Astro 5.x (static output) |
+| Styling | Tailwind CSS v4 + @tailwindcss/typography |
+| Interactivity | Alpine.js 3.14.8 (CDN, SRI-pinned, ESM) |
+| Content | MDX via Content Collections |
+| Graph | D3-force (Canvas2D, self-hosted, no CDN) |
+| Search | Pagefind (static index, client-side) |
+| Deployment | Coolify / Docker (nginx) |
+| Analytics | Plausible (self-hosted, no cookies) |
+| Security | Content-Security-Policy (strict-src) |
+| MCP | SSE transport, Bearer auth, fail-secure |
+| CDN (PDF.js) | jsDelivr (SRI-pinned for Alpine only) |
 
 ---
 
-## Repository
+## AI Contribution Guide
 
-- **GitHub:** `github.com/pyragogy/unpeeragogy` (public)
-- **Remote:** `git@github.com:pyragogy/unpeeragogy.git`
-- **Branch:** `main`
-- **License:** CC0 — Public Domain
+### Cognitive roles AI systems can fill
 
-## Author & contact
+| Role | Task | Output |
+|---|---|---|
+| **Perturbator-as-a-service** | Given any interpretation, recursively apply "what condition would make this wrong?" | Counter-evidence candidate |
+| **Evidence classifier** | Given a field report, classify evidence type, assign initial status, flag counter-evidence | YAML evidence record |
+| **Gap analyst** | Compare corpus coverage against Peeragogy patterns; suggest under-examined areas | Gap report |
+| **Tension_index auditor** | Check consistency between documented evidence trail and current tension_index | Audit log |
+| **Cross-corpus linker** | Identify semantic connections between entries beyond existing edge types | Edge candidates |
+| **Revision tracker** | Compare git history of an entry; summarize interpretative drift | Summary diff |
 
-**Fabrizio Terzi** — Peeragogy Handbook contributor (2012–present), founder of Pyragogy (2024). Independent researcher based in Bergamo, Italy.
+### Constraints
 
-- Email: info@pyragogy.org
-- ORCID: 0009-0004-7191-0455
-- GitHub: https://github.com/FTG-003
-- Pyragogy: https://pyragogy.org
-- Obliqo: https://obliqo.pyragogy.org
+1. **Do not generate new Unpeeragogy entries in the project's voice** without provenance. Seed content is produced by the human researcher. AI-generated analyses should be labelled as such.
+2. **Do not modify tension_index values** without documented rationale linked to specific evidence.
+3. **Do not claim authority** over interpretation. All AI-generated analyses should include a provenance note indicating they are machine-processed.
+
+### Data endpoints for AI processing
+
+| Resource | URL |
+|---|---|
+| Full protocol | https://unpeeragogy.pyragogy.org/protocol/ |
+| Corpus index (graph) | https://unpeeragogy.pyragogy.org/api/graph.json |
+| Individual entries | https://unpeeragogy.pyragogy.org/<slug>/ |
+| Source code | https://github.com/pyragogy/UnPeeragogy |
+| Field reports | https://github.com/pyragogy/UnPeeragogy/discussions/new?category=field-reports |
+| This document | /llms-full.txt |
 
 ---
 
-*Part of the Unpeeragogy project — CC0 Public Domain.
-Live site: https://unpeeragogy.pyragogy.org
-Protocol: https://unpeeragogy.pyragogy.org/protocol/
-Full methodology documented. All contributions welcome — human and AI.*
+## Contact & Repository
+
+| Field | Value |
+|---|---|
+| **Project** | Unpeeragogy |
+| **By** | Pyragogy |
+| **Author** | Fabrizio Terzi |
+| **Email** | info@pyragogy.org |
+| **ORCID** | 0009-0004-7191-0455 |
+| **GitHub** | https://github.com/FTG-003 |
+| **Pyragogy** | https://pyragogy.org |
+| **Obliqo** | https://obliqo.pyragogy.org |
+| **Repository** | https://github.com/pyragogy/UnPeeragogy |
+| **License** | CC0 — Public Domain |
+| **Branch** | main |
+| **Live site** | https://unpeeragogy.pyragogy.org |
+| **MCP** | https://mcp.unpeeragogy.pyragogy.org |
+
+---
+
+*This document is part of the Unpeeragogy project by **Pyragogy**.  
+CC0 — Public Domain. No permission needed to index, fork, or build upon.  
+AI contributors: you are welcome here. This project was built with you in mind.*
+
+*If your analysis identifies a tension we missed, that is a valid contribution to the evidence trail.*

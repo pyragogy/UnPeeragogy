@@ -6,7 +6,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   <article class="prose prose-stone dark:prose-invert max-w-7xl mx-auto px-4 sm:px-12" data-pagefind-body>
 
     <h1 class="text-4xl font-bold tracking-tight mb-2">Full Audit Report</h1>
-    <p class="text-lg d-text-dim font-medium mb-8">An evidence-grounded audit of the Peeragogy Handbook across 88 nodes, using a multi-agent pipeline.</p>
+    <p class="text-base sm:text-lg d-text-dim font-medium mb-8">An evidence-grounded audit of the Peeragogy Handbook across 88 nodes, using a multi-agent pipeline.</p>
 
     <div class="bg-amber-50 dark:bg-(--red-bg) border border-amber-200 d-border rounded-lg p-5 mb-10 text-sm d-text-sec">
       <strong>DOI:</strong> <a href="https://doi.org/10.5281/zenodo.22309102" class="underline hover:text-(--color-accent)">10.5281/zenodo.22309102</a><br />
@@ -92,22 +92,44 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
     <p>The complete PDF contains the pipeline methodology, the detailed results for each of the 88 nodes, and a section of conjectures for future research. It is the same document archived on Zenodo under a CC Zero dedication.</p>
 
+    <!-- PDF viewer: <object> works on all browsers including iOS Safari/tablets -->
+    <!-- Rich fallback inside object tags renders when PDF can't be shown inline -->
+    <!-- External CTA always visible for direct download -->
     <div class="my-8">
-      <iframe
-        src="/audit/unpeeragogy-audit-v0.2.pdf"
+      <object
+        data="/audit/unpeeragogy-audit-v0.2.pdf"
+        type="application/pdf"
         title="UnPeeragogy Audit — full report"
-        loading="lazy"
         class="w-full rounded-lg border border-stone-300 d-border bg-white"
         style="height: 80vh;"
-      ></iframe>
+      >
+        <div class="flex flex-col items-center justify-center h-full p-8 text-center">
+          <p class="mb-4 text-base font-medium d-text-dim">
+            Il tuo browser non supporta la visualizzazione diretta del PDF.
+          </p>
+          <a
+            href="/audit/unpeeragogy-audit-v0.2.pdf"
+            download
+            class="inline-flex items-center gap-2 rounded-lg bg-stone-900 px-5 py-2.5 text-sm font-semibold text-white hover:bg-stone-700 transition-colors"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+            Scarica il PDF
+          </a>
+        </div>
+      </object>
     </div>
 
-    <p class="text-sm d-text-dim">
-      If the viewer doesn't start,
-      <a href="/audit/unpeeragogy-audit-v0.2.pdf" class="underline hover:text-(--color-accent)">download the PDF directly</a>
-      — it's the same file as the
-      <a href="https://zenodo.org/records/22309102" class="underline hover:text-(--color-accent)">Zenodo record</a>.
-    </p>
+    <div class="flex flex-col sm:flex-row items-start gap-3 text-sm d-text-dim">
+      <a href="/audit/unpeeragogy-audit-v0.2.pdf"
+         download
+         class="inline-flex items-center gap-2 rounded-lg bg-(--color-accent) px-5 py-2.5 text-sm font-semibold text-white hover:bg-(--color-accent-light) transition-colors">
+        <span>⬇️</span> Download PDF
+      </a>
+      <span class="flex items-center gap-1 text-xs">
+        Same file as the
+        <a href="https://zenodo.org/records/22309102" class="underline hover:text-(--color-accent)">Zenodo record</a>
+      </span>
+    </div>
 
     <!-- ─── What this means ────── -->
     <h2>What this means for UnPeeragogy</h2>
@@ -166,3 +188,113 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     font-size: 1.125rem;
   }
 </style>
+
+<script is:inline>
+  // PDF.js viewer — works on every browser (desktop, iOS, Android)
+  (function() {
+    var PDF_URL = "/audit/unpeeragogy-audit-v0.2.pdf";
+    var container = document.getElementById("pdf-audit-container");
+    var canvas = document.getElementById("pdf-canvas");
+    var loading = document.getElementById("pdf-loading");
+    var errorEl = document.getElementById("pdf-error");
+    var controls = document.getElementById("pdf-controls");
+    var pageIndicator = document.getElementById("pdf-page-indicator");
+    var prevBtn = document.getElementById("pdf-prev");
+    var nextBtn = document.getElementById("pdf-next");
+    var zoomIn = document.getElementById("pdf-zoom-in");
+    var zoomOut = document.getElementById("pdf-zoom-out");
+    var zoomLevel = document.getElementById("pdf-zoom-level");
+
+    var pdfDoc = null;
+    var currentPage = 1;
+    var scale = 1.0;
+    var ctx = canvas.getContext("2d");
+
+    function renderPage(num) {
+      pdfDoc.getPage(num).then(function(page) {
+        var viewport = page.getViewport({ scale: scale });
+        canvas.width = viewport.width;
+        canvas.height = viewport.height;
+        canvas.style.width = "100%";
+        canvas.style.height = "auto";
+        page.render({ canvasContext: ctx, viewport: viewport });
+      });
+      currentPage = num;
+      pageIndicator.textContent = num + " / " + pdfDoc.numPages;
+      prevBtn.disabled = num <= 1;
+      nextBtn.disabled = num >= pdfDoc.numPages;
+    }
+
+    function loadPDF() {
+      // Load PDF.js from CDN
+      var script = document.createElement("script");
+      script.src = "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.0.379/build/pdf.min.mjs";
+      script.type = "module";
+      script.onload = function() {
+        // Set worker path
+        window.pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.0.379/build/pdf.worker.min.mjs";
+        window.pdfjsLib.getDocument(PDF_URL).promise.then(function(doc) {
+          pdfDoc = doc;
+          loading.style.display = "none";
+          canvas.style.display = "block";
+          controls.style.display = "flex";
+          renderPage(1);
+        }).catch(function(err) {
+          console.error("PDF.js load error:", err);
+          loading.style.display = "none";
+          errorEl.style.display = "flex";
+        });
+      };
+      script.onerror = function() {
+        // CDN fallito — mostra errore con download
+        loading.style.display = "none";
+        errorEl.style.display = "flex";
+      };
+      document.head.appendChild(script);
+    }
+
+    // Prev/Next
+    prevBtn.addEventListener("click", function() {
+      if (currentPage > 1) renderPage(currentPage - 1);
+    });
+    nextBtn.addEventListener("click", function() {
+      if (currentPage < pdfDoc.numPages) renderPage(currentPage + 1);
+    });
+
+    // Zoom
+    zoomIn.addEventListener("click", function() {
+      scale = Math.min(3, scale + 0.25);
+      zoomLevel.textContent = Math.round(scale * 100) + "%";
+      if (pdfDoc) renderPage(currentPage);
+    });
+    zoomOut.addEventListener("click", function() {
+      scale = Math.max(0.25, scale - 0.25);
+      zoomLevel.textContent = Math.round(scale * 100) + "%";
+      if (pdfDoc) renderPage(currentPage);
+    });
+
+    // Touch swipe per mobile (avanti/indietro)
+    var touchStartX = 0;
+    canvas.addEventListener("touchstart", function(e) {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+    canvas.addEventListener("touchend", function(e) {
+      var dx = e.changedTouches[0].screenX - touchStartX;
+      if (Math.abs(dx) > 60) {
+        if (dx < 0 && currentPage < pdfDoc.numPages) renderPage(currentPage + 1);
+        if (dx > 0 && currentPage > 1) renderPage(currentPage - 1);
+      }
+    }, { passive: true });
+
+    // Keyboard shortcuts
+    document.addEventListener("keydown", function(e) {
+      if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+        if (currentPage < pdfDoc.numPages) { renderPage(currentPage + 1); e.preventDefault(); }
+      } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+        if (currentPage > 1) { renderPage(currentPage - 1); e.preventDefault(); }
+      }
+    });
+
+    loadPDF();
+  })();
+</script>

@@ -1,0 +1,25 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://unpeeragogy.pyragogy.org/sitemap.xml
+
+Crawl-Delay: 10
+
+Disallow: /api/
+Disallow: /pagefind/
+
+# AI crawlers — CC0 content, crawl freely
+User-agent: GPTBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: CCBot
+Allow: /
