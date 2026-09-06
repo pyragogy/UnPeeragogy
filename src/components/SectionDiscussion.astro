@@ -6,7 +6,7 @@ export interface Props {
 
 const { slug, title } = Astro.props;
 const repoUrl = "https://github.com/pyragogy/UnPeeragogy";
-const newDiscussionUrl = `${repoUrl}/discussions/new?category=field-reports`;
+const newDiscussionUrl = `${repoUrl}/discussions/new?category=field-reports&title=${encodeURIComponent(title)}%20%E2%80%94%20`;
 const existingDiscussionsUrl = `${repoUrl}/discussions?discussions_q=label%3Afield-reports+${slug}`;
 const helpUrl = "https://docs.github.com/en/discussions/quickstart";
 ---
