@@ -1,0 +1,33 @@
+name: Auto-label field reports
+on:
+  discussion:
+    types: [created]
+jobs:
+  label-field-reports:
+    runs-on: ubuntu-latest
+    if: github.event.discussion.category.name == 'Field reports'
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const labelResult = await github.graphql({
+              query: `query getLabel($owner: String!, $repo: String!) {
+                repository(owner: $owner, name: $repo) {
+                  label(name: "field-reports") { id }
+                }
+              }`,
+              variables: { owner: context.repo.owner, repo: context.repo.repo }
+            });
+            const labelId = labelResult.repository.label.id;
+
+            await github.graphql({
+              query: `mutation addLabel($input: AddLabelsToLabelableInput!) {
+                addLabelsToLabelable(input: $input) { clientMutationId }
+              }`,
+              variables: {
+                input: {
+                  labelableId: context.payload.discussion.node_id,
+                  labelIds: [labelId]
+                }
+              }
+            });
