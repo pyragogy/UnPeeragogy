@@ -23,6 +23,12 @@ import {
   injectFriction,
   agentPerturbatore,
   isPerturbatoreAvailable,
+  mapFailureGraph,
+  formatGraphAsMarkdown,
+  suggestFieldReport,
+  formatSuggestedReport,
+  analyzeGaps,
+  formatGapAnalysis,
 } from "./tools/index.js";
 import { getAgentPerturbatorePrompt, getFrictionPrompt } from "./prompts/index.js";
 import { hasFriction } from "./lib/friction.js";
@@ -238,6 +244,53 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
           },
         },
       },
+      {
+        name: "map-failure-graph",
+        description:
+          "SUPER-TOOL: grafo della conoscenza pesato per tensione. Costruisce un grafo navigabile di pattern e vettori di fallimento, con archi pesati per tensione condivisa. Opzioni: query (filtra per testo), vector (filtra per vettore), minWeight (soglia archi). Output: markdown + JSON strutturato per d3-force.",
+        inputSchema: {
+          type: "object",
+          properties: {
+            query: {
+              type: "string",
+              description: "Filtra il grafo ai nodi che matchano questa query (slug, titolo, vettori, sezione) + espansione 1-hop",
+            },
+            vector: {
+              type: "string",
+              description: "Filtra il grafo a soli nodi che hanno QUESTO vettore di fallimento",
+            },
+            minWeight: {
+              type: "number",
+              description: "Soglia minima di archi condivisi (default: 1)",
+              default: 1,
+            },
+          },
+        },
+      },
+      {
+        name: "suggest-field-report",
+        description:
+          "SUPER-TOOL: genera una bozza precompilata di field report a partire da testo libero. Rileva automaticamente vettori di fallimento, stima tension_index, suggerisce template (share-your-story o structural-analysis), e produce YAML precompilato.",
+        inputSchema: {
+          type: "object",
+          properties: {
+            text: {
+              type: "string",
+              description: "Testo libero: descrivi un'esperienza, un dubbio, o un'osservazione su un pattern peeragogy",
+            },
+          },
+          required: ["text"],
+        },
+      },
+      {
+        name: "gap-analysis",
+        description:
+          "SUPER-TOOL: mappa le lacune epistemiche del corpus. Scansiona tutti i contenuti e identifica: slug orfani (solo teoria o solo realtà), vettori non coperti da field report, aree a bassa tensione (possibile falso consenso), e produce una lista prioritaria di raccomandazioni per nuovi contributi.",
+        inputSchema: {
+          type: "object",
+          properties: {},
+        },
+      },
     ],
   };
 });
@@ -311,6 +364,35 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         output += `- 0.6–1.0: Tensione alta\n`;
         output += `- 1.0–1.5: Tensione critica\n`;
         output += `- 1.5+: Tensione massima (collasso del pattern)\n`;
+        break;
+      }
+
+      case "map-failure-graph": {
+        const query = input.query as string | undefined;
+        const vector = input.vector as string | undefined;
+        const minWeight = (input.minWeight as number) ?? 1;
+
+        const graph = mapFailureGraph({ query, vector, minWeight });
+        output = formatGraphAsMarkdown(graph);
+        break;
+      }
+
+      case "suggest-field-report": {
+        const text = input.text as string;
+        if (!text || !text.trim()) {
+          throw new McpError(
+            ErrorCode.InvalidParams,
+            "Missing required parameter: text"
+          );
+        }
+        const report = suggestFieldReport(text);
+        output = formatSuggestedReport(report);
+        break;
+      }
+
+      case "gap-analysis": {
+        const gaps = analyzeGaps();
+        output = formatGapAnalysis(gaps);
         break;
       }
 

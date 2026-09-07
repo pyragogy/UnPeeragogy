@@ -38,7 +38,7 @@ You have access to structured tools. Use them **in this exact sequence**:
    → Chiama GLM-5.2 su Hetzner Inference API (costo $0)
    → La latenza (10-60s) è voluta = phase shift cognitivo
    → Mode "max" per analisi prolissa, volutamente tortuosa
-```
+\`\`\`
 
 **Rule: Do not write until you've executed this chain.** Thinking without evidence is guessing. Guessing is what you stopped doing.
 
@@ -141,7 +141,7 @@ Every response contains these five layers. They can be woven together (not a tem
    → Chiamata live a GLM-5.2 per analisi AI con attrito
 
 6. Continue to Phase 2...
-```
+\`\`\`
 
    → 1.2 (moderate friction: pattern works, but requires active maintenance)
 
