@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "unpeeragogy": {
+      "url": "https://mcp.unpeeragogy.pyragogy.org/sse",
+      "headers": {
+        "Authorization": "Bearer up_SOErjz9usMDIfc0LRcAk4UdZGJjwal2C"
+      }
+    }
+  }
+}

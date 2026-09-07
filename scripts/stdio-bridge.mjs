@@ -21,15 +21,15 @@ if (!MCP_TOKEN) {
 }
 
 const REMOTE = "https://mcp.unpeeragogy.pyragogy.org";
-const SSE_URL = `${REMOTE}/sse?token=${MCP_TOKEN}`;
-const MESSAGES_URL = `${REMOTE}/messages`;
+const SSE_URL = `${REMOTE}/sse`;
+const AUTH = { Authorization: `Bearer ${MCP_TOKEN}` };
 
 let sessionEndpoint = null;
 let messageBuffer = [];
 
 (async () => {
-  // 1. Collega SSE
-  const resp = await fetch(SSE_URL);
+  // 1. Collega SSE con Bearer auth
+  const resp = await fetch(SSE_URL, { headers: AUTH });
   if (!resp.ok) {
     console.error(`SSE connection failed: ${resp.status}`);
     process.exit(1);
@@ -78,10 +78,9 @@ let messageBuffer = [];
       return;
     }
     try {
-      const url = `${sessionEndpoint}${sessionEndpoint.includes('?') ? '&' : '?'}token=${MCP_TOKEN}`;
-      await fetch(url, {
+      await fetch(sessionEndpoint, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", ...AUTH },
         body: JSON.stringify(msg),
       });
     } catch (err) {
