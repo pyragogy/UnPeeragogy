@@ -7,7 +7,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
     <h1 class="text-3xl font-extrabold tracking-tight mb-2">⚡ MCP Server</h1>
     <p class="d-text-sec mb-8">
       The MCP server exposes the full Unpeeragogy corpus to AI agents via the Model Context Protocol.
-      Resources, tools, and prompts for deconstruction.
+      <strong>9 tools</strong>, 90+ resources, 2 prompts — for deconstruction, analysis, and contribution.
     </p>
 
     <div class="flex gap-3 mb-10">
@@ -36,7 +36,10 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
       <pre class="text-xs bg-white dark:[background:var(--surface-bg)] p-4 rounded-lg overflow-x-auto border border-stone-200 d-border"><code>&#123;
   "mcpServers": &#123;
     "unpeeragogy": &#123;
-      "url": "https://mcp.unpeeragogy.pyragogy.org/sse?token=&lt;MCP_AUTH_TOKEN&gt;"
+      "url": "https://mcp.unpeeragogy.pyragogy.org/sse",
+      "headers": &#123;
+        "Authorization": "Bearer &lt;MCP_AUTH_TOKEN&gt;"
+      &#125;
     &#125;
   &#125;
 &#125;

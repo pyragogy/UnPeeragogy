@@ -9,6 +9,13 @@ const LARROW = '\u2190';
   <section class="py-12 max-w-4xl mx-auto" data-pagefind-body>
     <a href="/mcp/" class="text-sm d-text-dim hover:text-(--color-accent) transition-colors mb-6 inline-block">{LARROW} MCP Server</a>
 
+    <p class="d-text-sec mb-8">
+      Il server MCP di Unpeeragogy espone <strong>9 strumenti</strong>, 90+ risorse e 2 prompt
+      per agenti AI. Ogni risposta è filtrata strutturalmente: la teoria non viene mai presentata
+      senza la sua contraddizione operativa. Il server serve l'intero corpus duale — teoria Peeragogy
+      e field report Unpeeragogy — come conoscenza interrogabile, confrontabile, analizzabile.
+    </p>
+
     <h2 class="text-2xl font-bold mt-10 mb-4">1. Endpoint</h2>
     <div class="space-y-2 text-sm">
       <p><strong>SSE (Server-Sent Events):</strong></p>
@@ -19,7 +26,9 @@ const LARROW = '\u2190';
     </div>
 
     <h2 class="text-2xl font-bold mt-10 mb-4">2. Autenticazione</h2>
-    <p class="text-sm d-text-sec mb-3">Il server richiede un token passato come <strong>query parameter</strong> nell'URL SSE. Il token &egrave; configurato come variabile d'ambiente <code>MCP_AUTH_TOKEN</code> in Coolify.</p>
+    <p class="text-sm d-text-sec mb-3">Il server richiede un token passato via header <strong><code>Authorization: Bearer</code></strong>.
+    &Egrave; configurato come variabile d'ambiente <code>MCP_AUTH_TOKEN</code> in Coolify.
+    I query parameter <strong>non</strong> sono supportati.</p>
 
     <div class="p-5 border border-stone-200 d-border rounded-lg bg-stone-50 d-surface mb-6">
       <h3 class="font-semibold mb-3">Procedura per l'utente</h3>
@@ -77,7 +86,7 @@ const LARROW = '\u2190';
     </div>
 
     <h2 class="text-2xl font-bold mt-10 mb-4">4. Strumenti</h2>
-    <p class="text-sm d-text-sec mb-4">Cinque strumenti MCP per interrogare e analizzare il corpus.</p>
+    <p class="text-sm d-text-sec mb-4">Nove strumenti MCP per interrogare, analizzare e ampliare il corpus.</p>
 
     <div class="space-y-6">
       <div class="p-4 border border-stone-200 d-border rounded-lg">
@@ -127,6 +136,36 @@ const LARROW = '\u2190';
           <tr><td class="py-1 pr-4 font-medium">Parametri</td><td><code>slug</code> (opzionale)</td></tr>
           <tr><td class="py-1 pr-4 font-medium">Output</td><td>Indice numerico + interpretazione testuale sulla scala 0–2.0</td></tr>
           <tr><td class="py-1 pr-4 font-medium">Esempio</td><td><code>tensionIndex(&quot;isolation&quot;)</code></td></tr>
+        </table>
+      </div>
+
+      <div class="p-4 border border-amber-200 d-border rounded-lg bg-amber-50/30 d-surface">
+        <h3 class="font-bold text-(--color-accent) mb-1">map-failure-graph <span class="text-xs font-normal d-text-dim">(super-tool)</span></h3>
+        <p class="text-sm d-text-sec mb-2">Costruisce un grafo della conoscenza pesato per tensione. I nodi sono slug, gli archi sono vettori di fallimento condivisi. Filtrabile per query, vettore o peso minimo di tensione.</p>
+        <table class="w-full text-xs">
+          <tr><td class="py-1 pr-4 font-medium">Parametri</td><td><code>query</code> (opzionale), <code>vector</code> (opzionale), <code>minWeight</code> (opzionale)</td></tr>
+          <tr><td class="py-1 pr-4 font-medium">Output</td><td>Analisi markdown + dati JSON del grafo (nodi + archi) pronti per visualizzazione d3-force</td></tr>
+          <tr><td class="py-1 pr-4 font-medium">Esempio</td><td><code>mapFailureGraph(&quot;cooperation&quot;)</code></td></tr>
+        </table>
+      </div>
+
+      <div class="p-4 border border-amber-200 d-border rounded-lg bg-amber-50/30 d-surface">
+        <h3 class="font-bold text-(--color-accent) mb-1">suggest-field-report <span class="text-xs font-normal d-text-dim">(super-tool)</span></h3>
+        <p class="text-sm d-text-sec mb-2">Da testo libero che descrive un'esperienza, rileva vettori di fallimento tramite keyword matching (15 pattern, ~5 sinonimi italiani ciascuno), stima la tensione, sceglie il template giusto (share-your-story vs structural-analysis) e produce un YAML precompilato pronto per GitHub Discussion.</p>
+        <table class="w-full text-xs">
+          <tr><td class="py-1 pr-4 font-medium">Parametri</td><td><code>text</code> (obbligatorio)</td></tr>
+          <tr><td class="py-1 pr-4 font-medium">Output</td><td>Bozza YAML precompilata + vettori rilevati con confidenza</td></tr>
+          <tr><td class="py-1 pr-4 font-medium">Esempio</td><td><code>suggestFieldReport(&quot;Abbiamo provato a fare riunioni settimanali ma dopo un mese nessuno si presentava più...&quot;)</code></td></tr>
+        </table>
+      </div>
+
+      <div class="p-4 border border-amber-200 d-border rounded-lg bg-amber-50/30 d-surface">
+        <h3 class="font-bold text-(--color-accent) mb-1">gap-analysis <span class="text-xs font-normal d-text-dim">(super-tool)</span></h3>
+        <p class="text-sm d-text-sec mb-2">Scansiona l'intero corpus e identifica lacune epistemiche: slug orfani (realtà senza teoria o viceversa), vettori scoperti, aree a bassa tensione. Produce raccomandazioni prioritarie per nuovi field report o lavoro teorico.</p>
+        <table class="w-full text-xs">
+          <tr><td class="py-1 pr-4 font-medium">Parametri</td><td><em>nessuno</em></td></tr>
+          <tr><td class="py-1 pr-4 font-medium">Output</td><td>Statistiche (copertura %), liste orfani, raccomandazioni prioritarie con urgenza</td></tr>
+          <tr><td class="py-1 pr-4 font-medium">Esempio</td><td><code>gapAnalysis()</code></td></tr>
         </table>
       </div>
     </div>
@@ -376,21 +415,29 @@ If the user finds evidence that contradicts your friction vector — celebrate i
     <h2 class="text-2xl font-bold mt-10 mb-4">7. Integrazione client</h2>
 
     <div class="mb-6">
-      <h3 class="font-semibold mb-2">Claude Desktop / Cline</h3>
+      <h3 class="font-semibold mb-2">Claude Desktop / Cline / pi</h3>
       <pre class="bg-stone-50 d-surface p-3 rounded-lg border border-stone-200 d-border overflow-x-auto text-sm"><code>
 {LBRACE}
   "mcpServers": {LBRACE}
     "unpeeragogy": {LBRACE}
-      "url": "https://mcp.unpeeragogy.pyragogy.org/sse?token=&lt;MCP_AUTH_TOKEN&gt;"
+      "url": "https://mcp.unpeeragogy.pyragogy.org/sse",
+      "headers": {LBRACE}
+        "Authorization": "Bearer &lt;MCP_AUTH_TOKEN&gt;"
+      {RBRACE}
     {RBRACE}
   {RBRACE}
 {RBRACE}
 </code></pre>
+      <p class="text-xs d-text-dim mt-2">
+        <strong>Importante:</strong> Il token va nell'header <code>Authorization</code>, <strong>non</strong> come query parameter.
+        I query param non sono supportati per ragioni di sicurezza.
+      </p>
     </div>
 
     <div class="mb-6">
       <h3 class="font-semibold mb-2">Via curl (per test)</h3>
-      <pre class="bg-stone-50 d-surface p-3 rounded-lg border border-stone-200 d-border overflow-x-auto text-sm"><code>curl -s "https://mcp.unpeeragogy.pyragogy.org/health?token=&lt;MCP_AUTH_TOKEN&gt;"</code></pre>
+      <pre class="bg-stone-50 d-surface p-3 rounded-lg border border-stone-200 d-border overflow-x-auto text-sm"><code>curl -s https://mcp.unpeeragogy.pyragogy.org/health \\
+  -H "Authorization: Bearer &lt;MCP_AUTH_TOKEN&gt;"</code></pre>
     </div>
 
     <h2 class="text-2xl font-bold mt-10 mb-4">8. Workflow consigliati</h2>
@@ -409,6 +456,21 @@ If the user finds evidence that contradicts your friction vector — celebrate i
         <h3 class="font-semibold text-(--color-accent)">Audit sistemico</h3>
         <p class="text-sm d-text-sec">Confronta teoria/realtà su più slug, calcola tensione globale, identifica vettori di fallimento non condivisi.</p>
         <pre class="text-xs d-text-dim mt-2">compare (multi-slug) → tension-index → read (failure vectors)</pre>
+      </div>
+      <div class="p-4 border border-amber-200 d-border rounded-lg bg-amber-50/30 d-surface">
+        <h3 class="font-semibold text-(--color-accent)">Contribuisci un Field Report <span class="text-xs font-normal d-text-dim">(nuovo)</span></h3>
+        <p class="text-sm d-text-sec">Descrivi la tua esperienza in testo libero, ottieni una bozza YAML precompilata, copiala in GitHub Discussion, poi verifica le lacune.</p>
+        <pre class="text-xs d-text-dim mt-2">suggest-field-report → (copia su GitHub) → gap-analysis</pre>
+      </div>
+      <div class="p-4 border border-amber-200 d-border rounded-lg bg-amber-50/30 d-surface">
+        <h3 class="font-semibold text-(--color-accent)">Esplora il Grafo della Conoscenza <span class="text-xs font-normal d-text-dim">(nuovo)</span></h3>
+        <p class="text-sm d-text-sec">Mappa i vettori di fallimento, identifica hub e cluster di tensione, approfondisci nodi specifici.</p>
+        <pre class="text-xs d-text-dim mt-2">map-failure-graph → compare (nodo specifico) → tension-index</pre>
+      </div>
+      <div class="p-4 border border-amber-200 d-border rounded-lg bg-amber-50/30 d-surface">
+        <h3 class="font-semibold text-(--color-accent)">Audit Completo del Corpus <span class="text-xs font-normal d-text-dim">(nuovo)</span></h3>
+        <p class="text-sm d-text-sec">Identifica lacune, mappa il grafo, contribuisci report, monitora il miglioramento della copertura.</p>
+        <pre class="text-xs d-text-dim mt-2">gap-analysis → map-failure-graph → suggest-field-report → gap-analysis (riverifica)</pre>
       </div>
     </div>
 

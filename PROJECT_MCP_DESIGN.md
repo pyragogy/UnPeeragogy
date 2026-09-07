@@ -32,11 +32,15 @@ unpeeragogy://{slug}/unpeeragogy
 
 | Tool | Input | Output | Note |
 |------|-------|--------|------|
-| `search` | query: string | risultati con snippet | Motore: minisearch (in-memory, Node.js nativo) |
-| `compare` | slug: string | dual-column markdown | Teoria | Realtà side-by-side |
-| `analyze` | slug: string | vettori di fallimento estratti | Lista strutturata di anti-pattern |
-| `inject-friction` | topic: string, [mode: 'soft'|'hard'] | risposta con attrito strutturale | Default: 'soft'. 'hard' = massima decostruzione |
-| `tension-index` | [slug: string] | indice di tensione (0-2.0) | Calcola su singolo o intero corpus |
+| `search` | query: string, maxResults?: number | risultati con snippet | Motore: minisearch (in-memory, Node.js nativo). Boost su titolo (3x), descrizione e tag (2x). |
+| `compare` | slug: string | dual-column markdown | Teoria \| Realtà side-by-side. Legge file gemelli peeragogy/{slug}.mdx + unpeeragogy/{slug}.mdx. |
+| `analyze` | slug: string | vettori di fallimento estratti | Lista strutturata di anti-pattern, tag, word count, estensione realtà vs teoria. |
+| `inject-friction` | topic: string, mode?: 'soft'|'hard' | risposta con attrito strutturale | Default: 'soft'. 'hard' = massima decostruzione. Senza Hetzner fa fallback statico. |
+| `agent-perturbatore` | topic: string, mode?: string | analisi critica | **Perturbator**: voce critica nativa del progetto. Mai una risposta senza contraddizione. |
+| `tension-index` | slug?: string | indice di tensione (0-2.0) | Calcola su singola coppia o intero corpus. Media corpus: ~1.357. |
+| **`map-failure-graph`** 🆕 | query?: string, vector?: string, minWeight?: number | grafo JSON + markdown analitico | **Knowledge graph** pesato per tensione: nodi (slug), archi (vettori condivisi). Output navigabile in markdown + JSON pronto per visualizzazione d3-force. |
+| **`suggest-field-report`** 🆕 | text: string | bozza YAML precompilata + vettori rilevati | Da testo libero descrittivo: rileva vettori di fallimento per keyword matching (15 pattern, ~5 sinonimi italiani ciascuno), stima tensione, sceglie template (share-your-story vs structural-analysis), produce YAML pronto per GitHub Discussion. |
+| **`gap-analysis`** 🆕 | _(nessun input)_ | mappa lacune + priorità | Scansione completa del corpus: slug orfani (realtà senza teoria o viceversa), vettori scoperti, aree a bassa tensione. Produce raccomandazioni prioritarie con urgenza e suggerimenti per nuovi field report. |
 
 ### 4. Flag globale di attrito
 
@@ -68,30 +72,34 @@ Quando analizzi un argomento:
 ```
 packages/mcp-server/
 ├── src/
-│   ├── index.ts           # entrypoint, trasporto SSE
+│   ├── index.ts             # entrypoint, trasporto SSE + registration
 │   ├── resources/
-│   │   ├── list.ts        # registra tutti gli URI
-│   │   └── read.ts        # lettura MDX come risorsa
+│   │   └── index.ts         # 90+ URI risorse (failure vectors, slug, prompt)
 │   ├── tools/
-│   │   ├── search.ts      # minisearch indicizzato
-│   │   ├── compare.ts     # dual column
-│   │   ├── analyze.ts     # vettori di fallimento
-│   │   ├── inject-friction.ts
-│   │   └── tension-index.ts
+│   │   └── index.ts         # 9 tool MCP (search, compare, analyze, agent-perturbatore,
+│   │                         #    inject-friction, tension-index,
+│   │                         #    map-failure-graph, suggest-field-report, gap-analysis)
 │   ├── prompts/
-│   │   └── agent-perturbatore.ts
+│   │   └── index.ts         # Template system prompt Perturbator
 │   └── lib/
-│       ├── loader.ts      # carica tutti i file MDX
-│       └── friction.ts    # middleware di attrito
-├── Dockerfile
-├── package.json
+│       ├── loader.ts        # carica tutti i file MDX da content collections
+│       ├── friction.ts      # middleware di attrito strutturale
+│       └── perturbatore.ts  # Agente Perturbatore (static fallback)
+├── Dockerfile               # build multi-stage
+├── package.json             # type: module
 ├── tsconfig.json
-└── .env.example
+├── .env.example
+└── test-all.mjs             # test completo (opzionale, non in produzione)
 ```
 
 **Trasporto:** SSE (Server-Sent Events) su porta 3001
+  - `GET /sse` → connessione evento
+  - `POST /messages?sessionId=<id>` → richieste JSON-RPC
+  - `GET /health` → health check (senza auth)
+
 **Deploy:** Coolify come servizio interno, subpath `mcp.unpeeragogy.pyragogy.org`
-**Autenticazione:** Bearer token da `MCP_AUTH_TOKEN` env
+**Autenticazione:** `Authorization: Bearer` da `MCP_AUTH_TOKEN` env. Query params non supportati.
+**Friction mode:** globale via `MCP_FRICTION_MODE` env (`off` / `soft` / `hard`)
 
 ### 7. Obsidian Vault
 
@@ -143,16 +151,20 @@ jobs:
 
 **Regola:** Mai direct-to-main. Ogni PR in draft richiede revisione umana.
 
-### 9. Roadmap
+### 9. Roadmap — Stato attuale
 
-| Fase | Cosa | Tempo |
-|------|------|-------|
-| 1 | Scaffold `packages/mcp-server/` + loader MDX | 15 min |
-| 2 | Risorse + search (minisearch) + compare | 20 min |
-| 3 | inject-friction + tension-index | 15 min |
-| 4 | Dockerfile + deploy su Coolify | 10 min |
-| 5 | Obsidian vault `.obsidian/` + template | 15 min |
-| 6 | Script tension_index pre-calcolo + grafo | 15 min |
-| 7 | GitHub Action Rituale Settimanale | 20 min |
+| Fase | Cosa | Stato | Tempo |
+|------|------|-------|-------|
+| 1 | Scaffold `packages/mcp-server/` + loader MDX | ✅ Fatto | 15 min |
+| 2 | Risorse + search (minisearch) + compare | ✅ Fatto | 20 min |
+| 3 | inject-friction + tension-index | ✅ Fatto | 15 min |
+| 4 | Dockerfile + deploy su Coolify | ✅ Fatto | 10 min |
+| 5 | agent-perturbatore + prompts | ✅ Fatto | 15 min |
+| 6 | **Super-tools: map-failure-graph, suggest-field-report, gap-analysis** | ✅ **Fatto (v1)** | 60 min |
+| 7 | Knowledge graph visuale (d3-force dal server) | ⏳ Piano | — |
+| 8 | CI/CD: deploy automatico su push main | ✅ Fatto | 10 min |
 
-**Totale stimato: ~1h 50min**
+**Super-tool v2 (idea):**
+- `map-failure-graph`: output SVG/d3 direttamente dal server
+- `suggest-field-report`: rilevamento più fine (embeddings vs keyword)
+- `gap-analysis`: trigger automatico a ogni nuovo field report
