@@ -454,7 +454,7 @@ server.setRequestHandler(GetPromptRequestSchema, async (request) => {
       return {
         messages: [
           {
-            role: "system",
+            role: "user",
             content: {
               type: "text",
               text: getAgentPerturbatorePrompt(),
@@ -488,7 +488,7 @@ server.setRequestHandler(GetPromptRequestSchema, async (request) => {
       return {
         messages: [
           {
-            role: "system",
+            role: "user",
             content: {
               type: "text",
               text: getFrictionPrompt(topic, {
