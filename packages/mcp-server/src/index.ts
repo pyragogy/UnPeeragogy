@@ -295,10 +295,19 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
   };
 });
 
-server.setRequestHandler(CallToolRequestSchema, async (request) => {
-  const { name, arguments: args } = request.params;
-  const input = (args || {}) as Record<string, unknown>;
+// Alcuni client (Claude Desktop/Code) prefixano i nomi dei tool con
+// "ServerName:" (es. "Unpeeragogy:tension-index"). Normalizziamo il nome
+// togliendo il prefisso del namespace prima dello switch.
+function normalizeToolName(name: string): string {
+  const idx = name.lastIndexOf(":");
+  return idx >= 0 ? name.slice(idx + 1) : name;
+}
 
+server.setRequestHandler(CallToolRequestSchema, async (request) => {
+  const rawName = request.params.name;
+  const name = normalizeToolName(rawName);
+  const { arguments: args } = request.params;
+  const input = (args || {}) as Record<string, unknown>;
   try {
     let output: string;
 
