@@ -34,7 +34,7 @@ export function generateFrictionNote(
     for (const signal of optimismSignals) {
       if (theoryTerms.includes(signal) && realityTerms.some((t) => frictionSignals.includes(t))) {
         contradictions.push(
-          `${signal} — presente nella teoria ma contraddetto dalla realtà operativa`
+          `${signal} — present in theory but contradicted by operational reality`
         );
       }
     }
@@ -42,23 +42,23 @@ export function generateFrictionNote(
     // Check tension index
     if (unpeeragogyEntry.frontmatter.tension_index && unpeeragogyEntry.frontmatter.tension_index > 0.5) {
       contradictions.push(
-        `tensione sistemica: ${unpeeragogyEntry.frontmatter.tension_index.toFixed(2)} — ` +
-        `la realtà mostra più attrito di quanto la teoria ammetta`
+        `Systemic tension: ${unpeeragogyEntry.frontmatter.tension_index.toFixed(2)} — ` +
+        `reality shows more friction than the theory admits`
       );
     }
   }
 
   if (contradictions.length === 0 && mode === "hard") {
-    return `**⚡ Friction Note (hard mode):** L'argomento "${topic}" è stato presentato senza contraddizioni evidenti. Questo potrebbe indicare che l'analisi è troppo accomodante. L'Agente Perturbatore raccomanda un esame più approfondito degli attriti nascosti.`;
+    return `**⚡ Friction Note (hard mode):** Topic "${topic}" was presented without evident contradictions. This may indicate the analysis is too accommodating. The Perturbator Agent recommends deeper examination of hidden friction.`;
   }
 
   if (contradictions.length === 0) return null;
 
   const frictionNote = [
     `**⚡ Friction Note**`,
-    `Analizzando "${topic}":`,
+    `Analyzing "${topic}":`,
     ...contradictions.map((c) => `- ${c}`),
-    mode === "hard" ? `\n*Modalità hard: nessuna conclusione senza attrito esplicito.*` : "",
+    mode === "hard" ? `\n*Hard mode: no conclusion without explicit friction.*` : "",
   ]
     .filter(Boolean)
     .join("\n");
@@ -109,17 +109,19 @@ function extractKeyTerms(body: string, maxTerms: number = 30): string[] {
  */
 export function hasFriction(response: string): boolean {
   const frictionIndicators = [
-    "contraddizion",
-    "attrito",
-    "falliment",
+    "contradiction",
     "friction",
-    "ma in realtà",
-    "tuttavia",
-    "d'altra parte",
-    "problema",
-    "tensione",
+    "failure",
+    "fracture",
+    "but in reality",
+    "however",
+    "on the other hand",
+    "problem",
+    "tension",
     "antipattern",
-    "perturbatore",
+    "perturbator",
+    "unseen",
+    "blind spot",
   ];
   return frictionIndicators.some((indicator) =>
     response.toLowerCase().includes(indicator)

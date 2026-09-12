@@ -4,12 +4,6 @@ import {
   type ContentEntry,
   type EntryFrontmatter,
 } from "../lib/loader.js";
-import {
-  callPerturbatore,
-  isPerturbatoreEnabled,
-  type PerturbatoreInput,
-  type PerturbatoreOutput,
-} from "../lib/perturbatore.js";
 
 // Build miniSearch index from all entries
 function buildSearchIndex(): MiniSearch {
@@ -105,7 +99,7 @@ export function compareSlug(slug: string): string {
   let output: string[] = [];
 
   if (peeragogy) {
-    output.push("## 📖 Teoria (Peeragogy)");
+    output.push("## 📖 Theory (Peeragogy)");
     output.push(`**${peeragogy.frontmatter.title}**`);
     if (peeragogy.frontmatter.description) {
       output.push(`> ${peeragogy.frontmatter.description}`);
@@ -116,14 +110,14 @@ export function compareSlug(slug: string): string {
 
   if (unpeeragogy) {
     if (peeragogy) output.push("\n---\n");
-    output.push("## ⚡ Realtà (Unpeeragogy)");
+    output.push("## ⚡ Reality (Unpeeragogy)");
     output.push(`**${unpeeragogy.frontmatter.title}**`);
     if (unpeeragogy.frontmatter.description) {
       output.push(`> ${unpeeragogy.frontmatter.description}`);
     }
     if (unpeeragogy.frontmatter.tension_index) {
       output.push(
-        `\n*Indice di tensione: ${unpeeragogy.frontmatter.tension_index.toFixed(2)}*\n`
+        `\n*Tension index: ${unpeeragogy.frontmatter.tension_index.toFixed(2)}*\n`
       );
     }
     output.push("");
@@ -131,15 +125,15 @@ export function compareSlug(slug: string): string {
   }
 
   if (!peeragogy && !unpeeragogy) {
-    return `Nessun contenuto trovato per "${slug}".`;
+    return `No content found for "${slug}".`;
   }
 
   if (!unpeeragogy) {
     output.push(
-      "\n\n---\n*Nota: nessuna colonna Realtà disponibile per questo slug.*"
+      "\n\n---\n*Note: no Reality column available for this slug.*"
     );
     output.push(
-      "*L'Agente Perturbatore sospetta che qui ci sia del consenso facile in attesa di essere smontato.*"
+      "*The Perturbator suspects there's easy consensus here waiting to be dismantled.*"
     );
   }
 
@@ -159,11 +153,11 @@ export function analyzeSlug(slug: string): string {
   );
 
   if (!peeragogy && !unpeeragogy) {
-    return `Nessun contenuto per "${slug}".`;
+    return `No content for "${slug}".`;
   }
 
   const output: string[] = [];
-  output.push(`# Analisi: ${slug}\n`);
+  output.push(`# Analysis: ${slug}\n`);
 
   const vectors = new Set<string>();
   if (peeragogy?.frontmatter.vectors) {
@@ -181,50 +175,51 @@ export function analyzeSlug(slug: string): string {
     unpeeragogy.frontmatter.tags.forEach((t) => tags.add(t));
   }
 
-  output.push(`## Vettori di fallimento`);
+  output.push(`## Failure Vectors`);
   if (vectors.size > 0) {
     for (const v of vectors) {
       output.push(`- \`${v}\``);
     }
   } else {
-    output.push("Nessun vettore esplicito rilevato.");
-    output.push("*L'Agente Perturbatore consiglia di riesaminare questo contenuto per attriti nascosti.*");
+    output.push("No explicit vectors detected.");
+    output.push("*The Perturbator recommends re-examining this content for hidden friction.*");
   }
 
   output.push(`\n## Tag`);
   if (tags.size > 0) {
     output.push([...tags].join(", "));
   } else {
-    output.push("Nessun tag.");
+    output.push("No tags.");
   }
 
   if (peeragogy) {
     const wordCount = peeragogy.body.split(/\s+/).length;
-    output.push(`\n## Teoria (${peeragogy.collection})`);
-    output.push(`- Titolo: ${peeragogy.frontmatter.title}`);
-    output.push(`- Sezione: ${peeragogy.frontmatter.section || "N/A"}`);
-    output.push(`- Parole: ${wordCount}`);
+    output.push(`\n## Theory (${peeragogy.collection})`);
+    output.push(`- Title: ${peeragogy.frontmatter.title}`);
+    output.push(`- Section: ${peeragogy.frontmatter.section || "N/A"}`);
+    output.push(`- Words: ${wordCount}`);
   }
+
 
   if (unpeeragogy) {
     const wordCount = unpeeragogy.body.split(/\s+/).length;
-    output.push(`\n## Realtà (${unpeeragogy.collection})`);
-    output.push(`- Titolo: ${unpeeragogy.frontmatter.title}`);
-    output.push(`- Sezione: ${unpeeragogy.frontmatter.section || "N/A"}`);
-    output.push(`- Indice di tensione: ${unpeeragogy.frontmatter.tension_index?.toFixed(2) || "N/A"}`);
-    output.push(`- Parole: ${wordCount}`);
+    output.push(`\n## Reality (${unpeeragogy.collection})`);
+    output.push(`- Title: ${unpeeragogy.frontmatter.title}`);
+    output.push(`- Section: ${unpeeragogy.frontmatter.section || "N/A"}`);
+    output.push(`- Tension index: ${unpeeragogy.frontmatter.tension_index?.toFixed(2) || "N/A"}`);
+    output.push(`- Words: ${wordCount}`);
   }
 
   if (peeragogy && unpeeragogy) {
-    output.push(`\n## Scarto teoria/realtà`);
+    output.push(`\n## Theory/Reality Gap`);
     const peerWords = peeragogy.body.split(/\s+/).length;
     const unpeerWords = unpeeragogy.body.split(/\s+/).length;
     const ratio = unpeerWords / Math.max(peerWords, 1);
     output.push(
-      `La colonna Realtà è ${ratio > 1.2 ? "più estesa" : ratio < 0.8 ? "meno estesa" : "simile in estensione"} rispetto alla teoria.`
+      `The Reality column is ${ratio > 1.2 ? "more extensive" : ratio < 0.8 ? "less extensive" : "similar in length"} compared to the theory.`
     );
     output.push(
-      `Vettori condivisi: ${vectors.size > 0 ? [...vectors].join(", ") : "nessuno"}`
+      `Shared vectors: ${vectors.size > 0 ? [...vectors].join(", ") : "none"}`
     );
   }
 
@@ -249,7 +244,7 @@ export function calculateTensionIndex(slug?: string): {
     );
 
     if (!peeragogy && !unpeeragogy) {
-      return { slug, index: 0, interpretation: `Nessun contenuto per "${slug}".` };
+      return { slug, index: 0, interpretation: `No content for "${slug}".` };
     }
 
     const ti = unpeeragogy?.frontmatter.tension_index || 0;
@@ -266,7 +261,7 @@ export function calculateTensionIndex(slug?: string): {
   const unpeerEntries = entries.filter((e) => e.collection === "unpeeragogy");
 
   if (peerEntries.length === 0) {
-    return { index: 0, interpretation: "Nessun contenuto Peeragogy nel corpus." };
+    return { index: 0, interpretation: "No Peeragogy content in the corpus." };
   }
 
   const totalTi = unpeerEntries.reduce(
@@ -277,95 +272,40 @@ export function calculateTensionIndex(slug?: string): {
 
   return {
     index: avgTi,
-    interpretation: `Tensione media su ${peerEntries.length} file teoria e ${unpeerEntries.length} file realtà: ${interpretTension(avgTi)}`,
+    interpretation: `Average tension across ${peerEntries.length} theory files and ${unpeerEntries.length} reality files: ${interpretTension(avgTi)}`,
   };
 }
 
 function interpretTension(index: number): string {
-  if (index === 0) return "Nessuna tensione rilevata — possibile consenso facile.";
-  if (index < 0.3) return "Tensione bassa — lieve discrepanza teoria/realtà.";
-  if (index < 0.6) return "Tensione moderata — attrito strutturale presente.";
-  if (index < 1.0) return "Tensione alta — contraddizioni significative.";
-  if (index < 1.5) return "Tensione critica — il sistema mostra fratture profonde.";
-  return "Tensione massima — collasso del pattern. Anti-pattern dominante.";
+  if (index === 0) return "No tension detected — possible easy consensus.";
+  if (index < 0.3) return "Low tension — slight theory/reality discrepancy.";
+  if (index < 0.6) return "Moderate tension — structural friction present.";
+  if (index < 1.0) return "High tension — significant contradictions.";
+  if (index < 1.5) return "Critical tension — system shows deep fractures.";
+  return "Maximum tension — pattern collapse. Anti-pattern dominant.";
 }
 
 /**
- * Inject friction into a response for a given topic
- */
-/**
- * Agente Perturbatore — chiamata live all'AI via Hetzner Inference API.
- * Usa GLM-5.2 (reasoning_effort: max) per generare un'analisi con attrito
- * strutturale. Richiede HETZNER_API_KEY configurata.
+ * Agent Perturbatore — generates structural friction analysis.
+ *
+ * Previously backed by Hetzner Inference API (GLM-5.2). Now uses static
+ * friction analysis via injectFriction. Ready to accept a new AI backend
+ * when available.
  */
 export async function agentPerturbatore(
   topic: string,
-  mode: "soft" | "hard" | "max" = "hard",
-  theoryContext?: string
+  mode: "soft" | "hard" | "max" = "hard"
 ): Promise<string> {
-  if (!isPerturbatoreEnabled()) {
-    return (
-      `**⚡ Agente Perturbatore — NON CONFIGURATO**\n\n` +
-      `Per attivare l'Agente Perturbatore live con GLM-5.2 su Hetzner:\n` +
-      `1. Ottieni un token su https://experiments.hetzner.com (App > Inference)\n` +
-      `2. Imposta \`HETZNER_API_KEY\` nell'ambiente\n` +
-      `3. Riavvia il server MCP\n\n` +
-      `Intanto, ecco l'analisi statica basata sul corpus esistente:\n\n` +
-      injectFriction(topic, mode === "max" ? "hard" : mode)
-    );
-  }
-
-  // Trova contesto teoria se disponibile
-  if (!theoryContext) {
-    const entries = loadAllEntries();
-    const lowerTopic = topic.toLowerCase();
-    const peerEntry = entries.find(
-      (e) =>
-        e.collection === "peeragogy" &&
-        (e.slug.toLowerCase().includes(lowerTopic) ||
-          e.frontmatter.title.toLowerCase().includes(lowerTopic))
-    );
-    if (peerEntry) {
-      theoryContext = peerEntry.body.slice(0, 3000);
-    }
-  }
-
-  const result = await callPerturbatore({
-    topic,
-    theoryContext,
-    mode,
-  });
-
-  if (result.error) {
-    return (
-      `**⚡ Agente Perturbatore — ERRORE**\n\n` +
-      `Model: ${result.model}\n` +
-      `Errore: ${result.error}\n\n` +
-      `Fallback all'analisi statica:\n\n` +
-      injectFriction(topic, mode === "max" ? "hard" : mode)
-    );
-  }
-
-  let output = `## ⚡ Agente Perturbatore — Analisi con Attrito Strutturale\n\n`;
-  output += `*Modello: ${result.model}*\n`;
-  output += `*Tempo: ${(result.durationMs / 1000).toFixed(1)}s*\n`;
-  output += `*Costo: $0 (Hetzner Inference API experimental)*\n\n`;
-  output += `---\n\n`;
-
-  if (result.reasoning) {
-    output += `### 🧠 Ragionamento\n\n${result.reasoning}\n\n---\n\n`;
-  }
-
-  output += result.analysis;
-
-  return output;
+  // Without an AI backend, fall through to static corpus friction
+  return injectFriction(topic, mode === "max" ? "hard" : mode);
 }
 
 /**
- * Verifica se l'Agente Perturbatore AI è disponibile.
+ * Check if the AI-based Perturbatore is available.
+ * Currently false — no AI backend configured.
  */
 export function isPerturbatoreAvailable(): boolean {
-  return isPerturbatoreEnabled();
+  return false;
 }
 
 // ─────────────────────────────────────────────────────────────
@@ -417,12 +357,12 @@ export interface KnowledgeGraph {
 }
 
 /**
- * Costruisce il knowledge graph completo dei vettori di fallimento.
+ * Build the complete failure vector knowledge graph.
  *
- * Opzioni:
- *   query  — filtra il grafo a nodi che matchano la query + loro vicini (1-hop)
- *   vector — filtra il grafo a soli nodi che hanno QUEL vettore
- *   minWeight — soglia minima di edge weight per includere un arco (default 1)
+ * Options:
+ *   query  — filter graph to nodes matching query + their neighbours (1-hop expansion)
+ *   vector — filter graph to only nodes with THAT vector
+ *   minWeight — minimum edge weight threshold (default 1)
  */
 export function mapFailureGraph(opts: {
   query?: string;
@@ -467,7 +407,7 @@ export function mapFailureGraph(opts: {
 
     // If nothing matched, return empty
     if (activeIds.size === 0) {
-      return emptyGraph(`Nessun nodo trovato per query: "${opts.query}"`);
+      return emptyGraph(`No nodes found matching query: "${opts.query}"`);
     }
 
     // 1-hop expansion: add neighbours of active nodes
@@ -492,7 +432,7 @@ export function mapFailureGraph(opts: {
         .map((n) => n.id)
     );
     if (activeIds.size === 0) {
-      return emptyGraph(`Nessun nodo con vettore: "${opts.vector}"`);
+      return emptyGraph(`No nodes found with vector: "${opts.vector}"`);
     }
   } else {
     // Full graph
@@ -580,43 +520,43 @@ export function formatGraphAsMarkdown(graph: KnowledgeGraph): string {
   if (graph.nodes.length === 0) {
     return `## 🕸️ Failure Graph
 
-*Grafo vuoto — nessun nodo corrisponde ai criteri.*
+*Empty graph — no nodes match the criteria.*
 
-${graph.metadata.dominantVectors.length === 0 ? "*Il grafo è disponibile ma non contiene nodi." : ""}`;
+${graph.metadata.dominantVectors.length === 0 ? "*Graph is available but contains no nodes." : ""}`;
   }
 
   const lines: string[] = [];
   lines.push(`## 🕸️ Knowledge Graph — Failure Vectors`);
   lines.push(``);
-  lines.push(`**${graph.metadata.nodeCount}** nodi, **${graph.metadata.edgeCount}** archi, densità **${(graph.metadata.density * 100).toFixed(1)}%**`);
-  lines.push(`Tensione media: **${graph.metadata.avgTension.toFixed(2)}** | Tensione max: **${graph.metadata.maxTension.toFixed(2)}**`);
+  lines.push(`**${graph.metadata.nodeCount}** nodes, **${graph.metadata.edgeCount}** edges, density **${(graph.metadata.density * 100).toFixed(1)}%**`);
+  lines.push(`Avg tension: **${graph.metadata.avgTension.toFixed(2)}** | Max tension: **${graph.metadata.maxTension.toFixed(2)}**`);
   lines.push(``);
 
   // Dominant vectors
   if (graph.metadata.dominantVectors.length > 0) {
-    lines.push(`### Vettori dominanti`);
+    lines.push(`### Dominant Vectors`);
     for (const dv of graph.metadata.dominantVectors) {
       const pct = ((dv.count / graph.metadata.nodeCount) * 100).toFixed(0);
-      lines.push(`- **${dv.vector}** — presente in ${dv.count}/${graph.metadata.nodeCount} nodi (${pct}%)`);
+      lines.push(`- **${dv.vector}** — present in ${dv.count}/${graph.metadata.nodeCount} nodes (${pct}%)`);
     }
     lines.push(``);
   }
 
-  // Subgraph: cluster ad alta tensione
+  // Subgraph: high-tension cluster
   const highTension = graph.nodes.filter((n) => n.tensionIndex >= 1.0);
   if (highTension.length > 0) {
-    lines.push(`### ⚡ Nodi a tensione critica (≥ 1.0)`);
+    lines.push(`### ⚡ Critical Tension Nodes (≥ 1.0)`);
     for (const n of highTension) {
       const col = n.collection === "peeragogy" ? "📖" : "⚡";
       lines.push(`- ${col} **${n.title}** (\`${n.slug}\`) — ti: **${n.tensionIndex.toFixed(2)}**`);
       if (n.vectors.length > 0) {
-        lines.push(`  Vettori: ${n.vectors.map((v) => `\`${v}\``).join(", ")}`);
+        lines.push(`  Vectors: ${n.vectors.map((v) => `\`${v}\``).join(", ")}`);
       }
     }
     lines.push(``);
   }
 
-  // Bridges: nodi con più connessioni
+  // Bridges: most connected nodes
   const nodeDegree = new Map<string, number>();
   for (const e of graph.edges) {
     nodeDegree.set(e.source, (nodeDegree.get(e.source) || 0) + 1);
@@ -627,11 +567,11 @@ ${graph.metadata.dominantVectors.length === 0 ? "*Il grafo è disponibile ma non
     .slice(0, 5);
 
   if (topHubs.length > 0) {
-    lines.push(`### 🔗 Hub — nodi più connessi`);
+    lines.push(`### 🔗 Hub — most connected nodes`);
     for (const [id, degree] of topHubs) {
       const n = graph.nodes.find((n) => n.id === id);
       if (!n) continue;
-      lines.push(`- **${n.title}** (\`${n.slug}\`) — ${degree} connessioni`);
+      lines.push(`- **${n.title}** (\`${n.slug}\`) — ${degree} connections`);
     }
     lines.push(``);
   }
@@ -656,7 +596,7 @@ ${graph.metadata.dominantVectors.length === 0 ? "*Il grafo è disponibile ma non
     })),
   };
 
-  lines.push(`### 📊 Dati strutturati (JSON)`);
+  lines.push(`### 📊 Structured Data (JSON)`);
   lines.push(`\`\`\`json`);
   lines.push(JSON.stringify(d3Data, null, 2));
   lines.push(`\`\`\``);
@@ -670,7 +610,7 @@ ${graph.metadata.dominantVectors.length === 0 ? "*Il grafo è disponibile ma non
 // ─────────────────────────────────────────────────────────────
 
 /**
- * Struttura di un field report suggerito.
+ * Structure of a suggested field report.
  */
 export interface SuggestedFieldReport {
   template: "share-your-story" | "structural-analysis";
@@ -684,10 +624,10 @@ export interface SuggestedFieldReport {
 }
 
 /**
- * Analizza testo libero e genera una bozza precompilata di field report.
+ * Suggest a field report pre-fill from free text.
  *
- * Input: testo libero (esperienza, dubbio, osservazione)
- * Output: template suggerito, slug, vettori, tension_index stimato
+ * Input: free text (experience, doubt, observation)
+ * Output: suggested template, slug, vectors, estimated tension_index
  */
 export function suggestFieldReport(text: string): SuggestedFieldReport {
   const textLower = text.toLowerCase();
@@ -720,7 +660,7 @@ export function suggestFieldReport(text: string): SuggestedFieldReport {
       detectedVectors.push({
         vector,
         confidence: 0.8,
-        evidence: `Menzione esplicita di "${readable}"`,
+        evidence: `Explicit mention of "${readable}"`,
       });
       continue;
     }
@@ -731,7 +671,7 @@ export function suggestFieldReport(text: string): SuggestedFieldReport {
       detectedVectors.push({
         vector,
         confidence: Math.min(0.3 + matchCount * 0.15, 0.85),
-        evidence: `Rilevati ${matchCount} keyword: ${keywords.filter((k) => textLower.includes(k)).join(", ")}`,
+        evidence: `Detected ${matchCount} keywords: ${keywords.filter((k) => textLower.includes(k)).join(", ")}`,
       });
     }
   }
@@ -788,8 +728,8 @@ export function suggestFieldReport(text: string): SuggestedFieldReport {
   const titleBase = firstSentence
     ? firstSentence.trim().slice(0, 60)
     : detectedVectors.length > 0
-      ? `Osservazione su ${detectedVectors[0].vector.replace(/-/g, " ")}`
-      : "Nuova osservazione";
+      ? `Observation on ${detectedVectors[0].vector.replace(/-/g, " ")}`
+      : "New observation";
   const suggestedTitle = titleBase + (titleBase.length > 55 ? "" : "...");
 
   // ── 6. Estimate tension_index ───────────────────────────
@@ -820,17 +760,17 @@ export function suggestFieldReport(text: string): SuggestedFieldReport {
   if (template === "share-your-story") {
     prefill["entry-slug"] = suggestedSlug;
     prefill["context"] =
-      "(Descrivi il gruppo: dimensioni, scopo, durata. Ometti dati identificativi.)";
+      "(Describe the group: size, purpose, duration. Omit identifying info.)";
     prefill["what-you-tried"] =
       detectedVectors.length > 0
-        ? `Abbiamo provato ad applicare il pattern "${detectedVectors[0].vector.replace(/-/g, " ")}"...`
-        : "(Cosa hai fatto, basandoti su quale pattern?)";
-    prefill["what-happened"] = "(Cosa è successo. Sii specifico.)";
+        ? `We tried applying the pattern "${detectedVectors[0].vector.replace(/-/g, " ")}"...`
+        : "(What did you do, based on which pattern?)";
+    prefill["what-happened"] = "(What happened. Be specific.)";
     prefill["interpretation"] =
-      "(Cosa pensi significhi — distinto da cosa è successo.)";
+      "(What you think it means — distinct from what happened.)";
     prefill["takeaway"] =
-      "(Cosa diresti a qualcuno che sta per provare questo pattern?)";
-    prefill["counter-evidence"] = "(Cosa potremmo sbagliare? Opzionale)";
+      "(What would you tell someone about to try this pattern?)";
+    prefill["counter-evidence"] = "(What could we be wrong about? Optional)";
   } else {
     prefill["entry-slug"] = suggestedSlug;
     prefill["position"] =
@@ -839,25 +779,25 @@ export function suggestFieldReport(text: string): SuggestedFieldReport {
         : "Question";
     prefill["analysis"] = text.slice(0, 2000);
     prefill["provenance"] =
-      "(Da dove viene questa osservazione? Cita incidenti specifici.)";
-    prefill["counter-evidence"] = "(Cosa, se esistesse, indebolirebbe la tua analisi?)";
+      "(Where does this observation come from? Cite specific incidents.)";
+    prefill["counter-evidence"] = "(What, if it existed, would weaken your analysis?)";
   }
 
   // ── 8. Note ─────────────────────────────────────────────
   const noteParts: string[] = [];
   if (detectedVectors.length === 0) {
     noteParts.push(
-      "Nessun vettore di fallimento riconosciuto automaticamente. La revisione manuale potrebbe identificarne."
+      "No failure vectors automatically recognised. Manual review may identify more."
     );
   }
   if (relatedEntries.length === 0) {
     noteParts.push(
-      "Nessuna correlazione con slug esistenti. Potrebbe essere un pattern non ancora documentato."
+      "No matches found in existing slugs. This may be an undocumented pattern."
     );
   }
   if (template === "share-your-story") {
     noteParts.push(
-      "Template 'Share your story' suggerito — non è necessario conoscere la tassonomia per contribuire."
+      "Template 'Share your story' suggested — no taxonomy knowledge needed to contribute."
     );
   }
   const note = noteParts.join(" ");
@@ -875,51 +815,51 @@ export function suggestFieldReport(text: string): SuggestedFieldReport {
 }
 
 /**
- * Keyword map per ogni vettore di fallimento.
+ * Keyword map for each failure vector.
  */
 function vectorKeywords(vector: string): string[] {
   const map: Record<string, string[]> = {
-    "free-rider": ["free rider", "free riders", "non contribuisce", "si appoggia", "lazy", "passenger", "parassita", "scrocca"],
-    "consensus-paralysis": ["paralisi", "decisione", "bloccato", "non decide", "stallo", "consensus", "non si decide mai", "voto"],
-    "premature-consensus": ["consenso frettoloso", "falsa armonia", "non ha obiettato", "silenzio", "tutti d'accordo", "finto consenso"],
-    "benevolent-dictator": ["dittatore", "dittatura", "benevolent", "fondatore decide", "delega", "collo di bottiglia", "si è bruciato", "single point of failure", "bottleneck"],
-    "coordination-fatigue": ["fatica", "coordinamento", "burnout", "stanc", "call", "troppe riunioni", "troppo tempo", "coordinare", "organizzare"],
-    "meeting-theatre": ["riunione", "meeting", "call", "senza decisioni", "parlare senza", "discutere senza", "teatro"],
-    "decision-evasion": ["decisione", "evitare", "rimandare", "deferire", "nessuno decide", "rimandiamo", "aspettiamo"],
-    "participation-theatre": ["partecipazione", "partecipare", "sembra", "presenza", "apparenza", "finta partecipazione", "partecipazione finta"],
-    "cognitive-overload": ["sovraccarico", "troppe info", "overload", "non riesco a seguire", "informazioni", "troppi messaggi", "info"],
-    "responsibility-diffusion": ["responsabilità", "diffusione", "nessuno fa", "si aspettano", "bystander", "non è compito mio", "qualcun altro"],
-    "inclusivity-theatre": ["inclusione", "inclusività", "diversity", "token", "rappresentanza", "inclusione finta", "diversity theatre"],
-    "structure-paralysis": ["struttura", "troppe regole", "burocrazia", "processo", "procedure", "formalizzato", "rigidità"],
-    "founder-syndrome": ["fondatore", "founder", "lasciare", "passaggio", "successione", "non sa delegare", "accentra"],
-    "documentation-illusion": ["documentazione", "wiki", "non leggono", "scrivere", "documentare", "nessuno legge", "documentazione fantasma"],
-    "misaligned-incentives": ["incentivi", "incentivo", "motivazione", "reward", "ricompensa", "non siamo allineati", "interessi divergenti"],
+    "free-rider": ["free rider", "free riders", "doesn't contribute", "lazy", "passenger", "parasite", "freeloader", "non contribuisce", "si appoggia", "parassita", "scrocca"],
+    "consensus-paralysis": ["paralysis", "paralyzed", "stuck", "can't decide", "deadlock", "stalemate", "consensus", "never decides", "vote", "paralisi", "decisione", "bloccato", "non decide", "stallo", "non si decide mai", "voto"],
+    "premature-consensus": ["premature consensus", "false harmony", "no one objected", "silence", "everyone agrees", "fake consensus", "rushed agreement", "consenso frettoloso", "falsa armonia", "non ha obiettato", "silenzio", "tutti d'accordo", "finto consenso"],
+    "benevolent-dictator": ["dictator", "dictatorship", "benevolent", "founder decides", "bottleneck", "single point of failure", "delegation", "burned out", "dittatore", "dittatura", "fondatore decide", "delega", "collo di bottiglia", "si è bruciato", "single point of failure", "bottleneck"],
+    "coordination-fatigue": ["fatigue", "coordination", "burnout", "tired", "too many meetings", "too much time", "organize", "coordinate", "fatica", "coordinamento", "stanc", "call", "troppe riunioni", "troppo tempo", "coordinare", "organizzare"],
+    "meeting-theatre": ["meeting", "meetings", "no decisions", "talk without", "discuss without", "theatre", "performance", "riunione", "call", "senza decisioni", "parlare senza", "discutere senza", "teatro"],
+    "decision-evasion": ["decision", "evade", "defer", "avoid", "nobody decides", "procrastinate", "let's wait", "decisione", "evitare", "rimandare", "deferire", "nessuno decide", "rimandiamo", "aspettiamo"],
+    "participation-theatre": ["participation", "participate", "appearance", "presence", "pretend", "token", "theatre", "partecipazione", "partecipare", "sembra", "presenza", "apparenza", "finta partecipazione", "partecipazione finta"],
+    "cognitive-overload": ["overload", "too much info", "can't keep up", "information", "too many messages", "info", "sovraccarico", "troppe info", "non riesco a seguire", "informazioni", "troppi messaggi"],
+    "responsibility-diffusion": ["responsibility", "diffusion", "no one does", "bystander", "not my job", "someone else", "waiting for", "responsabilità", "diffusione", "nessuno fa", "si aspettano", "non è compito mio", "qualcun altro"],
+    "inclusivity-theatre": ["inclusion", "inclusivity", "diversity", "token", "representation", "performative", "inclusione", "inclusività", "rappresentanza", "inclusione finta", "diversity theatre"],
+    "structure-paralysis": ["structure", "too many rules", "bureaucracy", "process", "procedures", "rigidity", "formalized", "struttura", "troppe regole", "burocrazia", "processo", "procedure", "formalizzato", "rigidità"],
+    "founder-syndrome": ["founder", "can't let go", "succession", "transition", "delegate", "centralizes", "fondatore", "lasciare", "passaggio", "successione", "non sa delegare", "accentra"],
+    "documentation-illusion": ["documentation", "wiki", "no one reads", "writing", "document", "ghost docs", "nobody reads", "documentazione", "non leggono", "scrivere", "documentare", "nessuno legge", "documentazione fantasma"],
+    "misaligned-incentives": ["incentives", "misaligned", "motivation", "reward", "not aligned", "conflicting interests", "incentivi", "incentivo", "motivazione", "reward", "ricompensa", "non siamo allineati", "interessi divergenti"],
   };
   return map[vector] || [vector];
 }
 
 /**
- * Formatta il field report suggerito in markdown.
+ * Format the suggested field report as markdown.
  */
 export function formatSuggestedReport(sr: SuggestedFieldReport): string {
   const lines: string[] = [];
-  lines.push(`## 📝 Field Report Suggerito\n`);
+  lines.push(`## 📝 Suggested Field Report\n`);
   lines.push(`**Template:** ${sr.template === "share-your-story" ? "📖 Share your story" : "🔍 Structural analysis"}`);
-  lines.push(`**Slug suggerito:** \`${sr.suggestedSlug}\``);
-  lines.push(`**Titolo suggerito:** ${sr.suggestedTitle}`);
-  lines.push(`**Tensione stimata:** ${sr.estimatedTensionIndex.toFixed(2)}`);
+  lines.push(`**Suggested slug:** \`${sr.suggestedSlug}\``);
+  lines.push(`**Suggested title:** ${sr.suggestedTitle}`);
+  lines.push(`**Estimated tension:** ${sr.estimatedTensionIndex.toFixed(2)}`);
   lines.push(``);
 
   if (sr.detectedVectors.length > 0) {
-    lines.push(`### Vettori di fallimento rilevati`);
+    lines.push(`### Detected Failure Vectors`);
     for (const dv of sr.detectedVectors) {
-      lines.push(`- **${dv.vector}** (confidenza: ${(dv.confidence * 100).toFixed(0)}%) — ${dv.evidence}`);
+      lines.push(`- **${dv.vector}** (confidence: ${(dv.confidence * 100).toFixed(0)}%) — ${dv.evidence}`);
     }
     lines.push(``);
   }
 
   if (sr.relatedEntries.length > 0) {
-    lines.push(`### Correlazioni trovate nel corpus`);
+    lines.push(`### Corpus Matches Found`);
     for (const r of sr.relatedEntries.slice(0, 5)) {
       const icon = r.collection === "peeragogy" ? "📖" : "⚡";
       lines.push(`- ${icon} **${r.title}** (\`${r.slug}\`)`);
@@ -927,7 +867,7 @@ export function formatSuggestedReport(sr: SuggestedFieldReport): string {
     lines.push(``);
   }
 
-  lines.push(`### Bozza precompilata\n`);
+  lines.push(`### Pre-filled Draft\n`);
   lines.push(`\`\`\`yaml`);
   lines.push(`# ${sr.template === "share-your-story" ? "📖 Share your story" : "🔍 Structural analysis"}`);
   for (const [key, val] of Object.entries(sr.prefill)) {
@@ -937,7 +877,7 @@ export function formatSuggestedReport(sr: SuggestedFieldReport): string {
 
   if (sr.note) {
     lines.push(``);
-    lines.push(`> **Nota:** ${sr.note}`);
+    lines.push(`> **Note:** ${sr.note}`);
   }
 
   return lines.join(`\n`);
@@ -949,20 +889,20 @@ export function formatSuggestedReport(sr: SuggestedFieldReport): string {
 // ─────────────────────────────────────────────────────────────
 
 /**
- * Risultato della gap analysis.
+ * Results of the gap analysis.
  */
 export interface GapAnalysis {
-  /** Slugh che esistono solo in peeragogy (teoria senza field report) */
+  /** Slugs that exist only in peeragogy (theory without field reports) */
   theoryOrphans: Array<{ slug: string; title: string; section?: string }>;
-  /** Slugh che esistono solo in unpeeragogy (realtà senza teoria) */
+  /** Slugs that exist only in unpeeragogy (reality without theory) */
   realityOrphans: Array<{ slug: string; title: string; section?: string }>;
-  /** Vettori non coperti da nessun field report */
+  /** Vectors not covered by any field report */
   uncoveredVectors: Array<{ vector: string; theoryCount: number; realityCount: number }>;
-  /** Aree a bassa tensione (consenso facile sospetto) */
+  /** Low-tension areas (suspected easy consensus) */
   lowTensionAreas: Array<{ slug: string; title: string; tension: number }>;
-  /** Raccomandazioni prioritarie */
+  /** Priority recommendations */
   priorities: Array<{ rank: number; type: string; recommendation: string; urgency: "alta" | "media" | "bassa" }>;
-  /** Statistiche generali */
+  /** General stats */
   stats: {
     totalTheories: number;
     totalRealities: number;
@@ -972,7 +912,7 @@ export interface GapAnalysis {
 }
 
 /**
- * Scansiona il corpus e produce una mappa delle lacune epistemiche.
+ * Scan the corpus and produce an epistemic gap map.
  */
 export function analyzeGaps(): GapAnalysis {
   const entries = loadAllEntries();
@@ -1074,7 +1014,7 @@ export function analyzeGaps(): GapAnalysis {
     priorities.push({
       rank: rank++,
       type: "field-report-needed",
-      recommendation: `Servono field report per "${o.title}" (\`${o.slug}\`). ${o.vecCount} vettori di fallimento identificati.`,
+      recommendation: `Field reports needed for "${o.title}" (\`${o.slug}\`). ${o.vecCount} failure vectors identified.`,
       urgency: o.vecCount >= 2 ? "alta" : "media",
     });
   }
@@ -1089,7 +1029,7 @@ export function analyzeGaps(): GapAnalysis {
     priorities.push({
       rank: rank++,
       type: "uncovered-vector",
-      recommendation: `Il vettore "${v.vector}" è menzionato in ${v.theoryCount} pattern teorici ma non ha field report. Priorità alta per nuovi contributi.`,
+      recommendation: `Vector "${v.vector}" is mentioned in ${v.theoryCount} theoretical patterns but has zero field reports. High priority for new contributions.`,
       urgency: "alta",
     });
   }
@@ -1099,7 +1039,7 @@ export function analyzeGaps(): GapAnalysis {
     priorities.push({
       rank: rank++,
       type: "possible-false-consensus",
-      recommendation: `"${lta.title}" ha tensione ${lta.tension.toFixed(2)} — possibile consenso facile. L'Agente Perturbatore raccomanda un esame più approfondito.`,
+      recommendation: `"${lta.title}" has tension ${lta.tension.toFixed(2)} — possible easy consensus. The Perturbator recommends deeper examination.`,
       urgency: "media",
     });
   }
@@ -1109,7 +1049,7 @@ export function analyzeGaps(): GapAnalysis {
     priorities.push({
       rank: rank++,
       type: "theory-needed",
-      recommendation: `"${ro.title}" esiste come field report ma non ha una teoria corrispondente. Potrebbe essere un pattern emergente da documentare.`,
+      recommendation: `"${ro.title}" exists as a field report but has no corresponding theory. Could be an emerging pattern to document.`,
       urgency: "bassa",
     });
   }
@@ -1125,51 +1065,51 @@ export function analyzeGaps(): GapAnalysis {
 }
 
 /**
- * Formatta la gap analysis in markdown.
+ * Format the gap analysis as markdown.
  */
 export function formatGapAnalysis(g: GapAnalysis): string {
   const lines: string[] = [];
-  lines.push(`## 🗺️ Gap Analysis — Mappa delle Lacune Epistemiche\n`);
+  lines.push(`## 🗺️ Gap Analysis — Epistemic Gap Map\n`);
 
   // Stats header
-  lines.push(`### Statistiche`);
-  lines.push(`- **${g.stats.totalTheories}** file teoria (Peeragogy)`);
-  lines.push(`- **${g.stats.totalRealities}** file realtà (Unpeeragogy)`);
-  lines.push(`- **${g.stats.dualCoverage}** slug coperti da entrambe le colonne (**${g.stats.coveragePercent}%**)`);
+  lines.push(`### Stats`);
+  lines.push(`- **${g.stats.totalTheories}** theory files (Peeragogy)`);
+  lines.push(`- **${g.stats.totalRealities}** reality files (Unpeeragogy)`);
+  lines.push(`- **${g.stats.dualCoverage}** slugs covered by both columns (**${g.stats.coveragePercent}%**)`);
   lines.push(``);
 
   // Orphans
   if (g.theoryOrphans.length > 0) {
-    lines.push(`### 📖 Teoria senza Realtà (${g.theoryOrphans.length})`);
-    lines.push(`Slug che esistono solo in Peeragogy — nessun field report per validare o falsificare la teoria.\n`);
+    lines.push(`### 📖 Theory without Reality (${g.theoryOrphans.length})`);
+    lines.push(`Slugs that exist only in Peeragogy — no field report to validate or falsify the theory.\n`);
     for (const o of g.theoryOrphans.slice(0, 10)) {
-      lines.push(`- **${o.title}** (\`${o.slug}\`)${o.section ? ` — Sezione: ${o.section}` : ""}`);
+      lines.push(`- **${o.title}** (\`${o.slug}\`)${o.section ? ` — Section: ${o.section}` : ""}`);
     }
     if (g.theoryOrphans.length > 10) {
-      lines.push(`- ... e ${g.theoryOrphans.length - 10} altri`);
+      lines.push(`- ... and ${g.theoryOrphans.length - 10} more`);
     }
     lines.push(``);
   }
 
   if (g.realityOrphans.length > 0) {
-    lines.push(`### ⚡ Realtà senza Teoria (${g.realityOrphans.length})`);
-    lines.push(`Field report senza un pattern teorico corrispondente. Potrebbero essere pattern emergenti.\n`);
+    lines.push(`### ⚡ Reality without Theory (${g.realityOrphans.length})`);
+    lines.push(`Field reports without a corresponding theoretical pattern. They could be emerging patterns.\n`);
     for (const o of g.realityOrphans.slice(0, 10)) {
       lines.push(`- **${o.title}** (\`${o.slug}\`)`);
     }
     if (g.realityOrphans.length > 10) {
-      lines.push(`- ... e ${g.realityOrphans.length - 10} altri`);
+      lines.push(`- ... and ${g.realityOrphans.length - 10} more`);
     }
     lines.push(``);
   }
 
   // Priorities
   if (g.priorities.length > 0) {
-    lines.push(`### 🚨 Raccomandazioni Prioritarie\n`);
+    lines.push(`### 🚨 Priority Recommendations\n`);
     for (const p of g.priorities) {
       const urgencyIcon =
         p.urgency === "alta" ? "🔴" : p.urgency === "media" ? "🟡" : "🟢";
-      lines.push(`${urgencyIcon} **[${p.rank}] ${p.recommendation}`);
+      lines.push(`${urgencyIcon} **[${p.rank}] ${p.recommendation}**`);
     }
     lines.push(``);
   }
@@ -1177,17 +1117,17 @@ export function formatGapAnalysis(g: GapAnalysis): string {
   // Vector coverage summary
   const uncovered = g.uncoveredVectors.filter((v) => v.realityCount === 0);
   if (uncovered.length > 0) {
-    lines.push(`### Vettori non coperti da field report`);
+    lines.push(`### Vectors not covered by field reports`);
     for (const v of uncovered.slice(0, 10)) {
-      lines.push(`- **${v.vector}** — menzionato in ${v.theoryCount} teoria, **0 field report**`);
+      lines.push(`- **${v.vector}** — mentioned in ${v.theoryCount} theory, **0 field reports**`);
     }
     lines.push(``);
   }
 
   if (g.lowTensionAreas.length > 0) {
-    lines.push(`### ⚠️ Aree a bassa tensione (possibile falso consenso)`);
+    lines.push(`### ⚠️ Low-tension areas (possible false consensus)`);
     for (const lta of g.lowTensionAreas.slice(0, 8)) {
-      lines.push(`- **${lta.title}** (\`${lta.slug}\`) — tensione: **${lta.tension.toFixed(2)}**`);
+      lines.push(`- **${lta.title}** (\`${lta.slug}\`) — tension: **${lta.tension.toFixed(2)}**`);
     }
     lines.push(``);
   }
@@ -1214,16 +1154,16 @@ export function injectFriction(
   const unpeerEntries = matching.filter((e) => e.collection === "unpeeragogy");
 
   if (matching.length === 0) {
-    return `**⚡ Friction Note (${mode} mode):** L'argomento "${topic}" non è coperto dal corpus. Questo silenzio è già un segnale — forse il tema è troppo controverso per essere stato affrontato.`;
+    return `**⚡ Friction Note (${mode} mode):** Topic "${topic}" is not covered by the corpus. This silence is already a signal — perhaps the topic is too controversial to have been addressed.`;
   }
 
   let output: string[] = [];
 
-  output.push(`# Analisi con attrito: "${topic}"`);
-  output.push(`Modalità: ${mode}\n`);
+  output.push(`# Friction analysis: "${topic}"`);
+  output.push(`Mode: ${mode}\n`);
 
   if (peerEntries.length > 0) {
-    output.push("## 📖 Cosa dice la teoria");
+    output.push("## 📖 What theory says");
     for (const e of peerEntries) {
       output.push(`- **${e.frontmatter.title}** (${e.slug})`);
       if (e.frontmatter.description) {
@@ -1233,11 +1173,11 @@ export function injectFriction(
   }
 
   if (unpeerEntries.length > 0) {
-    output.push("\n## ⚡ Cosa mostra la realtà");
+    output.push("\n## ⚡ What reality shows");
     for (const e of unpeerEntries) {
       const ti =
         e.frontmatter.tension_index !== undefined
-          ? ` [tensione: ${e.frontmatter.tension_index.toFixed(2)}]`
+          ? ` [tension: ${e.frontmatter.tension_index.toFixed(2)}]`
           : "";
       output.push(`- **${e.frontmatter.title}**${ti}`);
       if (e.frontmatter.description) {
@@ -1259,36 +1199,36 @@ export function injectFriction(
 
     if (onlyUnpeer.length > 0) {
       output.push(
-        `L'analisi rivela ${onlyUnpeer.length} vettori di fallimento che la teoria ignora:`
+        `Analysis reveals ${onlyUnpeer.length} failure vectors that theory ignores:`
       );
       for (const v of onlyUnpeer) {
-        output.push(`- \`${v}\` — presente nella realtà, assente nella teoria`);
+        output.push(`- \`${v}\` — present in reality, absent from theory`);
       }
     } else {
       output.push(
-        "I vettori di fallimento sono condivisi tra teoria e realtà, " +
-          "suggerendo che il problema è riconosciuto ma non risolto."
+        "The failure vectors are shared between theory and reality, " +
+          "suggesting the problem is recognised but unresolved."
       );
     }
   } else if (peerEntries.length > 0 && unpeerEntries.length === 0) {
     output.push(
-      "⚠️ Esiste solo la teoria per questo argomento. " +
-        "L'assenza di una colonna Realtà è essa stessa un segnale di attrito — " +
-        "forse perché la pratica è troppo dolorosa da documentare."
+      "⚠️ Only theory exists for this topic. " +
+        "The absence of a Reality column is itself a friction signal — " +
+        "perhaps because the practice is too painful to document."
     );
   } else if (unpeerEntries.length > 0 && peerEntries.length === 0) {
     output.push(
-      "⚠️ Esiste solo l'evidenza di fallimento, senza una teoria corrispondente. " +
-        "Questo è un anti-pattern senza pattern: l'attrito puro."
+      "⚠️ Only failure evidence exists, without a corresponding theory. " +
+        "This is an anti-pattern without a pattern: pure friction."
     );
   }
 
   if (mode === "hard") {
     output.push(
-      "\n\n*Hard mode: ogni affermazione deve essere accompagnata dalla sua contraddizione.*"
+      "\n\n*Hard mode: every claim must be accompanied by its contradiction.*"
     );
     output.push(
-      "*Se non trovi attrito in questa analisi, il problema è nell'analisi, non nel sistema.*"
+      "*If you find no friction in this analysis, the problem is in the analysis, not the system.*"
     );
   }
 

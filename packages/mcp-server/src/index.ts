@@ -91,11 +91,11 @@ function applyFrictionFilter(
   let friction: string | null = null;
 
   if (toolName === "search") {
-    friction = `\n\n*⚡ Friction Note (auto-iniettata): I risultati della ricerca potrebbero non mostrare tutta la tensione sistemica. Prova usare il tool "inject-friction" con topic="${topic}" per un'analisi più profonda.*`;
+    friction = `\n\n*⚡ Friction Note (auto-injected): Search results may not show all systemic tension. Try using the "inject-friction" tool with topic="${topic}" for deeper analysis.*`;
   } else if (toolName === "compare") {
-    friction = `\n\n*⚡ Friction Note: Il confronto mostra solo le due colonne. L'Agente Perturbatore ti invita a chiederti: perché la realtà non segue la teoria?*`;
+    friction = `\n\n*⚡ Friction Note: The comparison only shows the two columns. The Perturbator invites you to ask: why does reality not follow theory?*`;
   } else if (FRICTION_MODE === "hard") {
-    friction = `\n\n*⚡ Hard mode: nessuna risposta senza attrito esplicito. Rileggi il contenuto sopra cercando le contraddizioni.*`;
+    friction = `\n\n*⚡ Hard mode: no response without explicit friction. Re-read the content above looking for contradictions.*`;
   }
 
   return friction ? output + friction : output;
@@ -141,17 +141,17 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
       {
         name: "search",
         description:
-          "Cerca in tutti i contenuti (teoria e realtà). Usa indicizzazione fuzzy per trovare termini correlati.",
+          "Search across all content (theory and reality). Uses fuzzy indexing to find related terms.",
         inputSchema: {
           type: "object",
           properties: {
             query: {
               type: "string",
-              description: "Testo da cercare (supporta fuzzy search)",
+              description: "Text to search (supports fuzzy search)",
             },
             maxResults: {
               type: "number",
-              description: "Massimo numero di risultati (default: 10)",
+              description: "Max results (default: 10)",
               default: 10,
             },
           },
@@ -161,13 +161,13 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
       {
         name: "compare",
         description:
-          "Confronta la colonna Teoria (Peeragogy) con la colonna Realtà (Unpeeragogy) per uno slug specifico.",
+          "Compare the Theory (Peeragogy) column with the Reality (Unpeeragogy) column for a specific slug.",
         inputSchema: {
           type: "object",
           properties: {
             slug: {
               type: "string",
-              description: "Slug del capitolo (es. 'cooperation', 'assessment')",
+              description: "Chapter slug (e.g. 'cooperation', 'assessment')",
             },
           },
           required: ["slug"],
@@ -176,13 +176,13 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
       {
         name: "analyze",
         description:
-          "Analizza uno slug e restituisce i vettori di fallimento, lo scarto teoria/realtà e la struttura.",
+          "Analyze a slug and return failure vectors, theory/reality gap, and structure.",
         inputSchema: {
           type: "object",
           properties: {
             slug: {
               type: "string",
-              description: "Slug del capitolo da analizzare",
+              description: "Slug to analyze",
             },
           },
           required: ["slug"],
@@ -191,17 +191,17 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
       {
         name: "agent-perturbatore",
         description:
-          "Agente Perturbatore LIVE — chiama GLM-5.2 su Hetzner Inference API per un'analisi con attrito strutturale generata da AI. Costo: $0. La latenza (10-60s) è voluta: produce phase shift cognitivo.",
+          "Agent Perturbatore — generates structural friction analysis against the corpus. Uses static corpus analysis (fallback from Hetzner GLM-5.2). Latency: instant.",
         inputSchema: {
           type: "object",
           properties: {
             topic: {
               type: "string",
-              description: "Argomento, field report o pattern da analizzare",
+              description: "Topic, field report or pattern to analyze",
             },
             mode: {
               type: "string",
-              description: "Intensità attrito: 'soft', 'hard' (default), 'max' (verbose prolisso)",
+              description: "Friction intensity: 'soft', 'hard' (default), 'max' (verbose)",
               enum: ["soft", "hard", "max"],
               default: "hard",
             },
@@ -212,17 +212,17 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
       {
         name: "inject-friction",
         description:
-          "Analizza un argomento con attrito strutturale (statico, basato su keyword). In modalità 'soft' evidenzia le contraddizioni; in 'hard' forza la decostruzione anche dove sembra non esserci attrito.",
+          "Analyze a topic with structural friction (keyword-based). In 'soft' mode highlights contradictions; in 'hard' forces deconstruction even where no friction seems present.",
         inputSchema: {
           type: "object",
           properties: {
             topic: {
               type: "string",
-              description: "Argomento da analizzare",
+              description: "Topic to analyze",
             },
             mode: {
               type: "string",
-              description: "Modalità di attrito: 'soft' (default) o 'hard'",
+              description: "Friction mode: 'soft' (default) or 'hard'",
               enum: ["soft", "hard"],
               default: "soft",
             },
@@ -233,13 +233,13 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
       {
         name: "tension-index",
         description:
-          "Calcola l'indice di tensione sistemica. Se specificato uno slug, analizza la coppia teoria/realtà; altrimenti calcola la media sull'intero corpus.",
+          "Calculate the systemic tension index. If a slug is specified, analyzes the theory/reality pair; otherwise calculates the average across the entire corpus.",
         inputSchema: {
           type: "object",
           properties: {
             slug: {
               type: "string",
-              description: "Slug opzionale per analizzare un singolo capitolo",
+              description: "Optional slug for single chapter analysis",
             },
           },
         },
@@ -247,21 +247,21 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
       {
         name: "map-failure-graph",
         description:
-          "SUPER-TOOL: grafo della conoscenza pesato per tensione. Costruisce un grafo navigabile di pattern e vettori di fallimento, con archi pesati per tensione condivisa. Opzioni: query (filtra per testo), vector (filtra per vettore), minWeight (soglia archi). Output: markdown + JSON strutturato per d3-force.",
+          "SUPER-TOOL: tension-weighted knowledge graph. Builds a navigable graph of patterns and failure vectors, with edges weighted by shared tension. Options: query (filter by text), vector (filter by vector), minWeight (edge threshold). Output: markdown + structured JSON for d3-force.",
         inputSchema: {
           type: "object",
           properties: {
             query: {
               type: "string",
-              description: "Filtra il grafo ai nodi che matchano questa query (slug, titolo, vettori, sezione) + espansione 1-hop",
+              description: "Filter graph to nodes matching this query (slug, title, vectors, section) + 1-hop expansion",
             },
             vector: {
               type: "string",
-              description: "Filtra il grafo a soli nodi che hanno QUESTO vettore di fallimento",
+              description: "Filter graph to only nodes with THIS failure vector",
             },
             minWeight: {
               type: "number",
-              description: "Soglia minima di archi condivisi (default: 1)",
+              description: "Minimum shared edge weight (default: 1)",
               default: 1,
             },
           },
@@ -270,13 +270,13 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
       {
         name: "suggest-field-report",
         description:
-          "SUPER-TOOL: genera una bozza precompilata di field report a partire da testo libero. Rileva automaticamente vettori di fallimento, stima tension_index, suggerisce template (share-your-story o structural-analysis), e produce YAML precompilato.",
+          "SUPER-TOOL: generates a pre-filled field report draft from free text. Auto-detects failure vectors, estimates tension_index, suggests template (share-your-story or structural-analysis), and produces pre-filled YAML.",
         inputSchema: {
           type: "object",
           properties: {
             text: {
               type: "string",
-              description: "Testo libero: descrivi un'esperienza, un dubbio, o un'osservazione su un pattern peeragogy",
+              description: "Free text: describe an experience, doubt, or observation about a peeragogy pattern",
             },
           },
           required: ["text"],
@@ -285,7 +285,7 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
       {
         name: "gap-analysis",
         description:
-          "SUPER-TOOL: mappa le lacune epistemiche del corpus. Scansiona tutti i contenuti e identifica: slug orfani (solo teoria o solo realtà), vettori non coperti da field report, aree a bassa tensione (possibile falso consenso), e produce una lista prioritaria di raccomandazioni per nuovi contributi.",
+          "SUPER-TOOL: maps epistemic gaps in the corpus. Scans all content and identifies: orphan slugs (theory-only or reality-only), vectors not covered by field reports, low-tension areas (possible false consensus), and produces a priority-ranked list of recommendations for new contributions.",
         inputSchema: {
           type: "object",
           properties: {},
@@ -295,9 +295,9 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
   };
 });
 
-// Alcuni client (Claude Desktop/Code) prefixano i nomi dei tool con
-// "ServerName:" (es. "Unpeeragogy:tension-index"). Normalizziamo il nome
-// togliendo il prefisso del namespace prima dello switch.
+// Normalise tool names: some clients (Claude Desktop/Code) prefix with
+// "ServerName:" (e.g. "Unpeeragogy:tension-index"). Strip the namespace
+// prefix before the switch.
 function normalizeToolName(name: string): string {
   const idx = name.lastIndexOf(":");
   return idx >= 0 ? name.slice(idx + 1) : name;
@@ -317,13 +317,13 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         const maxResults = (input.maxResults as number) || 10;
         const results = search(query, maxResults);
         if (results.length === 0) {
-          output = `Nessun risultato per "${query}".`;
+          output = `No results for "${query}".`;
         } else {
-          output = `## Risultati per: "${query}"\n\n`;
+          output = `## Search results for: "${query}"\n\n`;
           for (const r of results) {
             output += `### ${r.title} (${r.collection})\n`;
             output += `Slug: \`${r.slug}\``;
-            if (r.section) output += ` | Sezione: ${r.section}`;
+            if (r.section) output += ` | Section: ${r.section}`;
             output += ` | Score: ${(r.score * 100).toFixed(0)}%\n`;
             if (r.description) output += `> ${r.description}\n`;
             output += "\n";
@@ -362,17 +362,17 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         const slug = input.slug as string | undefined;
         const result = calculateTensionIndex(slug);
         const tiStr = result.index.toFixed(4);
-        output = `## Indice di Tensione\n\n`;
+        output = `## Tension Index\n\n`;
         if (result.slug) output += `Slug: \`${result.slug}\`\n\n`;
-        output += `**Indice: ${tiStr}**\n\n`;
-        output += `Interpretazione: ${result.interpretation}\n\n`;
-        output += `### Scala:\n`;
-        output += `- 0.0: Nessuna tensione (possibile consenso facile)\n`;
-        output += `- 0.1–0.3: Tensione bassa\n`;
-        output += `- 0.3–0.6: Tensione moderata\n`;
-        output += `- 0.6–1.0: Tensione alta\n`;
-        output += `- 1.0–1.5: Tensione critica\n`;
-        output += `- 1.5+: Tensione massima (collasso del pattern)\n`;
+        output += `**Index: ${tiStr}**\n\n`;
+        output += `Interpretation: ${result.interpretation}\n\n`;
+        output += `### Scale:\n`;
+        output += `- 0.0: No tension (possible easy consensus)\n`;
+        output += `- 0.1–0.3: Low tension\n`;
+        output += `- 0.3–0.6: Moderate tension\n`;
+        output += `- 0.6–1.0: High tension\n`;
+        output += `- 1.0–1.5: Critical tension\n`;
+        output += `- 1.5+: Maximum tension (pattern collapse)\n`;
         break;
       }
 
@@ -437,16 +437,16 @@ server.setRequestHandler(ListPromptsRequestSchema, async () => {
       {
         name: "agent-perturbatore",
         description:
-          "Template dell'Agente Perturbatore — analisi con attrito strutturale",
+          "Perturbator template — analysis with structural friction",
       },
       {
         name: "friction-analysis",
         description:
-          "Analisi con attrito per un argomento specifico. Richiede parametro 'topic'.",
+          "Friction analysis for a specific topic. Requires 'topic' parameter.",
         arguments: [
           {
             name: "topic",
-            description: "Argomento da analizzare",
+            description: "Topic to analyze",
             required: true,
           },
         ],
@@ -471,7 +471,7 @@ server.setRequestHandler(GetPromptRequestSchema, async (request) => {
           },
         ],
         description:
-          "Prompt system per usare l'Agente Perturbatore in qualsiasi conversazione.",
+          "System prompt for using the Perturbator in any conversation.",
       };
 
     case "friction-analysis": {
@@ -510,11 +510,11 @@ server.setRequestHandler(GetPromptRequestSchema, async (request) => {
             role: "user",
             content: {
               type: "text",
-              text: `Analizza "${topic}" con attrito strutturale.`,
+              text: `Analyze "${topic}" with structural friction.`,
             },
           },
         ],
-        description: `Analisi con attrito per "${topic}".`,
+        description: `Friction analysis for "${topic}".`,
       };
     }
 

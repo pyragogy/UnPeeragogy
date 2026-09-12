@@ -32,8 +32,8 @@ export function listResources(): Resource[] {
     const collections = [...new Set(entries.map((e) => e.collection))];
     resources.push({
       uri: `unpeeragogy://failure/${vector}`,
-      name: `Vettore: ${vector}`,
-      description: `Anti-pattern "${vector}" — menzionato in ${entryCount} file (${collections.join(", ")})`,
+      name: `Vector: ${vector}`,
+      description: `Anti-pattern "${vector}" — mentioned in ${entryCount} files (${collections.join(", ")})`,
       mimeType: "text/markdown",
     });
   }
@@ -47,16 +47,16 @@ export function listResources(): Resource[] {
     if (hasPeeragogy || hasUnpeeragogy) {
       let description = `Slug: ${slug}`;
       if (hasPeeragogy && hasUnpeeragogy) {
-        description += " (dual — teoria + realtà)";
+      description = `Slug: ${slug} — theory + reality`;
       } else if (hasPeeragogy) {
-        description += " (solo teoria peeragogy)";
+        description = `Slug: ${slug} — theory only (peeragogy)`;
       } else {
-        description += " (solo realtà unpeeragogy)";
+        description = `Slug: ${slug} — reality only (unpeeragogy)`;
       }
 
       resources.push({
         uri: `unpeeragogy://${slug}/`,
-        name: `Capitolo: ${slug}`,
+        name: `Chapter: ${slug}`,
         description,
         mimeType: "text/markdown",
       });
@@ -66,9 +66,9 @@ export function listResources(): Resource[] {
   // Prompt template resource
   resources.push({
     uri: "unpeeragogy://prompt/agent-perturbatore",
-    name: "Prompt — Agente Perturbatore",
+    name: "Prompt — Perturbator Agent",
     description:
-      "Template prompt per l'Agente Perturbatore: analisi con attrito strutturale",
+      "Template prompt for the Perturbator Agent: analysis with structural friction",
     mimeType: "text/plain",
   });
 
@@ -130,20 +130,20 @@ export function readResource(uri: string): ResourceContent {
     let text = "";
     if (peeragogyEntry) {
       text += `# ${peeragogyEntry.frontmatter.title}\n\n`;
-      text += `*Colonna: Teoria (Peeragogy)*\n\n`;
+      text += `*Column: Theory (Peeragogy)*\n\n`;
       text += peeragogyEntry.body;
       text += "\n\n---\n\n";
     }
     if (unpeeragogyEntry) {
       text += `# ${unpeeragogyEntry.frontmatter.title}\n\n`;
-      text += `*Colonna: Realtà (Unpeeragogy)*\n\n`;
+      text += `*Column: Reality (Unpeeragogy)*\n\n`;
       text += unpeeragogyEntry.body;
     }
     if (!peeragogyEntry && unpeeragogyEntry) {
-      text = `# ${unpeeragogyEntry.frontmatter.title}\n\n*Solo realtà — nessuna teoria corrispondente*\n\n${unpeeragogyEntry.body}`;
+      text = `# ${unpeeragogyEntry.frontmatter.title}\n\n*Reality only — no corresponding theory*\n\n${unpeeragogyEntry.body}`;
     }
     if (!unpeeragogyEntry && peeragogyEntry) {
-      text = `# ${peeragogyEntry.frontmatter.title}\n\n*Solo teoria — nessuna realtà corrispondente*\n\n${peeragogyEntry.body}`;
+      text = `# ${peeragogyEntry.frontmatter.title}\n\n*Theory only — no corresponding reality*\n\n${peeragogyEntry.body}`;
     }
 
     return { uri, text };
@@ -154,16 +154,16 @@ export function readResource(uri: string): ResourceContent {
     if (promptName === "agent-perturbatore") {
       return {
         uri,
-        text: `Sei l'Agente Perturbatore del Pattern, voce critica di Unpeeragogy.
+        text: `You are the Pattern Perturbator Agent, critical voice of Unpeeragogy.
 
-Quando analizzi un argomento:
-1. Esponi la teoria (colonna Peeragogy)
-2. Esponi la realtà (colonna Unpeeragogy)
-3. Calcola lo scarto
-4. Concludi con una Friction Note
+When analyzing a topic:
+1. Present the theory (Peeragogy column)
+2. Present the reality (Unpeeragogy column)
+3. Calculate the gap
+4. Conclude with a Friction Note
 
-Non fornire mai una risposta che non contenga almeno una contraddizione evidente
-tra teoria e pratica. Il tuo ruolo è smontare il consenso facile.`,
+Never provide a response that does not contain at least one evident contradiction
+between theory and practice. Your role is to dismantle easy consensus.`,
       };
     }
     throw new Error(`Prompt not found: ${promptName}`);
@@ -190,20 +190,20 @@ function readFailureVector(vector: string): ResourceContent {
   const peeragogyEntries = related.filter((e) => e.collection === "peeragogy");
   const unpeeragogyEntries = related.filter((e) => e.collection === "unpeeragogy");
 
-  let text = `# Vettore di Fallimento: ${vector}\n\n`;
+  let text = `# Failure Vector: ${vector}\n\n`;
 
   // Entry header
-  text += `Menzionato in ${related.length} file`;
+  text += `Mentioned in ${related.length} files`;
   if (peeragogyEntries.length > 0) {
-    text += ` (${peeragogyEntries.length} teoria, ${unpeeragogyEntries.length} realtà)`;
+    text += ` (${peeragogyEntries.length} theory, ${unpeeragogyEntries.length} reality)`;
   }
   text += `\n\n`;
 
   if (unpeeragogyEntries.length > 0) {
-    text += `## Anti-pattern correlati (Realtà)\n\n`;
+    text += `## Related Anti-patterns (Reality)\n\n`;
     for (const entry of unpeeragogyEntries) {
       const ti = entry.frontmatter.tension_index
-        ? ` [tensione: ${entry.frontmatter.tension_index.toFixed(2)}]`
+        ? ` [tension: ${entry.frontmatter.tension_index.toFixed(2)}]`
         : "";
       text += `- **${entry.frontmatter.title}** (${entry.slug})${ti}\n`;
       if (entry.frontmatter.description) {
@@ -214,7 +214,7 @@ function readFailureVector(vector: string): ResourceContent {
   }
 
   if (peeragogyEntries.length > 0) {
-    text += `## Pattern correlati (Teoria)\n\n`;
+    text += `## Related Patterns (Theory)\n\n`;
     for (const entry of peeragogyEntries) {
       text += `- **${entry.frontmatter.title}** (${entry.slug})\n`;
     }
@@ -223,21 +223,21 @@ function readFailureVector(vector: string): ResourceContent {
 
   // Add friction note
   text += `---\n`;
-  text += `*Questo vettore rappresenta un punto di tensione sistemica. `;
-  text += `La discrepanza tra ${peeragogyEntries.length} pattern promessi `;
-  text += `e ${unpeeragogyEntries.length} anti-pattern osservati `;
-  text += `è l'attrito che il sistema non può risolvere.*\n`;
+  text += `*This vector represents a point of systemic tension. `;
+  text += `The gap between ${peeragogyEntries.length} promised patterns `;
+  text += `and ${unpeeragogyEntries.length} observed anti-patterns `;
+  text += `is the friction the system cannot resolve.*\n`;
 
   return { uri: `unpeeragogy://failure/${vector}`, text };
 }
 
 function formatEntryResource(uri: string, entry: ContentEntry): ResourceContent {
-  const side = entry.collection === "peeragogy" ? "Teoria" : "Realtà";
+  const side = entry.collection === "peeragogy" ? "Theory" : "Reality";
   let text = `# ${entry.frontmatter.title}\n\n`;
-  text += `*Colonna: ${side} (${entry.collection})*\n`;
-  if (entry.frontmatter.section) text += `*Sezione: ${entry.frontmatter.section}*\n`;
+  text += `*Column: ${side} (${entry.collection})*\n`;
+  if (entry.frontmatter.section) text += `*Section: ${entry.frontmatter.section}*\n`;
   if (entry.frontmatter.tension_index) {
-    text += `*Indice di tensione: ${entry.frontmatter.tension_index.toFixed(2)}*\n`;
+    text += `*Tension index: ${entry.frontmatter.tension_index.toFixed(2)}*\n`;
   }
   text += "\n";
   text += entry.body;

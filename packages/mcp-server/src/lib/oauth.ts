@@ -1,15 +1,15 @@
 /**
- * oauth.ts — OAuth 2.0 minimale per MCP Dynamic Client Registration.
+ * oauth.ts — Minimal OAuth 2.0 for MCP Dynamic Client Registration.
  *
- * Claude Desktop richiede OAuth per i server remoti nella UI "Aggiungi connettore".
- * Questo modulo implementa il minimo necessario:
+ * Claude Desktop requires OAuth for remote servers in the "Add Connector" UI.
+ * This module implements the minimum needed:
  *   - /.well-known/oauth-authorization-server  (discovery)
  *   - /register                                  (DCR)
  *   - /authorize                                 (auto-approve)
- *   - /token                                     (scambia code per MCP_AUTH_TOKEN)
+ *   - /token                                     (exchange code for MCP_AUTH_TOKEN)
  *
- * Tutti i client sono accettati, tutte le autorizzazioni sono automatiche.
- * Il token restituito è la MCP_AUTH_TOKEN del server.
+ * All clients are accepted, all authorisations are automatic.
+ * The returned token is the server's MCP_AUTH_TOKEN.
  */
 
 import crypto from "node:crypto";
@@ -35,7 +35,7 @@ const SERVER_BASE = process.env.MCP_PUBLIC_URL || "https://mcp.unpeeragogy.pyrag
 const REGISTERED_CLIENTS = new Map<string, ClientRecord>();
 const AUTH_CODES = new Map<string, AuthCode>();
 
-// Helper per parse JSON o form-urlencoded body
+// Helper to parse JSON or form-urlencoded body
 function parseRequestBody(req: http.IncomingMessage): Promise<Record<string, unknown>> {
   return new Promise((resolve, reject) => {
     let body = "";
@@ -72,7 +72,7 @@ function parseRequestBody(req: http.IncomingMessage): Promise<Record<string, unk
   });
 }
 
-// Helper per scrivere JSON response
+// Helper to write JSON response
 function jsonResponse(res: http.ServerResponse, status: number, data: unknown) {
   res.writeHead(status, { "Content-Type": "application/json" });
   res.end(JSON.stringify(data));
@@ -232,7 +232,7 @@ export async function handleToken(req: http.IncomingMessage, res: http.ServerRes
   }
 }
 
-// ─── Router (chiamato dal server principale) ──────────────────
+// ─── Router (called from main server HTTP handler) ───────────────
 export function routeOAuth(pathname: string, req: http.IncomingMessage, res: http.ServerResponse): boolean {
   if (pathname === "/.well-known/oauth-authorization-server" && req.method === "GET") {
     handleWellKnownOAuth(req, res);
