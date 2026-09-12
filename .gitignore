@@ -17,3 +17,12 @@ Thumbs.db
 GUIDA.md
 runs/
 scripts/__pycache__/
+
+# pi coding agent internal state
+.peer-state.json
+.peer-*.json
+
+# MCP test scripts (local dev only)
+packages/mcp-server/ground-truth.mjs
+packages/mcp-server/raw-handshake.mjs
+packages/mcp-server/verify-remote.mjs

@@ -7,10 +7,10 @@
 
 | Property | Value |
 |----------|-------|
-| **Server** | Pyragogy-Core (`91.99.70.26`) |
-| **Project** | Unpeeragogy (UUID: `k148lm5dloro147dpqnlpd91`) |
+| **Server** | Pyragogy-Core (`<VPS_IP>`) |
+| **Project** | Unpeeragogy (UUID: `<COOLIFY_PROJECT_UUID>`) |
 | **Port** | `3001` |
-| **Health** | ✅ `curl http://91.99.70.26:3001/health` → OK |
+| **Health** | ✅ `curl http://<VPS_IP>:3001/health` → OK |
 
 ## ⚠️ Manual step — Create MCP app from Coolify UI
 
@@ -71,7 +71,7 @@ curl -s -X POST "https://mcp.unpeeragogy.pyragogy.org/mcp/tool" \
   -d '{"tool":"tension-index","params":{}}'
 ```
 
-> **Security note**: prefer the `Authorization: Bearer` header over query params (`?token=`).
+> **Security note**: always prefer the `Authorization: Bearer` header over query params (`?token=`).
 > Query params leak to proxy/server logs. The query param fallback exists for backwards compatibility only.
 
 ### 3. Connect from MCP client (one command)

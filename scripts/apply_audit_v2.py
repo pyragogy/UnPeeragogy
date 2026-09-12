@@ -94,9 +94,9 @@ def fmt_evidence(ev: dict, label: str) -> str:
     if not desc:
         desc = claim[:200] if claim else "N/A"
 
-    lines = [f"**Caso {label} — {entity}**", f"- **Fenomeno:** {desc}"]
+    lines = [f"**Case {label} — {entity}**", f"- **Phenomenon:** {desc}"]
     if src:
-        lines.append(f"- **Fonte:** [{src}]({src})" if src.startswith("http") else f"- **Fonte:** {src}")
+        lines.append(f"- **Source:** [{src}]({src})" if src.startswith("http") else f"- **Source:** {src}")
     lines.append("")
     return "\n".join(lines)
 
@@ -202,9 +202,9 @@ def main():
             "",
             "## Summary",
             "",
-            f"{title}. Tensione: {old_t} → {new_t:.4f} (Δ={delta:+.4f}).",
+            f"{title}. Tension: {old_t} → {new_t:.4f} (Δ={delta:+.4f}).",
             "",
-            "## Evidenze Grounded",
+            "## Grounded Evidence",
             "",
             "### 🔹 Confirming (2)",
             "",
@@ -225,7 +225,7 @@ def main():
 
         if pos or neg:
             lines += [
-                "## Euristiche Operative",
+                "## Operational Heuristics",
                 "",
             ]
             if pos:
@@ -234,17 +234,17 @@ def main():
                 lines += ["### Negative Rule", "", f"> {neg}", ""]
 
         lines += [
-            "## Sintesi Obliqua",
+            "## Oblique Synthesis",
             "",
             sintesi,
             "",
             f"> **Perturbatore:** *{pert}*",
             "",
-            "## Tracciabilità",
+            "## Traceability",
             "",
             f"- **Audit:** `runs/audit-v2/{slug}.json`",
             f"- **Delta:** {old_t} → {new_t:.4f} ({delta:+.4f})",
-            f"- **Evidenze:** {len(ge)} ({len(conf)} confirming, {len(comp)} complicating)",
+            f"- **Evidence:** {len(ge)} ({len(conf)} confirming, {len(comp)} complicating)",
             "",
         ]
 
@@ -272,7 +272,7 @@ def main():
     print(f"{'=' * 60}")
     if dry_run:
         print(f"\n  Per applicare: python scripts/apply_audit_v2.py --apply")
-        print(f"  POI: rifinire Summary e Sintesi Obliqua con obliqo-voice-engine per ogni nodo.")
+        print(f"  TODO: refine Summary and Sintesi Obliqua with obliqo-voice-engine for each node.")
 
 
 if __name__ == "__main__":

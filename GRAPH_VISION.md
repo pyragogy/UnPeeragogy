@@ -1,11 +1,11 @@
-# Vault Graph & Tree — Visione di sviluppo
+# Vault Graph & Tree — Development Vision
 
-> *Un grafo che evolve. Un albero che si pota. Una knowledge base
->  che respira con le discussioni degli utenti e l'attrito del MCP.*
+> *A graph that evolves. A tree that gets pruned. A knowledge base
+>  that breathes with user discussions and MCP friction.*
 
-## 1. Architettura logica del grafo
+## 1. Logical Graph Architecture
 
-### 1.1 Modello dati
+### 1.1 Data model
 
 Il vault si fonda su una coppia esatta di collezioni Astro `peeragogy` e `unpeeragogy`, allineate per **slug**:
 
@@ -15,232 +15,232 @@ src/content/
   unpeeragogy/{slug}.mdx   ← realtà (colonna rossa)
 ```
 
-Ogni entry produce **un nodo** nel grafo. Gli attributi del nodo sono:
+Every entry produces **one node** in the graph. The node attributes are:
 
-| Campo | Tipo | Fonte | Ruolo |
+| Field | Type | Source | Role |
 |-------|------|-------|-------|
 | `id` | string | slug (es. `antipatterns`) | Identificatore unico, usato per navigazione `/{id}/` |
 | `name` | string | frontmatter `title` | Label visualizzata |
-| `group` | `"peeragogy"` / `"unpeeragogy"` / `"unpeeragogy-only"` | presenza in collezioni | Colore: azzurro (`#3b82f6`) se solo teoria, rosso (`#ef4444`) se esiste colonna realtà |
-| `val` | 1 o 2 | presenza di unpeeragogy | Raggio del nodo: 6px (solo teoria) o 8px (con realtà) |
-| `tension` | number \| null | `tension_index` in frontmatter | Mostrato in tooltip + badge nell'albero |
-| `section` | string | frontmatter `section` | Raggruppamento nell'albero |
-| `readingTime` | number | frontmatter `readingTime` | Minuti di lettura (badge albero) |
+| `group` | `"peeragogy"` / `"unpeeragogy"` / `"unpeeragogy-only"` | collection membership | Colour: blue (`#3b82f6`) if theory only, red (`#ef4444`) if reality column exists |
+| `val` | 1 or 2 | unpeeragogy presence | Node radius: 6px (theory only) or 8px (with reality) |
+| `tension` | number \| null | `tension_index` in frontmatter | Shown in tooltip + tree badge |
+| `section` | string | frontmatter `section` | Tree grouping |
+| `readingTime` | number | frontmatter `readingTime` | Reading time (tree badge) |
 
-### 1.2 Collegamenti (links)
+### 1.2 Connections (links)
 
-Il vault genera **due tipi di link**:
+The vault generates **two types of links**:
 
-1. **Catena di sezione** — ogni nodo `peeragogy` è linkato al successivo nella stessa sezione, ordinato per `order`. Questo crea una struttura lineare per sezione, visibile come "catena" nel grafo.
+1. **Section chain** — each `peeragogy` node is linked to the next in the same section, ordered by `order`. This creates a linear structure per section, visible as a "chain" in the graph.
 
-2. **Link implicito teoria↔realtà** — ogni entry che ha sia peeragogy che unpeeragogy condivide lo stesso slug. Nel grafo i due nodi **non sono separati**: esiste un solo nodo per slug, con `group="unpeeragogy"` se la coppia esiste. Il link di tensione è implicito: il nodo è rosso e il badge `T:n.n` mostra l'indice.
+2. **Implicit theory↔reality link** — every entry that has both peeragogy and unpeeragogy shares the same slug. In the graph the two nodes **are not separate**: a single node exists per slug, with `group="unpeeragogy"` if the pair exists. The tension link is implicit: the node is red and the `T:n.n` badge shows the index.
 
-Non esiste **link incrociato esplicito** tra nodi di diverse sezioni. Il layout force‑directed farà emergere naturalmente la prossimità di nodi semanticamente vicini grazie alla forza `charge` e `link distance`.
+There is no **explicit cross-link** between nodes of different sections. The force-directed layout will naturally surface the proximity of semantically close nodes through the `charge` and `link distance` forces.
 
-### 1.3 Topologia attuale
+### 1.3 Current topology
 
 ```
-87 nodi · ~86 connessioni (una per coppia nella catena di sezione)
-- Sezioni: ~8-12, variabili (dipende da frontmatter section)
-- Nodi rossi: ~84 (con realtà unpeeragogy) + ~1-3 unpeeragogy-only
-- Nodi azzurri: solo peeragogy senza controparte unpeeragogy (pochi)
+87 nodes · ~86 connections (one per pair in the section chain)
+- Sections: ~8-12, variable (depends on frontmatter section)
+- Red nodes: ~84 (with unpeeragogy counterpart) + ~1-3 unpeeragogy-only
+- Blue nodes: peeragogy only, no unpeeragogy counterpart (few)
 ```
 
-## 2. Rendering del grafo
+## 2. Graph Rendering
 
-### 2.1 Motore
+### 2.1 Engine
 
-Canvas2D + `d3-force` — nessun acceleratore grafico. Bundle JS: ~22KB.
+Canvas2D + `d3-force` — no graphics accelerator. Bundle JS: ~22KB.
 
-| Parametro | Valore | Giustificazione |
+| Parameter | Value | Rationale |
 |-----------|--------|-----------------|
-| `charge` | -60 | Repulsione debole (ispirato Quartz: `repelForce 0.5 × -100`) |
-| `link.distance` | 50 | Legami corti per cluster visibili |
-| `link.strength` | 0.2 | Flessibilità: il grafo può allontanarsi dalla linea retta |
-| `center.strength` | 0.3 | Attrazione verso il centro (evita fughe) |
-| `collide.radius` | 12 | Separazione minima (evita sovrapposizioni) |
-| `alphaDecay` | 0.03 | Assestamento lento — il grafo "balla" qualche secondo |
-| `velocityDecay` | 0.4 | Smorzamento naturale |
+| `charge` | -60 | Weak repulsion (inspired by Quartz: `repelForce 0.5 × -100`) |
+| `link.distance` | 50 | Short links for visible clusters |
+| `link.strength` | 0.2 | Flexibility: graph can deviate from straight lines |
+| `center.strength` | 0.3 | Centre attraction (prevents drifting) |
+| `collide.radius` | 12 | Minimum separation (prevents overlaps) |
+| `alphaDecay` | 0.03 | Slow settling — graph "dances" for a few seconds |
+| `velocityDecay` | 0.4 | Natural damping |
 
-Il posizionamento iniziale è **random** (stile Quartz), non a cerchio o a sfera. Questo evita collassi centralizzati perché ogni nodo parte già a distanza variabile dal centro.
+Initial positioning is **random** (Quartz-style), not circular or spherical. This prevents centralised collapse because each node starts at varying distance from the centre.
 
-### 2.2 Interazioni
+### 2.2 Interactions
 
-| Input | Azione | Dettaglio |
+| Input | Action | Detail |
 |-------|--------|-----------|
-| Hover | Tooltip + highlight | Mostra nome nodo e `T:n.n` se presente |
-| Click nodo | Naviga | `window.location.href = "/{id}/"` |
-| Drag nodo | Sposta | Fissa posizione, nave trascinabile; rilascio naviga se click breve |
+| Hover | Tooltip + highlight | Shows node name and `T:n.n` if present |
+| Node click | Navigate | `window.location.href = "/{id}/"` |
+| Node drag | Move | Fixes position, draggable; release navigates if short click |
 | Scroll | Zoom | Scale factor 0.2–6 |
-| Pan (drag sfondo) | Move viewport | Trasla coordinate |
-| Doppio click | ZoomToFit | Re‑centra su tutti i nodi |
-| Pulsanti: ＋ − ⟲ Aa | Zoom in/out/reset/label toggle | Controller 40px |
+| Pan (background drag) | Move viewport | Translates coordinates |
+| Double click | ZoomToFit | Re‑centres on all nodes |
+| Buttons: ＋ − ⟲ Aa | Zoom in/out/reset/label toggle | 40px controller |
 
-### 2.3 Tema
+### 2.3 Theme
 
-| Elemento | Chiaro | Scuro |
+| Element | Light | Dark |
 |----------|--------|-------|
-| Sfondo canvas | `--color-bg` (#ffffff) | `--color-bg` (#0c0c0e) |
+| Canvas background | `--color-bg` (#ffffff) | `--color-bg` (#0c0c0e) |
 | Link | `rgba(100,110,130,0.2)` | `rgba(200,210,230,0.35)` |
 | Label | `rgba(80,85,95,0.6)` | `rgba(210,220,240,0.65)` |
-| Legenda | Peeragogy: `#3b82f6`, Unpeeragogy: `#ef4444` | invariato |
+| Legend | Peeragogy: `#3b82f6`, Unpeeragogy: `#ef4444` | unchanged |
 | Tooltip | `--surface-raised` | `--surface-raised` |
 
-## 3. Albero (Tree View)
+## 3. Tree View
 
-### 3.1 Struttura
+### 3.1 Structure
 
-La vista alternativa è un **albero sezione-based**:
+The alternative view is a **section-based tree**:
 
 ```
-Sezione 1 (N nodi teoria · M nodi realtà)        ← header collassabile
+Section 1 (N theory nodes · M reality nodes)   ← collapsible header
 ├── entry 1 ● [T n.n] [Xm] →
 ├── entry 2 ● [T n.n] [Xm] →
 └── entry 3 ● [T n.n] [Xm] →
 
-Sezione 2 ...
+Section 2 ...
 ```
 
-Ogni sezione è collassabile. Nodi con `hasUnpeeragogy=true` hanno pallino rosso, gli altri azzurro. Il badge `T n.n` segue la scala colore:
-- `T < 0.6`: azzurro
-- `T 0.6–0.99`: arancione
-- `T ≥ 1.0`: rosso
+Each section is collapsible. Nodes with `hasUnpeeragogy=true` have a red dot, others blue. The `T n.n` badge follows a colour scale:
+- `T < 0.6`: blue
+- `T 0.6–0.99`: orange
+- `T ≥ 1.0`: red
 
-### 3.2 Filtri
+### 3.2 Filters
 
-- **Ricerca testuale**: filtra live su titolo e contenuto delle entry (case‑insensitive)
-- **Tag filter**: ogni tag genera un bottone; cliccando si mostrano solo le entry con quel tag
+- **Text search**: live filter on entry title and content (case‑insensitive)
+- **Tag filter**: each tag generates a button; clicking shows only entries with that tag
 
-### 3.3 Relazione grafo ↔ albero
+### 3.3 Graph ↔ Tree Relationship
 
 ```
-┌─────────────────────┐     ┌─────────────────────┐
-│       GRAFO         │     │       ALBERO        │
-│  Force-directed     │     │  Sezione-based       │
-│  Esplorativo        │     │  Navigazione lineare │
-│  "Dove sono i       │     │  "Quali sono i       │
-│   cluster rossi?"   │     │   capitoli?"         │
-│  Legame = link      │     │  Legame = sezione    │
-│  Zoom/pan/drag      │     │  Collassa/espandi    │
-└─────────────────────┘     └─────────────────────┘
-         ↕ toggle utente ↕
+┌─────────────────────┐     ┌───────────────────────┐
+│       GRAPH         │     │        TREE           │
+│  Force-directed     │     │  Section-based         │
+│  Exploratory        │     │  Linear navigation    │
+│  "Where are the     │     │  "What are the         │
+│   red clusters?"    │     │   chapters?"          │
+│  Bond = link        │     │  Bond = section       │
+│  Zoom/pan/drag      │     │  Collapse/expand      │
+└─────────────────────┘     └───────────────────────┘
+         ↕ user toggle ↕
 ```
 
-L'utente passa da grafo ad albero con un toggle (`view-graph-btn` / `view-tree-btn`). Il dato è lo stesso — cambia la presentazione.
+The user switches between graph and tree with a toggle (`view-graph-btn` / `view-tree-btn`). The data is the same — only the presentation changes.
 
-## 4. Evoluzione del grafo (fasi)
+## 4. Graph Evolution (Phases)
 
-L'obiettivo ambizioso: il grafo deve poter **evolvere dinamicamente** in risposta a:
+The ambitious goal: the graph must be able to **evolve dynamically** in response to:
 
-1. **Nuovo contenuto** (nuove entry peeragogy/unpeeragogy scritte dall'AI o dall'editore)
-2. **Interazione MCP** (tool `inject-friction`, `analyze`, `tension-index`)
-3. **Discussioni utente** (Giscus / commenti sulle pagine → nuovi unpeeragogy)
+1. **New content** (new peeragogy/unpeeragogy entries written by AI or editor)
+2. **MCP interaction** (`inject-friction`, `analyze`, `tension-index` tools)
+3. **User discussions** (Giscus / page comments → new unpeeragogy)
 
-### Fase A — Popolamento statico (in corso)
+### Phase A — Static Population (in progress)
 
-- Scrivere contenuti unpeeragogy per ogni slug esistente dove manca
-- Ogni nuovo file unpeeragogy entra nel grafo automaticamente al rebuild della site
-- Aggiornamento `tension_index` via script (pre‑calcolo statico)
+- Write unpeeragogy content for every existing slug where it is missing
+- Each new unpeeragogy file enters the graph automatically on site rebuild
+- `tension_index` updated via script (static pre-calculation)
 
-**Trigger**: `git push → Coolify rebuild → nuovo grafo deployato`
+**Trigger**: `git push → Coolify rebuild → new graph deployed`
 
-### Fase B — Reattività MCP (prossima)
+### Phase B — MCP Reactivity (next)
 
-Il server MCP **strumentalizza** il grafo: un client AI può chiamare tool e ricevere dati che il grafo visualizzerà.
+The MCP server **instrumentalises** the graph: an AI client can call tools and receive data that the graph will display.
 
-| Tool MCP | Effetto sul grafo |
+| MCP Tool | Effect on Graph |
 |----------|------------------|
-| `search(query)` | Ritorna slug + score — usabile per evidenziare nodi nel grafo |
-| `compare(slug)` | Ritorna dual‑column — usabile per generare edge pesato tra teoria e realtà |
-| `analyze(slug)` | Estrae vettori di fallimento — nuovi tag/nuovi gruppi nel grafo |
-| `inject-friction(topic, mode)` | Produce sintesi — potrebbe generare **nuovo nodo unpeeragogy-only** se l'attrito è inedito |
-| `tension-index(slug)` | Aggiorna `tension_index` — modifica raggio/colore nodo live |
+| `search(query)` | Returns slug + score — usable for highlighting nodes in the graph |
+| `compare(slug)` | Returns dual‑column — usable for generating weighted edges between theory and reality |
+| `analyze(slug)` | Extracts failure vectors — new tags/groups in the graph |
+| `inject-friction(topic, mode)` | Produces synthesis — could generate **new unpeeragogy-only node** if friction is novel |
+| `tension-index(slug)` | Updates `tension_index` — changes node radius/colour live |
 
-Il salto evolutivo: **un tool MCP che genera attrito sufficientemente alto potrebbe creare un nuovo nodo nel grafo senza rebuild del sito**. Questo richiede:
+The evolutionary leap: **an MCP tool that generates sufficiently high friction could create a new graph node without a site rebuild**. This requires:
 
-1. Un endpoint `/api/graph/upsert-node` sul server web (Astro API route o middleware)
-2. O in alternativa: MCP Server scrive su un file JSON che il client legge via fetch lato browser
+1. An `/api/graph/upsert-node` endpoint on the web server (Astro API route or middleware)
+2. Or alternatively: MCP Server writes to a JSON file that the client reads via browser fetch
 
-**Decisione aperta**: la Fase B va implementata **dopo** che il contenuto statico è solido. Senza un corpus robusto, l'evoluzione dinamica produce solo rumore.
+**Open decision**: Phase B should be implemented **after** the static content is solid. Without a robust corpus, dynamic evolution produces only noise.
 
-### Fase C — Community feedback loop (visionaria)
+### Phase C — Community Feedback Loop (visionary)
 
 ```
-Discussione Giscus su una pagina
+Giscus discussion on a page
        ↓
-Un utente segnala: "questo non funziona nella pratica"
+A user reports: "this doesn't work in practice"
        ↓
-L'Agente Perturbatore (via MCP) analizza il commento
+The Perturbator agent (via MCP) analyses the comment
        ↓
-Se il commento rivela un nuovo vettore di fallimento:
-  → Viene creata una bozza di entry unpeeragogy
-  → La bozza finisce in una Draft PR su GitHub
-  → L'editore umano la valida e merge
+If the comment reveals a new failure vector:
+  → A draft unpeeragogy entry is created
+  → The draft becomes a Draft PR on GitHub
+  → The human editor validates and merges
        ↓
-Al prossimo rebuild: il grafo ha un nuovo nodo rosso
+On next rebuild: the graph has a new red node
 ```
 
-Questo flusso è già parzialmente implementato dall'architettura MCP + GitHub Actions. Manca:
+This flow is already partially implemented by the MCP + GitHub Actions architecture. Missing:
 
-- Un **classificatore di attrito** (AI + MCP `analyze`) che decida se un commento Giscus merita una nuova entry
-- Una **coda di proposizioni** (Draft PR automatica con template precompilato)
-- Un **temporizzatore** (settimanale, non in tempo reale — il grafo non deve oscillare a ogni commento)
+- A **friction classifier** (AI + MCP `analyze`) that decides whether a Giscus comment deserves a new entry
+- A **proposition queue** (automatic Draft PR with pre-compiled template)
+- A **timer** (weekly, not real-time — the graph must not oscillate on every comment)
 
-## 5. Metriche di salute del grafo
+## 5. Graph Health Metrics
 
-Il grafo stesso deve essere misurabile. Propongo queste metriche, calcolabili via MCP:
+The graph itself must be measurable. I propose these metrics, calculable via MCP:
 
-| Metrica | Calcolo | Soglia ideale |
+| Metric | Calculation | Ideal Threshold |
 |---------|---------|---------------|
-| **Copertura realtà** | `|unpeeragogy| / |peeragogy|` | ≥ 0.8 (80% di slug con colonna realtà) |
-| **Tensione media** | `avg(tension_index)` su tutti i nodi rossi | ≥ 0.5 (se è troppo bassa, l'attrito è finto) |
-| **Densità edge** | `|links| / |nodes|` | 0.8–1.2 (grafo né troppo sparso né troppo denso) |
-| **Nodi unpeeragogy-only** | `group="unpeeragogy-only"` count | ≥ 5% del totale (attrito inedito) |
-| **Cluster rosso** | % nodi rossi nel raggio di 3 link da un nodo rosso | ≥ 40% (i nodi rossi devono aggregarsi) |
+| **Reality coverage** | `|unpeeragogy| / |peeragogy|` | ≥ 0.8 (80% of slugs with a reality column) |
+| **Average tension** | `avg(tension_index)` across all red nodes | ≥ 0.5 (if too low, friction is fake) |
+| **Edge density** | `|links| / |nodes|` | 0.8–1.2 (graph neither too sparse nor too dense) |
+| **Unpeeragogy-only nodes** | `group="unpeeragogy-only"` count | ≥ 5% of total (novel friction) |
+| **Red cluster** | % red nodes within 3 links of a red node | ≥ 40% (red nodes must aggregate) |
 
-## 6. Piano d'azione
+## 6. Action Plan
 
-### Subito — Popolamento contenuti
+### Now — Content Population
 
-1. Per ogni slug peeragogy senza unpeeragogy corrispondente → scrivere file `.mdx` in
-   `src/content/unpeeragogy/` con:
-   - Stesso `slug`
-   - `title` corrispondente
-   - `tension_index` calcolato (script o manuale)
-   - Corpo che evidenzia il fallimento/pratica reale
+1. For every peeragogy slug without a corresponding unpeeragogy → write `.mdx` file in
+   `src/content/unpeeragogy/` with:
+   - Same `slug`
+   - Matching `title`
+   - `tension_index` calculated (script or manual)
+   - Body that highlights the failure/real-world practice
 
-2. Per ogni slug che ha solo unpeeragogy → scrivere o identificare la teoria
-   peeragogy corrispondente, o lasciarlo come `unpeeragogy-only` (nodo rosso senza
-   azzurro — attrito puro).
+2. For every slug that only has unpeeragogy → write or identify the corresponding
+   peeragogy theory, or leave it as `unpeeragogy-only` (red node without
+   blue — pure friction).
 
-3. Ricalcolare `tension_index` globale con `scripts/calculate-tension-index.js`.
+3. Recalculate global `tension_index` with `scripts/calculate-tension-index.js`.
 
-### Presto — Raffinamento grafo
+### Soon — Graph Refinement
 
-1. Aggiungere **pesatura edge** in base a quanti tag condividono due nodi
-   (link più spesso = più tag in comune)
-2. Aggiungere **filtro sezione** nel grafo (mostra/nascondi sezioni)
-3. Aggiungere **layout radial** per sezioni (opzione Quartz `enableRadial: true`)
-4. Aggiungere **highlight nodi visitati** (localStorage, stile Quartz)
+1. Add **edge weighting** based on how many tags two nodes share
+   (thicker link = more common tags)
+2. Add **section filter** in the graph (show/hide sections)
+3. Add **radial layout** for sections (Quartz option `enableRadial: true`)
+4. Add **visited node highlighting** (localStorage, Quartz-style)
 
-### Dopo — MCP bridge
+### Later — MCP Bridge
 
-1. API route `/api/graph` che serve dati grafo aggiornati
-2. MCP tool `graph-status` che restituisce le metriche di salute
-3. MCP tool `graph-suggest-link` che propone nuovi edge basati su similarità semantica
-4. Webhook Giscus → MCP `inject-friction` → Draft PR
+1. API route `/api/graph` serving updated graph data
+2. MCP tool `graph-status` returning health metrics
+3. MCP tool `graph-suggest-link` proposing new edges based on semantic similarity
+4. Giscus webhook → MCP `inject-friction` → Draft PR
 
-## 7. Regole del gioco
+## 7. Rules of the Game
 
-1. **Niente WebGL**. Mai. Canvas2D forever.
-2. **Niente hub fittizi**. I nodi rappresentano solo entry reali.
-3. **Il rosso è segnale, non decorazione**. Ogni nodo rosso deve avere una ragione
-   (un failure vector documentato o un tension index > 0).
-4. **Unpeeragogy nucleo, non periferia**. I nodi rossi non sono "errori" da ignorare,
-   sono il contributo originale. Devono essere ben visibili.
-5. **Popolamento prima di automazione**. La Fase A (contenuto statico) viene prima
-   della Fase B (MCP bridge) e della Fase C (community feedback). Senza contenuto,
-   il grafo è solo esercizio di stile.
-6. **Ogni entry unpeeragogy è un atto di coraggio**. Documentare fallimenti è più
-   difficile che documentare successi. Il grafo lo riflette: i nodi rossi sono
-   più grandi non per vanità, ma perché pesano di più.
+1. **No WebGL**. Ever. Canvas2D forever.
+2. **No fake hubs**. Nodes represent only real entries.
+3. **Red is a signal, not decoration**. Every red node must have a reason
+   (a documented failure vector or tension index > 0).
+4. **Unpeeragogy is core, not periphery**. Red nodes are not "errors" to ignore,
+   they are the original contribution. They must be clearly visible.
+5. **Population before automation**. Phase A (static content) comes before
+   Phase B (MCP bridge) and Phase C (community feedback). Without content,
+   the graph is just an exercise in style.
+6. **Every unpeeragogy entry is an act of courage**. Documenting failures is harder
+   than documenting successes. The graph reflects this: red nodes are
+   larger not out of vanity, but because they weigh more.

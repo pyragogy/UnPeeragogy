@@ -11,10 +11,7 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
     server: {
-      allowedHosts: [
-        "cbae7cc25d09add1-91-99-70-26.serveousercontent.com",
-        ".serveousercontent.com",
-      ],
+      // Allowed hosts — set to your Coolify proxy domain if needed
     },
   },
   srcDir: "./src",

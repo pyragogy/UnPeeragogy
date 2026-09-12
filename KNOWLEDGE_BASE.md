@@ -1,10 +1,10 @@
 # Unpeeragogy — Knowledge Base
 
-> Benvenuto nel vault Obsidian di Unpeeragogy.
-> Questo vault è sincronizzato con il repository GitHub. Ogni modifica ai file
-> `.mdx` in `src/content/` viene riflessa nel sito su `unpeeragogy.pyragogy.org`.
+> Welcome to the Unpeeragogy Obsidian vault.
+> This vault is synced with the GitHub repository. Every change to `.mdx` files
+> in `src/content/` is reflected on the site at `unpeeragogy.pyragogy.org`.
 
-## 🌐 Struttura del Vault
+## 🌐 Vault Structure
 
 ```
 📁 src/content/peeragogy/   → 88 file MDX (Teoria Peeragogy)
@@ -12,39 +12,39 @@
 📁 .obsidian/               → Configurazione del vault
 ```
 
-## 📊 Tension Index (Indice di Tensione)
+## 📊 Tension Index
 
-Ogni file nella colonna Realtà ha un `tension_index` pre-calcolato:
+Every file in the Reality column has a pre-calculated `tension_index`:
 
-| Indice | Colore | Significato |
+| Index | Color | Meaning |
 |--------|--------|-------------|
-| 0.0–0.3 | 🟢 | Tensione bassa |
-| 0.3–0.6 | 🟡 | Tensione moderata |
-| 0.6–1.0 | 🟠 | Tensione alta |
-| 1.0–2.0 | 🔴 | Tensione critica |
+| 0.0–0.3 | 🟢 | Low tension |
+| 0.3–0.6 | 🟡 | Moderate tension |
+| 0.6–1.0 | 🟠 | High tension |
+| 1.0–2.0 | 🔴 | Critical tension |
 
-## 🔗 Collegamenti tra Vault
+## 🔗 Vault Links
 
-Usa `[[wikilinks]]` per connettere pattern e anti-pattern:
-- `[[cooperation]]` — collega al file corrispondente
-- `[[antipatterns]]` — pagina degli anti-pattern
+Use `[[wikilinks]]` to connect patterns and anti-patterns:
+- `[[cooperation]]` — links to the corresponding file
+- `[[antipatterns]]` — anti-patterns page
 
-## 🔍 Ricerca
+## 🔍 Search
 
 - `Ctrl/Cmd + P` → Command Palette
-- `Ctrl/Cmd + O` → Vai al file
-- `Ctrl/Cmd + Shift + F` → Cerca in tutti i file
+- `Ctrl/Cmd + O` → Go to file
+- `Ctrl/Cmd + Shift + F` → Search in all files
 
-## 🧩 Css Snippet
+## 🧩 CSS Snippet
 
-Il vault include un tema Deep Navy (`unpeeragogy.css`). Attivalo in:
+The vault includes a Deep Navy theme (`unpeeragogy.css`). Activate it in:
 Settings → Appearance → CSS snippets
 
 ## ⚡ MCP Server
 
-Per interrogare il vault via AI (Claude, Cline, VS Code):
+To query the vault via AI (Claude, Cline, VS Code):
 ```bash
-# Connessione locale al server MCP
+# Local connection to MCP server
 # URL: http://localhost:3001/sse
 # Token: MCP_AUTH_TOKEN
 ```

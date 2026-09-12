@@ -43,7 +43,7 @@ GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN")
 DRY_RUN = "--dry-run" in sys.argv
 
 if not GITHUB_TOKEN and not DRY_RUN:
-    print("ERROR: export GITHUB_TOKEN='ghp_...' prima di eseguire.")
+    print("ERROR: export GITHUB_TOKEN='ghp_...' before running.")
     sys.exit(1)
 
 OWNER = "pyragogy"

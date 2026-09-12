@@ -1,10 +1,10 @@
 /**
- * sync-log.mjs — Genera una entry di log mensile
+ * sync-log.mjs — Generate a monthly log entry
  *
- * Raccoglie:
- * 1. Discussioni GitHub active col tag "discussione"
- * 2. Entry modificate nell'ultimo mese (git log)
- * 3. Metriche del grafo (da dist/api/graph.json o ricalcolate)
+ * Collects:
+ * 1. Active GitHub discussions tagged "discussione"
+ * 2. Entries modified in the last month (git log)
+ * 3. Graph metrics (from dist/api/graph.json or recalculated)
  *
  * Usage:
  *   GITHUB_TOKEN=ghp_xxx node scripts/sync-log.mjs
@@ -22,7 +22,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const CONTENT_LOG = path.resolve(__dirname, "..", "src", "content", "log");
 const GRAPH_JSON = path.resolve(__dirname, "..", "dist", "api", "graph.json");
 
-// ─── Helpers ────────────────────────────────────────────────
+// ─── Helpers ──────────────────────────────────────────────────
 
 function run(cmd, opts = {}) {
   try {
@@ -41,7 +41,7 @@ function getCurrentMonth() {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
 }
 
-// ─── 1. GitHub Discussions ──────────────────────────────────
+// ─── 1. GitHub Discussions ────────────────────────────────────
 
 async function getActiveDiscussions(token) {
   const headers = {
@@ -49,7 +49,7 @@ async function getActiveDiscussions(token) {
     Accept: "application/vnd.github+json",
   };
 
-  // Query discussions with "discussione" label
+  // Query discussions with "discussione" label (kept as is for consistency)
   const query = `query {
     repository(owner: "pyragogy", name: "UnPeeragogy") {
       discussions(orderBy: {field: CREATED_AT, direction: DESC}, first: 50) {
@@ -138,9 +138,9 @@ function generateMarkdown({ month, discussions, changes, metrics }) {
   );
 
   const yaml = `---
-title: "Mese ${month}"
+title: "Month ${month}"
 month: "${month}"
-description: "Revisione mensile — ${discussionCount} discussioni attive, ${changes.entries.length} entry modificate, ${changes.commits} commit."
+description: "Monthly review — ${discussionCount} active discussions, ${changes.entries.length} entries modified, ${changes.commits} commits."
 metrics:
   nodeCount: ${metrics.nodeCount}
   linkCount: ${metrics.linkCount}
@@ -154,13 +154,13 @@ ${changes.items.map((c) => `  - type: ${c.type}\n    description: "${c.descripti
 buildTimestamp: "${new Date().toISOString()}"
 ---`;
 
-  let body = `## Riepilogo del mese\n\n`;
-  body += `**${changes.commits} commit** su **${changes.entries.length} entry** modificate.\n`;
-  body += `**${discussionCount} discussioni attive** su GitHub.\n\n`;
+  let body = `## Monthly Summary\n\n`;
+  body += `**${changes.commits} commits** on **${changes.entries.length} entries** modified.\n`;
+  body += `**${discussionCount} active discussions** on GitHub.\n\n`;
 
   // Discussions section
   if (sortedDiscussions.length > 0) {
-    body += `### 💬 Discussioni attive\n\n`;
+    body += `### 💬 Active Discussions\n\n`;
     for (const d of sortedDiscussions) {
       body += `- **#${d.number}** — ${d.title} (${d.comments?.totalCount || 0} commenti)\n`;
     }
@@ -168,7 +168,7 @@ buildTimestamp: "${new Date().toISOString()}"
   }
 
   // Changes section
-  const types = { discussion: "💬 Discussioni", entry: "✏️ Entry modificate", graph: "🕸️ Grafo", decision: "⚡ Decisioni" };
+  const types = { discussion: "💬 Discussions", entry: "✏️ Modified Entries", graph: "🕸️ Graph", decision: "⚡ Decisions" };
   for (const [type, label] of Object.entries(types)) {
     const typeChanges = changes.items.filter((c) => c.type === type);
     if (typeChanges.length === 0) continue;
@@ -182,17 +182,17 @@ buildTimestamp: "${new Date().toISOString()}"
   }
 
   // Metrics section
-  body += `### 📊 Metriche\n\n`;
-  body += `| Metrica | Valore |\n|---------|-------|\n`;
-  body += `| Nodi | ${metrics.nodeCount} |\n`;
-  body += `| Link | ${metrics.linkCount} |\n`;
-  body += `| Tensione media | ${metrics.avgTension} |\n`;
-  body += `| Copertura | ${metrics.coverage} |\n`;
-  body += `| Densità | ${metrics.density} |\n`;
-  body += `| Parole totali | ${metrics.totalWords || 0} |\n`;
-  body += `| Discussioni attive | ${discussionCount} |\n\n`;
+  body += `### 📊 Metrics\n\n`;
+  body += `| Metric | Value |\n|---------|-------|\n`;
+  body += `| Nodes | ${metrics.nodeCount} |\n`;
+  body += `| Links | ${metrics.linkCount} |\n`;
+  body += `| Average Tension | ${metrics.avgTension} |\n`;
+  body += `| Coverage | ${metrics.coverage} |\n`;
+  body += `| Density | ${metrics.density} |\n`;
+  body += `| Total Words | ${metrics.totalWords || 0} |\n`;
+  body += `| Active Discussions | ${discussionCount} |\n\n`;
 
-  body += `---\n\n*Log generato il ${new Date().toLocaleDateString("it-IT", { year: "numeric", month: "long", day: "numeric" })}.*\n`;
+  body += `---\n\n*Log generated on ${new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}.*\n`;
 
   return `${yaml}\n\n${body}`;
 }
@@ -204,7 +204,7 @@ async function main() {
   const month = process.argv[2] || getCurrentMonth();
   const filePath = path.join(CONTENT_LOG, `${month}.mdx`);
 
-  console.log(`📋 Sync log per ${month}...`);
+  console.log(`📋 Sync log for ${month}...`);
 
   // Collect metrics
   const metrics = getGraphMetrics();
@@ -212,11 +212,11 @@ async function main() {
 
   // Get discussions
   const discussions = token ? await getActiveDiscussions(token) : [];
-  console.log(`  💬 ${discussions.length} discussioni trovate`);
+  console.log(`  💬 ${discussions.length} discussions found`);
 
   // Get git changes
   const changes = getRecentChanges();
-  console.log(`  ✏️ ${changes.entries.length} entry modificate (${changes.commits} commit)`);
+  console.log(`  ✏️ ${changes.entries.length} entries modified (${changes.commits} commits)`);
 
   // Build changes list
   const changeItems = [];
@@ -226,14 +226,14 @@ async function main() {
     changeItems.push({
       type: "discussion",
       description: `#${d.number} — ${d.title}`,
-      detail: `${d.comments?.totalCount || 0} commenti${slug ? ` (slug: ${slug})` : ""}`,
+      detail: `${d.comments?.totalCount || 0} comments${slug ? ` (slug: ${slug})` : ""}`,
     });
   }
 
   for (const entry of changes.entries) {
     changeItems.push({
       type: "entry",
-      description: `Entry modificata: ${entry}`,
+      description: `Modified entry: ${entry}`,
     });
   }
 
@@ -246,14 +246,14 @@ async function main() {
     if (diff > 0.01 || changes.commits > 0) {
       changeItems.push({
         type: "graph",
-        description: `Metriche aggiornate: ${metrics.nodeCount} nodi, ${metrics.linkCount} link, tensione ${metrics.avgTension}`,
-        detail: diff > 0.01 ? `Delta tensione: ${(metrics.avgTension - prevTension).toFixed(2)}` : undefined,
+        description: `Updated metrics: ${metrics.nodeCount} nodes, ${metrics.linkCount} links, tension ${metrics.avgTension}`,
+        detail: diff > 0.01 ? `Tension delta: ${(metrics.avgTension - prevTension).toFixed(2)}` : undefined,
       });
     }
   } else {
     changeItems.push({
       type: "graph",
-      description: `Snapshot: ${metrics.nodeCount} nodi, ${metrics.linkCount} link`,
+      description: `Snapshot: ${metrics.nodeCount} nodes, ${metrics.linkCount} links`,
     });
   }
 
@@ -267,7 +267,7 @@ async function main() {
 
   fs.mkdirSync(CONTENT_LOG, { recursive: true });
   fs.writeFileSync(filePath, markdown, "utf-8");
-  console.log(`✅ ${filePath}`);
+  console.log(`✅ Written: ${filePath}`);
 
   // Print summary for CI
   const summary = {

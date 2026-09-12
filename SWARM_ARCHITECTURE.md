@@ -1,95 +1,95 @@
 # Pyragogy Engine — SWARM Architecture & Implementation Plan
 
-> **Versione:** 0.2.0 (post tripla peer review: Claude → Gemini → Kimi)
-> **Stato:** Piano validato, GO per implementazione
+> **Version:** 0.2.0 (post triple peer review: Claude → Gemini → Kimi)
+> **Status:** Validated plan, GO for implementation
 > **Motto:** The model may propose. The evidence must dispose.
-> **Stima:** ~22h totali (6 mosse, con checkpoint ogni 2h)
-> **Nodo pilota:** `cooperation` (tension_index 1.6, copertura duale, failure vector densi)
+> **Estimate:** ~22h total (6 moves, with checkpoint every 2h)
+> **Pilot node:** `cooperation` (tension_index 1.6, dual coverage, dense failure vectors)
 
 ---
 
 ## Indice
 
-1. [Visione e Contesto](#1-visione-e-contesto)
-2. [Scelte Architetturali](#2-scelte-architetturali)
-3. [I 5 Agenti Epistemici](#3-i-5-agenti-epistemici)
-4. [Schema Directory](#4-schema-directory)
-5. [Contratti Pydantic (Schemi I/O)](#5-contratti-pydantic-schemi-io)
+1. [Vision and Context](#1-vision-and-context)
+2. [Architectural Choices](#2-architectural-choices)
+3. [The 5 Epistemic Agents](#3-the-5-epistemic-agents)
+4. [Directory Schema](#4-directory-schema)
+5. [Pydantic Contracts (I/O Schemas)](#5-pydantic-contracts-io-schemas)
 6. [Dual-Loop Orchestration](#6-dual-loop-orchestration)
 7. [Reproducibility & Scientific Manifest](#7-reproducibility--scientific-manifest)
 8. [Observability & Metrics](#8-observability--metrics)
 9. [Safety & Rollback](#9-safety--rollback)
 10. [Adversarial Validation Suite](#10-adversarial-validation-suite)
-11. [Piano di Implementazione (6 Mosse)](#11-piano-di-implementazione-6-mosse)
-12. [Appendice: Domande Aperte](#12-appendice-domande-aperte)
+11. [Implementation Plan (6 Moves)](#11-implementation-plan-6-moves)
+12. [Appendix: Open Questions](#12-appendix-open-questions)
 
 ---
 
-## 1. Visione e Contesto
+## 1. Vision and Context
 
-### 1.1 Perché
+### 1.1 Why
 
-Unpeeragogy è un **protocollo di validazione per conoscenza sociale**. Il suo Vault contiene 88+3 nodi di conoscenza (pattern teorici + anti-pattern operativi), ma la validazione è attualmente *manuale e statica*: tension_index pre-calcolati da uno script keyword-based, nessun feedback loop sistematico.
+Unpeeragogy is a **validation protocol for social knowledge**. Its Vault contains 88+3 knowledge nodes (theoretical patterns + operational anti-patterns), but validation is currently *manual and static*: tension_index pre-calculated by a keyword-based script, no systematic feedback loop.
 
-Il Pyragogy Engine è il **primo motore multi-agente progettato per stress-testare empiricamente un corpus di conoscenza sociale**, usando il Vault come griglia teorica per interrogare la memoria storica del mondo codificata nei modelli LLM.
+The Pyragogy Engine is the **first multi-agent engine designed to empirically stress-test a social knowledge corpus**, using the Vault as a theoretical grid to interrogate the world's historical memory encoded in LLM models.
 
-### 1.2 Obiettivo
+### 1.2 Objective
 
-Costruire un engine batch CLI in grado di:
+Build a batch CLI engine capable of:
 
-1. **Interpretare** il nodo — estrarre incidenti critici (CIT) e configurazioni CMOC
-2. **Cercare evidenza empirica** — recuperare dalla memoria parametrica del modello casi, studi e fenomeni pertinenti
-3. **Verificare** ogni candidato di evidenza contro fonti verificabili (Grounding Gate)
-4. **Validare** l'evidenza groundata, distinguendo segnale da rumore
-5. **Calcolare** un nuovo tension_index deterministico basato su attrito misurato
-6. **Sintetizzare** un blocco a 4 livelli (Source, Observation, Interpretation, Failure Mode)
-7. **Scoprire** gap di copertura e candidare nuovi nodi
+1. **Interpreting** the node — extract critical incidents (CIT) and CMOC configurations
+2. **Searching for empirical evidence** — recover relevant cases, studies, and phenomena from the model's parametric memory
+3. **Verifying** each evidence candidate against verifiable sources (Grounding Gate)
+4. **Validating** grounded evidence, distinguishing signal from noise
+5. **Calculating** a new deterministic tension_index based on measured friction
+6. **Synthesising** a 4-level block (Source, Observation, Interpretation, Failure Mode)
+7. **Discovering** coverage gaps and nominating new nodes
 
-### 1.3 Attori
+### 1.3 Actors
 
-| Ruolo | Chi | Funzione |
+| Role | Who | Function |
 |-------|-----|----------|
-| **Visione** | Fabrizio | Direzione, selezione output, pubblicazione |
-| **Architetto metodologico** | Gemini (Google) | Validazione epistemologica, review dei prompt |
-| **Reviewer ingegneristico** | Claude (Anthropic) | Contratti, caching, circuit breaker, staging |
-| **Reviewer di fattibilità** | Kimi (Moonshot) | Validazione piano, stime, aggiunte strutturali |
-| **Coding Agent** | Pi | Implementazione |
+| **Vision** | Fabrizio | Direction, output selection, publication |
+| **Methodological architect** | Gemini (Google) | Epistemological validation, prompt review |
+| **Engineering reviewer** | Claude (Anthropic) | Contracts, caching, circuit breaker, staging |
+| **Feasibility reviewer** | Kimi (Moonshot) | Plan validation, estimates, structural additions |
+| **Coding Agent** | Pi | Implementation |
 
-### 1.4 Sistema esistente (da non riscrivere)
+### 1.4 Existing system (not to rewrite)
 
-| Componente | Tecnologia | Percorso |
+| Component | Technology | Path |
 |-----------|-----------|----------|
-| Sito web | Astro 5 + Tailwind + Alpine.js | `src/` |
-| Collezione peeragogy | MDX (88 file) | `src/content/peeragogy/` |
-| Collezione unpeeragogy | MDX (88 file) | `src/content/unpeeragogy/` |
-| Frontmatter YAML | title, order, section, readingTime, tension_index, tags, origin | Ogni file .mdx |
-| Tension index statico | Keywords-based, pre-calcolato | `scripts/calculate-tension-index.js` |
-| MCP server | TypeScript, SSE su 3001 | `packages/mcp-server/` |
-| Grafo conoscenza | d3-force, API route | `src/pages/api/graph.json.ts` |
+| Website | Astro 5 + Tailwind + Alpine.js | `src/` |
+| peeragogy collection | MDX (88 files) | `src/content/peeragogy/` |
+| unpeeragogy collection | MDX (88 files) | `src/content/unpeeragogy/` |
+| Frontmatter YAML | title, order, section, readingTime, tension_index, tags, origin | Every .mdx file |
+| Static tension index | Keywords-based, pre-calculated | `scripts/calculate-tension-index.js` |
+| MCP server | TypeScript, SSE on 3001 | `packages/mcp-server/` |
+| Knowledge graph | d3-force, API route | `src/pages/api/graph.json.ts` |
 
-### 1.5 Gap attuali
+### 1.5 Current gaps
 
-- 3 slug peeragogy senza controparte unpeeragogy (cooperate, cooperation-where-it-works, newcomer-where-it-works)
-- 0 slug unpeeragogy senza controparte peeragogy
-- Tension_index calcolato con euristica keyword-based, non con attrito misurato
-- Nessun feedback loop sistemico tra field reports e aggiornamento dei nodi
+- 3 peeragogy slugs without unpeeragogy counterpart (cooperate, cooperation-where-it-works, newcomer-where-it-works)
+- 0 unpeeragogy slugs without peeragogy counterpart
+- Tension_index calculated with keyword-based heuristic, not measured friction
+- No systemic feedback loop between field reports and node updates
 
 ---
 
-## 2. Scelte Architetturali
+## 2. Architectural Choices
 
 ### 2.1 Stack
 
 | Layer | Tecnologia | Motivazione |
 |-------|-----------|-------------|
 | **Engine** | Python 3.11+ | pydantic + instructor per structured output, httpx/aiohttp, ecosistema ML futuro |
-| **MCP Server** | TypeScript (esistente) | Nessuna modifica. Serve come data layer interrogabile |
+| **MCP Server** | TypeScript (existing) | No modifications. Serves as queryable data layer |
 | **CLI** | Typer (Python) | Zero overhead, autocompletamento, help nativo |
-| **Cache** | diskcache (Python) | Persistenza su disco, chiavi deterministiche |
+| **Cache** | diskcache (Python) | Disk persistence, deterministic keys |
 | **Checkpoint** | SQLite | Zero configurazione, resume nativo |
-| **LLM Provider** | OpenRouter | Accesso eterogeneo a 300+ modelli, fallback nativo |
+| **LLM Provider** | OpenRouter | Heterogeneous access to 300+ models, native fallback |
 
-### 2.2 Accesso ai dati: MCP-First
+### 2.2 Data access: MCP-First
 
 L'engine interroga il server MCP locale come **data layer primario**:
 
@@ -102,7 +102,7 @@ Engine → MCP Client (aiohttp + aiohttp_sse_client) → MCP Server (SSE :3001) 
 - **Scritture:** Mai su filesystem — solo su `engine/output/`
 - **Mutazione Vault:** Solo via `apply-delta.py` → commit Git strutturato
 
-### 2.3 Persistenza: Layer esterno
+### 2.3 Persistence: External layer
 
 - **Tension_index** non muta mai i file .mdx a caldo
 - Ogni run produce output JSON in `engine/output/runs/{run_id}/`
@@ -110,7 +110,7 @@ Engine → MCP Client (aiohttp + aiohttp_sse_client) → MCP Server (SSE :3001) 
 - Il Vault Astro è la **source of truth** per contenuti pubblici
 - `engine/output/` è la **source of truth** per risultati dell'engine
 
-### 2.4 Pipeline: Incrementale con checkpoint
+### 2.4 Pipeline: Incremental with checkpoint
 
 - Processa 1 nodo per run (default), con flag `--all` per batch
 - Checkpoint SQLite per resume: se crash, riparte dall'ultimo agente completato
@@ -118,31 +118,31 @@ Engine → MCP Client (aiohttp + aiohttp_sse_client) → MCP Server (SSE :3001) 
 - Cache L2 (agent output): se prompt + nodo + agente identici, output in cache
 - **Cache L3 eliminata** per non-determinismo dei provider LLM (review Kimi)
 
-### 2.5 Agenti: 1 dispatcher + 5 implementazioni
+### 2.5 Agents: 1 dispatcher + 5 implementations
 
 - `BaseAgent` (classe astratta): boilerplate unico (client LLM, retry, logging)
 - 5 agenti concreti: estendono BaseAgent, implementano `build_prompt()` e `validate_output()`
-- Nessuna separazione in processi distinti — tutti nello stesso runtime
+- No separation into distinct processes — all in the same runtime
 - Aggiungere un sesto agente = 1 file Python + 1 file prompt
 
 ### 2.6 Dual Grounding
 
-| Livello | Fonte | Vincolo | Schema |
+| Level | Source | Constraint | Schema |
 |---------|-------|---------|--------|
 | `vault-sourced` | Testo del Vault (citazione diretta) | `source_ref` obbligatorio (file:§paragrafo) | `CITIncident.source_type = "vault-sourced"` |
 | `empirical-analogy` | Pesi dell'LLM (memoria storica) | `project_ref` obbligatorio (es. "debian:2014") | `CITIncident.source_type = "empirical-analogy"` |
 
-**Regola A1:** Le analogie empiriche devono essere accompagnate da `project_ref` nel formato `"progetto:anno"`. Senza, il GroundingVerifier scarta l'incidente.
+**Rule A1:** Empirical analogies must be accompanied by a `project_ref` in the format `"project:year"`. Without it, the GroundingVerifier discards the incident.
 
 ---
 
-## 3. I 5 Agenti Epistemici
+## 3. The 5 Epistemic Agents
 
-### 3.1 Panoramica
+### 3.1 Overview
 
-| # | Nome | Ruolo | Modello | Temperature | Costo/nodo |
+| # | Name | Role | Model | Temperature | Cost/node |
 |---|------|-------|---------|-------------|------------|
-| A1 | RealistExtractor | Estrae CIT + CMOC + CoverageGap | `gpt-4o-mini` | 0.3 | ~$0.008 |
+| A1 | RealistExtractor | Extracts CIT + CMOC + CoverageGap | `gpt-4o-mini` | 0.3 | ~$0.008 |
 | A2 | EvidenceHunter | Cerca e ricostruisce evidenza empirica (parametric recall + evidence retrieval) | `deepseek/deepseek-r1-distill-qwen-32b` | 0.6 | ~$0.012 |
 | A3 | EmpiricalSkeptic | Valida obiezioni, circuit breaker | `gpt-4o` | 0.2 | ~$0.015 |
 | A4 | TensionEvaluator | Calcola ΔT deterministico | `deepseek/deepseek-chat` | 0.1 | ~$0.005 |
@@ -164,9 +164,9 @@ class A1_RealistExtractor(BaseAgent):
 **Input:** Testo grezzo del nodo + empirical_breadth ∈ [0, 1]
 **Output:** CITIncident[] + CoverageGap[]
 **Vincoli:**
-- Ogni incidente ha `source_ref` verificabile
-- Se `source_type = "empirical-analogy"`, `project_ref` è obbligatorio
-- CoverageGap segnala pattern peeragogy senza controparte unpeeragogy (e viceversa)
+- Every incident has a verifiable `source_ref`
+- If `source_type = "empirical-analogy"`, `project_ref` is mandatory
+- CoverageGap signals peeragogy patterns without an unpeeragogy counterpart (and vice versa)
 
 ### 3.3 A2 — EvidenceHunter
 
@@ -189,7 +189,7 @@ class A2_EvidenceHunter(BaseAgent):
 
 **Classificazione fenomeni:** `confirming`, `complicating`, `contradicting`, `ambiguous`
 
-**Vincolo critico:** Ogni candidato ha `recall_confidence` (0.0-1.0) che indica quanto il modello è sicuro di aver recuperato accuratamente il caso, NON quanto è vera l'evidenza. Il GroundingVerifier scarta tutto ciò che non ha `grounded_in_source=True` e un `source_ref` verificabile.
+**Critical constraint:** Every candidate has `recall_confidence` (0.0-1.0) indicating how confident the model is that it accurately retrieved the case, NOT how true the evidence is. The GroundingVerifier discards anything that does not have `grounded_in_source=True` and a verifiable `source_ref`.
 
 ### 3.4 A3 — EmpiricalSkeptic
 
@@ -206,7 +206,7 @@ class A3_EmpiricalSkeptic(BaseAgent):
 **Soglie:**
 - `plausibility < 0.3` → `rejected`
 - `noise_estimate > 0.7` → `degraded`
-- **Se tutti i candidati sono rejected → circuit breaker attivato** → pipeline fermata
+- **If all candidates are rejected → circuit breaker activated** → pipeline halted
 
 ### 3.5 A4 — TensionEvaluator
 
@@ -245,7 +245,7 @@ class A5_ObliqueSynthesizer(BaseAgent):
 
 ---
 
-## 4. Schema Directory
+## 4. Directory Schema
 
 ```
 engine/
@@ -316,7 +316,7 @@ engine/
 └── tests/
     ├── test_schemas.py         # Pydantic validation tests
     ├── test_agents.py          # Test harness per agent singoli
-    └── adversarial/            # Nodi di controllo per AVS
+    └── adversarial/            # Control nodes for AVS
         ├── neutral_lorem_ipsum.mdx
         ├── high_consensus_pattern.mdx
         └── contradictory_field_report.mdx
@@ -324,7 +324,7 @@ engine/
 
 ---
 
-## 5. Contratti Pydantic (Schemi I/O)
+## 5. Pydantic Contracts (I/O Schemas)
 
 ### 5.1 `schemas/incident.py`
 
@@ -339,7 +339,7 @@ class CITIncident(BaseModel):
     mechanism: str
     outcome_valence: Literal["positive", "negative", "ambiguous"]
     confidence: float = Field(..., ge=0.0, le=1.0)
-    project_ref: str | None = Field(None, description="Obbligatorio se source_type=empirical-analogy, formato 'progetto:anno'")
+    project_ref: str | None = Field(None, description="Required if source_type=empirical-analogy, format 'project:year'")
 
 class CMOCConfig(BaseModel):
     model_config = ConfigDict(extra="forbid")
@@ -424,7 +424,7 @@ class ObliqueBlock(BaseModel):
     
     node_slug: str
     source: str                   # Citazione diretta
-    observation: str              # Cosa si osserva senza interpretare
+    observation: str              # What is observed without interpretation
     interpretation: str           # Costruzione teorica
     failure_mode: str             # Modo specifico in cui fallisce
     perturbator_quote: str | None = None
@@ -485,14 +485,14 @@ Il Loop 2 (A4 → A5) **non viene eseguito** se:
 In questi casi, il nodo viene marcato `insufficient-friction` e il risultato parziale
 viene comunque salvato per audit.
 
-### 6.3 Empirical Breadth (parametro di controllo)
+### 6.3 Empirical Breadth (control parameter)
 
 Definito a 3 livelli, controlla quanto A1 può spaziare nei pesi dell'LLM:
 
 | Valore | Comportamento A1 |
 |--------|------------------|
-| `0.0` | "Usa SOLO il testo del Vault. Nessuna analogia esterna." |
-| `0.5` | "Puoi citare analogie empiriche SOLO se supportate da project_ref verificabile nel formato 'progetto:anno'." |
+| `0.0` | "Use ONLY the Vault text. No external analogies." |
+| `0.5` | "You may cite empirical analogies ONLY if supported by a verifiable project_ref in the format 'project:year'." |
 | `1.0` | "Esplora liberamente analogie empiriche, ma marca ogni incidente come source_type='empirical-analogy' con project_ref obbligatorio." |
 
 Default: `0.3` (prevalenza vault, analogie empiriche solo se molto evidenti).
@@ -501,7 +501,7 @@ Default: `0.3` (prevalenza vault, analogie empiriche solo se molto evidenti).
 
 ## 7. Reproducibility & Scientific Manifest
 
-### 7.1 Manifest per ogni run
+### 7.1 Run manifest
 
 `engine/output/runs/{run_id}/manifest.json`:
 
@@ -567,9 +567,9 @@ Formato (es. `A2_perturbator.jsonl`):
 {"ts":"2026-09-01T19:03:15Z","agent":"A2","event":"grounding_gate","objections_in":5,"objections_out":4,"dropped_ids":["OBJ-0003"]}
 ```
 
-**Regole rigorose:**
-- Append-only. Nessun file viene mai sovrascritto.
-- Ogni entry ha `input_hash` e `output_hash`.
+**Strict rules:**
+- Append-only. No file is ever overwritten.
+- Every entry has `input_hash` and `output_hash`.
 - `manifest.json` include l'hash del file di audit concatenato.
 
 ### 7.3 Prompt Registry
@@ -649,7 +649,7 @@ python -m engine.main apply-delta --run-id batch-001 --force
 python -m engine.main rollback --run-id batch-001
 ```
 
-**Cosa fa apply-delta:**
+**What apply-delta does:**
 1. Legge `engine/output/runs/{run_id}/tension_delta.json`
 2. Per ogni TensionDelta:
    - Legge `src/content/unpeeragogy/{slug}.mdx`
@@ -695,7 +695,7 @@ L'orchestratore calcola il costo stimato *prima* di ogni batch e abortisce se `e
 
 ## 10. Adversarial Validation Suite
 
-### 10.1 Nodi di controllo
+### 10.1 Control nodes
 
 ```
 tests/adversarial/
@@ -734,12 +734,12 @@ async def test_skeptic_rejects_weak_objections():
 
 ---
 
-## 11. Piano di Implementazione (6 Mosse)
+## 11. Implementation Plan (6 Moves)
 
-### Mossa 0: SWARM_ARCHITECTURE.md (questo file) — 30min
+### Move 0: SWARM_ARCHITECTURE.md (this file) — 30min
 - ✅ Già scritto
 
-### Mossa 1: Setup ambiente + scheletro directory — 45min
+### Move 1: Environment setup + directory skeleton — 45min
 
 | Task | Dettaglio |
 |------|-----------|
@@ -755,7 +755,7 @@ async def test_skeptic_rejects_weak_objections():
 | 1.10 | Scrivere `engine/lib/__init__.py` |
 | 1.11 | Eseguire `scripts/setup.sh` e verificare `python -m engine.main --help` |
 
-### Mossa 2: Schemi Pydantic — 1.5h
+### Move 2: Pydantic Schemas — 1.5h
 
 | Task | Dettaglio |
 |------|-----------|
@@ -766,7 +766,7 @@ async def test_skeptic_rejects_weak_objections():
 | 2.5 | `schemas/synthesis.py`: ObliqueBlock |
 | 2.6 | `tests/test_schemas.py`: pytest per ogni schema (validazione, edge case) |
 
-### Mossa 3: Librerie infrastrutturali — 3.5h
+### Move 3: Infrastructure libraries — 3.5h
 
 | Task | Dettaglio |
 |------|-----------|
@@ -779,7 +779,7 @@ async def test_skeptic_rejects_weak_objections():
 | 3.7 | `lib/ledger.py`: EpistemicLedger (append-only JSONL) |
 | 3.8 | `lib/health.py`: Health check (MCP, API key, Python, disco) |
 
-### Mossa 4: 5 Agenti + 5 Prompt — 6h
+### Move 4: 5 Agents + 5 Prompts — 6h
 
 | Task | Dettaglio |
 |------|-----------|
@@ -796,7 +796,7 @@ async def test_skeptic_rejects_weak_objections():
 | 4.11 | Aggiornare `prompts/registry.yaml` con hash |
 | 4.12 | Test harness: `python -m engine.test --agent {A1..A5} --fixture cooperation.mdx` |
 
-### Mossa 5: Dispatcher + CLI principale — 2.5h
+### Move 5: Dispatcher + main CLI — 2.5h
 
 | Task | Dettaglio |
 |------|-----------|
@@ -805,7 +805,7 @@ async def test_skeptic_rejects_weak_objections():
 | 5.3 | `scripts/health-check.py`: Verifica prerequisiti |
 | 5.4 | `scripts/apply-delta.py`: Mutazione controllata con backup e rollback |
 
-### Mossa 6: Test su nodo pilota + iterazione prompt — 8h
+### Move 6: Test on pilot node + prompt iteration — 8h
 
 | Task | Dettaglio |
 |------|-----------|
@@ -819,7 +819,7 @@ async def test_skeptic_rejects_weak_objections():
 
 ---
 
-## 12. Appendice: Domande Aperte
+## 12. Appendix: Open Questions
 
 1. **Modello A2 su OpenRouter:** DeepSeek-R1-distill-32B è disponibile e stabile? Se no, fallback a Sonnet.
 
@@ -831,7 +831,7 @@ async def test_skeptic_rejects_weak_objections():
 
 5. **Multilingua:** Il vault è in inglese. Serve interrogazione in altre lingue (es. IT per field reports)? Non ora — rimandato.
 
-6. **Field Reports:** Come si integrano i field reports esistenti (GitHub Discussions) nella pipeline? Non ora — Fase C della roadmap.
+6. **Field Reports:** How do existing field reports (GitHub Discussions) integrate into the pipeline? Not now — Phase C of the roadmap.
 
 ---
 

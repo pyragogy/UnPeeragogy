@@ -92,19 +92,19 @@ function generateSchemaOrg(slug, title, description, type = "WebPage") {
     url: url,
     name: title,
     description: description,
-    inLanguage: "it",
+    inLanguage: "en",
     isPartOf: {
       "@type": "WebSite",
       "@id": `${SITE_URL}/#website`,
       url: SITE_URL,
       name: "Unpeeragogy",
-      description: "Decostruzione radicale della teoria peer-to-peer",
-      inLanguage: "it",
+      description: "Radical deconstruction of peer-to-peer theory",
+      inLanguage: "en",
     },
     about: {
       "@type": "Thing",
       name: "Peeragogy",
-      description: "Teoria e pratica dell'apprendimento peer-to-peer, analizzata criticamente",
+      description: "Peer-to-peer learning theory and practice, critically examined",
     },
   };
   return schema;
@@ -125,12 +125,12 @@ try {
   console.log("✅ robots.txt");
 
   // schema.org per homepage
-  const schema = generateSchemaOrg("/", "Unpeeragogy", "Decostruzione radicale della teoria peer-to-peer, confrontata con la realtà operativa quotidiana.");
+  const schema = generateSchemaOrg("/", "Unpeeragogy", "Radical deconstruction of peer-to-peer theory, contrasted with everyday operational reality.");
   const schemaPath = path.join(OUT_DIR, "schema.json");
   fs.writeFileSync(schemaPath, JSON.stringify(schema, null, 2), "utf-8");
   console.log("✅ schema.json");
 
-  console.log("📄 SEO assets generati.");
+  console.log("📄 SEO assets generated.");
 } catch (err) {
   console.error("❌ SEO generation error:", err.message);
   process.exit(1);

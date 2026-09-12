@@ -1,21 +1,21 @@
 #!/usr/bin/env python3
 """
-refine_vault_voice.py — Applica obliqo-voice-engine a Summary e Sintesi Obliqua
-di tutti i nodi del Vault Unpeeragogy (tranne cooperation.mdx, già rifinito).
+refine_vault_voice.py — Applies obliqo-voice-engine to Summary and Oblique Synthesis
+of all nodes in the Unpeeragogy Vault (except cooperation.mdx, already refined).
 
-Architettura:
-  Per ogni nodo, invia a Claude Sonnet via OpenRouter:
-    - Il testo teorico originale (Peeragogy Handbook)
-    - Le 4 evidenze del Quadrilatero Empirico
-    - Le Euristiche Operative (Positive/Negative Rule) e il Perturbatore
-    - La system instruction obliqo-voice-engine
-  Riscrive solo Summary e Sintesi Obliqua, preservando tutto il resto.
+Architecture:
+  For each node, sends to Claude Sonnet via OpenRouter:
+    - The original theoretical text (Peeragogy Handbook)
+    - The 4 evidence items of the Empirical Quadrilateral
+    - The Operational Heuristics (Positive/Negative Rule) and the Perturbatore
+    - The obliqo-voice-engine system instruction
+  Rewrites only Summary and Oblique Synthesis, preserving everything else.
 
 Usage:
-    python scripts/refine_vault_voice.py --test          # test su 3 nodi pilota
-    python scripts/refine_vault_voice.py --batch         # tutti gli 87 nodi
-    python scripts/refine_vault_voice.py --batch --dry   # simulazione senza chiamate
-    python scripts/refine_vault_voice.py --restore       # ripristina da backup
+    python scripts/refine_vault_voice.py --test          # test on 3 pilot nodes
+    python scripts/refine_vault_voice.py --batch         # all 87 nodes
+    python scripts/refine_vault_voice.py --batch --dry   # dry run without API calls
+    python scripts/refine_vault_voice.py --restore       # restore from backup
 """
 
 import json
@@ -50,7 +50,7 @@ VOICE_SYSTEM = """You are Fabrizio Terzi — maker, autodidact, researcher. Spea
 
 2. NEVER use academic register. Banned: "The analysis indicates", "Evidence suggests", "This pattern validates", "It is worth noting", "We observe that", "The framework demonstrates". Use maker register: "It works when…", "The problem is…", "Theory says X. Practice does Y.", "Here's where it breaks."
 
-3. NEVER close with a resolution, conclusion, or summary. The Sintesi Obliqua must end on a distinction, not a synthesis. If the last line works as a slide quote, it is wrong — rewrite it so it falls, not closes.
+3. NEVER close with a resolution, conclusion, or summary. The Oblique Synthesis must end on a distinction, not a synthesis. If the last line works as a slide quote, it is wrong — rewrite it so it falls, not closes.
 
 4. OUTPUT MUST BE IN ENGLISH. Fabrizio's maker register in English: colloquial, precise, anti-academic. Never solemn. Never bureaucratic. Never press-release.
 
@@ -78,14 +78,14 @@ CRITICAL: DO NOT paraphrase or echo the Perturbatore quote. Your Summary and Sin
 ### Summary (cold-open, maker register, 2-4 sentences, ENGLISH)
 Structure: [cold fact] → [distinction: theory vs practice] → [why it matters operationally]
 
-### Sintesi Obliqua (friction analysis, 4-6 sentences, ENGLISH)
+### Oblique Synthesis (friction analysis, 4-6 sentences, ENGLISH)
 Structure: [what the pattern claims] → [verification with caveat: partial, conditional on…] → [the evidence as argument: name the 2 confirming and 2 complicating cases as argument, not as list] → [what's missing / the real mechanism not described] → [closing distinction, not conclusion — a gesture, an image, a "quietly, if necessary…"]
 
 Speak as someone who has seen this pattern fail and is telling the reader straight, not as someone reviewing a paper.
 
 --- FINAL REMINDER ---
 
-Your ENTIRE output for Summary and Sintesi Obliqua MUST BE IN ENGLISH. Not a single Italian word. The evidence cases contain Italian headers ("Caso 1 —", "Fenomeno:") but you MUST ignore them as context and write your sections in English. If the first word you write is Italian, stop and restart in English. This is the single most important instruction.
+Your ENTIRE output for Summary and Oblique Synthesis MUST BE IN ENGLISH. Not a single Italian word. The evidence cases contain Italian headers ("Case 1 —", "Phenomenon:") but you MUST ignore them as context and write your sections in English. If the first word you write is Italian, stop and restart in English. This is the single most important instruction.
 """
 
 
@@ -144,13 +144,13 @@ def build_context(slug: str) -> dict | None:
 
     # Extract current sections
     current_summary = extract_section(unpeer_text, "Summary")
-    current_sintesi = extract_section(unpeer_text, "Sintesi Obliqua")
+    current_sintesi = extract_section(unpeer_text, "Oblique Synthesis")
 
     # Evidence from unpeer MDX (already formatted)
-    evidence_section = extract_section(unpeer_text, "Evidenze Grounded")
+    evidence_section = extract_section(unpeer_text, "Grounded Evidence")
 
     # Euristiche from unpeer MDX
-    euristiche = extract_section(unpeer_text, "Euristiche Operative")
+    euristiche = extract_section(unpeer_text, "Operational Heuristics")
 
     # Perturbatore
     pert_m = re.search(r"> \*\*Perturbatore:\*\* \*(.*?)\*", unpeer_text, re.DOTALL)
@@ -207,11 +207,11 @@ TENSIONE: {ctx['old_tension']} → {ctx['tension']}
 CURRENT Summary:
 {ctx['current_summary'][:300]}
 
-CURRENT Sintesi Obliqua:
+CURRENT Oblique Synthesis:
 {ctx['current_sintesi'][:300]}
 
 ---
-Rewrite ONLY Summary and Sintesi Obliqua. THEY MUST BE IN ENGLISH — not one Italian word.
+Rewrite ONLY Summary and Oblique Synthesis. THEY MUST BE IN ENGLISH — not one Italian word.
 
 Respond EXCLUSIVELY in this JSON format, nothing else:
 {{
@@ -265,14 +265,14 @@ def call_llm(prompt: str, model: str = MODEL) -> dict | None:
 
 
 def assemble_mdx(ctx: dict, summary: str, sintesi: str) -> str:
-    """Replace Summary and Sintesi Obliqua sections in the original MDX."""
+    """Replace Summary and Oblique Synthesis sections in the original MDX."""
     text = ctx["raw_text"]
 
     # Replace Summary
     text = replace_section(text, "Summary", summary.strip())
 
-    # Replace Sintesi Obliqua (before Perturbatore)
-    text = replace_section(text, "Sintesi Obliqua", sintesi.strip())
+    # Replace Oblique Synthesis (before Perturbatore)
+    text = replace_section(text, "Oblique Synthesis", sintesi.strip())
 
     return text
 
@@ -289,7 +289,7 @@ def create_backup():
 def restore_backup():
     import subprocess
     if not BACKUP_PATH.exists():
-        print(f"  Nessun backup trovato: {BACKUP_PATH}")
+        print(f"  No backup found: {BACKUP_PATH}")
         return
     subprocess.run(["tar", "-xzf", str(BACKUP_PATH),
                    "-C", str(PROJECT_ROOT)], check=True)
@@ -318,7 +318,7 @@ def main():
     # Collect slugs
     mdx_files = sorted(UNPEER_DIR.glob("*.mdx"))
     all_slugs = [f.stem for f in mdx_files if f.stem != "cooperation"]
-    print(f"  Nodi totali (escluso cooperation): {len(all_slugs)}")
+    print(f"  Total nodes (excluding cooperation): {len(all_slugs)}")
 
     if test_mode:
         slugs = ["distributed_roadmap", "assessment", "stuck"]
