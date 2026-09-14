@@ -1,26 +1,58 @@
-name: Deploy to Coolify
+name: Validate and Deploy to Coolify
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
+
+permissions:
+  contents: read
 
 jobs:
+  quality-gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install site dependencies
+        run: npm ci
+
+      - name: Validate research integrity and build site
+        run: npm run build
+
+      - name: Install MCP dependencies
+        working-directory: packages/mcp-server
+        run: npm ci
+
+      - name: Type-check and build MCP server
+        working-directory: packages/mcp-server
+        run: npm run build
+
   deploy-web:
+    needs: quality-gate
     runs-on: ubuntu-latest
     steps:
       - name: Trigger Coolify web deployment
         run: |
-          curl -s -X POST \
+          curl --fail-with-body --show-error --silent -X POST \
             "https://console.pyragogy.org/api/v1/deploy?uuid=${{ secrets.COOLIFY_WEB_UUID }}" \
             -H "Authorization: Bearer ${{ secrets.COOLIFY_API_TOKEN }}" \
             -H "Content-Type: application/json"
 
   deploy-mcp:
+    needs: quality-gate
     runs-on: ubuntu-latest
     steps:
       - name: Trigger Coolify MCP deployment
         run: |
-          curl -s -X POST \
+          curl --fail-with-body --show-error --silent -X POST \
             "https://console.pyragogy.org/api/v1/deploy?uuid=${{ secrets.COOLIFY_MCP_UUID }}" \
             -H "Authorization: Bearer ${{ secrets.COOLIFY_API_TOKEN }}" \
             -H "Content-Type: application/json"
