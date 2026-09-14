@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "astro dev",
     "start": "node scripts/static-server.js",
-    "build": "astro build && node scripts/generate-seo.mjs && npx -y pagefind --site dist",
+    "check:integrity": "node scripts/validate-epistemic-integrity.mjs",
+    "build": "npm run check:integrity && astro build && node scripts/generate-seo.mjs && npx -y pagefind --site dist",
     "preview": "npx -y serve dist --listen 4321",
     "astro": "astro",
     "convert-org": "node scripts/convert-org.js",
