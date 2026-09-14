@@ -1,0 +1,115 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://unpeeragogy.pyragogy.org/research-schema/v1.json",
+  "title": "UnPeeragogy Open Research Record v1",
+  "description": "Portable schema for qualitative and socio-technical research records with explicit epistemic status, verification status, provenance and revision metadata.",
+  "type": "object",
+  "required": ["id", "title", "origin", "integrity_level"],
+  "properties": {
+    "id": { "type": "string", "minLength": 1 },
+    "slug": { "type": ["string", "null"] },
+    "url": { "type": ["string", "null"], "format": "uri" },
+    "title": { "type": "string", "minLength": 1 },
+    "section": { "type": ["string", "null"] },
+    "description": { "type": ["string", "null"] },
+    "origin": {
+      "enum": ["seed", "audit-v2", "field-report", "documentary-audit", "manual-revision", "imported"]
+    },
+    "integrity_level": {
+      "enum": ["legacy", "structured", "verified", "contested"]
+    },
+    "epistemic_status": {
+      "type": ["string", "null"],
+      "enum": ["observed", "reported", "interpreted", "hypothesized", "corroborated", "contested", "revised", null]
+    },
+    "verification_status": {
+      "type": ["string", "null"],
+      "enum": ["unverified", "source-linked", "partially-supported", "corroborated", "contested", null]
+    },
+    "research_channels": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "enum": ["documentary", "field-report", "first-person", "repository", "public-record", "synthetic"]
+      }
+    },
+    "method_version": { "type": ["string", "null"] },
+    "tension_index": {
+      "type": ["number", "null"],
+      "minimum": 0,
+      "maximum": 3,
+      "description": "Descriptive research signal, not probability, prevalence, confidence or effect size."
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "synthetic_scenario": {
+      "type": "boolean",
+      "description": "True when the record contains an illustrative synthetic/composite scenario that must not be counted as empirical evidence."
+    },
+    "claim_id": { "type": ["string", "null"] },
+    "revised_from": { "type": ["string", "null"] },
+    "revised_to": { "type": ["string", "null"] },
+    "provenance": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/provenanceRecord" }
+    }
+  },
+  "$defs": {
+    "provenanceRecord": {
+      "type": "object",
+      "required": ["kind"],
+      "properties": {
+        "id": { "type": "string" },
+        "kind": {
+          "enum": ["handbook", "field-report", "document", "repository", "discussion", "web-source", "dataset", "synthetic-scenario", "other"]
+        },
+        "uri": { "type": "string", "format": "uri" },
+        "locator": { "type": "string" },
+        "author": { "type": "string" },
+        "date": { "type": "string" },
+        "claim": { "type": "string" },
+        "support": {
+          "enum": ["supports", "complicates", "contradicts", "context-only"]
+        },
+        "note": { "type": "string" }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": true,
+  "allOf": [
+    {
+      "if": {
+        "properties": { "integrity_level": { "enum": ["structured", "verified", "contested"] } },
+        "required": ["integrity_level"]
+      },
+      "then": {
+        "required": ["epistemic_status", "verification_status", "research_channels", "method_version", "provenance"]
+      }
+    },
+    {
+      "if": {
+        "properties": { "origin": { "const": "field-report" } },
+        "required": ["origin"]
+      },
+      "then": {
+        "properties": {
+          "research_channels": { "contains": { "const": "field-report" } }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "synthetic_scenario": { "const": true } },
+        "required": ["synthetic_scenario"]
+      },
+      "then": {
+        "properties": {
+          "research_channels": { "contains": { "const": "synthetic" } }
+        }
+      }
+    }
+  ]
+}
