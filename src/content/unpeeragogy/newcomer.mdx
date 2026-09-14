@@ -2,63 +2,109 @@
 title: "The Newcomer Disrupts the System"
 order: 1
 section: "Convening a Group"
-readingTime: 4
+readingTime: 5
 tension_index: 1.7792
-tags: ["newcomer", "entrance", "disturbance"]
-origin: "audit-v2"
+tags: ["newcomer", "entrance", "disturbance", "audit-v2"]
+origin: "documentary-audit"
+integrity_level: "structured"
+epistemic_status: "hypothesized"
+verification_status: "partially-supported"
+method_version: "documentary-audit-v2.1"
+research_channels: ["documentary", "synthetic"]
+synthetic_scenario: true
+claim_id: "UP-NEWCOMER-001"
+provenance:
+  - id: "OSM-DWG-001"
+    kind: "document"
+    uri: "https://wiki.osmfoundation.org/wiki/Data_Working_Group"
+    locator: "Data Working Group mandate and dispute-resolution responsibilities"
+    claim: "OpenStreetMap has a formal body for disputes that go beyond normal community resolution mechanisms."
+    support: "supports"
+    author: "OpenStreetMap Foundation"
+    note: "Supports the existence of explicit escalation authority; it does not prove that all informal consensus fails."
+  - id: "WASM-CG-001"
+    kind: "document"
+    uri: "https://www.w3.org/community/webassembly/"
+    locator: "Community Group description and participation structure"
+    claim: "WebAssembly operates through a W3C Community Group with named chairs and documented participation structures."
+    support: "context-only"
+    author: "W3C WebAssembly Community Group"
+    note: "The source describes governance structure but does not establish the stronger causal claim that newcomer-veteran conflicts become irresolvable."
+  - id: "IETF-001"
+    kind: "document"
+    uri: "https://www.ietf.org/about/"
+    locator: "IETF organisation and standards-process overview"
+    claim: "The IETF combines rough-consensus practice with formal organisational and process structures."
+    support: "context-only"
+    author: "Internet Engineering Task Force"
+    note: "Useful governance context; insufficient by itself to establish a causal claim about newcomer conflict."
 ---
 
 ### The Assumption
 
 Welcoming newcomers requires balancing energy investment in onboarding against the disruption to existing group dynamics, with veterans potentially resenting the attention given to newcomers.
 
-### Operational Reality
+### Illustrative Scenario — Not Empirical Evidence
 
-Maria joins the neighborhood mutual aid network after six months of watching from the sidewalk. She shows up to the monthly meeting with a notebook full of ideas about food distribution efficiency. The organizers smile and nod while she talks about route optimization and inventory tracking. Three weeks later, she stops coming to meetings.
+The following vignette is a **synthetic scenario** used to make the mechanism legible. It is not a field report and is not counted as empirical evidence.
+
+Maria joins a neighborhood mutual aid network after six months of watching from the sidewalk. She shows up to the monthly meeting with a notebook full of ideas about food distribution efficiency. The organizers smile and nod while she talks about route optimization and inventory tracking. Three weeks later, she stops coming to meetings.
 
 Not because they were mean to her. Not because they shut down her suggestions. Not because she felt unwelcome — everyone was genuinely kind, patient, encouraging even. She left because being nice to newcomers sidesteps the harder question: what happens when the newcomer's fresh perspective conflicts with how things actually get done?
 
-The mutual aid group had spent two years building relationships with corner store owners who let them use back rooms for free. Maria's efficiency improvements would have required renting warehouse space and buying software. Her ideas were not wrong — they were incompatible with the social infrastructure that made the work possible in the first place.
+In the scenario, the mutual aid group has spent two years building relationships with corner store owners who let them use back rooms for free. Maria's efficiency improvements would require renting warehouse space and buying software. Her ideas are not necessarily wrong — they are incompatible with the social infrastructure that makes the work possible in the first place.
 
-OpenStreetMap shows that structured authority resolves integration disputes that consensus cannot handle. WebAssembly shows that lightweight governance without escalation paths leaves newcomer-veteran conflicts irresolvable. IETF demonstrates that consensus-based approaches produce irresolvable conflicts when newcomers challenge veteran practices.
+The scenario generates a hypothesis, not a finding: **newcomer friction can expose dependencies that established members no longer perceive as decisions.**
+
+### Documentary Evidence
+
+The documentary cases below do not all support the hypothesis with the same force. That difference is explicit.
+
+**Direct structural support:**
+- [OpenStreetMap Data Working Group](https://wiki.osmfoundation.org/wiki/Data_Working_Group) — OpenStreetMap documents a formal body for disputes that exceed ordinary community resolution. This supports the narrower claim that peer-production systems may create explicit escalation authority when informal mechanisms are insufficient. It does **not** establish that newcomer-veteran disputes are the cause of that design.
+
+**Contextual cases — not causal confirmation:**
+- [WebAssembly Community Group](https://www.w3.org/community/webassembly/) — The W3C page documents a Community Group with named chairs and participation structures. It is relevant as governance context, but the source does not demonstrate that lightweight governance makes newcomer-veteran conflict irresolvable.
+- [IETF](https://www.ietf.org/about/) — The IETF documents an institutional setting in which rough consensus coexists with formal organisational and process structures. This complicates any simple equation of "peer governance" with structurelessness, but the general About page does not by itself prove that escalation structures cause consensus to succeed.
 
 > **Perturbatore:** *"What if being nice to newcomers does not solve the problem of what happens when they disagree with you — and the newcomer's disruption is not a bug to be managed, but useful friction that exposes what the system actually depends on?"*
-
-### Empirical Evidence
-
-**Resilience Cases (Confirming):**
-- [OpenStreetMap Data Working Group](https://wiki.osmfoundation.org/wiki/Data_Working_Group) — Formal dispute resolution bodies with binding authority and published reasoning resolve peer production conflicts that informal consensus cannot. Structured authority resolves integration disputes that consensus cannot handle.
-
-**Fracture Cases (Complicating):**
-- [WebAssembly Community Group](https://www.w3.org/community/webassembly/) — Choosing lighter governance models for standards development trades authority for speed, creating different failure modes. Lightweight governance without escalation paths leaves newcomer-veteran conflicts irresolvable.
-- [IETF Working Group Rough Consensus](https://www.ietf.org/about/) — Rough consensus governance only works when backed by hierarchical escalation paths; pure consensus without appeals fails. Consensus-based approaches produce irresolvable conflicts when newcomers challenge veteran practices.
 
 ### Operational Heuristics
 
-**Positive Boundary:** Newcomer integration works when formal dispute resolution bodies with binding authority exist to manage veteran-newcomer conflicts — structured authority resolves integration disputes that informal consensus cannot handle.
+**Positive Boundary:** Make hidden dependencies and decision rights visible during onboarding. If a group has escalation or dispute-resolution mechanisms, name them explicitly rather than allowing newcomers to infer that every decision is equally open.
 
-**Negative Boundary:** Do not apply this pattern when the group lacks formal dispute resolution mechanisms — consensus without escalation paths creates irresolvable conflicts when newcomers challenge veteran practices; courtesy without authority is not enough.
+**Negative Boundary:** Do not treat courtesy, openness of participation, or an invitation to speak as evidence that a newcomer has equal access to the dependencies that actually constrain decisions.
 
 ### Epistemic Synthesis
 
-Welcoming newcomers requires more than cultivating beginner's mind — it requires honest recognition of existing power structures. Formal dispute resolution works precisely because it makes authority visible instead of hiding it behind the theater of consensus. When Maria's suggestions were absorbed into polite listening sessions, the actual decision-making remained invisible to her. The tension is not between old and new perspectives. It is between the mythology of open participation and the reality that all systems have non-negotiable dependencies — relationships, resources, unspoken agreements that newcomers cannot see.
+The current evidence supports a narrower claim than the original version of this entry made. Open peer-production systems can combine participatory rhetoric with explicit authority structures; those structures may become visible precisely where ordinary community mechanisms reach their limits. What remains insufficiently evidenced here is the stronger causal claim that newcomer-veteran disagreement specifically produces those limits.
 
-> **Perturbatore:** *"What if being nice to newcomers does not solve the problem of what happens when they disagree with you — and the newcomer's disruption is not a bug to be managed, but useful friction that exposes what the system actually depends on?"*
+The synthetic Maria scenario therefore remains useful as a **hypothesis generator**, not as proof. A field report describing a real newcomer entering an established peer group — including what was negotiable, what was not, and how disagreement was resolved — would materially strengthen or challenge this interpretation.
 
-Kindness is not governance. Kindness delays the confrontation governance would resolve.
+Kindness is not governance. But neither does the existence of governance prove why a conflict occurred.
 
 ### Evidence Status
 
-| Status | Count |
-|--------|------:|
-| **Confirmed cases** | 1 |
-| **Cases under study** | 0 |
-| **Unverified cases** | 0 |
-| **Ambiguous cases** | 0 |
+| Dimension | Current state |
+|---|---|
+| **Epistemic status** | Hypothesized |
+| **Verification status** | Partially supported |
+| **Direct documentary support** | 1 case |
+| **Contextual documentary cases** | 2 cases |
+| **Field reports** | 0 |
+| **Synthetic scenarios** | 1 — excluded from evidence counts |
+
+### What Would Change This Interpretation?
+
+- A field report in which newcomer disagreement is resolved sustainably without any explicit escalation mechanism would complicate the current boundary.
+- Evidence showing that the cited formal bodies were created for reasons unrelated to limits of informal resolution would narrow the structural analogy.
+- Multiple incidents showing that newcomers can renegotiate hidden dependencies without formal authority would weaken the hypothesis that visible decision rights are necessary.
 
 ### Traceability
 
-`Run: audit-v2 · Delta: 1.6 → 1.7792 (±0.1792) · Diversity D: 2`
+`Method: documentary-audit-v2.1 · Claim: UP-NEWCOMER-001 · Tension: 1.7792/3 · Integrity: structured`
+
+The tension value is retained from the prior audit for continuity. It should be recomputed only under a single canonical tension method; it is **not** a statistical confidence score.
 
 ### References
 
