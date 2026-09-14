@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://unpeeragogy.pyragogy.org/research-schema/field-report-v1.json",
+  "title": "UnPeeragogy Practitioner Field Report v1",
+  "description": "Portable Critical Incident-style schema for public, voluntary practitioner reports. It separates observation from interpretation and includes provenance and consent metadata.",
+  "type": "object",
+  "required": [
+    "id",
+    "pattern",
+    "observer_role",
+    "context",
+    "action",
+    "outcome",
+    "surprise",
+    "consent"
+  ],
+  "properties": {
+    "id": { "type": "string", "minLength": 1 },
+    "pattern": { "type": "string", "minLength": 1 },
+    "observer_role": {
+      "enum": ["participant", "direct-observer", "second-hand", "mixed", "other"]
+    },
+    "context": {
+      "type": "string",
+      "description": "Minimised context needed to understand the incident; avoid unnecessary identifiers."
+    },
+    "intention": {
+      "type": ["string", "null"],
+      "description": "What the actor/group was trying to achieve, when known."
+    },
+    "action": {
+      "type": "string",
+      "description": "What was actually done."
+    },
+    "outcome": {
+      "type": "string",
+      "description": "Observable events and consequences, separated from inferred motives."
+    },
+    "surprise": {
+      "type": "string",
+      "description": "What differed from expectation; 'none' is a valid answer."
+    },
+    "interpretation": {
+      "type": ["string", "null"],
+      "description": "Contributor interpretation, explicitly distinct from observation."
+    },
+    "alternative_explanations": {
+      "type": "array",
+      "items": { "type": "string" },
+      "default": []
+    },
+    "counter_evidence": {
+      "type": ["string", "null"],
+      "description": "How the incident might challenge the project's current interpretation."
+    },
+    "relation_to_theory": {
+      "enum": ["unknown", "matched", "diverged", "mixed"]
+    },
+    "submitted_at": {
+      "type": ["string", "null"],
+      "format": "date-time"
+    },
+    "source_uri": {
+      "type": ["string", "null"],
+      "format": "uri"
+    },
+    "consent": {
+      "type": "object",
+      "required": ["public_submission", "data_minimised", "history_acknowledged"],
+      "properties": {
+        "public_submission": { "const": true },
+        "data_minimised": { "const": true },
+        "history_acknowledged": { "const": true }
+      },
+      "additionalProperties": false
+    },
+    "research_metadata": {
+      "allOf": [
+        { "$ref": "https://unpeeragogy.pyragogy.org/research-schema/v1.json" },
+        {
+          "type": "object",
+          "properties": {
+            "origin": { "const": "field-report" },
+            "research_channels": { "contains": { "const": "field-report" } }
+          }
+        }
+      ]
+    }
+  },
+  "additionalProperties": false
+}
