@@ -19,9 +19,17 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         <div class="text-sm font-bold">research.json</div>
         <p class="mt-1 text-sm d-text-sec">Machine-readable corpus index: origin, epistemic state, verification state, research channels, tension and provenance.</p>
       </a>
+      <a href="/prov.jsonld" class="rounded-xl border border-stone-200 d-border p-5 hover:border-(--color-accent) transition-colors">
+        <div class="text-sm font-bold">W3C PROV JSON-LD</div>
+        <p class="mt-1 text-sm d-text-sec">A provenance graph linking records to sources, methods, revision chains and project agents.</p>
+      </a>
       <a href="/ro-crate-metadata.json" class="rounded-xl border border-stone-200 d-border p-5 hover:border-(--color-accent) transition-colors">
         <div class="text-sm font-bold">RO-Crate 1.3</div>
         <p class="mt-1 text-sm d-text-sec">JSON-LD research-object metadata for reuse, archiving and interoperability.</p>
+      </a>
+      <a href="/research-schema/v1.json" class="rounded-xl border border-stone-200 d-border p-5 hover:border-(--color-accent) transition-colors">
+        <div class="text-sm font-bold">Versioned JSON Schema</div>
+        <p class="mt-1 text-sm d-text-sec">A portable validation contract that other projects can adopt without adopting UnPeeragogy's conclusions.</p>
       </a>
     </div>
 
@@ -52,6 +60,10 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       These channels can triangulate each other, but they are never silently treated as equivalent. Documents are good at recording formal structure. Field reports are good at exposing lived practice. Both have characteristic biases.
     </p>
 
+    <p>
+      Practitioner reports also follow an explicit <a href="https://github.com/pyragogy/UnPeeragogy/blob/main/ETHICS.md">ethics and data-minimisation policy</a>. The project does not need a person's private details to learn from a coordination failure.
+    </p>
+
     <h2>Integrity levels</h2>
 
     <table>
@@ -71,7 +83,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     <h2>Interoperability</h2>
 
     <p>
-      UnPeeragogy keeps its own qualitative vocabulary, but exposes it through standards used in open research infrastructure. Provenance is designed to map to <a href="https://www.w3.org/TR/prov-overview/">W3C PROV</a>; packaged research metadata is exported as <a href="https://w3id.org/ro/crate/1.3">RO-Crate 1.3</a>; citable releases can be described using <a href="https://schema.datacite.org/meta/kernel-4.7/">DataCite Metadata Schema 4.7</a>.
+      UnPeeragogy keeps its own qualitative vocabulary, but exposes it through standards used in open research infrastructure. Provenance is exported in a form aligned with <a href="https://www.w3.org/TR/prov-overview/">W3C PROV</a>; packaged research metadata is exported as <a href="https://w3id.org/ro/crate/1.3">RO-Crate 1.3</a>; citable releases can be described using <a href="https://schema.datacite.org/meta/kernel-4.7/">DataCite Metadata Schema 4.7</a>.
     </p>
 
     <p>
@@ -92,6 +104,10 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       <li>explicit flags for illustrative or synthetic scenarios.</li>
     </ul>
 
+    <p>
+      The general record schema is published at <a href="/research-schema/v1.json"><code>/research-schema/v1.json</code></a>. A separate Critical Incident field-report schema is published at <a href="/research-schema/field-report-v1.json"><code>/research-schema/field-report-v1.json</code></a>.
+    </p>
+
     <h2>What “reproducible” means here</h2>
 
     <p>
@@ -111,6 +127,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     <div class="not-prose mt-10 flex flex-wrap gap-3">
       <a href="/protocol/" class="rounded-lg bg-(--color-accent) px-5 py-2.5 text-sm font-semibold text-white">Read the protocol</a>
       <a href="https://github.com/pyragogy/UnPeeragogy/blob/main/docs/RESEARCH_DATA_MODEL.md" class="rounded-lg border border-stone-300 d-border px-5 py-2.5 text-sm font-semibold">Data model</a>
+      <a href="https://github.com/pyragogy/UnPeeragogy/blob/main/ETHICS.md" class="rounded-lg border border-stone-300 d-border px-5 py-2.5 text-sm font-semibold">Ethics policy</a>
       <a href="https://github.com/pyragogy/UnPeeragogy" class="rounded-lg border border-stone-300 d-border px-5 py-2.5 text-sm font-semibold">Repository</a>
     </div>
   </article>
