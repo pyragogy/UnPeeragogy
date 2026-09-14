@@ -52,7 +52,7 @@ export async function GET() {
   );
 
   const payload = {
-    schema: "https://unpeeragogy.pyragogy.org/research-schema/v1",
+    schema: "https://unpeeragogy.pyragogy.org/research-schema/v1.json",
     schema_version: "1.0.0",
     title: "UnPeeragogy Open Research Corpus",
     description:
