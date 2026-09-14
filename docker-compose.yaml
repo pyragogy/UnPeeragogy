@@ -1,16 +1,14 @@
-# Unpeeragogy — Docker Compose
-# Avvia sia il sito statico che il server MCP
+# UnPeeragogy — local Docker Compose
+# Starts the static site and the MCP server.
 #
-# Security headers (HSTS, X-Content-Type-Options, etc.)
-# are served by nginx via nginx.conf — no proxy configuration needed.
+# Security headers are served by nginx via nginx.conf.
 #
 # Usage:
-#   docker compose up -d          # avvia tutto
-#   docker compose up -d mcp      # solo MCP server
-#   docker compose up -d web      # solo sito statico
+#   MCP_AUTH_TOKEN='<strong-random-token>' docker compose up -d
+#   docker compose up -d mcp
+#   docker compose up -d web
 
 services:
-  # Sito statico Astro + nginx
   web:
     build:
       context: .
@@ -21,7 +19,6 @@ services:
     depends_on:
       - mcp
 
-  # Server MCP (Model Context Protocol)
   mcp:
     build:
       context: ./packages/mcp-server
@@ -29,13 +26,11 @@ services:
     ports:
       - "3001:3001"
     environment:
-      - MCP_AUTH_TOKEN=${MCP_AUTH_TOKEN:-change-me}
+      # Refuse to start Compose without an explicit token. Never ship a known default.
+      - MCP_AUTH_TOKEN=${MCP_AUTH_TOKEN:?MCP_AUTH_TOKEN is required}
       - MCP_FRICTION_MODE=${MCP_FRICTION_MODE:-soft}
-      - HETZNER_API_KEY=${HETZNER_API_KEY}
-      # CONTENT_ROOT punta al volume condiviso delle content collections
       - CONTENT_ROOT=/app/content
       - PORT=3001
     volumes:
-      # Monteggia il contenuto del repo per accesso live ai file MDX
       - ./src/content:/app/content:ro
     restart: unless-stopped

@@ -1,11 +1,10 @@
-# Dockerfile for Unpeeragogy static site (Astro)
-# Used by docker-compose.yaml for local development
+# Dockerfile for the UnPeeragogy static Astro site.
 
 FROM node:22-alpine AS build
 
 WORKDIR /app
 COPY package.json package-lock.json ./
-RUN npm install
+RUN npm ci
 COPY . .
 ENV NODE_ENV=production
 RUN npm run build

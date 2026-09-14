@@ -1,12 +1,51 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 import { fileURLToPath } from "node:url";
+import matter from "gray-matter";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // CONTENT_ROOT env var overrides the content path (for Docker/production)
 // Fall back to relative path from packages/mcp-server/src/lib/loader.ts
 const CONTENT_ROOT = process.env.CONTENT_ROOT || path.resolve(__dirname, "..", "..", "..", "..", "src", "content");
+
+export type EpistemicStatus =
+  | "observed"
+  | "reported"
+  | "interpreted"
+  | "hypothesized"
+  | "corroborated"
+  | "contested"
+  | "revised";
+
+export type VerificationStatus =
+  | "unverified"
+  | "source-linked"
+  | "partially-supported"
+  | "corroborated"
+  | "contested";
+
+export type IntegrityLevel = "legacy" | "structured" | "verified" | "contested";
+
+export type ResearchChannel =
+  | "documentary"
+  | "field-report"
+  | "first-person"
+  | "repository"
+  | "public-record"
+  | "synthetic";
+
+export interface ProvenanceRecord {
+  id?: string;
+  kind?: string;
+  uri?: string;
+  locator?: string;
+  author?: string;
+  date?: string;
+  claim?: string;
+  support?: "supports" | "complicates" | "contradicts" | "context-only";
+  note?: string;
+}
 
 export interface EntryFrontmatter {
   title: string;
@@ -16,7 +55,19 @@ export interface EntryFrontmatter {
   readingTime?: number;
   tags?: string[];
   vectors?: string[];
+  /** Canonical descriptive value on the project 0..3 scale. Never synthesised implicitly. */
   tension_index?: number;
+  origin?: string;
+  integrity_level?: IntegrityLevel;
+  epistemic_status?: EpistemicStatus;
+  verification_status?: VerificationStatus;
+  method_version?: string;
+  research_channels?: ResearchChannel[];
+  provenance?: ProvenanceRecord[];
+  synthetic_scenario?: boolean;
+  claim_id?: string;
+  revised_from?: string;
+  revised_to?: string;
 }
 
 export interface ContentEntry {
@@ -24,11 +75,11 @@ export interface ContentEntry {
   collection: "peeragogy" | "unpeeragogy";
   frontmatter: EntryFrontmatter;
   body: string;
-  // Full path for reference
   filePath: string;
 }
 
-// Known failure vectors mapped from terms in content
+// Known failure vectors mapped from terms in content.
+// Detection is a navigation aid, not empirical evidence and not a tension score.
 const KNOWN_VECTORS = [
   "free-rider",
   "consensus-paralysis",
@@ -47,71 +98,59 @@ const KNOWN_VECTORS = [
   "misaligned-incentives",
 ];
 
-function frontmatterToErrorCount(frontmatter: EntryFrontmatter): number {
-  let count = 0;
-  if (frontmatter.tags) {
-    for (const tag of frontmatter.tags) {
-      if (KNOWN_VECTORS.some((v) => tag.toLowerCase().includes(v))) count++;
-    }
-  }
-  if (frontmatter.vectors) count += frontmatter.vectors.length;
-  return count;
+function stringArray(value: unknown): string[] | undefined {
+  if (!Array.isArray(value)) return undefined;
+  const out = value.filter((v): v is string => typeof v === "string" && v.trim().length > 0);
+  return out.length ? out : undefined;
 }
 
-/**
- * Extract YAML frontmatter from raw MDX text using simple regex
- * (avoids needing gray-matter for basic parsing, we use it for structured)
- */
+function finiteNumber(value: unknown): number | undefined {
+  if (typeof value !== "number" || !Number.isFinite(value)) return undefined;
+  return value;
+}
+
 function parseFrontmatter(raw: string): { frontmatter: EntryFrontmatter; body: string } {
-  let frontmatter: EntryFrontmatter = { title: "" };
-  let body = raw;
+  const parsed = matter(raw);
+  const data = parsed.data as Record<string, unknown>;
 
-  const match = raw.match(/^---\n([\s\S]*?)\n---\n?/);
-  if (match) {
-    const yamlBlock = match[1];
-    body = raw.slice(match[0].length);
+  const tension = finiteNumber(data.tension_index);
+  const boundedTension = tension !== undefined && tension >= 0 && tension <= 3 ? tension : undefined;
 
-    // Simple YAML field extraction (no full YAML parser needed for basic fields)
-    const title = yamlBlock.match(/title:\s*"([^"]+)"/) || yamlBlock.match(/title:\s*'([^']+)'/);
-    const section = yamlBlock.match(/section:\s*"([^"]+)"/);
-    const order = yamlBlock.match(/order:\s*(\d+)/);
-    const description = yamlBlock.match(/description:\s*"([^"]+)"/);
-    const readingTime = yamlBlock.match(/readingTime:\s*(\d+)/);
+  const provenance = Array.isArray(data.provenance)
+    ? data.provenance.filter((p): p is ProvenanceRecord => typeof p === "object" && p !== null)
+    : undefined;
 
-    // Extract tension_index
-    const tensionIndexStr = yamlBlock.match(/tension_index:\s*([\d.]+)/);
+  const frontmatter: EntryFrontmatter = {
+    title: typeof data.title === "string" ? data.title : "",
+    section: typeof data.section === "string" ? data.section : undefined,
+    order: finiteNumber(data.order),
+    description: typeof data.description === "string" ? data.description : undefined,
+    readingTime: finiteNumber(data.readingTime),
+    tags: stringArray(data.tags),
+    vectors: stringArray(data.vectors),
+    tension_index: boundedTension,
+    origin: typeof data.origin === "string" ? data.origin : undefined,
+    integrity_level: typeof data.integrity_level === "string" ? data.integrity_level as IntegrityLevel : undefined,
+    epistemic_status: typeof data.epistemic_status === "string" ? data.epistemic_status as EpistemicStatus : undefined,
+    verification_status: typeof data.verification_status === "string" ? data.verification_status as VerificationStatus : undefined,
+    method_version: typeof data.method_version === "string" ? data.method_version : undefined,
+    research_channels: stringArray(data.research_channels) as ResearchChannel[] | undefined,
+    provenance,
+    synthetic_scenario: typeof data.synthetic_scenario === "boolean" ? data.synthetic_scenario : undefined,
+    claim_id: typeof data.claim_id === "string" ? data.claim_id : undefined,
+    revised_from: typeof data.revised_from === "string" ? data.revised_from : undefined,
+    revised_to: typeof data.revised_to === "string" ? data.revised_to : undefined,
+  };
 
-    // Extract tags array
-    const tagsMatch = yamlBlock.match(/tags:\s*(\[[\s\S]*?\])/);
-    let tags: string[] = [];
-    if (tagsMatch) {
-      try {
-        // Simple array parsing for string arrays
-        tags = tagsMatch[1]
-          .replace(/[\[\]]/g, "")
-          .split(",")
-          .map((t) => t.trim().replace(/["']/g, ""))
-          .filter(Boolean);
-      } catch {}
-    }
-
-    frontmatter = {
-      title: title?.[1] || "",
-      section: section?.[1] || undefined,
-      order: order ? parseInt(order[1]) : undefined,
-      description: description?.[1] || undefined,
-      readingTime: readingTime ? parseInt(readingTime[1]) : undefined,
-      tags: tags.length > 0 ? tags : undefined,
-      tension_index: tensionIndexStr ? parseFloat(tensionIndexStr[1]) : undefined,
-    };
-  }
-
-  return { frontmatter, body };
+  return { frontmatter, body: parsed.content };
 }
 
 /**
- * Detect failure vectors from content body + tags
- * Returns a deduplicated list of vector names
+ * Detect failure vectors from content body + tags.
+ * Returns a deduplicated list of vector names.
+ *
+ * IMPORTANT: vector detection is heuristic indexing metadata only. It must not
+ * be used as provenance, corroboration, or an implicit tension calculation.
  */
 function detectVectors(frontmatter: EntryFrontmatter, body: string): string[] {
   const detected: string[] = [];
@@ -120,12 +159,9 @@ function detectVectors(frontmatter: EntryFrontmatter, body: string): string[] {
   for (const vector of KNOWN_VECTORS) {
     const inTags = frontmatter.tags?.some((t) => t.toLowerCase().includes(vector));
     const inBody = bodyLower.includes(vector.replace(/-/g, " "));
-    if (inTags || inBody) {
-      detected.push(vector);
-    }
+    if (inTags || inBody) detected.push(vector);
   }
 
-  // Also check frontmatter.vectors
   if (frontmatter.vectors) {
     for (const v of frontmatter.vectors) {
       if (!detected.includes(v)) detected.push(v);
@@ -136,7 +172,11 @@ function detectVectors(frontmatter: EntryFrontmatter, body: string): string[] {
 }
 
 /**
- * Load all MDX entries from both collections
+ * Load all MDX entries from both collections.
+ *
+ * The loader does not manufacture research values. In particular, a missing
+ * tension_index remains missing; historical lexical/vector heuristics are no
+ * longer promoted into a canonical research signal.
  */
 export function loadAllEntries(): ContentEntry[] {
   const entries: ContentEntry[] = [];
@@ -153,13 +193,7 @@ export function loadAllEntries(): ContentEntry[] {
       const raw = fs.readFileSync(filePath, "utf-8");
       const { frontmatter, body } = parseFrontmatter(raw);
       const slug = file.replace(/\.mdx$/, "");
-
       const vectors = detectVectors(frontmatter, body);
-
-      // Use canonical tension_index if present, fall back to synthetic calculation
-      const canonicalTi = frontmatter.tension_index;
-      const syntheticTi = frontmatterToErrorCount(frontmatter);
-      const tensionIndex = canonicalTi !== undefined ? canonicalTi : (syntheticTi > 0 ? Math.min(syntheticTi / 4, 2.0) : undefined);
 
       entries.push({
         slug,
@@ -167,7 +201,6 @@ export function loadAllEntries(): ContentEntry[] {
         frontmatter: {
           ...frontmatter,
           vectors: vectors.length > 0 ? vectors : undefined,
-          tension_index: tensionIndex,
         },
         body,
         filePath,
@@ -178,23 +211,14 @@ export function loadAllEntries(): ContentEntry[] {
   return entries;
 }
 
-/**
- * Load entries for a specific collection
- */
 export function loadCollection(collection: "peeragogy" | "unpeeragogy"): ContentEntry[] {
   return loadAllEntries().filter((e) => e.collection === collection);
 }
 
-/**
- * Get a single entry by slug and collection
- */
 export function getEntry(slug: string, collection: "peeragogy" | "unpeeragogy"): ContentEntry | undefined {
   return loadAllEntries().find((e) => e.slug === slug && e.collection === collection);
 }
 
-/**
- * Get all failure vectors with associated entries
- */
 export function getFailureVectors(): Map<string, ContentEntry[]> {
   const entries = loadAllEntries();
   const vectorMap = new Map<string, ContentEntry[]>();
@@ -210,9 +234,6 @@ export function getFailureVectors(): Map<string, ContentEntry[]> {
   return vectorMap;
 }
 
-/**
- * Get all unique slugs across both collections
- */
 export function getAllSlugs(): string[] {
   const entries = loadAllEntries();
   return [...new Set(entries.map((e) => e.slug))];
