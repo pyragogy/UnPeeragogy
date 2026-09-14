@@ -1,68 +1,136 @@
 /**
- * Evidence Taxonomy — Unpeeragogy
+ * Evidence Taxonomy — UnPeeragogy
  *
- * Every claim in the corpus belongs to one of these epistemic types.
- * This taxonomy is the foundation for structuring the knowledge graph,
- * labeling field reports, and tracing provenance.
+ * The taxonomy separates WHAT a research object is, WHERE it entered the
+ * corpus, WHERE an interpretation is in its lifecycle, and HOW its supporting
+ * material has been verified. These dimensions must not be collapsed.
  *
- * STATUS: initial / exploratory
- * These types may be refined as the corpus grows.
+ * STATUS: v1 / exploratory and intentionally revisable.
  */
 
 export type EvidenceType =
-  | "source"               // What the Peeragogy Handbook says (fixed text)
-  | "observation"          // A practitioner's direct experience (raw)
-  | "incident"             // A structured CIT report (context + action + outcome + reflection)
-  | "interpretation"       // Project's analysis of an incident (provisional)
-  | "hypothesis"           // A candidate explanation for observed behaviour
-  | "failure_mode"         // A describable way a pattern deteriorates
-  | "counter_evidence"     // Evidence that tensions a previous interpretation
-  | "revised_interpretation"; // Updated interpretation after counter-evidence
+  | "source"                  // What an original source says
+  | "observation"             // A practitioner's direct report (raw)
+  | "incident"                // Structured Critical Incident report
+  | "interpretation"          // Project analysis of evidence (provisional)
+  | "hypothesis"              // Candidate explanation
+  | "failure_mode"            // A describable way a pattern deteriorates
+  | "counter_evidence"        // Evidence that challenges a prior interpretation
+  | "revised_interpretation"  // Interpretation changed after counter-evidence
+  | "illustrative_scenario";  // Synthetic/composite narrative; never empirical evidence
 
 /**
- * Evidence Status — where a claim is in its lifecycle
+ * Where material entered the corpus.
+ * Documentary and practitioner evidence remain analytically distinct before
+ * any triangulation is attempted.
+ */
+export type ResearchChannel =
+  | "documentary"
+  | "field-report"
+  | "first-person"
+  | "repository"
+  | "public-record"
+  | "synthetic";
+
+/**
+ * Evidence Status — where a claim/interpretation is in its lifecycle.
  *
- * Not a confidence score. A qualitative description of the claim's
- * current epistemic position.
+ * Not a confidence score.
  */
 export type EvidenceStatus =
-  | "observed"        // Raw incident received, no analysis yet
-  | "reported"        // Incident logged in the corpus with context
-  | "interpreted"     // Incident has been analysed
-  | "hypothesized"    // Tentative explanation proposed
-  | "corroborated"    // Multiple independent incidents support the interpretation
-  | "contested"       // Counter-evidence raised against current interpretation
-  | "revised";        // Interpretation updated; previous version preserved
+  | "observed"
+  | "reported"
+  | "interpreted"
+  | "hypothesized"
+  | "corroborated"
+  | "contested"
+  | "revised";
 
 /**
- * Graph Node Types — for the knowledge graph
+ * Verification Status — how the supporting material has been checked.
+ * Independent of EvidenceStatus.
+ */
+export type VerificationStatus =
+  | "unverified"
+  | "source-linked"
+  | "partially-supported"
+  | "corroborated"
+  | "contested";
+
+/**
+ * Integrity level for corpus migration.
+ */
+export type IntegrityLevel =
+  | "legacy"
+  | "structured"
+  | "verified"
+  | "contested";
+
+/**
+ * Claim-to-source relation. A real source may be relevant without actually
+ * supporting the stronger claim attached to it.
+ */
+export type SupportRelation =
+  | "supports"
+  | "complicates"
+  | "contradicts"
+  | "context-only";
+
+export interface ProvenanceRecord {
+  id?: string;
+  kind:
+    | "handbook"
+    | "field-report"
+    | "document"
+    | "repository"
+    | "discussion"
+    | "web-source"
+    | "dataset"
+    | "synthetic-scenario"
+    | "other";
+  uri?: string;
+  /** Narrow locator: page, section, paragraph, issue, commit, timestamp, etc. */
+  locator?: string;
+  author?: string;
+  date?: string;
+  /** Narrow claim for which this record is being cited. */
+  claim?: string;
+  support?: SupportRelation;
+  /** What the source does not establish, or other relevant limitation. */
+  note?: string;
+}
+
+/**
+ * Graph Node Types — for the knowledge graph.
  */
 export type GraphNodeType =
-  | "pattern"             // A Peeragogy pattern
-  | "source"              // Handbook text
-  | "incident"            // A CIT field report
-  | "observation"         // A raw practitioner observation
-  | "hypothesis"          // A candidate explanation
-  | "failure_mode"        // A describable failure pattern
-  | "counter_evidence"    // Evidence that tensions an interpretation
-  | "interpretation";     // Project analysis
+  | "pattern"
+  | "source"
+  | "incident"
+  | "observation"
+  | "hypothesis"
+  | "failure_mode"
+  | "counter_evidence"
+  | "interpretation"
+  | "illustrative_scenario";
 
 /**
- * Graph Edge Types — relationships between nodes
+ * Graph Edge Types — relationships between nodes.
  */
 export type GraphEdgeType =
-  | "supports"            // Node A supports node B
-  | "contradicts"         // Node A contradicts node B
-  | "complicates"         // Node A complicates node B (not full contradiction)
-  | "qualifies"           // Node A narrows the scope of node B
-  | "depends_on"          // Node A depends on condition in node B
-  | "observed_in"         // Node A was observed in context B
-  | "derived_from"        // Node A is derived from node B
-  | "challenged_by"       // Node A is challenged by node B
-  | "revised_into";       // Node A was revised into node B
+  | "supports"
+  | "contradicts"
+  | "complicates"
+  | "qualifies"
+  | "depends_on"
+  | "observed_in"
+  | "derived_from"
+  | "challenged_by"
+  | "revised_into"
+  | "contextualizes";
 
 /**
- * Node interface for the knowledge graph
+ * Node interface for the knowledge graph.
  */
 export interface EvidenceNode {
   id: string;
@@ -70,30 +138,34 @@ export interface EvidenceNode {
   label: string;
   slug?: string;
   status: EvidenceStatus;
-  tension_index?: number;   // 0-3, descriptive only
-  provenance?: string[];    // IDs of parent nodes (incidents, sources)
-  revised_from?: string;    // ID of previous interpretation (if revised)
-  revised_to?: string;      // ID of revised interpretation (if superseded)
+  verification_status?: VerificationStatus;
+  integrity_level?: IntegrityLevel;
+  research_channels?: ResearchChannel[];
+  tension_index?: number;   // canonical 0..3; descriptive, not statistical
+  provenance?: string[];    // IDs of provenance records / parent nodes
+  revised_from?: string;
+  revised_to?: string;
   tags?: string[];
   section?: string;
 }
 
 /**
- * Edge interface for the knowledge graph
+ * Edge interface for the knowledge graph.
  */
 export interface EvidenceEdge {
-  source: string;         // Node ID
-  target: string;         // Node ID
+  source: string;
+  target: string;
   type: GraphEdgeType;
-  weight?: number;        // Optional strength (descriptive, not statistical)
-  label?: string;         // Optional human-readable description
-  provenance?: string[];  // IDs of incidents/observations supporting this edge
+  weight?: number;          // descriptive unless a method explicitly defines otherwise
+  label?: string;
+  provenance?: string[];
 }
 
 /**
- * Interpretation chain — reconstructable path from source to current understanding
+ * Interpretation chain — reconstructable path from source to current understanding.
  *
- * source → observation → interpretation → [counter-evidence → revision]
+ * source → observation/incident → interpretation → hypothesis
+ *        → [counter-evidence → revised interpretation]
  */
 export interface InterpretationChain {
   source: string;
@@ -101,10 +173,11 @@ export interface InterpretationChain {
   interpretations: {
     id: string;
     status: EvidenceStatus;
+    verification_status?: VerificationStatus;
     text: string;
     timestamp: string;
-    challenged_by?: string;  // counter-evidence id
-    replaced_by?: string;    // revised interpretation id
+    challenged_by?: string;
+    replaced_by?: string;
   }[];
-  current: string;  // ID of current interpretation
+  current: string;
 }
