@@ -7,17 +7,34 @@ body:
     attributes:
       value: |
         You don't need to know anything about "tension index" or "failure vectors" to fill this out.
-        Just tell us what happened. We'll figure out what it means.
+        Tell us what happened as concretely as you can.
 
-        The form separates **what happened** from **what you think it meant**.
+        This form deliberately separates **what happened** from **what you think it meant**.
         Both matter — but they are different kinds of evidence.
+
+        **Protect people before precision.** Do not include names, private contact details, health information, private messages, confidential employer/client information, or details that make third parties unnecessarily identifiable. Pseudonyms and approximate context are welcome.
+
+        Field reports are public. They may be analysed, quoted in part, linked from the corpus, and preserved in Git/GitHub history. See [ETHICS.md](../../ETHICS.md) before submitting.
 
   - type: input
     id: entry-slug
     attributes:
       label: Which pattern is this about?
-      description: "The page you were reading (e.g. newcomer, motivation, heartbeat, cooperation)"
+      description: "The page you were reading (e.g. newcomer, motivation, heartbeat, cooperation)."
       placeholder: "e.g. newcomer"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: observer-role
+    attributes:
+      label: Your relationship to the event
+      description: "This helps us distinguish direct experience from second-hand accounts."
+      options:
+        - "I participated directly"
+        - "I directly observed it but was not a participant"
+        - "I learned about it from participants or records"
+        - "Other / mixed position"
     validations:
       required: true
 
@@ -25,17 +42,17 @@ body:
     id: context
     attributes:
       label: The situation
-      description: "What group was this? Size, purpose, how long it had existed. Skip anything identifying — vague is fine."
-      placeholder: "e.g. A 6-person open-source docs team, together about 8 months, mostly async on Discord."
+      description: "What kind of group was this? Approximate size, purpose, duration, and working mode. Remove identifying details that are not necessary to understand the incident."
+      placeholder: "e.g. A small open-source documentation team, active for about 8 months, working mostly asynchronously."
     validations:
-      required: false
+      required: true
 
   - type: textarea
     id: what-you-tried
     attributes:
       label: What you tried
-      description: "What did you (or the group) do, based on this pattern?"
-      placeholder: "e.g. We set a fixed weekly call to build a heartbeat, hoping it would help new people integrate."
+      description: "What did you or the group actually do? If this was inspired by a pattern, describe the action rather than what the pattern is supposed to mean."
+      placeholder: "e.g. We introduced a fixed weekly call, hoping it would help new people integrate."
     validations:
       required: true
 
@@ -43,8 +60,16 @@ body:
     id: what-happened
     attributes:
       label: What happened
-      description: "Be specific. What was said, what changed, who left, who stayed, what surprised you."
-      placeholder: "e.g. The weekly call worked for the first month. Then attendance dropped because..."
+      description: "Describe observable events and outcomes. Avoid diagnosing motives you could not directly know."
+      placeholder: "e.g. Attendance was high for four weeks, then dropped from six regular participants to two..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: surprise
+    attributes:
+      label: What surprised you?
+      description: "What happened differently from what you expected? 'Nothing surprised me' is also useful."
     validations:
       required: true
 
@@ -52,8 +77,17 @@ body:
     id: interpretation
     attributes:
       label: What I think it meant
-      description: "Your take — not what happened, but what you make of it. This is different from the facts, and both are valuable."
-      placeholder: "e.g. I think we assumed everyone wanted the same level of commitment. That assumption was wrong."
+      description: "Your interpretation — not the event itself. It is fine to be uncertain."
+      placeholder: "e.g. I think we assumed everyone wanted the same level of commitment, but I cannot know whether that was the only cause."
+    validations:
+      required: false
+
+  - type: textarea
+    id: alternative-explanation
+    attributes:
+      label: What else could explain it?
+      description: "Optional but valuable: name at least one plausible alternative interpretation or missing condition."
+      placeholder: "e.g. The attendance drop may also have been seasonal or caused by a deadline elsewhere."
     validations:
       required: false
 
@@ -68,9 +102,9 @@ body:
   - type: textarea
     id: counter-evidence
     attributes:
-      label: "What might we be getting wrong?"
-      description: "Optional: if you think our current entry on this pattern misses something, tell us. This is the most valuable thing you can contribute."
-      placeholder: "e.g. The entry says consensus is paralyzing. But in my group, consensus was the only thing that kept people from leaving."
+      label: "What might UnPeeragogy be getting wrong?"
+      description: "If the current entry misses something, tell us. Cases where the pattern worked well are equally valuable."
+      placeholder: "e.g. The entry says consensus is paralyzing. In our group, consensus was the only thing that kept people from leaving."
     validations:
       required: false
 
@@ -78,12 +112,23 @@ body:
     id: relation-to-theory
     attributes:
       label: "Optional: how does this compare to what the pattern describes?"
-      description: "Skip this — that's our job to work out, not yours."
+      description: "Skip this if you prefer — interpretation is not your obligation."
       options:
-        - "Skip this — our job"
+        - "Skip this"
         - "Matched what the pattern describes"
         - "Went differently than the pattern describes"
         - "Somewhere in between"
       default: 0
     validations:
       required: false
+
+  - type: checkboxes
+    id: consent
+    attributes:
+      label: Public research consent
+      description: "Required to submit a field report."
+      options:
+        - label: "I understand that this report is public and may be analysed, quoted, linked, archived and redistributed under the repository's CC0 research corpus terms. I have removed confidential information and unnecessary identifying details about other people."
+          required: true
+        - label: "I understand that public Git/GitHub history and third-party forks or archives may preserve earlier versions even if the current project later removes or edits the report."
+          required: true
