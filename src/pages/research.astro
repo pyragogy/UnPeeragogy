@@ -1,0 +1,117 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Open Research Infrastructure — Unpeeragogy"
+  description="How UnPeeragogy exposes qualitative evidence, provenance and revision history as reusable open research infrastructure."
+>
+  <article class="prose prose-stone dark:prose-invert max-w-4xl mx-auto" data-pagefind-body>
+    <p class="text-xs font-semibold uppercase tracking-[0.18em] text-(--color-accent)">Open research substrate</p>
+    <h1>Research should remain inspectable after publication.</h1>
+
+    <p class="lead">
+      UnPeeragogy is not only a website about Peeragogy. It is being developed as an open qualitative and socio-technical research substrate: evidence, interpretation, provenance, counter-evidence and revision are represented as different objects rather than flattened into prose.
+    </p>
+
+    <div class="not-prose my-8 grid gap-3 sm:grid-cols-2">
+      <a href="/research.json" class="rounded-xl border border-stone-200 d-border p-5 hover:border-(--color-accent) transition-colors">
+        <div class="text-sm font-bold">research.json</div>
+        <p class="mt-1 text-sm d-text-sec">Machine-readable corpus index: origin, epistemic state, verification state, research channels, tension and provenance.</p>
+      </a>
+      <a href="/ro-crate-metadata.json" class="rounded-xl border border-stone-200 d-border p-5 hover:border-(--color-accent) transition-colors">
+        <div class="text-sm font-bold">RO-Crate 1.3</div>
+        <p class="mt-1 text-sm d-text-sec">JSON-LD research-object metadata for reuse, archiving and interoperability.</p>
+      </a>
+    </div>
+
+    <h2>What is different here</h2>
+
+    <p>
+      Most knowledge bases preserve conclusions. UnPeeragogy aims to preserve the path to a conclusion: the source or incident, the interpretation made from it, the conditions under which it may hold, the counter-evidence that challenges it, and any later revision.
+    </p>
+
+    <p>
+      A real URL is not automatically evidence for a claim. The research model therefore treats <strong>claim-to-source support</strong> as a separate problem from source existence. A source may support, complicate, contradict, or merely contextualise a claim.
+    </p>
+
+    <h2>Two evidence channels</h2>
+
+    <div class="not-prose grid gap-4 sm:grid-cols-2 my-6">
+      <div class="rounded-xl bg-stone-50 dark:bg-(--surface-bg) p-5 border border-stone-200 d-border">
+        <h3 class="font-bold">Documentary audit</h3>
+        <p class="mt-2 text-sm d-text-sec">Policies, repositories, governance records, publications, archived discussions and other inspectable public material.</p>
+      </div>
+      <div class="rounded-xl bg-stone-50 dark:bg-(--surface-bg) p-5 border border-stone-200 d-border">
+        <h3 class="font-bold">Practitioner field evidence</h3>
+        <p class="mt-2 text-sm d-text-sec">Critical Incident reports, first-person testimony and context-rich accounts of what happened in real groups.</p>
+      </div>
+    </div>
+
+    <p>
+      These channels can triangulate each other, but they are never silently treated as equivalent. Documents are good at recording formal structure. Field reports are good at exposing lived practice. Both have characteristic biases.
+    </p>
+
+    <h2>Integrity levels</h2>
+
+    <table>
+      <thead><tr><th>Level</th><th>Meaning</th></tr></thead>
+      <tbody>
+        <tr><td><code>legacy</code></td><td>Predates the research-grade schema. Public, useful, but not yet provenance-enforced.</td></tr>
+        <tr><td><code>structured</code></td><td>Declares origin, research channel, epistemic state, verification state, method and provenance.</td></tr>
+        <tr><td><code>verified</code></td><td>Material empirical claims have been checked against traceable evidence and locators.</td></tr>
+        <tr><td><code>contested</code></td><td>Counter-evidence actively challenges the current interpretation.</td></tr>
+      </tbody>
+    </table>
+
+    <p>
+      The existing corpus is intentionally being migrated progressively. We do not bulk-promote old entries to <em>verified</em>. That would manufacture certainty rather than improve it.
+    </p>
+
+    <h2>Interoperability</h2>
+
+    <p>
+      UnPeeragogy keeps its own qualitative vocabulary, but exposes it through standards used in open research infrastructure. Provenance is designed to map to <a href="https://www.w3.org/TR/prov-overview/">W3C PROV</a>; packaged research metadata is exported as <a href="https://w3id.org/ro/crate/1.3">RO-Crate 1.3</a>; citable releases can be described using <a href="https://schema.datacite.org/meta/kernel-4.7/">DataCite Metadata Schema 4.7</a>.
+    </p>
+
+    <p>
+      Interoperability is a mapping layer, not a replacement for the method. A social-science incident, an open-source governance dispute and a documentary source do not become the same kind of evidence merely because they can all be represented in JSON-LD.
+    </p>
+
+    <h2>Machine-readable contract</h2>
+
+    <p>Research-grade records can represent, separately:</p>
+    <ul>
+      <li>origin and research channel;</li>
+      <li>epistemic lifecycle state;</li>
+      <li>verification state;</li>
+      <li>claim-level provenance and source locators;</li>
+      <li>whether a source supports, complicates, contradicts or only contextualises a claim;</li>
+      <li>method/version for derived values;</li>
+      <li>revision links and counter-evidence;</li>
+      <li>explicit flags for illustrative or synthetic scenarios.</li>
+    </ul>
+
+    <h2>What “reproducible” means here</h2>
+
+    <p>
+      The project distinguishes <strong>traceable</strong>, <strong>auditable</strong>, <strong>re-runnable</strong> and <strong>reproducible</strong>. An LLM-assisted audit is not called fully reproducible merely because its code is public. A reproducible run requires the relevant inputs, prompts, model identifiers, parameters, transformation code and run manifest to be published together, with stochastic limits declared.
+    </p>
+
+    <blockquote>
+      The goal is not to make interpretation disappear. The goal is to make interpretation visible enough to be challenged.
+    </blockquote>
+
+    <h2>Use it, fork it, contradict it</h2>
+
+    <p>
+      The corpus and research infrastructure are released under CC0. Other projects should be able to reuse the schema without adopting UnPeeragogy's conclusions. A future study should be able to fork the method, replace the source theory, import its own incidents and preserve a comparably auditable trail.
+    </p>
+
+    <div class="not-prose mt-10 flex flex-wrap gap-3">
+      <a href="/protocol/" class="rounded-lg bg-(--color-accent) px-5 py-2.5 text-sm font-semibold text-white">Read the protocol</a>
+      <a href="https://github.com/pyragogy/UnPeeragogy/blob/main/docs/RESEARCH_DATA_MODEL.md" class="rounded-lg border border-stone-300 d-border px-5 py-2.5 text-sm font-semibold">Data model</a>
+      <a href="https://github.com/pyragogy/UnPeeragogy" class="rounded-lg border border-stone-300 d-border px-5 py-2.5 text-sm font-semibold">Repository</a>
+    </div>
+  </article>
+</BaseLayout>
