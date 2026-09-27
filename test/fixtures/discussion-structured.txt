@@ -1,0 +1,36 @@
+### Which pattern is this about?
+cooperation
+
+### Your relationship to the event
+[x] I participated directly
+
+### The situation
+A small open-source documentation team, active for about 8 months, working mostly asynchronously. About 6 regular contributors, 2 core maintainers.
+
+### What you tried
+We introduced a fixed weekly call, hoping it would help new people integrate and build shared context.
+
+### What happened
+Attendance was high for four weeks, then dropped from six regular participants to two. The calls became increasingly dependent on the same two people showing up. New contributors stopped joining after the third week.
+
+### What surprised me
+I expected that once people saw the value of synchronous time, they would prioritize it. Instead, the call seemed to create an implicit expectation that presence was required, which made people who couldn't attend feel like they were falling behind.
+
+### What I think it meant
+The synchronous cadence introduced a hidden threshold: if you miss two calls in a row, you feel disconnected and less likely to rejoin. The pattern assumed that availability is evenly distributed, which it never is.
+
+### What else could explain it
+The attendance drop may also have been seasonal or caused by a deadline elsewhere. But the pattern of drop-off was consistent: first absence → guilt → second absence → disengagement.
+
+### What you'd tell someone about to try this
+Make participation asynchronous-friendly from day one. Don't assume that "everyone who wants to be there can be there at the same time."
+
+### What might UnPeeragogy be getting wrong?
+The cooperation entry says consensus is a goal. In our group, consensus was the only thing that kept people from leaving — but it came at the cost of speed and clarity.
+
+### Optional: how does this compare to what the pattern describes?
+[x] Went differently than the pattern describes
+
+### Public research consent
+[x] I understand that this report is public and may be analysed, quoted, linked, archived and redistributed under the repository's CC0 research corpus terms. I have removed confidential information and unnecessary identifying details about other people.
+[x] I understand that public Git/GitHub history and third-party forks or archives may preserve earlier versions even if the current project later removes or edits the report.
