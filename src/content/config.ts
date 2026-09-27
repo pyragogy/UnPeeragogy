@@ -129,6 +129,22 @@ const logCollection = defineCollection({
       description: z.string(),
       detail: z.string().optional(),
     })),
+    // Human review queue — candidates awaiting Gate A decision
+    assessments: z.array(z.object({
+      discussion: z.number(),
+      candidate_id: z.string(),
+      review_id: z.string(),
+      slug: z.string(),
+      template: z.enum(["share-your-story", "structural-analysis", "unstructured"]),
+      proposed_valence: z.enum(["confirming", "complicating", "contradicting"]),
+      acquisition_channel: z.string(),
+      processing_status: z.string(),
+      review_status: z.enum(["PENDING", "ACCEPTED", "REJECTED", "REVISE", "NEEDS_EVIDENCE", "CONTESTED"]),
+      requires_manual_extraction: z.boolean().default(false),
+      engine_run_id: z.string().optional(),
+      proposed_tension_delta: z.number().optional(),
+      source_url: z.string(),
+    })).default([]),
     buildTimestamp: z.string(),
   }),
 });

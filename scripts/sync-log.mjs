@@ -76,7 +76,7 @@ async function getActiveDiscussions(token) {
     const discussions = data?.data?.repository?.discussions?.nodes || [];
     return discussions.filter((d) => {
       const labels = d.labels?.nodes?.map((l) => l.name) || [];
-      return labels.includes("discussione");
+      return labels.includes("field-reports");
     });
   } catch (e) {
     console.error("⚠️  GitHub API error:", e.message);
@@ -131,7 +131,38 @@ function getTotalWords() {
 
 // ─── 4. Generate markdown entry ────────────────────────────
 
-function generateMarkdown({ month, discussions, changes, metrics }) {
+function parseLedgerYamlSimple(content) {
+  // Simple parser for the review ledger format
+  const entries = [];
+  const lines = content.split("\n");
+  let current = null;
+
+  for (const line of lines) {
+    if (line.match(/^\s{2}- review_id:/)) {
+      if (current) entries.push(current);
+      current = { review_id: line.split(":")[1].trim().replace(/"/g, "") };
+    } else if (current && line.match(/^\s{4}\w+:/)) {
+      const [key, ...rest] = line.trim().split(":");
+      const val = rest.join(":").trim().replace(/"/g, "");
+      current[key] = val === "null" ? null : val;
+    }
+  }
+  if (current) entries.push(current);
+  return entries;
+}
+
+function getPendingReviews() {
+  const ledgerPath = path.resolve(__dirname, "..", "runs", "human-review-ledger.yaml");
+  if (!fs.existsSync(ledgerPath)) return [];
+
+  const content = fs.readFileSync(ledgerPath, "utf-8");
+  const entries = parseLedgerYamlSimple(content);
+
+  // Return only PENDING entries
+  return entries.filter((e) => e.human_status === "PENDING");
+}
+
+function generateMarkdown({ month, discussions, changes, metrics, assessments }) {
   const discussionCount = discussions.length;
   const sortedDiscussions = discussions.sort(
     (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
@@ -151,6 +182,19 @@ metrics:
   discussionsActive: ${discussionCount}
 changes:
 ${changes.items.map((c) => `  - type: ${c.type}\n    description: "${c.description}"${c.detail ? `\n    detail: "${c.detail}"` : ""}`).join("\n")}
+assessments:
+${(assessments || []).map((a) => `  - discussion: ${a.discussion}
+    candidate_id: "${a.candidate_id}"
+    review_id: "${a.review_id}"
+    slug: "${a.slug}"
+    template: "${a.template}"
+    proposed_valence: "${a.proposed_valence}"
+    acquisition_channel: "${a.acquisition_channel}"
+    processing_status: "${a.processing_status}"
+    review_status: "${a.review_status}"
+    requires_manual_extraction: ${a.requires_manual_extraction}
+    source_url: "${a.source_url}"`).join("\n")}
+
 buildTimestamp: "${new Date().toISOString()}"
 ---`;
 
@@ -181,7 +225,20 @@ buildTimestamp: "${new Date().toISOString()}"
     body += "\n";
   }
 
-  // Metrics section
+  // Review Queue section
+  if (assessments && assessments.length > 0) {
+    body += `### 📋 Human Review Queue\n\n`;
+    body += `| Review | Candidate | Source | Slug | Valence | Status | Extraction |\n`;
+    body += `|--------|-----------|--------|------|---------|--------|------------|\n`;
+    for (const a of assessments) {
+      body += `| ${a.review_id} | ${a.candidate_id} | #${a.discussion} | ${a.slug} | ${a.proposed_valence} | ${a.review_status} | ${a.requires_manual_extraction ? '⚠️ Manual' : '✅ Auto'} |\n`;
+    }
+    body += `\n`;
+    body += `*${assessments.length} candidate(s) waiting for Gate A (human review). `;
+    body += `See runs/human-review-ledger.yaml for full details.*\n\n`;
+  }
+
+    // Metrics section
   body += `### 📊 Metrics\n\n`;
   body += `| Metric | Value |\n|---------|-------|\n`;
   body += `| Nodes | ${metrics.nodeCount} |\n`;
@@ -212,7 +269,26 @@ async function main() {
 
   // Get discussions
   const discussions = token ? await getActiveDiscussions(token) : [];
-  console.log(`  💬 ${discussions.length} discussions found`);
+  console.log(`  💬 ${discussions.length} discussions found`);console.log(`  💬 ${discussions.length} discussions found`);
+
+  // Read human review queue
+  const pendingReviews = getPendingReviews();
+  const assessments = pendingReviews.map((r) => ({
+    discussion: parseInt((r.source_url || '').match(/discussions\/(\d+)/)?.[1] || '0', 10),
+    candidate_id: r.candidate_id || '',
+    review_id: r.review_id || '',
+    slug: r.target_node || 'unknown',
+    template: r.proposed_valence === 'confirming' ? 'share-your-story' : 'share-your-story',
+    proposed_valence: r.proposed_valence || 'complicating',
+    acquisition_channel: r.acquisition_channel || 'practitioner',
+    processing_status: r.processing_status || 'CANDIDATE',
+    review_status: r.human_status || 'PENDING',
+    requires_manual_extraction: (r.source_description || '').includes('MANUAL_EXTRACTION_REQUIRED'),
+    source_url: r.source_url || '',
+  }));
+  console.log(`  📋 ${assessments.length} pending human reviews`);
+
+
 
   // Get git changes
   const changes = getRecentChanges();
@@ -263,6 +339,7 @@ async function main() {
     discussions,
     changes: { ...changes, items: changeItems },
     metrics,
+    assessments,
   });
 
   fs.mkdirSync(CONTENT_LOG, { recursive: true });
