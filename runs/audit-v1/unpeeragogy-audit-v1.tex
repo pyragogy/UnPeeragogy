@@ -1,0 +1,302 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+\usepackage{parskip}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\leftmark}
+\fancyhead[R]{\thepage}
+\fancyfoot[C]{\small Unpeeragogy — Audit v1}
+
+\begin{document}
+
+\title{\textbf{Unpeeragogy}\\\large Full Audit Report\\\small A tension-weighted validation of the Peeragogy Handbook across 88 nodes}
+\author{Pyragogy Engine v0.1 \\ \texttt{github.com/pyragogy/unpeeragogy}}
+\date{\today}
+\maketitle
+
+\begin{abstract}
+This report presents the first systematic tension audit of the Peeragogy Handbook using the Pyragogy Engine, an evidence-grounded stress-testing system for social knowledge. Over 88 nodes, the engine extracted 3--4 incidents each, retrieved verifiable empirical evidence from open-source, DAO, and peer-governance domains, and produced structured tension proposals with prescriptive vault actions. The average tension index rose from 1.326 to 1.765 (mean $\Delta = 0.458$), with 16 nodes reaching the 2.0 ceiling. Seven nodes returned insufficient friction. All 81 completed syntheses include a structured vault action prescribing how the pattern should be modified. This document serves as a baseline: the first measurement before human field reports arrive to validate or complicate these proposals.
+\end{abstract}
+
+\section{Methodology}
+
+\subsection{The Pipeline}
+The Pyragogy Engine processes each node through six stages:
+\begin{enumerate}
+  \item \textbf{A1 -- Realist Extractor}: Reads the node body, extracts 3--4 Critical Incident Technique incidents from the text.
+  \item \textbf{A2 -- Evidence Hunter}: Recalls specific, nameable empirical cases from open-source, DAO, and peer-governance domains. Domain-restricted: no top-down corporate cases.
+  \item \textbf{Research Agent}: Searches via Perplexity Sonar to upgrade parametric-recall candidates to verified URLs.
+  \item \textbf{Grounding Gate}: Filters candidates without verifiable source references. Requires at least 2 grounded candidates.
+  \item \textbf{A3 -- Empirical Skeptic}: Evaluates each grounded candidate for plausibility and noise. Produces accepted/rejected/degraded verdicts.
+  \item \textbf{A5 -- Oblique Synthesizer}: Produces a 4-level oblique block (source, observation, interpretation, failure mode) plus a structured \texttt{vault\_action} (target section, action type, patch proposal, rationale).
+\end{enumerate}
+Tension is computed bidirectionally: confirming evidence decreases tension (weight $-0.5$), complicating increases it (+1.0), contradicting increases more (+1.5). The result is clamped to $[1.0, 2.0]$, the operational range of the vault.
+
+\subsection{Models}
+\begin{itemize}
+  \item A1: \texttt{openai/gpt-4o-mini} (extraction)
+  \item A2: \texttt{openai/gpt-4o-mini} (evidence recall)
+  \item Research: \texttt{perplexity/sonar} (web search)
+  \item A3: \texttt{openai/gpt-4o} (evaluation)
+  \item A5: \texttt{anthropic/claude-sonnet-4} (synthesis)
+\end{itemize}
+Total cost: approximately \$1.14 across 88 nodes (338 API calls).
+
+\section{Global Statistics}
+
+\begin{tabular}{lr}
+\toprule
+Metric & Value \\
+\midrule
+Nodes processed & 88 \\
+Completed & 81 \\
+Insufficient friction & 7 \\
+Failed & 0 \\
+Mean old tension & 1.326 \\
+Mean proposed tension & 1.765 \\
+Mean delta & 0.458 \\
+Min delta & -0.275 \\
+Max delta & 0.735 \\
+Nodes clamped at 2.0 & 16 \\
+Syntheses with vault\_action & 81 \\
+\bottomrule
+\end{tabular}
+
+\subsection{Tension Distribution}
+\begin{tabular}{lrr}
+\toprule
+Range & Count (old) & Count (proposed) \\
+\midrule
+1.0--1.2 & 19 & 1 \\
+1.2--1.4 & 27 & 0 \\
+1.4--1.6 & 22 & 16 \\
+1.6--1.8 & 13 & 25 \\
+1.8--2.0 & 0 & 23 \\
+2.0--2.0 & 0 & 16 \\
+\bottomrule
+\end{tabular}
+
+\section{Top Tension Increases}
+The following 15 nodes showed the highest tension increase, indicating the strongest complicating or contradicting evidence.
+
+\begin{longtable}{lrrrl}
+\toprule
+Node & Old T & New T & $\Delta$ & Acc. Ev. \\
+\midrule
+\endhead
+foreword & 1.1 & 1.835 & 0.735 & 1 \\
+stuck & 1.5 & 2.000 & 0.600 & 1 \\
+distributed\_roadmap & 1.6 & 2.000 & 0.595 & 2 \\
+realtime & 1.4 & 1.995 & 0.595 & 2 \\
+adding\_structure & 1.4 & 1.960 & 0.560 & 1 \\
+collab-ex & 1.4 & 1.960 & 0.560 & 1 \\
+pars & 1.3 & 1.860 & 0.560 & 1 \\
+polling\_for\_ideas & 1.3 & 1.860 & 0.560 & 1 \\
+roadmap & 1.2 & 1.760 & 0.560 & 1 \\
+summaries & 1.0 & 1.560 & 0.560 & 1 \\
+workscape & 1.6 & 2.000 & 0.560 & 1 \\
+license & 1.0 & 1.532 & 0.532 & 2 \\
+cooperate & 1.6 & 2.000 & 0.530 & 2 \\
+action & 1.4 & 1.925 & 0.525 & 1 \\
+assessment & 1.7 & 2.000 & 0.525 & 1 \\
+\bottomrule
+\end{longtable}
+
+\section{Negative Deltas — Confirming Evidence}
+1 nodes showed a tension decrease, meaning the evidence confirmed rather than complicated the pattern.
+
+\subsection{cooperation-where-it-works}
+Tension: 1.2 $\rightarrow$ 1.000 ($\Delta = -0.275$)
+
+Two accepted evidence cases confirm the pattern. The Peeragogy Handbook (2013) shows Joseph Corneli contributing 50-60 pages while others wrote 2-5 pages each — asymmetry was accepted because of shared vision and modular structure. The Node.js/io.js merger (2015) demonstrates factions with different approaches unifying under shared vision despite asymmetric workloads. Both cases are entity-anchored with named projects and years.
+
+
+\section{Prescriptive Vault Actions}
+Every completed synthesis includes a structured prescription. Below, the top 15 nodes with their proposed patch.
+
+\subsection{foreword}
+Target: \texttt{} | Type: Conditions
+
+\textit{Patch proposal:}
+
+This pattern assumes peer communities naturally converge toward consensus through shared purpose. Evidence from the Ethereum DAO fork (2016) shows that high-stakes decisions can fracture even committed communities. Apply this pattern when decisions are low-stakes or when explicit governance mechanisms exist to handle irreconcilable differences.
+
+\textit{Rationale:}
+
+The Ethereum DAO fork demonstrates that shared resources and purpose do not guarantee consensus — they can become the very things communities split over. The current pattern's assumption about natural convergence needs qualification for contexts where decisions carry significant consequences.
+
+\subsection{stuck}
+Target: \texttt{} | Type: Conditions
+
+\textit{Patch proposal:}
+
+This pattern applies when the group has unified authority or clear legitimacy hierarchy. When multiple authority structures compete (e.g., technical vs. governance leadership, competing foundations), assigning responsibility may entrench rather than resolve stuckness. Address legitimacy conflicts before attempting responsibility assignment.
+
+\textit{Rationale:}
+
+The Node.js/io.js merger (2015) shows a group stuck not from lack of means but from competing governance claims. Both sides had resources and willing contributors, but authority disputes prevented forward movement. The pattern's 'assign responsibility' heuristic would have deepened the schism by forcing choice between competing legitimacies.
+
+\subsection{distributed\_roadmap}
+Target: \texttt{} | Type: Conditions
+
+\textit{Patch proposal:}
+
+This pattern works when decisions are low-stakes and time is abundant. When facing crisis, external pressure, or contested resources, emergent consensus often fractures into competing factions. Apply this pattern only when the cost of delayed decisions is lower than the cost of imposed decisions.
+
+\textit{Rationale:}
+
+Both the Node.js/io.js split (2015) and Ethereum DAO fork (2016) show emergent processes failing under pressure, requiring formal intervention or contentious splits. The pattern assumes consensus emerges from participation, but these cases show participation can amplify rather than resolve fundamental disagreements when stakes are high.
+
+\subsection{realtime}
+Target: \texttt{} | Type: Conditions
+
+\textit{Patch proposal:}
+
+This pattern applies when all stakeholders can participate synchronously without systematic exclusion. When participants span time zones, have conflicting schedules, or face technical barriers to real-time participation, synchronous interaction creates participation hierarchies rather than democratic engagement. Ensure equitable access before assuming real-time fosters collaboration.
+
+\textit{Rationale:}
+
+The Node.js/io.js merger (2015) and Wikipedia ArbCom (2021) both show real-time interaction excluding participants and creating factional dynamics. The pattern's assumption that synchronous equals collaborative fails when access is unequal. A condition about equitable participation is needed to prevent real-time from becoming a selection mechanism.
+
+\subsection{adding\_structure}
+Target: \texttt{} | Type: Failure Modes
+
+\textit{Patch proposal:}
+
+In addition to internal dysfunction, structure introduction during crisis can trigger community schism. When governance changes are imposed to resolve conflicts, dissenting factions may fork rather than submit. This creates parallel communities with identical resources but opposing structures — the original problem multiplies rather than resolves.
+
+\textit{Rationale:}
+
+The Ethereum DAO fork (2016) demonstrates that adding structure (hard fork governance) during crisis produced community split, not the predicted stagnation or authority erosion. The pattern's failure mode taxonomy is incomplete — it accounts for internal collapse but not external fracture.
+
+\subsection{collab-ex}
+Target: \texttt{} | Type: Conditions
+
+\textit{Patch proposal:}
+
+This pattern requires explicit boundaries on exploration scope and timeline. Without clear constraints, collaborative exploration can become decision avoidance, particularly in contexts where authority structures are unclear or contested. Establish exploration limits before beginning: what questions are in scope, what timeline applies, and who has authority to conclude the exploration phase.
+
+\textit{Rationale:}
+
+The Node.js governance crisis (2015) demonstrates that open-ended collaborative exploration without boundaries enabled decision avoidance rather than knowledge building. The community used exploration as a way to defer difficult governance choices, ultimately leading to fracture when external pressures demanded resolution.
+
+\subsection{pars}
+Target: \texttt{} | Type: Conditions
+
+\textit{Patch proposal:}
+
+This framework assumes participants share fundamental agreement about project direction and priorities. When core stakeholders have irreconcilable visions for the project's future, PARS elements can become competing rather than complementary forces. Apply this framework only after establishing basic directional consensus, or supplement it with explicit conflict resolution mechanisms.
+
+\textit{Rationale:}
+
+The Node.js/io.js merger (2015) demonstrates that active engagement across all PARS dimensions — shared project concerns, coordinated actions, reflective governance discussions, and technical study — can coexist with prolonged organizational fracture. The framework's silence on managing conflicting interpretations of these elements represents a critical gap in its applicability.
+
+\subsection{polling\_for\_ideas}
+Target: \texttt{} | Type: Conditions
+
+\textit{Patch proposal:}
+
+This pattern works when polling is coupled with explicit authority transfer. Without clear mechanisms for translating preferences into binding decisions, polling becomes consultation theater. Ensure that poll results carry actual decision-making weight and that someone is accountable for implementation before initiating the polling process.
+
+\textit{Rationale:}
+
+The Node.js/io.js merger (2015) demonstrates that polling without authority transfer creates the appearance of collective decision-making while preserving existing power structures. The pattern's assumption that polling distributes responsibility is contradicted by evidence showing it can actually obscure accountability.
+
+\subsection{roadmap}
+Target: \texttt{} | Type: Conditions
+
+\textit{Patch proposal:}
+
+This pattern requires pre-existing governance consensus before roadmap creation. When decision authority is contested or unclear, roadmaps can become focal points for power struggles rather than coordination tools. Establish who has final say on milestone priorities before publishing shared plans.
+
+\textit{Rationale:}
+
+The Node.js/io.js merger shows that a unification roadmap amplified rather than resolved community tension because governance authority was contested. The roadmap became a proxy battlefield for deeper disagreements about project direction and control.
+
+\subsection{summaries}
+Target: \texttt{} | Type: Conditions
+
+\textit{Patch proposal:}
+
+This pattern assumes that external perspective can resolve verbosity and bias issues in collaborative documentation. However, when underlying community interests are fundamentally divergent, external summarizers become unwitting political actors. Apply this pattern only when the community has achieved basic consensus on project direction—otherwise the external writer will either produce meaningless compromise text or inadvertently choose sides.
+
+\textit{Rationale:}
+
+The Node.js/io.js split (2015) demonstrates that governance documentation problems often reflect deeper community fractures, not just authorial bias. An external summarizer in that context would have faced the impossible task of neutrally describing irreconcilable visions. The pattern needs a prerequisite of basic directional consensus.
+
+\section{Perturbator Collection}
+The Perturbator is the project's immune system against academic drift. A selection of the sharpest quotes from the audit.
+
+\begin{description}
+  \item[a\\_meeting\\_with\\_the\\_pro\\_vice\\_chancellor] ``Explaining peeragogy to a dean is like explaining Bitcoin to a bank — they'll nod, take notes, and keep using the old system.''
+  \item[about] ``Nobody reads the manual when the house is on fire, and nobody joins a movement when the manifesto is longer than the action plan.''
+  \item[action] ``The road to hell is paved with good intentions and really well-organized Trello boards.''
+  \item[adding\\_structure] ``Sometimes adding structure doesn't kill the group — it clones it, and now you have two problems.''
+  \item[antipatterns] ``Knowing you're in quicksand doesn't make you float.''
+  \item[assessment] ``Peer review works great until peers have something to lose.''
+  \item[carrying] ``Turns out 'we're all in this together' is what people say right before they leave you holding the bag.''
+  \item[cofac] ``Two people sharing the microphone doesn't mean they're sharing the decisions.''
+  \item[collab-ex] ``Exploration without a map isn't adventure — it's expensive wandering.''
+  \item[community] ``Communities are like startups - they look solid until someone has to make a decision that costs money.''
+  \item[connectivism] ``Networks don't learn. People do. And people disagree about what they learned.''
+  \item[context] ``Shared context is like a good marriage — it works until someone checks the joint bank account.''
+  \item[convening] ``Everyone loves the plan until someone has to be in charge of it.''
+  \item[cooperate] ``Shared resources don't make friends — they make enemies with common infrastructure.''
+  \item[cooperation-where-it-works] ``Everyone loves asymmetry when they're the one doing less work.''
+  \item[cooperation] ``Disagreement without decision-making is just expensive therapy.''
+  \item[course] ``Call it a course, get course expectations. Call it peer learning, get peer chaos.''
+  \item[coworking-story] ``Peeragogic insights work great until someone has to make an actual decision that costs actual money.''
+  \item[coworking] ``Putting bodies in the same room doesn't make them think with the same brain.''
+  \item[creating\\_a\\_guide] ``The people who already know how to do something are the worst people to explain how to do it.''
+\end{description}
+
+\section{Recurring Failure Modes}
+Across the 81 completed nodes, certain failure modes recur. This suggests systemic tensions in the Peeragogy Handbook's assumptions.
+
+\subsection{The Mediation Gap}
+The most common pattern: the handbook assumes conflict or shared resources produce cooperation, but evidence shows mediation infrastructure is required. Nodes like \texttt{cooperation}, \texttt{stuck}, and \texttt{roadmap} all produced vault\_actions adding conditions about institutional mediation.
+
+\subsection{The Fluidity Fallacy}
+Multiple nodes assume roles and resources are fluid. Evidence from open-source communities shows that contested resources become wedges. \texttt{roles}, \texttt{adding\_structure}, and \texttt{organizing} all showed tension increases from this assumption.
+
+\subsection{Consensus as Stagnation}
+The handbook positions consensus as a goal. Several nodes show consensus as a form of stagnation -- \texttt{stasis}, \texttt{stuck}, \texttt{consensus-paralysis} incidents appeared across many nodes. The fault mode is not disagreement, but managed agreement avoiding real friction.
+
+\section{Nodes with Insufficient Friction}
+Seven nodes could not produce enough grounded evidence (minimum 2 candidates). Possible reasons: content is descriptive rather than pattern-based, or the domain restriction on A2 excluded relevant evidence.
+
+\begin{itemize}
+  \item \texttt{5ph1nx}
+  \item \texttt{cases}
+  \item \texttt{newcomer-where-it-works}
+  \item \texttt{pattern\_audit}
+  \item \texttt{preface}
+  \item \texttt{share}
+  \item \texttt{stasis}
+\end{itemize}
+
+\section{Conclusion}
+This audit establishes the first quantitative baseline of tension in the Peeragogy Handbook. The key findings are:
+
+\begin{enumerate}
+  \item The handbook's patterns have a mean tension of 1.326, rising to 1.765 after evidence confrontation. This is not a criticism -- it is a measurement. All social knowledge carries latent tension.
+  \item The most common missing element across patterns is explicit mediation infrastructure. The handbook assumes cooperation emerges from shared context; evidence shows it requires institutional scaffolding.
+  \item 16 nodes hit the 2.0 ceiling, suggesting the current scale may need expansion if future field reports confirm these tensions.
+  \item Zero failures across 338 API calls and 88 nodes indicates the pipeline is production-ready for human-contributed field reports.
+\end{enumerate}
+
+The next step is human validation: until real peeragogy practitioners submit field reports, these proposals remain machine-generated hypotheses. The engine is ready. The matter is now social, not technical.
+
+\vspace{1cm}
+\noindent\small\textit{The model may propose. The evidence must dispose.}
+
+\end{document}

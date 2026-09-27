@@ -1,0 +1,154 @@
+{
+  "node_slug": "cooperation",
+  "run_id": "dry-run-002",
+  "node_hash": "45f12ca062eef01514a0357526538cf9004b4fb1f17da6bc1fb5b1afaab2a098",
+  "status": "completed",
+  "loop1_completed": true,
+  "loop2_completed": true,
+  "zero_accepted": false,
+  "insufficient_friction": false,
+  "incidents": [
+    {
+      "incident_id": "INC-0001",
+      "source_ref": "peeragogy/cooperation.mdx:\u00a73",
+      "source_type": "vault-sourced",
+      "context": "Conflict is necessary for true cooperation to emerge.",
+      "mechanism": "consensus-paralysis",
+      "outcome_valence": "negative",
+      "confidence": 0.9,
+      "project_ref": null
+    },
+    {
+      "incident_id": "INC-0002",
+      "source_ref": "peeragogy/cooperation.mdx:\u00a73",
+      "source_type": "vault-sourced",
+      "context": "Groups that avoid conflict remain stagnant.",
+      "mechanism": "decision-stagnation",
+      "outcome_valence": "negative",
+      "confidence": 0.85,
+      "project_ref": null
+    },
+    {
+      "incident_id": "INC-0003",
+      "source_ref": "peeragogy/cooperation.mdx:\u00a73",
+      "source_type": "vault-sourced",
+      "context": "Real cooperation starts when disagreements are addressed.",
+      "mechanism": "authority-attrition",
+      "outcome_valence": "positive",
+      "confidence": 0.8,
+      "project_ref": null
+    }
+  ],
+  "coverage_gaps": [
+    {
+      "slug": "cooperation",
+      "missing_side": "unpeeragogy",
+      "suggested_title": "Lack of practical strategies for managing conflict in groups",
+      "empirical_evidence_hint": "Case studies on conflict resolution in collaborative projects"
+    }
+  ],
+  "evidence_candidates": [
+    {
+      "evidence_id": "EVC-0001",
+      "target_incident_id": "INC-0001",
+      "claim": "In the context of the Ethereum DAO fork (2016), the community faced intense conflict over the decision to reverse a hack through a hard fork. This situation demonstrated that cooperation is not merely about agreement, as many members disagreed on ethical grounds regarding the reversal. The conflict highlighted that true cooperation involves navigating disagreements rather than avoiding them, as the decision ultimately split the community into Ethereum and Ethereum Classic.",
+      "phenomenon_type": "complicating",
+      "source_description": "Analysis of the Ethereum DAO fork and its impact on community cooperation dynamics, 2016",
+      "source_ref": "empirical:ethereum-dao-fork:2016",
+      "grounded_in_source": true,
+      "entity_name": "Ethereum DAO fork",
+      "entity_year": "2016",
+      "doi": null,
+      "retrieval_confidence": 0.9,
+      "verification_path": "Search 'Ethereum DAO fork' on Wikipedia or Ethereum community forums."
+    },
+    {
+      "evidence_id": "EVC-0002",
+      "target_incident_id": null,
+      "claim": "The Boeing 737 MAX certification failure involved significant conflict among stakeholders, including engineers, regulators, and airline operators, particularly around safety concerns and compliance with regulations. This case illustrates that cooperation within the aviation industry is complicated by differing priorities and pressures, demonstrating that conflict can arise from the necessity of ensuring safety over mere agreement among parties.",
+      "phenomenon_type": "complicating",
+      "source_description": "Case study on the Boeing 737 MAX certification and stakeholder conflict, 2018",
+      "source_ref": "parametric-recall",
+      "grounded_in_source": true,
+      "entity_name": "Boeing 737 MAX certification failure",
+      "entity_year": "2018",
+      "doi": null,
+      "retrieval_confidence": 0.7,
+      "verification_path": "Review reports by the FAA and media coverage on the Boeing 737 MAX incident."
+    }
+  ],
+  "grounded_evidence": [
+    {
+      "evidence_id": "EVC-0001",
+      "target_incident_id": "INC-0001",
+      "claim": "In the context of the Ethereum DAO fork (2016), the community faced intense conflict over the decision to reverse a hack through a hard fork. This situation demonstrated that cooperation is not merely about agreement, as many members disagreed on ethical grounds regarding the reversal. The conflict highlighted that true cooperation involves navigating disagreements rather than avoiding them, as the decision ultimately split the community into Ethereum and Ethereum Classic.",
+      "phenomenon_type": "complicating",
+      "source_description": "Analysis of the Ethereum DAO fork and its impact on community cooperation dynamics, 2016",
+      "source_ref": "empirical:ethereum-dao-fork:2016",
+      "grounded_in_source": true,
+      "entity_name": "Ethereum DAO fork",
+      "entity_year": "2016",
+      "doi": null,
+      "retrieval_confidence": 0.9,
+      "verification_path": "Search 'Ethereum DAO fork' on Wikipedia or Ethereum community forums."
+    },
+    {
+      "evidence_id": "EVC-0002",
+      "target_incident_id": null,
+      "claim": "The Boeing 737 MAX certification failure involved significant conflict among stakeholders, including engineers, regulators, and airline operators, particularly around safety concerns and compliance with regulations. This case illustrates that cooperation within the aviation industry is complicated by differing priorities and pressures, demonstrating that conflict can arise from the necessity of ensuring safety over mere agreement among parties.",
+      "phenomenon_type": "complicating",
+      "source_description": "Case study on the Boeing 737 MAX certification and stakeholder conflict, 2018",
+      "source_ref": "parametric-recall",
+      "grounded_in_source": true,
+      "entity_name": "Boeing 737 MAX certification failure",
+      "entity_year": "2018",
+      "doi": null,
+      "retrieval_confidence": 0.7,
+      "verification_path": "Review reports by the FAA and media coverage on the Boeing 737 MAX incident."
+    }
+  ],
+  "dropped_evidence": [],
+  "verdicts": [
+    {
+      "evidence_id": "EVC-0001",
+      "plausibility_score": 0.8,
+      "noise_estimate": 0.2,
+      "verdict": "accepted",
+      "degradation_note": null
+    },
+    {
+      "evidence_id": "EVC-0002",
+      "plausibility_score": 0.5,
+      "noise_estimate": 0.75,
+      "verdict": "degraded",
+      "degradation_note": "Source is parametric-recall with no DOI/URL and lacks a clear named entity, making it epistemically weak."
+    }
+  ],
+  "tension": {
+    "node_slug": "cooperation",
+    "old_tension": 1.6,
+    "proposed_new_tension": 2.24,
+    "delta": 0.64,
+    "total_candidates": 2,
+    "accepted_count": 1,
+    "rejected_count": 0,
+    "degraded_count": 1,
+    "avg_plausibility_accepted": 0.8,
+    "avg_noise_accepted": 0.2,
+    "confirming_count": 0,
+    "complicating_count": 1,
+    "contradicting_count": 0,
+    "formula": "T_new = clamp(T_old + \u03a3(phenomenon_weight * plausibility * noise_penalty) / n, 0.0, 3.2) where weights: confirming=-0.5, complicating=+1.0, contradicting=+1.5",
+    "note": "Accepted: 1 (0 confirming, 1 complicating, 0 contradicting), Rejected: 0, Degraded: 1. Delta direction: increase. Proposta da revisionare prima di scrivere nel frontmatter."
+  },
+  "synthesis": {
+    "node_slug": "cooperation",
+    "source": "Conflict is necessary for true cooperation to emerge. Groups that avoid conflict remain stagnant. Real cooperation starts when disagreements are addressed.",
+    "observation": "Accepted evidence (EVC-0001: Ethereum DAO fork, 2016) shows conflict splitting communities rather than strengthening them\u2014the hack reversal disagreement fractured Ethereum into two chains. One degraded candidate (EVC-0002: Boeing 737 MAX) was parametric-recall without clear entity anchoring, making it epistemically weak. Tension increases from 1.6 to 2.24.",
+    "interpretation": "The theory assumes conflict produces cooperation, but the only solid evidence shows conflict producing permanent schism. The Ethereum case directly complicates this: navigating disagreements didn't create stronger cooperation\u2014it created two separate communities. Evidence quality is mixed: one named entity with year, one memory-based claim.",
+    "failure_mode": "If you deliberately introduce conflict into a working team expecting it to strengthen cooperation, you risk permanent fracture. People don't automatically cooperate after fighting\u2014they often just leave. The disagreement becomes the new organizing principle, not the cooperation.",
+    "perturbator_quote": "Conflict builds character, sure. It also builds exit doors."
+  },
+  "execution_time_ms": 20124,
+  "errors": []
+}

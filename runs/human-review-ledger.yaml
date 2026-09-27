@@ -1,0 +1,31 @@
+# Human Review Ledger — UnPeeragogy
+#
+# This file records every epistemic decision made by human reviewers
+# (Gate A) on evidence candidates proposed by the automated pipeline.
+#
+# The automation CAN:
+#   - create a PENDING entry
+#   - add candidate metadata
+#   - link Engine output
+#
+# The automation CANNOT set:
+#   - ACCEPTED | REJECTED | REVISE | NEEDS_EVIDENCE | CONTESTED
+#   (these require explicit human action)
+#
+# Human reviewer (authorized): Fabrizio / repository maintainer
+#
+# GATES:
+#   Gate A (this ledger):   Epistemic validation — evidence may enter validated KB
+#   Gate B (vault commit):  Publication — mutation of public vault content
+#   Gate A ≠ Gate B
+#
+# STATES:
+#   PENDING         — Awaiting human review
+#   ACCEPTED        — Human validated; may be promoted to human_validated
+#   REJECTED        — Human rejected; remains auditable (engine_passed + human_rejected)
+#   REVISE          — Needs revision before re-review
+#   NEEDS_EVIDENCE  — Requires additional supporting evidence
+#   CONTESTED       — Disagreement recorded; excluded from default retrieval
+#                     but preserved for audit/counterevidence/falsification
+
+ledger: []

@@ -15,7 +15,44 @@ Thumbs.db
 
 # Operativa (locale, non pushato)
 GUIDA.md
-runs/
+
+# === Ephemeral / disposable (no epistemic value) ===
+*.aux
+*.log
+*.out
+*.bak
+*.tar.gz
+
+# Proposals — auto-generated, regenerable
+runs/proposals/
+
+# LaTeX build intermediates
+runs/audit-v1/*.aux
+runs/audit-v1/*.log
+runs/audit-v1/*.out
+runs/audit-v2/*.aux
+runs/audit-v2/*.log
+runs/audit-v2/*.out
+
+# Built PDFs — regenerable from .tex source
+runs/audit-v1/*.pdf
+runs/audit-v2/*.pdf
+
+# Backup tarballs — pre-migration snapshots, not versioned
+runs/audit-v2/pre_batch_*
+
+# Plot data — regenerable
+runs/audit-v2/figures/
+
+# Engine run logs — verbose build output, not canonical
+runs/logs/audit-*.log
+
+# === Explicitly tracked (epistemic provenance) ===
+# cooperation-001.json and motivation-001.json ARE tracked
+# audit-v1.tex and audit-v2.tex ARE tracked
+# reality-template.md IS tracked
+# See runs/ for the force-added canonical artifacts
+
 scripts/__pycache__/
 
 # pi coding agent internal state

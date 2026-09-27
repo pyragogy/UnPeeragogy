@@ -1,0 +1,154 @@
+{
+  "node_slug": "motivation",
+  "run_id": "dry-run-003",
+  "node_hash": "5d5270deff4772b199a96a94ad9ef841c2dafa48042702d200e198f7833f9363",
+  "status": "completed",
+  "loop1_completed": true,
+  "loop2_completed": true,
+  "zero_accepted": false,
+  "insufficient_friction": false,
+  "incidents": [
+    {
+      "incident_id": "INC-0001",
+      "source_ref": "Peeragogy Handbook: Motivation section",
+      "source_type": "vault-sourced",
+      "context": "Motivation is treated as a resource that depletes over time.",
+      "mechanism": "resource-depletion",
+      "outcome_valence": "negative",
+      "confidence": 0.9,
+      "project_ref": null
+    },
+    {
+      "incident_id": "INC-0002",
+      "source_ref": "Peeragogy Handbook: Motivation section",
+      "source_type": "vault-sourced",
+      "context": "Failure to manage motivation leads to depletion.",
+      "mechanism": "decision-stagnation",
+      "outcome_valence": "negative",
+      "confidence": 0.85,
+      "project_ref": null
+    },
+    {
+      "incident_id": "INC-0003",
+      "source_ref": "Peeragogy Handbook: Motivation section",
+      "source_type": "vault-sourced",
+      "context": "Group's motivation drops below 5 on a scale, indicating a problem.",
+      "mechanism": "motivation-management",
+      "outcome_valence": "negative",
+      "confidence": 0.8,
+      "project_ref": null
+    }
+  ],
+  "coverage_gaps": [
+    {
+      "slug": "motivation",
+      "missing_side": "unpeeragogy",
+      "suggested_title": "Lack of empirical examples of motivation management",
+      "empirical_evidence_hint": "Case studies on motivation management in peer groups"
+    }
+  ],
+  "evidence_candidates": [
+    {
+      "evidence_id": "EVC-0001",
+      "target_incident_id": "INC-0001",
+      "claim": "In 2016, during the Ethereum DAO fork, a significant conflict arose within the Ethereum community over the decision to reverse the hack that drained funds from the DAO. This situation illustrates that motivation can deplete rapidly when members feel their contributions are undermined. The decision to fork created a split, demonstrating that motivation is not merely a stable trait but can be heavily influenced by group decisions and external pressures.",
+      "phenomenon_type": "complicating",
+      "source_description": "The Ethereum DAO fork and its impact on community motivation, 2016",
+      "source_ref": "empirical:ethereum-dao-fork:2016",
+      "grounded_in_source": true,
+      "entity_name": "Ethereum DAO fork",
+      "entity_year": "2016",
+      "doi": null,
+      "retrieval_confidence": 0.85,
+      "verification_path": "Search 'Ethereum DAO fork' on Wikipedia or Ethereum community forums."
+    },
+    {
+      "evidence_id": "EVC-0002",
+      "target_incident_id": "INC-0003",
+      "claim": "The Node.js/io.js merger in 2015 was marked by significant community discussion and conflict over governance and decision-making processes. The initial split was driven by motivations around perceived stagnation in Node.js development. This case shows that motivation can fluctuate based on group dynamics and governance structures, contradicting the notion that motivation is a static resource.",
+      "phenomenon_type": "complicating",
+      "source_description": "The Node.js/io.js merger and its effects on developer motivation, 2015",
+      "source_ref": "empirical:nodejs-iojs-merger:2015",
+      "grounded_in_source": true,
+      "entity_name": "Node.js/io.js merger",
+      "entity_year": "2015",
+      "doi": null,
+      "retrieval_confidence": 0.9,
+      "verification_path": "Check Node.js foundation blog posts or GitHub discussions from 2015."
+    }
+  ],
+  "grounded_evidence": [
+    {
+      "evidence_id": "EVC-0001",
+      "target_incident_id": "INC-0001",
+      "claim": "In 2016, during the Ethereum DAO fork, a significant conflict arose within the Ethereum community over the decision to reverse the hack that drained funds from the DAO. This situation illustrates that motivation can deplete rapidly when members feel their contributions are undermined. The decision to fork created a split, demonstrating that motivation is not merely a stable trait but can be heavily influenced by group decisions and external pressures.",
+      "phenomenon_type": "complicating",
+      "source_description": "The Ethereum DAO fork and its impact on community motivation, 2016",
+      "source_ref": "empirical:ethereum-dao-fork:2016",
+      "grounded_in_source": true,
+      "entity_name": "Ethereum DAO fork",
+      "entity_year": "2016",
+      "doi": null,
+      "retrieval_confidence": 0.85,
+      "verification_path": "Search 'Ethereum DAO fork' on Wikipedia or Ethereum community forums."
+    },
+    {
+      "evidence_id": "EVC-0002",
+      "target_incident_id": "INC-0003",
+      "claim": "The Node.js/io.js merger in 2015 was marked by significant community discussion and conflict over governance and decision-making processes. The initial split was driven by motivations around perceived stagnation in Node.js development. This case shows that motivation can fluctuate based on group dynamics and governance structures, contradicting the notion that motivation is a static resource.",
+      "phenomenon_type": "complicating",
+      "source_description": "The Node.js/io.js merger and its effects on developer motivation, 2015",
+      "source_ref": "empirical:nodejs-iojs-merger:2015",
+      "grounded_in_source": true,
+      "entity_name": "Node.js/io.js merger",
+      "entity_year": "2015",
+      "doi": null,
+      "retrieval_confidence": 0.9,
+      "verification_path": "Check Node.js foundation blog posts or GitHub discussions from 2015."
+    }
+  ],
+  "dropped_evidence": [],
+  "verdicts": [
+    {
+      "evidence_id": "EVC-0001",
+      "plausibility_score": 0.8,
+      "noise_estimate": 0.2,
+      "verdict": "accepted",
+      "degradation_note": null
+    },
+    {
+      "evidence_id": "EVC-0002",
+      "plausibility_score": 0.7,
+      "noise_estimate": 0.4,
+      "verdict": "accepted",
+      "degradation_note": null
+    }
+  ],
+  "tension": {
+    "node_slug": "motivation",
+    "old_tension": 1.7,
+    "proposed_new_tension": 2.23,
+    "delta": 0.53,
+    "total_candidates": 2,
+    "accepted_count": 2,
+    "rejected_count": 0,
+    "degraded_count": 0,
+    "avg_plausibility_accepted": 0.75,
+    "avg_noise_accepted": 0.3,
+    "confirming_count": 0,
+    "complicating_count": 2,
+    "contradicting_count": 0,
+    "formula": "T_new = clamp(T_old + \u03a3(phenomenon_weight * plausibility * noise_penalty) / n, 0.0, 3.2) where weights: confirming=-0.5, complicating=+1.0, contradicting=+1.5",
+    "note": "Accepted: 2 (0 confirming, 2 complicating, 0 contradicting), Rejected: 0, Degraded: 0. Delta direction: increase. Proposta da revisionare prima di scrivere nel frontmatter."
+  },
+  "synthesis": {
+    "node_slug": "motivation",
+    "source": "The Peeragogy Handbook treats motivation as a resource that depletes over time and requires active management. When a group's motivation drops below 5 on a scale, this indicates a problem that leads to decision stagnation.",
+    "observation": "Two accepted cases contradict the depletion model. The Ethereum DAO fork (2016) shows motivation spiking during crisis rather than depleting \u2014 the community split precisely because people cared intensely about opposing outcomes. The Node.js/io.js merger (2015) demonstrates motivation as reactive to governance structures, not a finite resource pool. Both cases involve named entities and verifiable events, making them epistemically stronger than the handbook's abstract scale.",
+    "interpretation": "The resource metaphor breaks down when motivation becomes oppositional rather than collaborative. The evidence suggests motivation operates more like a voltage differential \u2014 it increases with conflict and decreases with consensus, not with time. The handbook's management approach assumes motivation is scarce and controllable, but these cases show it can be abundant and volatile.",
+    "failure_mode": "If you manage motivation like a battery that needs charging, you'll miss the moments when your team splits in half because they're too motivated about incompatible visions. The real failure isn't low motivation \u2014 it's high motivation pointing in opposite directions, which no amount of 'motivation management' can fix.",
+    "perturbator_quote": "The problem isn't that people don't care. The problem is that they care about different things."
+  },
+  "execution_time_ms": 19747,
+  "errors": []
+}
