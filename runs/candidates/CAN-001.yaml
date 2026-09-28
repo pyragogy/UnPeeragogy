@@ -1,0 +1,48 @@
+id: "CAN-001"
+acquisition_channel: "practitioner"
+processing_status: "CANDIDATE"
+human_review:
+  status: "ACCEPTED"
+  reviewer: "Fabrizio"
+  decision_date: "2026-09-28T12:59:00Z"
+  rationale: "First-person practitioner account corroborated by the contemporaneous Wikibooks deletion discussion. The case is accepted as valid evidence for further epistemic use; interpretation and vault-level effects remain subject to separate editorial review."
+  review_ledger_id: "REV-001"
+  resulting_action: "human_validated — accepted for epistemic use; vault mutation requires separate Gate B decision."
+source:
+  type: "github_discussion"
+  uri: "https://github.com/pyragogy/UnPeeragogy/discussions/7"
+  retrieved_at: "2026-09-28T12:59:02.951Z"
+  title: "assessment — Wikibooks ha rifiutato il progetto di traduzione italiana di Peeragogy perché non riconosceva un manuale di peer learning"
+provenance:
+  author: "FTG-003"
+  date: "2026-09-06T13:24:28Z"
+  context: "First-person practitioner report"
+content:
+  claim: "Unstructured CIT — requires manual extraction"
+  phenomenon_type: "complicating"
+  summary: "# Quando la piattaforma non riusciva a vedere il progetto
+
+*Un critical incident dalla prima esperienza italiana con Peeragogy.*
+
+**Assessment UnPeeragogy:** https://unpeeragogy.pyragogy.org/asses"
+  entity_name: null
+  entity_year: null
+  domain: "peer-learning"
+  tags:
+    - "uncategorized"
+    - "field-report"
+target_nodes:
+  - "assessment"
+grounding:
+  grounded_in_source: true
+  source_ref: "https://github.com/pyragogy/UnPeeragogy/discussions/7"
+  entity_anchor: false
+  verification_note: "MANUAL_EXTRACTION_REQUIRED — non-structured CIT (narrative report, no template fields detected). Human reviewer must extract slug, phenomenon_type, and claim manually."
+engine_output:
+  plausibility_score: null
+  noise_estimate: null
+  verdict: null
+  tension_delta_proposed: null
+  engine_run_id: null
+created_at: "2026-09-28T12:59:02.951Z"
+updated_at: "2026-09-28T12:59:02.952Z"

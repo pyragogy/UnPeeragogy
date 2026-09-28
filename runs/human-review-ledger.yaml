@@ -1,5 +1,4 @@
 # Human Review Ledger — UnPeeragogy
-#
 # This file records every epistemic decision made by human reviewers
 # (Gate A) on evidence candidates proposed by the automated pipeline.
 #
@@ -28,4 +27,19 @@
 #   CONTESTED       — Disagreement recorded; excluded from default retrieval
 #                     but preserved for audit/counterevidence/falsification
 
-ledger: []
+ledger:
+  - review_id: "REV-001"
+    candidate_id: "CAN-001"
+    acquisition_channel: "practitioner"
+    processing_status: "CANDIDATE"
+    target_node: "assessment"
+    proposed_valence: "complicating"
+    source_description: "assessment — Wikibooks ha rifiutato il progetto di traduzione italiana di Peeragogy perché non riconosceva un manuale di peer learning"
+    source_url: "https://github.com/pyragogy/UnPeeragogy/discussions/7"
+    engine_output_ref: null
+    human_status: "ACCEPTED"
+    reviewer: "Fabrizio"
+    decision_timestamp: "2026-09-28T12:59:00Z"
+    rationale: "First-person practitioner account corroborated by the contemporaneous Wikibooks deletion discussion. The case is accepted as valid evidence for further epistemic use; interpretation and vault-level effects remain subject to separate editorial review."
+    resulting_action: "human_validated — accepted for epistemic use; vault mutation requires separate Gate B decision."
+
