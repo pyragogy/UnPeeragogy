@@ -202,7 +202,9 @@ The best contribution is not agreement. It is evidence that changes the boundary
 
 Read [CONTRIBUTING.md](CONTRIBUTING.md) before submitting research-grade material.
 
----
+### For reviewers
+
+If you are reviewing a field report or candidate evidence, read the [Human Review Guide](docs/HUMAN_REVIEW_GUIDE.md) — it covers provenance checks, observation vs interpretation, the decision states, and the Gate A / Gate B separation.
 
 ## Perturbator MCP server
 
