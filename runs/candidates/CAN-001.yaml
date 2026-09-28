@@ -8,6 +8,14 @@ human_review:
   rationale: "First-person practitioner account corroborated by the contemporaneous Wikibooks deletion discussion. The case is accepted as valid evidence for further epistemic use; interpretation and vault-level effects remain subject to separate editorial review."
   review_ledger_id: "REV-001"
   resulting_action: "human_validated — accepted for epistemic use; vault mutation requires separate Gate B decision."
+publication_review:
+  status: "NO_CHANGE"
+  reviewer: "Fabrizio"
+  decision_timestamp: "2026-09-28T15:10:00Z"
+  rationale: >
+    The human-validated Wikibooks case is already represented in the assessment
+    node and does not introduce sufficient new theoretical content to justify a
+    canonical vault modification.
 source:
   type: "github_discussion"
   uri: "https://github.com/pyragogy/UnPeeragogy/discussions/7"
