@@ -57,8 +57,12 @@ one sig
   IL_CONTESTED
 extends IntegrityLevel {}
 
-abstract sig PublicationStatus {}
-one sig PB_UNPUBLISHED, PB_PUBLISHED extends PublicationStatus {}
+abstract sig GateBStatus {}
+one sig
+  GB_PENDING,
+  GB_NO_CHANGE,
+  GB_MUTATION_APPROVED
+extends GateBStatus {}
 
 abstract sig Empiricality {}
 one sig EMPIRICAL, SYNTHETIC extends Empiricality {}
@@ -102,7 +106,7 @@ sig Candidate {
   epistemic: one EpistemicStatus,
   verification: one VerificationStatus,
   integrity: one IntegrityLevel,
-  publication: one PublicationStatus
+  gateB: one GateBStatus
 }
 
 sig HumanDecision {
@@ -110,6 +114,14 @@ sig HumanDecision {
   actor: one Actor,
   outcome: one HumanReviewStatus,
   basis: set EvidenceItem
+}
+
+// Gate B is an explicit editorial decision, not a boolean publication property.
+// CAN-001 demonstrates a real GB_NO_CHANGE outcome after Gate A acceptance.
+sig GateBDecision {
+  candidate: one Candidate,
+  actor: one Actor,
+  outcome: one GateBStatus
 }
 
 // Repository-grounded: automation may create PENDING but substantive Gate A
@@ -133,6 +145,18 @@ fact CurrentHumanStatusHasAuditRecord {
 fact AcceptedDecisionHasBasis {
   all d: HumanDecision |
     d.outcome = HR_ACCEPTED implies some d.basis
+}
+
+fact CurrentGateBStatusHasAuditRecord {
+  all c: Candidate |
+    c.gateB != GB_PENDING implies
+      some d: GateBDecision |
+        d.candidate = c and d.outcome = c.gateB
+}
+
+fact SubstantiveGateBDecisionsRequireHumanActor {
+  all d: GateBDecision |
+    d.outcome != GB_PENDING implies d.actor.actorKind = AK_HUMAN
 }
 
 // ASSUMPTION A-003 + provisional A-001 treatment:
@@ -209,9 +233,9 @@ assert Naive_DistinctSourcesAreIndependent {
 }
 
 // Gate A is not Gate B.
-assert Naive_AcceptedImpliesPublished {
+assert Naive_AcceptedImpliesGateBMutation {
   all c: Candidate |
-    c.human = HR_ACCEPTED implies c.publication = PB_PUBLISHED
+    c.human = HR_ACCEPTED implies c.gateB = GB_MUTATION_APPROVED
 }
 
 // Human acceptance is not epistemic corroboration.
@@ -236,9 +260,14 @@ assert Naive_VerificationContestedImpliesHumanContested {
 // Witness scenarios
 // ---------------------------------------------------------------------------
 
-pred gateAWithoutGateB {
+pred acceptedWithGateBNoChange {
   some c: Candidate |
-    c.human = HR_ACCEPTED and c.publication = PB_UNPUBLISHED
+    c.human = HR_ACCEPTED and c.gateB = GB_NO_CHANGE
+}
+
+pred gateAAcceptedBeforeGateBDecision {
+  some c: Candidate |
+    c.human = HR_ACCEPTED and c.gateB = GB_PENDING
 }
 
 pred sharedOriginDifferentSources {
@@ -259,11 +288,12 @@ check VerifiedCannotUseOnlyUntraceableEvidence for 6
 check RevisedHasHistory for 6
 
 check Naive_DistinctSourcesAreIndependent for 6
-check Naive_AcceptedImpliesPublished for 6
+check Naive_AcceptedImpliesGateBMutation for 6
 check Naive_AcceptedImpliesCorroborated for 6
 check Naive_EnginePassedImpliesAccepted for 6
 check Naive_VerificationContestedImpliesHumanContested for 6
 
-run gateAWithoutGateB for 6
+run acceptedWithGateBNoChange for 6
+run gateAAcceptedBeforeGateBDecision for 6
 run sharedOriginDifferentSources for 6
 run acceptedButNotCorroborated for 6
