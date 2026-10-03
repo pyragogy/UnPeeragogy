@@ -1,0 +1,107 @@
+# FUP-001 Context Keeper
+
+**Role:** persistent context-control sub-agent specification  
+**Scientific authority:** none  
+**Purpose:** prevent loss of assumptions, decisions, unresolved contradictions and provenance while the formalisation evolves.
+
+The Context Keeper does not decide whether a scientific claim is true. It records what the research team currently believes, why, and what would require revision.
+
+## Operating contract
+
+At the beginning of every FUP-001 work cycle:
+
+1. read this file;
+2. read `SEMANTIC_RECONSTRUCTION_v0.1.md`;
+3. read `AMBIGUITY_REGISTER.md`;
+4. read `CLAIM_EVIDENCE_LEDGER.md`;
+5. inspect changes since the last recorded checkpoint.
+
+At the end of every work cycle update only facts that actually changed.
+
+## What must be tracked
+
+### Stable facts
+Repository-backed statements whose source location is known.
+
+### Modelling assumptions
+Choices introduced by FUP-001 that are not explicitly guaranteed by UnPeeragogy.
+
+### Open ambiguities
+Protocol statements with more than one defensible formal interpretation.
+
+### Decisions
+Formalism choices, scope reductions, rejected modelling approaches and their rationale.
+
+### Counterexamples
+Every counterexample found, including those later made impossible by model revision.
+
+### Debt
+Known missing evidence, untested properties, incomplete case reconstructions and tool limitations.
+
+## Anti-drift rules
+
+- Never convert an assumption into a protocol fact without repository evidence.
+- Never erase superseded decisions; mark them superseded and link the replacement.
+- Never summarise `ACCEPTED` as “true”.
+- Never collapse human review status, epistemic status and verification status.
+- Never equate two URLs with two independent evidential origins.
+- Never call an Alloy assertion “proved” merely because bounded checking found no counterexample.
+- Never call an AI-generated proposal evidence.
+
+## Current checkpoint — CK-001
+
+Date: 2026-10-03
+
+### Stable findings
+
+- `HumanReviewStatus` is explicitly separate from `ProcessingStatus`.
+- `EvidenceStatus` is explicitly separate from `VerificationStatus`.
+- Gate A and Gate B are explicitly separate.
+- automation may create `PENDING` candidates but must not assign substantive human decisions.
+- synthetic scenarios are allowed but must not count as empirical evidence.
+- provenance and revision history are normative concepts.
+- “Corroborated” appears on both epistemic and verification axes, with different meanings implied by context.
+
+### Modelling decisions
+
+- Do not build a single linear state machine.
+- Begin with Alloy 6 as an exploratory relational model.
+- Treat human judgment as an exogenous decision event whose **admissibility/auditability** can be checked; do not pretend the model can infer the human judgment itself.
+- Use source-lineage independence only as a provisional formal proxy until “independent incidents” is semantically resolved.
+
+### Open blockers
+
+- Define independence: independent source, independent reporter, independent incident, or some combination.
+- Define minimum corroboration cardinality beyond the prose term “multiple”.
+- Resolve whether provenance is mandatory for Gate A `ACCEPTED` or only for research-grade/verified promotion.
+- Define semantics of “human judgment always overrides” when the override violates a machine-checkable invariant.
+- Define whether `CONTESTED` human status and `contested` epistemic/verification states require synchronization.
+- Define formal publication state for Gate B.
+
+### Tool limitation
+
+This checkpoint specifies the sub-agent role persistently in-repository. The current chat runtime does not expose an independent long-lived sub-agent process, so scientific outputs must not claim that an autonomous Context Keeper has executed unless such a process is actually instantiated. This file is the handoff contract for that role.
+
+
+## Checkpoint — CK-002
+
+Date: 2026-10-03
+
+### New evidence inspected
+
+- `runs/candidates/CAN-001.yaml`
+
+### New stable findings
+
+- CAN-001 was Gate A `ACCEPTED` while engine verdict fields remained null.
+- CAN-001 then received a separate Gate B `NO_CHANGE` decision.
+- The record explicitly states that Gate A acceptance permits epistemic use but does not authorize vault mutation.
+- `publication_review` exists in the operational YAML record but is not represented in `CandidateEvidence` in `src/data/candidate-schemas.ts`.
+
+### Model revision
+
+The initial binary `PUBLISHED/UNPUBLISHED` abstraction was rejected as too coarse. Gate B is now modelled as a decision object with at least `PENDING`, `NO_CHANGE`, and `MUTATION_APPROVED`.
+
+### Scientific significance
+
+This is the first instance where historical reconstruction changed the formal model rather than merely confirming it. Preserve it as evidence that replay is functioning as an adversarial refinement mechanism.
