@@ -142,6 +142,10 @@ fact CurrentHumanStatusHasAuditRecord {
 
 // The review guide requires a rationale/evidence-grounded decision.
 // The model abstracts the rationale as a non-empty evidential basis for ACCEPTED.
+fact DecisionBasisBelongsToCandidate {
+  all d: HumanDecision | d.basis in d.candidate.evidence
+}
+
 fact AcceptedDecisionHasBasis {
   all d: HumanDecision |
     d.outcome = HR_ACCEPTED implies some d.basis
@@ -280,6 +284,35 @@ pred acceptedButNotCorroborated {
     c.human = HR_ACCEPTED and c.epistemic != ES_CORROBORATED
 }
 
+// Vacuity witnesses: a passing assertion is useful only if the relevant
+// antecedent/state can actually occur in the bounded model.
+pred witnessSubstantiveHumanDecision {
+  some d: HumanDecision | d.outcome != HR_PENDING
+}
+
+pred witnessCorroboratedCandidate {
+  some c: Candidate | c.epistemic = ES_CORROBORATED
+}
+
+pred witnessVerifiedCandidate {
+  some c: Candidate | c.integrity = IL_VERIFIED
+}
+
+pred witnessRevisedInterpretation {
+  some i: Interpretation | i.epistemic = ES_REVISED
+}
+
+// Historical regression witness derived from CAN-001.
+// It intentionally does not require ENGINE_PASSED.
+pred can001Shape {
+  some c: Candidate, hd: HumanDecision, gd: GateBDecision |
+    c.human = HR_ACCEPTED and
+    c.gateB = GB_NO_CHANGE and
+    c.processing = PS_CANDIDATE and
+    hd.candidate = c and hd.outcome = HR_ACCEPTED and
+    gd.candidate = c and gd.outcome = GB_NO_CHANGE
+}
+
 // Bounded exploration commands.
 // Scope values are deliberately small to favour minimal counterexamples.
 check AutomationCannotAccept for 6
@@ -297,3 +330,9 @@ run acceptedWithGateBNoChange for 6
 run gateAAcceptedBeforeGateBDecision for 6
 run sharedOriginDifferentSources for 6
 run acceptedButNotCorroborated for 6
+
+run witnessSubstantiveHumanDecision for 6
+run witnessCorroboratedCandidate for 6
+run witnessVerifiedCandidate for 6
+run witnessRevisedInterpretation for 6
+run can001Shape for 6
