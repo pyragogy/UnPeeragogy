@@ -63,3 +63,6 @@ scripts/__pycache__/
 packages/mcp-server/ground-truth.mjs
 packages/mcp-server/raw-handshake.mjs
 packages/mcp-server/verify-remote.mjs
+
+# Local formal-method toolchain binaries (version/hash captured separately)
+.tools/
