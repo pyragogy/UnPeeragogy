@@ -81,3 +81,27 @@ Date: 2026-10-03
 ### Tool limitation
 
 This checkpoint specifies the sub-agent role persistently in-repository. The current chat runtime does not expose an independent long-lived sub-agent process, so scientific outputs must not claim that an autonomous Context Keeper has executed unless such a process is actually instantiated. This file is the handoff contract for that role.
+
+
+## Checkpoint — CK-002
+
+Date: 2026-10-03
+
+### New evidence inspected
+
+- `runs/candidates/CAN-001.yaml`
+
+### New stable findings
+
+- CAN-001 was Gate A `ACCEPTED` while engine verdict fields remained null.
+- CAN-001 then received a separate Gate B `NO_CHANGE` decision.
+- The record explicitly states that Gate A acceptance permits epistemic use but does not authorize vault mutation.
+- `publication_review` exists in the operational YAML record but is not represented in `CandidateEvidence` in `src/data/candidate-schemas.ts`.
+
+### Model revision
+
+The initial binary `PUBLISHED/UNPUBLISHED` abstraction was rejected as too coarse. Gate B is now modelled as a decision object with at least `PENDING`, `NO_CHANGE`, and `MUTATION_APPROVED`.
+
+### Scientific significance
+
+This is the first instance where historical reconstruction changed the formal model rather than merely confirming it. Preserve it as evidence that replay is functioning as an adversarial refinement mechanism.
