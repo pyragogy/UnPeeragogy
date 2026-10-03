@@ -15,7 +15,9 @@ Processing, human review, epistemic status and verification status are independe
 ### I-03 — Gate separation
 Gate A and Gate B are distinct acts.
 
-**Required witness:** a valid state with Gate A ACCEPTED and no Gate B mutation.
+**Historical witness:** CAN-001 is Gate A `ACCEPTED` and Gate B `NO_CHANGE`.
+
+**Required model witness:** a valid state with Gate A ACCEPTED and either Gate B PENDING or NO_CHANGE.
 
 ### I-04 — Synthetic exclusion
 Synthetic/composite scenarios cannot satisfy empirical evidence counts.
@@ -44,7 +46,7 @@ A non-empty `basis` relation stands in for the richer rationale required by the 
 These are deliberately checked because a useful counterexample demonstrates why a simpler governance implementation would be wrong.
 
 - N-01: different source nodes imply independence;
-- N-02: ACCEPTED implies PUBLISHED;
+- N-02: ACCEPTED implies Gate B MUTATION_APPROVED;
 - N-03: ACCEPTED implies epistemic CORROBORATED;
 - N-04: ENGINE_PASSED implies ACCEPTED;
 - N-05: verification CONTESTED implies human-review CONTESTED.
