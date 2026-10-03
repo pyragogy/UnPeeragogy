@@ -15,7 +15,7 @@ This directory contains the executable formalisation work for FUP-001.
 - epistemic status;
 - verification status;
 - integrity level;
-- publication state;
+- Gate B editorial decision state;
 - interpretation revision.
 
 The model deliberately does **not** encode the whole UnPeeragogy protocol.
@@ -42,7 +42,7 @@ Assertions expected to hold within the bounded scopes:
 Assertions expected to fail:
 
 - distinct source nodes are automatically independent;
-- ACCEPTED automatically means PUBLISHED;
+- ACCEPTED automatically means Gate B mutation;
 - ACCEPTED automatically means epistemically CORROBORATED;
 - ENGINE_PASSED automatically means human ACCEPTED;
 - verification CONTESTED automatically means human-review CONTESTED.
@@ -51,7 +51,7 @@ Expected failures are not test failures. They are counterexample-generation task
 
 ## Execution status
 
-The repository model has been written, but this chat runtime currently has Java 21 and no Alloy Analyzer/CLI installed. Therefore **no model-checking result is claimed yet**.
+CAN-001 has been reconstructed and forced one model revision: Gate B is now an explicit decision process with a real `NO_CHANGE` outcome. The repository model has been written, but this chat runtime currently has Java 21 and no Alloy Analyzer/CLI installed. Therefore **no model-checking result is claimed yet**.
 
 The next Gate B task is to run this exact file with a pinned Alloy 6 release, preserve the Analyzer version and solver, and record every instance/counterexample.
 
