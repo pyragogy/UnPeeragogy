@@ -18,11 +18,11 @@ const m = entry.data.metrics;
 <BaseLayout title={entry.data.title} description={entry.data.description}>
   <article class="py-12 max-w-3xl mx-auto" data-pagefind-body>
     <div class="mb-8">
-      <a href="/log/" class="text-sm d-text-dim hover:text-(--color-accent) transition-colors">← All logs</a>
+      <a href="/log/" class="text-sm d-text-dim hover:text-(--color-accent) transition-colors">← All scientific audits</a>
       <h1 class="text-3xl font-extrabold tracking-tight mt-2 mb-2">{entry.data.title}</h1>
       <p class="d-text-sec mb-4">{entry.data.description}</p>
 
-      <!-- Metrics bar -->
+      <!-- Automatic repository metrics; scientific interpretation is rendered from the entry body. -->
       <div class="flex flex-wrap gap-4 p-4 border border-stone-200 d-border rounded-lg bg-stone-50 d-surface text-sm">
         <div class="flex flex-col items-center">
           <span class="text-lg font-bold text-(--color-accent)">{m.nodeCount}</span>
