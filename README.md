@@ -206,6 +206,22 @@ Read [CONTRIBUTING.md](CONTRIBUTING.md) before submitting research-grade materia
 
 If you are reviewing a field report or candidate evidence, read the [Human Review Guide](docs/HUMAN_REVIEW_GUIDE.md) — it covers provenance checks, observation vs interpretation, the decision states, and the Gate A / Gate B separation.
 
+## Monthly scientific audit
+
+UnPeeragogy is maintained through recurring **scientific audits**, not only periodic releases.
+
+Research agents inspect the corpus, repository, provenance, review queue and formal/computational artefacts. Their role is adversarial: surface unsupported transitions, duplicated evidence, contradictions, schema drift, failed assumptions and unresolved questions.
+
+The public [/log/](https://unpeeragogy.pyragogy.org/log/) combines two layers:
+
+- **automatic project telemetry** — commits, corpus changes, graph metrics, discussions and review queue;
+- **curated Agent Scientific Audit** — what was challenged, what survived, what weakened, what remains unknown and which probes should come next.
+
+Agent output is never evidence by itself. Human reviewers retain accountable Gate A / Gate B authority.
+
+See [`docs/AGENT_SCIENTIFIC_AUDIT.md`](docs/AGENT_SCIENTIFIC_AUDIT.md).
+
+---
 ## Perturbator MCP server
 
 The **Perturbator** is the AI-access layer over the corpus. It is not evidence and it is not an autonomous authority. Its role is to expose structural friction, search the corpus and generate questions or provisional analyses that remain subordinate to provenance.
