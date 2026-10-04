@@ -251,3 +251,39 @@ Need real cases that exercise:
 - Gate A / Gate B separation;
 - revision / contested history;
 - AI-assisted acquisition without AI output becoming evidence.
+
+
+## Checkpoint — CK-006
+
+Date: 2026-10-04
+
+### E5 historical replay
+
+Commit: `eda8ecc3de5d413f2d5e16decc0c274bc0a37e44`
+
+Results:
+- CAN002_PendingShape: SAT across SAT4J s6/s8/s10 and Glucose s6;
+- CAN003_SharedProvenanceShape: SAT across all runs;
+- CAN003_MultipleSourcesImplyIndependentOrigins: SAT counterexample across all runs;
+- IndependentDocumentaryPairReachable: SAT across all runs.
+
+### Gate E
+
+**PASS WITH DOCUMENTED COVERAGE GAPS**
+
+Historical bridge:
+CAN-003 contains an explicit warning that research pages and paper share authors/datasets and are not independent corroboration. This is structurally aligned with the E3/E4 source-node vs provenance-lineage distinction.
+
+Qualification:
+the replay uses a conservative shared-origin abstraction. It does not establish a complete real-world lineage graph or prove that the Alloy lineage predicate is uniquely correct.
+
+### Missing coverage
+
+- no repository-backed CONTESTED/REVISE case;
+- no AI-assisted acquisition case.
+
+### Decision
+
+Freeze exploratory FUP-001 E1–E5 before manuscript drafting.
+
+Next phase: full epistemic audit, independent re-verification, adversarial model review, claim/evidence traceability, and systematic related-work search.
