@@ -2,52 +2,102 @@
 
 ## Current status
 
-**OPEN — baseline insufficient; independence ablation pending.**
+**PASS — E3 same-structure semantic ablation**
 
-## Why the baseline does not yet pass Gate C
+Adjudicated: 2026-10-04
 
-The baseline successfully validates the executable architecture, historical consistency and several intended non-implications.
+## Evidence
 
-However:
+E3 evaluates competing independence semantics over the **same Claim and Evidence structure**.
 
-- the holding assertions are regression constraints or consequences of existing model facts;
-- four cross-axis anti-invariants demonstrate the deliberate absence of bridge rules;
-- these are useful but not yet strong enough, alone, to support a general formal-methods contribution.
+Committed result matrix:
 
-The strongest baseline candidate is the provenance result:
+`formal/fup-001/results/semantic-ablation/E3_RESULT_MATRIX.csv`
 
-`distinct source nodes ≠ independent source lineage`
+Raw runs:
 
-This becomes non-trivial when tied to a **classification consequence**: whether a claim would be promoted to corroborated under one plausible rule but not another.
+- SAT4J scope 6
+- SAT4J scope 8
+- SAT4J scope 10
+- Glucose scope 6
 
-## Pass criterion
+All 10 E3 commands retained the same SAT classification across every tested scope/solver.
 
-Gate C passes when committed solver artifacts establish at least one **classification divergence** between plausible independence semantics over the same evidence structure, and the result:
+## Gate C pass criterion
+
+Gate C required at least one classification divergence between plausible independence semantics over the same evidence structure such that the result:
 
 1. is relational/provenance-dependent;
 2. is not detectable from static field types alone;
 3. is non-vacuous;
 4. reproduces at scope 6 and larger tested scopes;
 5. is stable across at least two available SAT solvers where operationally possible;
-6. remains interpretable without claiming one independence definition is universally correct.
+6. can be interpreted without claiming one definition is universally correct.
 
-## Candidate general result
+E3 satisfies all six conditions.
 
-If supported by the ablation:
+## Primary Gate C result
 
-> Evidential independence is not determined by evidence multiplicity alone. Distinct operational definitions of independence can authorize different epistemic state transitions over the same evidence set.
+The strongest result is:
 
-## Stronger candidate result
+`SourceCorroborationImpliesLineageCorroboration` → **SAT counterexample**
 
-If source-node multiplicity produces corroboration while shared source lineage blocks it:
+Minimal structure:
 
-> A source-count rule can produce false corroboration relative to a provenance-aware independence criterion, even when every evidence item is individually empirical.
+- two empirical evidence items;
+- distinct immediate source atoms;
+- both attached to the same provenance root;
+- source-node corroboration holds;
+- lineage corroboration does not.
 
-“False” here is always relative to the declared lineage criterion, not metaphysical truth.
+Therefore:
 
-## Gate C adjudication outcomes
+> Source multiplicity can authorize a corroboration transition that a provenance-lineage criterion rejects, even when all evidence items are individually empirical.
 
-- **PASS** — classification divergence reproduced and generalisable.
-- **PARTIAL** — divergence exists but is solver/scope/assumption fragile.
-- **FAIL** — rival semantics do not materially change reachable classifications.
-- **REVISE MODEL** — divergence is caused by modelling defect rather than the intended semantic distinction.
+This is a classification consequence, not merely a structural observation.
+
+## Additional semantic divergences
+
+E3 also produced SAT witnesses for:
+
+- reporter corroboration without incident corroboration;
+- incident corroboration without reporter corroboration;
+- reporter corroboration without lineage corroboration;
+- incident corroboration without lineage corroboration.
+
+A strong agreement witness is also SAT: a sufficiently diverse evidence set can satisfy lineage, reporter and incident independence simultaneously.
+
+## Scientific interpretation
+
+Supported:
+
+> Evidential independence is not determined by evidence multiplicity alone. Distinct operational definitions of independence can authorize different epistemic state transitions over the same evidence structure.
+
+Not supported:
+
+- that lineage independence is universally the correct definition;
+- that every source-multiplicity classification is epistemically false;
+- that bounded Alloy checking proves universal truth;
+- that all domains require reporter + incident + lineage independence simultaneously.
+
+## Important qualification
+
+Some reporter/incident divergences in the minimal Alloy instances exploit absent metadata (e.g. reporter present but incident unassigned). These are valid semantic-sensitivity witnesses but are weaker than the source-vs-lineage result.
+
+Gate D will therefore include **metadata-complete adversarial variants** requiring reporter and incident assignments on all compared evidence items.
+
+The source-vs-lineage result does not depend on missing reporter/incident metadata and is the primary Gate C contribution.
+
+## E2 robustness result
+
+Commit `7d32a73` is retained separately as E2:
+
+> Core governance properties remained classification-invariant when the global independence predicate was replaced by lineage-, reporter-, or incident-based definitions across tested scopes.
+
+E2 supports robustness of the kernel; E3 establishes semantic classification sensitivity.
+
+## Gate C verdict
+
+**PASS**
+
+Proceed to Gate D — Adversarial Validation.
