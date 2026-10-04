@@ -1,6 +1,11 @@
 name: Monthly Log Sync
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/sync-log.yml"
+      - "scripts/sync-log.mjs"
   schedule:
     # Run on the 1st of every month at 09:00 UTC
     - cron: "0 9 1 * *"
