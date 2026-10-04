@@ -182,8 +182,7 @@ metrics:
   discussionsActive: ${discussionCount}
 changes:
 ${changes.items.map((c) => `  - type: ${c.type}\n    description: "${c.description}"${c.detail ? `\n    detail: "${c.detail}"` : ""}`).join("\n")}
-assessments:
-${(assessments || []).map((a) => `  - discussion: ${a.discussion}
+assessments:${(assessments || []).length === 0 ? " []" : "\n" + (assessments || []).map((a) => `  - discussion: ${a.discussion}
     candidate_id: "${a.candidate_id}"
     review_id: "${a.review_id}"
     slug: "${a.slug}"
