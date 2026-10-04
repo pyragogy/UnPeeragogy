@@ -6,6 +6,7 @@ on:
     paths:
       - ".github/workflows/sync-log.yml"
       - "scripts/sync-log.mjs"
+      - "research/monthly-audits/**"
   schedule:
     # Run on the 1st of every month at 09:00 UTC
     - cron: "0 9 1 * *"
