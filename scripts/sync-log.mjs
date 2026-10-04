@@ -124,7 +124,11 @@ function getTotalWords() {
   for (const f of fs.readdirSync(dir)) {
     if (!f.endsWith(".mdx")) continue;
     const content = fs.readFileSync(path.join(dir, f), "utf-8");
-    const body = content.startsWith("---") ? content.split("---", 2)[2] || "" : content;
+    let body = content;
+    if (content.startsWith("---")) {
+      const end = content.indexOf("\n---", 3);
+      body = end >= 0 ? content.slice(end + 4) : "";
+    }
     total += body.split(/\s+/).filter(Boolean).length;
   }
   return total;
@@ -187,8 +191,7 @@ metrics:
   density: ${metrics.density}
   totalWords: ${metrics.totalWords || 0}
   discussionsActive: ${discussionCount}
-changes:
-${changes.items.map((c) => `  - type: ${c.type}\n    description: "${c.description}"${c.detail ? `\n    detail: "${c.detail}"` : ""}`).join("\n")}
+changes:${changes.items.length === 0 ? " []" : "\n" + changes.items.map((c) => `  - type: ${c.type}\n    description: "${c.description}"${c.detail ? `\n    detail: "${c.detail}"` : ""}`).join("\n")}
 assessments:${(assessments || []).length === 0 ? " []" : "\n" + (assessments || []).map((a) => `  - discussion: ${a.discussion}
     candidate_id: "${a.candidate_id}"
     review_id: "${a.review_id}"
@@ -286,7 +289,7 @@ async function main() {
 
   // Get discussions
   const discussions = token ? await getActiveDiscussions(token) : [];
-  console.log(`  💬 ${discussions.length} discussions found`);console.log(`  💬 ${discussions.length} discussions found`);
+  console.log(`  💬 ${discussions.length} discussions found`);
 
   // Read human review queue
   const pendingReviews = getPendingReviews();
