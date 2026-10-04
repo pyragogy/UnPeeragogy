@@ -196,3 +196,58 @@ Primary attack targets:
 4. test whether stronger conjunctions accidentally overconstrain corroboration;
 5. test symmetry/renaming artifacts;
 6. test source-lineage counterexample under stricter empirical/traceability assumptions.
+
+
+## Checkpoint — CK-005
+
+Date: 2026-10-04
+
+### E4 / Gate D
+
+Adversarial validation completed.
+
+Conditions imposed:
+
+- reporter mandatory;
+- incident mandatory;
+- exactly two evidence items.
+
+Replications:
+
+- SAT4J scopes 6, 8, 10;
+- Glucose scope 6.
+
+Primary result:
+
+`ADV_AllSurfaceDiversitySharedLineage` is SAT.
+
+Thus two evidence items can simultaneously have:
+
+- different immediate source nodes;
+- different reporters;
+- different incidents;
+
+while sharing provenance lineage.
+
+Positive control `ADV_AllDimensionsIndependent` is also SAT.
+
+### Gate D
+
+**PASS**
+
+Interpretation:
+
+The semantic divergence found in E3 is not explained solely by missing reporter/incident metadata, excess cardinality, or an overconstrained model.
+
+Do not claim lineage is universally superior. Claim only formal non-interchangeability / orthogonality under the declared model.
+
+### Next gate
+
+Gate E — Historical Reconstruction.
+
+Need real cases that exercise:
+- source multiplicity vs common lineage;
+- reporter vs incident independence;
+- Gate A / Gate B separation;
+- revision / contested history;
+- AI-assisted acquisition without AI output becoming evidence.
