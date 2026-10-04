@@ -105,3 +105,40 @@ The initial binary `PUBLISHED/UNPUBLISHED` abstraction was rejected as too coars
 ### Scientific significance
 
 This is the first instance where historical reconstruction changed the formal model rather than merely confirming it. Preserve it as evidence that replay is functioning as an adversarial refinement mechanism.
+
+
+## Checkpoint — CK-003
+
+Date: 2026-10-04
+
+### Baseline run received
+
+Results commit: `fbd451dca4365be44308be698f2724a821edcf5d`
+
+Confirmed from raw commit artifacts:
+
+- Alloy 6.2.0, SAT4J, scope 6;
+- four holding assertions UNSAT;
+- five intended anti-invariants SAT with counterexamples;
+- all major state witnesses SAT;
+- `can001Shape` SAT;
+- raw JAR hash and environment preserved.
+
+### Methodological correction
+
+The baseline “holding” assertions are regression/sanity constraints because they are entailed directly or indirectly by model facts. They are not independent discoveries and do not by themselves pass Gate C.
+
+The baseline vacuity terminology is also narrowed: witness reachability is not equivalent to proving a forbidden condition would otherwise be reachable.
+
+### Gate C direction
+
+Primary target is now **independence semantic sensitivity**.
+
+The v0.2 ablation compares:
+
+- source-node multiplicity;
+- source-lineage independence;
+- reporter independence;
+- incident independence.
+
+Gate C remains OPEN until classification divergence is mechanically reproduced across scopes and, where possible, solvers.
