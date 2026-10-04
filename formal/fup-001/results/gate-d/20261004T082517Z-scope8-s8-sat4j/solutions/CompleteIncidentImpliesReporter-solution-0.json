@@ -1,0 +1,102 @@
+{
+  "duration":51,
+  "incremental":true,
+  "instances":[
+    {
+      "messages":[
+        
+      ],
+      "skolems":{
+        "$CompleteIncidentImpliesReporter_e1":{
+          "arity":1,
+          "data":[
+            [
+              "Evidence$1"
+            ]
+          ]
+        },
+        "$CompleteIncidentImpliesReporter_e2":{
+          "arity":1,
+          "data":[
+            [
+              "Evidence$0"
+            ]
+          ]
+        }
+      },
+      "state":0,
+      "values":{
+        "0":{
+          
+        },
+        "1":{
+          
+        },
+        "2":{
+          
+        },
+        "3":{
+          
+        },
+        "4":{
+          
+        },
+        "5":{
+          
+        },
+        "6":{
+          
+        },
+        "Evidence$6":{
+          "reporter":[
+            
+          ],
+          "source":[
+            
+          ],
+          "incident":[
+            
+          ]
+        },
+        "Evidence$7":{
+          "reporter":[
+            
+          ],
+          "source":[
+            
+          ],
+          "incident":[
+            
+          ]
+        },
+        "Incident$4":{
+          
+        },
+        "Incident$5":{
+          
+        },
+        "Incident$6":{
+          
+        },
+        "Incident$7":{
+          
+        },
+        "Reporter$7":{
+          
+        },
+        "Source$7":{
+          "parent":[
+            
+          ]
+        }
+      }
+    }
+  ],
+  "localtime":"2026-10-04T10:25:18.374968868",
+  "loopstate":-1,
+  "sigs":{
+    
+  },
+  "timezone":"Europe/Rome",
+  "utctime":1791102318374
+}

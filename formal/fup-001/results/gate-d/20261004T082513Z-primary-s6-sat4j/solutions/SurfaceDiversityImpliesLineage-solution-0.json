@@ -1,0 +1,121 @@
+{
+  "duration":34,
+  "incremental":true,
+  "instances":[
+    {
+      "messages":[
+        
+      ],
+      "skolems":{
+        "$SurfaceDiversityImpliesLineage_e1":{
+          "arity":1,
+          "data":[
+            [
+              "Evidence$2"
+            ]
+          ]
+        },
+        "$SurfaceDiversityImpliesLineage_e2":{
+          "arity":1,
+          "data":[
+            [
+              "Evidence$1"
+            ]
+          ]
+        }
+      },
+      "state":0,
+      "values":{
+        "0":{
+          
+        },
+        "1":{
+          
+        },
+        "2":{
+          
+        },
+        "3":{
+          
+        },
+        "4":{
+          
+        },
+        "5":{
+          
+        },
+        "Evidence$3":{
+          "reporter":[
+            
+          ],
+          "source":[
+            
+          ],
+          "incident":[
+            
+          ]
+        },
+        "Evidence$4":{
+          "reporter":[
+            
+          ],
+          "source":[
+            
+          ],
+          "incident":[
+            
+          ]
+        },
+        "Evidence$5":{
+          "reporter":[
+            
+          ],
+          "source":[
+            
+          ],
+          "incident":[
+            
+          ]
+        },
+        "Incident$1":{
+          
+        },
+        "Incident$2":{
+          
+        },
+        "Incident$3":{
+          
+        },
+        "Incident$4":{
+          
+        },
+        "Incident$5":{
+          
+        },
+        "Reporter$4":{
+          
+        },
+        "Reporter$5":{
+          
+        },
+        "Source$4":{
+          "parent":[
+            
+          ]
+        },
+        "Source$5":{
+          "parent":[
+            
+          ]
+        }
+      }
+    }
+  ],
+  "localtime":"2026-10-04T10:25:14.792633771",
+  "loopstate":-1,
+  "sigs":{
+    
+  },
+  "timezone":"Europe/Rome",
+  "utctime":1791102314792
+}

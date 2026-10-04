@@ -1,0 +1,157 @@
+{
+  "duration":61,
+  "incremental":true,
+  "instances":[
+    {
+      "messages":[
+        
+      ],
+      "skolems":{
+        "$CompleteSourceImpliesLineage_e1":{
+          "arity":1,
+          "data":[
+            [
+              "Evidence$2"
+            ]
+          ]
+        },
+        "$CompleteSourceImpliesLineage_e2":{
+          "arity":1,
+          "data":[
+            [
+              "Evidence$1"
+            ]
+          ]
+        }
+      },
+      "state":0,
+      "values":{
+        "0":{
+          
+        },
+        "1":{
+          
+        },
+        "2":{
+          
+        },
+        "3":{
+          
+        },
+        "4":{
+          
+        },
+        "5":{
+          
+        },
+        "6":{
+          
+        },
+        "Claim$1":{
+          "evidence":[
+            
+          ]
+        },
+        "Claim$2":{
+          "evidence":[
+            [
+              "Evidence$2"
+            ]
+          ]
+        },
+        "Claim$3":{
+          "evidence":[
+            [
+              "Evidence$1"
+            ]
+          ]
+        },
+        "Claim$4":{
+          "evidence":[
+            [
+              "Evidence$1"
+            ]
+          ]
+        },
+        "Claim$5":{
+          "evidence":[
+            [
+              "Evidence$0"
+            ]
+          ]
+        },
+        "Claim$6":{
+          "evidence":[
+            [
+              "Evidence$0"
+            ]
+          ]
+        },
+        "Claim$7":{
+          "evidence":[
+            
+          ]
+        },
+        "Evidence$5":{
+          "reporter":[
+            
+          ],
+          "source":[
+            
+          ],
+          "incident":[
+            
+          ]
+        },
+        "Evidence$6":{
+          "reporter":[
+            
+          ],
+          "source":[
+            
+          ],
+          "incident":[
+            
+          ]
+        },
+        "Evidence$7":{
+          "reporter":[
+            
+          ],
+          "source":[
+            
+          ],
+          "incident":[
+            
+          ]
+        },
+        "Incident$6":{
+          
+        },
+        "Incident$7":{
+          
+        },
+        "Reporter$7":{
+          
+        },
+        "Source$6":{
+          "parent":[
+            
+          ]
+        },
+        "Source$7":{
+          "parent":[
+            
+          ]
+        }
+      }
+    }
+  ],
+  "localtime":"2026-10-04T10:25:18.460477577",
+  "loopstate":-1,
+  "sigs":{
+    
+  },
+  "timezone":"Europe/Rome",
+  "utctime":1791102318460
+}

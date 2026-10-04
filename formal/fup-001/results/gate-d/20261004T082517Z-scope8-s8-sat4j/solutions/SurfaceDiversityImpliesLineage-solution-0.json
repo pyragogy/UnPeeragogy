@@ -1,0 +1,135 @@
+{
+  "duration":43,
+  "incremental":true,
+  "instances":[
+    {
+      "messages":[
+        
+      ],
+      "skolems":{
+        "$SurfaceDiversityImpliesLineage_e1":{
+          "arity":1,
+          "data":[
+            [
+              "Evidence$2"
+            ]
+          ]
+        },
+        "$SurfaceDiversityImpliesLineage_e2":{
+          "arity":1,
+          "data":[
+            [
+              "Evidence$1"
+            ]
+          ]
+        }
+      },
+      "state":0,
+      "values":{
+        "0":{
+          
+        },
+        "1":{
+          
+        },
+        "2":{
+          
+        },
+        "3":{
+          
+        },
+        "4":{
+          
+        },
+        "5":{
+          
+        },
+        "6":{
+          
+        },
+        "Claim$4":{
+          "evidence":[
+            
+          ]
+        },
+        "Claim$5":{
+          "evidence":[
+            
+          ]
+        },
+        "Claim$6":{
+          "evidence":[
+            
+          ]
+        },
+        "Claim$7":{
+          "evidence":[
+            
+          ]
+        },
+        "Evidence$5":{
+          "reporter":[
+            
+          ],
+          "source":[
+            
+          ],
+          "incident":[
+            
+          ]
+        },
+        "Evidence$6":{
+          "reporter":[
+            
+          ],
+          "source":[
+            
+          ],
+          "incident":[
+            
+          ]
+        },
+        "Evidence$7":{
+          "reporter":[
+            
+          ],
+          "source":[
+            
+          ],
+          "incident":[
+            
+          ]
+        },
+        "Incident$6":{
+          
+        },
+        "Incident$7":{
+          
+        },
+        "Reporter$6":{
+          
+        },
+        "Reporter$7":{
+          
+        },
+        "Source$6":{
+          "parent":[
+            
+          ]
+        },
+        "Source$7":{
+          "parent":[
+            
+          ]
+        }
+      }
+    }
+  ],
+  "localtime":"2026-10-04T10:25:18.532452098",
+  "loopstate":-1,
+  "sigs":{
+    
+  },
+  "timezone":"Europe/Rome",
+  "utctime":1791102318532
+}

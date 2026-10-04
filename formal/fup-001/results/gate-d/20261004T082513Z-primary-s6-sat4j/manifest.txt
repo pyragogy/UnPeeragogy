@@ -1,0 +1,6 @@
+experiment=E4-gate-d-adversarial
+commit=7f9a5f2dc50cd1d7fad731e2d031083b8e1a6fd0
+scope=6
+solver=sat4j
+model_sha256=35043e34f6dd62b9c04784a505dfa3bb3282767105e6dd56c16a4f9bd24d568e
+alloy_jar_sha256=6b8c1cb5bc93bedfc7c61435c4e1ab6e688a242dc702a394628d9a9801edb78d

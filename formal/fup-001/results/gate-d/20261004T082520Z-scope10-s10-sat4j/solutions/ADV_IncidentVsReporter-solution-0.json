@@ -1,0 +1,112 @@
+{
+  "duration":39,
+  "incremental":true,
+  "instances":[
+    {
+      "messages":[
+        
+      ],
+      "skolems":{
+        "$ADV_IncidentVsReporter_c":{
+          "arity":1,
+          "data":[
+            [
+              "Claim$0"
+            ]
+          ]
+        },
+        "$ADV_IncidentVsReporter_e1":{
+          "arity":1,
+          "data":[
+            [
+              "Evidence$1"
+            ]
+          ]
+        },
+        "$ADV_IncidentVsReporter_e2":{
+          "arity":1,
+          "data":[
+            [
+              "Evidence$0"
+            ]
+          ]
+        }
+      },
+      "state":0,
+      "values":{
+        "0":{
+          
+        },
+        "1":{
+          
+        },
+        "2":{
+          
+        },
+        "3":{
+          
+        },
+        "4":{
+          
+        },
+        "5":{
+          
+        },
+        "6":{
+          
+        },
+        "Claim$9":{
+          "evidence":[
+            
+          ]
+        },
+        "Evidence$8":{
+          "reporter":[
+            
+          ],
+          "source":[
+            
+          ],
+          "incident":[
+            
+          ]
+        },
+        "Evidence$9":{
+          "reporter":[
+            
+          ],
+          "source":[
+            
+          ],
+          "incident":[
+            
+          ]
+        },
+        "Incident$7":{
+          
+        },
+        "Incident$8":{
+          
+        },
+        "Incident$9":{
+          
+        },
+        "Reporter$9":{
+          
+        },
+        "Source$9":{
+          "parent":[
+            
+          ]
+        }
+      }
+    }
+  ],
+  "localtime":"2026-10-04T10:25:22.653310889",
+  "loopstate":-1,
+  "sigs":{
+    
+  },
+  "timezone":"Europe/Rome",
+  "utctime":1791102322653
+}

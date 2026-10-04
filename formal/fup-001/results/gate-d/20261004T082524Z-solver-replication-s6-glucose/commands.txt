@@ -1,0 +1,10 @@
+0 . Check CompleteReporterImpliesIncident for 6
+1 . Check CompleteIncidentImpliesReporter for 6
+2 . Check CompleteSourceImpliesLineage for 6
+3 . Check SurfaceDiversityImpliesLineage for 6
+4 . Run ADV_SourceVsLineage for 6
+5 . Run ADV_ReporterVsIncident for 6
+6 . Run ADV_IncidentVsReporter for 6
+7 . Run ADV_ReporterSourceVsLineage for 6
+8 . Run ADV_AllSurfaceDiversitySharedLineage for 6
+9 . Run ADV_AllDimensionsIndependent for 6

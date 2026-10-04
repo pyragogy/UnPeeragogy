@@ -1,0 +1,10 @@
+00. check CompleteReporterImpliesIncident     0    1/1     SAT
+01. check CompleteIncidentImpliesReporter     0    1/1     SAT
+02. check CompleteSourceImpliesLineage     0    1/1     SAT
+03. check SurfaceDiversityImpliesLineage     0    1/1     SAT
+04. run   ADV_SourceVsLineage      0    1/1     SAT
+05. run   ADV_ReporterVsIncident     0    1/1     SAT
+06. run   ADV_IncidentVsReporter     0    1/1     SAT
+07. run   ADV_ReporterSourceVsLineage     0    1/1     SAT
+08. run   ADV_AllSurfaceDiversitySharedLineage     0    1/1     SAT
+09. run   ADV_AllDimensionsIndependent     0    1/1     SAT

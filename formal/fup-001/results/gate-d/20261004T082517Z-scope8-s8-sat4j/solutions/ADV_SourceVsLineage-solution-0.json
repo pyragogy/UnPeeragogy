@@ -1,0 +1,125 @@
+{
+  "duration":40,
+  "incremental":true,
+  "instances":[
+    {
+      "messages":[
+        
+      ],
+      "skolems":{
+        "$ADV_SourceVsLineage_c":{
+          "arity":1,
+          "data":[
+            [
+              "Claim$0"
+            ]
+          ]
+        },
+        "$ADV_SourceVsLineage_e1":{
+          "arity":1,
+          "data":[
+            [
+              "Evidence$2"
+            ]
+          ]
+        },
+        "$ADV_SourceVsLineage_e2":{
+          "arity":1,
+          "data":[
+            [
+              "Evidence$1"
+            ]
+          ]
+        }
+      },
+      "state":0,
+      "values":{
+        "0":{
+          
+        },
+        "1":{
+          
+        },
+        "2":{
+          
+        },
+        "3":{
+          
+        },
+        "4":{
+          
+        },
+        "5":{
+          
+        },
+        "6":{
+          
+        },
+        "Claim$7":{
+          "evidence":[
+            
+          ]
+        },
+        "Evidence$5":{
+          "reporter":[
+            
+          ],
+          "source":[
+            
+          ],
+          "incident":[
+            
+          ]
+        },
+        "Evidence$6":{
+          "reporter":[
+            
+          ],
+          "source":[
+            
+          ],
+          "incident":[
+            
+          ]
+        },
+        "Evidence$7":{
+          "reporter":[
+            
+          ],
+          "source":[
+            
+          ],
+          "incident":[
+            
+          ]
+        },
+        "Incident$6":{
+          
+        },
+        "Incident$7":{
+          
+        },
+        "Reporter$7":{
+          
+        },
+        "Source$6":{
+          "parent":[
+            
+          ]
+        },
+        "Source$7":{
+          "parent":[
+            
+          ]
+        }
+      }
+    }
+  ],
+  "localtime":"2026-10-04T10:25:18.595508799",
+  "loopstate":-1,
+  "sigs":{
+    
+  },
+  "timezone":"Europe/Rome",
+  "utctime":1791102318595
+}

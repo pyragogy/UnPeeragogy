@@ -1,0 +1,11 @@
+command,s6 SAT4J primary,s8 SAT4J,s10 SAT4J,s6 Glucose
+CompleteReporterImpliesIncident,SAT,SAT,SAT,SAT
+CompleteIncidentImpliesReporter,SAT,SAT,SAT,SAT
+CompleteSourceImpliesLineage,SAT,SAT,SAT,SAT
+SurfaceDiversityImpliesLineage,SAT,SAT,SAT,SAT
+ADV_SourceVsLineage,SAT,SAT,SAT,SAT
+ADV_ReporterVsIncident,SAT,SAT,SAT,SAT
+ADV_IncidentVsReporter,SAT,SAT,SAT,SAT
+ADV_ReporterSourceVsLineage,SAT,SAT,SAT,SAT
+ADV_AllSurfaceDiversitySharedLineage,SAT,SAT,SAT,SAT
+ADV_AllDimensionsIndependent,SAT,SAT,SAT,SAT

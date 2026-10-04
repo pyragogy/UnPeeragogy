@@ -1,0 +1,10 @@
+0 . Check CompleteReporterImpliesIncident for 10
+1 . Check CompleteIncidentImpliesReporter for 10
+2 . Check CompleteSourceImpliesLineage for 10
+3 . Check SurfaceDiversityImpliesLineage for 10
+4 . Run ADV_SourceVsLineage for 10
+5 . Run ADV_ReporterVsIncident for 10
+6 . Run ADV_IncidentVsReporter for 10
+7 . Run ADV_ReporterSourceVsLineage for 10
+8 . Run ADV_AllSurfaceDiversitySharedLineage for 10
+9 . Run ADV_AllDimensionsIndependent for 10
