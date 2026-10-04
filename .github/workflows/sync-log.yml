@@ -26,14 +26,14 @@ jobs:
     steps:
       - uses: actions/checkout@v5
         with:
-          fetch-depth: 0  # Full history for git log --since
+          fetch-depth: 0
 
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Build project (refresh graph.json)
         run: npm run build
@@ -44,6 +44,11 @@ jobs:
         run: node scripts/sync-log.mjs ${{ github.event.inputs.month || '' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Validate generated log
+        run: npm run build
+        env:
+          NODE_ENV: production
 
       - name: Check for changes
         id: git-check
@@ -62,3 +67,13 @@ jobs:
           git config user.email "bot@unpeeragogy.pyragogy.org"
           git commit -m "log: sync mensile $(date '+%Y-%m')"
           git push
+
+      # Commits created with GITHUB_TOKEN do not reliably trigger a second
+      # push-based workflow. Deploy explicitly from this workflow instead.
+      - name: Deploy updated log to Coolify
+        if: steps.git-check.outputs.changed == 'true'
+        run: |
+          curl --fail-with-body --show-error --silent -X POST \
+            "https://console.pyragogy.org/api/v1/deploy?uuid=${{ secrets.COOLIFY_WEB_UUID }}" \
+            -H "Authorization: Bearer ${{ secrets.COOLIFY_API_TOKEN }}" \
+            -H "Content-Type: application/json"
