@@ -14,18 +14,18 @@ Read:
 2. `research/fup-001/INDEPENDENCE_ABLATION_PROTOCOL.md`
 3. `formal/fup-001/model/independence-ablation.als`
 
-Then execute the new model as a separate experiment.
+Then execute the new model as a separate experiment using the committed runner `formal/fup-001/scripts/run-independence-ablation.sh`.
 
 ## Required sequence
 
 1. Record current branch and commit SHA.
 2. Confirm baseline result directory still exists.
 3. Capture environment again.
-4. Run `independence-ablation.als` with Alloy 6.2.0 + SAT4J at scope 6 exactly as committed.
+4. Run `bash formal/fup-001/scripts/run-independence-ablation.sh 6 sat4j primary`.
 5. Preserve raw artifacts before any edit.
-6. Repeat at scope 8.
-7. Repeat at scope 10 if tractable.
-8. Run scope 6 with one second solver from `alloy solvers` that works on this host, preferably MiniSat or Glucose.
+6. Run `bash formal/fup-001/scripts/run-independence-ablation.sh 8 sat4j scope8`.
+7. Run `bash formal/fup-001/scripts/run-independence-ablation.sh 10 sat4j scope10` if tractable.
+8. Run scope 6 with one second solver reported by `alloy solvers`, preferably `minisat` or `glucose`, e.g. `bash formal/fup-001/scripts/run-independence-ablation.sh 6 minisat solver-replication`.
 9. Create a result matrix comparing command × scope × solver.
 10. For every SAT counterexample, preserve its JSON and create a concise structural record.
 
