@@ -299,29 +299,49 @@ Levels:
 | Metric | Value |
 |---|---|
 | **Total claims** | 100 (C-001 through C-100) |
-| **Claims with CONFLICT_PRESENT** | 2 (C-039 vs C-035; C-067 vs C-062) |
-| **Duplicated claims found** | 0 (similar claims from different sources retained separately for provenance) |
+| **Claims with CONFLICT_PRESENT** | 2 currently flagged |
+| **Duplicated claims found** | 0 formally merged; semantic duplicates still require audit |
 
-### Count by level
+### Count by level — recomputed mechanically from inventory rows
 
 | Level | Description | Count |
-|---|---|---|
-| 1 | Repository fact | 4 (C-037, C-078, C-079, C-100) |
-| 2 | Modelling assumption | 5 (C-086, C-087, C-088, C-089, C-090) |
-| 3 | Mechanical result | 16 (C-001, C-002, C-003, C-004, C-005, C-013, C-057, C-058, C-065, C-067, C-069, C-070, C-098, plus other solver-output-based claims) |
-| 4 | Historical observation | 21 (C-018, C-033, C-034, C-035, C-036, C-039, C-040, C-041, C-042, C-043, C-044, C-048, C-050, C-051, C-053, C-054, C-055, C-056, C-072, C-074) |
-| 5 | Interpretation | 35 (C-006, C-007, C-008, C-009, C-010, C-011, C-012, C-014, C-015, C-016, C-017, C-019, C-020, C-021, C-022, C-023, C-024, C-025, C-026, C-027, C-028, C-029, C-030, C-031, C-032, C-038, C-045, C-046, C-047, C-049, C-052, C-059, C-060, C-061, C-062, C-063, C-064, C-066, C-068, C-071, C-073, C-075, C-076, C-077, C-080, C-081, C-082, C-083, C-084, C-085, C-091, C-092, C-093, C-097, C-099) — many multi-level claims split into multiple rows |
-| 6 | Generalisation | 4 (C-094, C-095, C-096) |
+|---|---|---:|
+| 1 | Repository fact | 3 |
+| 2 | Modelling assumption | 5 |
+| 3 | Mechanical result | 13 |
+| 4 | Historical observation | 20 |
+| 5 | Interpretation | 56 |
+| 6 | Generalisation | 3 |
+| **Total** |  | **100** |
 
-### Claims with unclear provenance
+The previous hand-written summary counts were inconsistent with the actual inventory rows and are superseded by the mechanically recomputed counts above.
+
+### Inventory-quality issues discovered before substantive audit
+
+1. **Summary-count drift:** previous reported counts did not match the 100 rows.
+2. **C-100 summary misclassification:** it was listed as a Level-1 repository fact in the previous summary even though its row is Level 5.
+3. **C-095 taxonomy issue:** a research question was placed under Level 6 (Generalisation). It should not be treated as an evidential claim without an explicit category for research questions.
+4. **Conflict overstatement:** C-035 and C-039 are not necessarily contradictory. “ACCEPTED means admissible, not true” does not by itself determine whether corroboration is a prerequisite for acceptance. This pair should be treated as **semantic ambiguity**, not a demonstrated contradiction.
+5. **Latent conflict overstatement:** C-062 and C-067 are compatible when C-067 remains bounded to “the tested model.” The risk is decontextualisation, not an actual logical conflict.
+
+These issues are themselves evidence that the claim inventory requires a provenance/taxonomy audit before substantive scientific claims are scored.
+
+### Claims with unclear or non-evidential provenance
 
 | ID | Issue |
 |---|---|
-| C-021 | "That is the first candidate result capable of satisfying Gate C." — refers to an experiment outcome not yet executed at time of writing; prediction, not observation |
-| C-094 | Research question from paper outline; provenance is the outline document itself, not empirical evidence |
-| C-095 | Same provenance pattern as C-094 |
-| C-096 | Differentiation hypothesis explicitly marked as provisional; provenance is the RELATED_WORK_SEED.md document |
+| C-021 | Predictive/pre-experimental statement; not an observation |
+| C-094 | Candidate gap statement from paper outline; requires external support |
+| C-095 | Research question, not a factual/generalisation claim |
+| C-096 | Explicitly provisional differentiation hypothesis; requires novelty review |
 
-### Note on multi-level claims
+### Next audit rule
 
-Several sentences in the source files compress multiple levels. Where this occurred, the sentence was split into separate rows (e.g., C-006 and C-007; C-067 and C-068). The original multi-level wording is preserved in the "Exact claim" column of the first row of each split (with the second row referencing it via Dependencies).
+Before Attack 1, perform **Inventory Audit A0**:
+
+- verify row/source fidelity;
+- verify level assignment;
+- distinguish claims from research questions, methodological rules, predictions and limitations;
+- identify semantic duplicates;
+- distinguish genuine contradictions from unresolved ambiguities;
+- preserve original IDs and text while adding audit annotations rather than rewriting history.
