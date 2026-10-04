@@ -55,5 +55,5 @@ jobs:
         run: |
           git config user.name "unpeeragogy-bot"
           git config user.email "bot@unpeeragogy.pyragogy.org"
-          git commit -m "log: sync mensile $(date '+%Y-%m') [skip ci]"
+          git commit -m "log: sync mensile $(date '+%Y-%m')"
           git push
