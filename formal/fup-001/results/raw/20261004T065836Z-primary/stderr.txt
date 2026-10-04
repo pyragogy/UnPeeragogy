@@ -1,0 +1,18 @@
+00. check AutomationCannotAccept     0       UNSAT
+01. check CorroboratedCannotBeSyntheticOnly     0       UNSAT
+02. check VerifiedCannotUseOnlyUntraceableEvidence     0       UNSAT
+03. check RevisedHasHistory        0       UNSAT
+04. check Naive_DistinctSourcesAreIndependent     0    1/1     SAT
+05. check Naive_AcceptedImpliesGateBMutation     0    1/1     SAT
+06. check Naive_AcceptedImpliesCorroborated     0    1/1     SAT
+07. check Naive_EnginePassedImpliesAccepted     0    1/1     SAT
+08. check Naive_VerificationContestedImpliesHumanContested     0    1/1     SAT
+09. run   acceptedWithGateBNoChange     0    1/1     SAT
+10. run   gateAAcceptedBeforeGateBDecision     0    1/1     SAT
+11. run   sharedOriginDifferentSources     0    1/1     SAT
+12. run   acceptedButNotCorroborated     0    1/1     SAT
+13. run   witnessSubstantiveHumanDecision     0    1/1     SAT
+14. run   witnessCorroboratedCandidate     0    1/1     SAT
+15. run   witnessVerifiedCandidate     0    1/1     SAT
+16. run   witnessRevisedInterpretation     0    1/1     SAT
+17. run   can001Shape              0    1/1     SAT

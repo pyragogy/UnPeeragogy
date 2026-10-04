@@ -1,0 +1,7 @@
+captured_at_utc=2026-10-04T06:58:32Z
+git_commit=8939f8c047de8cacffe1a68d8204ff69d6f46ff0
+git_branch=fup-001/formal-kernel
+git_dirty=true
+kernel=Linux 100499b2e55a 6.8.0-146-generic #146-Ubuntu SMP PREEMPT_DYNAMIC Thu Sep  3 16:12:30 UTC 2026 x86_64 GNU/Linux
+arch=x86_64
+java=openjdk version "21.0.11" 2026-04-21 OpenJDK Runtime Environment (build 21.0.11+10-1-deb13u2-Debian) OpenJDK 64-Bit Server VM (build 21.0.11+10-1-deb13u2-Debian, mixed mode, sharing) 

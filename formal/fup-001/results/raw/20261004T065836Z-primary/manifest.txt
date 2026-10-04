@@ -1,0 +1,9 @@
+run_id=20261004T065836Z-primary
+captured_at_utc=2026-10-04T06:58:36Z
+commit=8939f8c047de8cacffe1a68d8204ff69d6f46ff0
+branch=fup-001/formal-kernel
+model=formal/fup-001/model/unpeeragogy.als
+model_sha256=2415c598b41f688db637b4a0c20147d44e3fea30240cb7c890f750e1edd8ef1d
+alloy_jar_sha256=6b8c1cb5bc93bedfc7c61435c4e1ab6e688a242dc702a394628d9a9801edb78d
+solver=sat4j
+output_type=json

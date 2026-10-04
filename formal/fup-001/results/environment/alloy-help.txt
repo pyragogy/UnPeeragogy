@@ -1,0 +1,39 @@
+
+The Alloy dispatcher
+
+
+MAIN OPTIONS
+
+   [ -d, --debug ]            -         Activate debugging mode
+   [ -D, --defaultLevel <levels> ] -    Set the default log level: off, trace,
+                                        debug, info, warn, error. If not set,
+                                        defaults to error
+   [ -l, --log <string;> ]    -         Set per logger log level. The syntax is
+                                        <logger-prefix>=<level>, where level is
+                                        off, trace, debug, info, warn, error
+
+Available sub-commands: 
+
+  natives                     -         Show all the native solvers for all
+                                        supported platforms 
+  prefs                       -         Show the preferences or modify them 
+  solvers                     -         Show the list of solvers 
+  version                     -         Display the current version 
+
+
+  gui                         -         Opens up the Graphic User Interface of
+                                        Alloy 
+
+  commands                    -         Show all commands in an Alloy program 
+  exec                        -         Execute an Alloy program. This will
+                                        create a directory with the name of the
+                                        source file minus the extension. You
+                                        will find the solutions in this
+                                        directory. This directory will also
+                                        contain a receipt.json file that
+                                        contains the solutions. 
+
+  ls                          -         Language Server for Alloy. 
+  lsp                         -         Language Server for Alloy. 
+
+

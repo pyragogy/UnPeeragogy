@@ -1,0 +1,7 @@
+commit 8939f8c047de8cacffe1a68d8204ff69d6f46ff0
+Author:     Fabrizio Terzi <FTG-003@users.noreply.github.com>
+AuthorDate: Sat Oct 3 21:48:45 2026 +0200
+Commit:     Fabrizio Terzi <FTG-003@users.noreply.github.com>
+CommitDate: Sat Oct 3 21:48:45 2026 +0200
+
+    chore: ignore local formal-method tool binaries
