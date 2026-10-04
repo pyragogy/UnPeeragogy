@@ -1,0 +1,13 @@
+run_id=20261004T071755Z-abl-I-scope8-sat4j
+captured_at_utc=2026-10-04T07:17:55Z
+commit=fbd451dca4365be44308be698f2724a821edcf5d
+branch=fup-001/formal-kernel
+variant=I
+scope=8
+solver=sat4j
+model=formal/fup-001/results/raw/20261004T071755Z-abl-I-scope8-sat4j/tmp/ablation-model.als
+model_sha256=eedd149a031c216eddaf8bd405132fb52838f7134965d8aa0e863d78cf642c3f
+alloy_jar_sha256=6b8c1cb5bc93bedfc7c61435c4e1ab6e688a242dc702a394628d9a9801edb78d
+output_type=json
+parent_run=20261004T065836Z-primary
+parent_model_commit=8939f8c047de8cacffe1a68d8204ff69d6f46ff0

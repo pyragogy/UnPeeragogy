@@ -1,0 +1,13 @@
+run_id=20261004T071601Z-abl-R-scope6-sat4j
+captured_at_utc=2026-10-04T07:16:01Z
+commit=fbd451dca4365be44308be698f2724a821edcf5d
+branch=fup-001/formal-kernel
+variant=R
+scope=6
+solver=sat4j
+model=formal/fup-001/model/unpeeragogy-abl-R.als
+model_sha256=fc904cace17f30872e61bbfb1e975275060beeccbd564fdb66acce8020e70074
+alloy_jar_sha256=6b8c1cb5bc93bedfc7c61435c4e1ab6e688a242dc702a394628d9a9801edb78d
+output_type=json
+parent_run=20261004T065836Z-primary
+parent_model_commit=8939f8c047de8cacffe1a68d8204ff69d6f46ff0

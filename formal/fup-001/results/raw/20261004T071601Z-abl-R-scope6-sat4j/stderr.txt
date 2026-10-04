@@ -1,0 +1,22 @@
+[main] ERROR alloy - excuting sub command CLI:exec error Syntax error in /home/coder/project/unpeeragogy/formal/fup-001/model/unpeeragogy-abl-R.als at line 1 column 26:
+There are 5 possible tokens that can appear here:
+enum fun let open pred 
+Syntax error in /home/coder/project/unpeeragogy/formal/fup-001/model/unpeeragogy-abl-R.als at line 1 column 26:
+There are 5 possible tokens that can appear here:
+enum fun let open pred 
+	at edu.mit.csail.sdg.parser.CompParser.syntax_error(CompParser.java:2633)
+	at edu.mit.csail.sdg.parser.CompParser.parse(CompParser.java:2482)
+	at edu.mit.csail.sdg.parser.CompParser.alloy_parseStream(CompParser.java:2675)
+	at edu.mit.csail.sdg.parser.CompUtil.parse(CompUtil.java:476)
+	at edu.mit.csail.sdg.parser.CompUtil.parseRecursively(CompUtil.java:238)
+	at edu.mit.csail.sdg.parser.CompUtil.parseEverything_fromFile(CompUtil.java:383)
+	at org.alloytools.alloy.cli.CLI._exec(CLI.java:176)
+	at aQute.lib.getopt.CommandLine.execute(CommandLine.java:158)
+	at org.alloytools.alloy.core.infra.AlloyDispatcher.__alloy(AlloyDispatcher.java:154)
+	at aQute.lib.getopt.CommandLine.execute(CommandLine.java:158)
+	at org.alloytools.alloy.core.infra.AlloyDispatcher.main(AlloyDispatcher.java:110)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.alloytools.alloy.core.infra.Alloy.main(Alloy.java:85)
+Error
+  0. [CompParser.syntax_error] executing CLI:exec

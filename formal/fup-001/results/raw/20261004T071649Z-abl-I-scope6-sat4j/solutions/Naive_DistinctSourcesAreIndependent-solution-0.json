@@ -1,0 +1,811 @@
+{
+  "duration":156,
+  "incremental":true,
+  "instances":[
+    {
+      "messages":[
+        
+      ],
+      "skolems":{
+        "$Naive_DistinctSourcesAreIndependent_s1":{
+          "arity":1,
+          "data":[
+            [
+              "Source$1"
+            ]
+          ]
+        },
+        "$Naive_DistinctSourcesAreIndependent_s2":{
+          "arity":1,
+          "data":[
+            [
+              "Source$0"
+            ]
+          ]
+        }
+      },
+      "state":0,
+      "values":{
+        "0":{
+          
+        },
+        "1":{
+          
+        },
+        "2":{
+          
+        },
+        "3":{
+          
+        },
+        "4":{
+          
+        },
+        "5":{
+          
+        },
+        "6":{
+          
+        },
+        "AK_AUTOMATION$0":{
+          
+        },
+        "AK_HUMAN$0":{
+          
+        },
+        "Actor$9":{
+          "actorKind":[
+            
+          ]
+        },
+        "Candidate$0":{
+          "epistemic":[
+            [
+              "ES_REVISED$0"
+            ]
+          ],
+          "integrity":[
+            [
+              "IL_CONTESTED$0"
+            ]
+          ],
+          "evidence":[
+            [
+              "EvidenceItem$1"
+            ],
+            [
+              "EvidenceItem$2"
+            ],
+            [
+              "EvidenceItem$3"
+            ],
+            [
+              "EvidenceItem$4"
+            ],
+            [
+              "EvidenceItem$5"
+            ]
+          ],
+          "processing":[
+            [
+              "PS_ENGINE_REJECTED$0"
+            ]
+          ],
+          "human":[
+            [
+              "HR_PENDING$0"
+            ]
+          ],
+          "verification":[
+            [
+              "VS_CONTESTED$0"
+            ]
+          ],
+          "gateB":[
+            [
+              "GB_PENDING$0"
+            ]
+          ]
+        },
+        "Candidate$1":{
+          "epistemic":[
+            [
+              "ES_REVISED$0"
+            ]
+          ],
+          "integrity":[
+            [
+              "IL_CONTESTED$0"
+            ]
+          ],
+          "evidence":[
+            [
+              "EvidenceItem$0"
+            ],
+            [
+              "EvidenceItem$2"
+            ],
+            [
+              "EvidenceItem$3"
+            ],
+            [
+              "EvidenceItem$4"
+            ],
+            [
+              "EvidenceItem$5"
+            ]
+          ],
+          "processing":[
+            [
+              "PS_ENGINE_REJECTED$0"
+            ]
+          ],
+          "human":[
+            [
+              "HR_PENDING$0"
+            ]
+          ],
+          "verification":[
+            [
+              "VS_CONTESTED$0"
+            ]
+          ],
+          "gateB":[
+            [
+              "GB_PENDING$0"
+            ]
+          ]
+        },
+        "Candidate$2":{
+          "epistemic":[
+            [
+              "ES_CONTESTED$0"
+            ]
+          ],
+          "integrity":[
+            [
+              "IL_CONTESTED$0"
+            ]
+          ],
+          "evidence":[
+            
+          ],
+          "processing":[
+            [
+              "PS_ENGINE_REJECTED$0"
+            ]
+          ],
+          "human":[
+            [
+              "HR_PENDING$0"
+            ]
+          ],
+          "verification":[
+            [
+              "VS_CONTESTED$0"
+            ]
+          ],
+          "gateB":[
+            [
+              "GB_PENDING$0"
+            ]
+          ]
+        },
+        "Candidate$3":{
+          "epistemic":[
+            [
+              "ES_CONTESTED$0"
+            ]
+          ],
+          "integrity":[
+            [
+              "IL_CONTESTED$0"
+            ]
+          ],
+          "evidence":[
+            
+          ],
+          "processing":[
+            [
+              "PS_ENGINE_REJECTED$0"
+            ]
+          ],
+          "human":[
+            [
+              "HR_PENDING$0"
+            ]
+          ],
+          "verification":[
+            [
+              "VS_CONTESTED$0"
+            ]
+          ],
+          "gateB":[
+            [
+              "GB_PENDING$0"
+            ]
+          ]
+        },
+        "Candidate$4":{
+          "epistemic":[
+            [
+              "ES_CONTESTED$0"
+            ]
+          ],
+          "integrity":[
+            [
+              "IL_CONTESTED$0"
+            ]
+          ],
+          "evidence":[
+            
+          ],
+          "processing":[
+            [
+              "PS_ENGINE_REJECTED$0"
+            ]
+          ],
+          "human":[
+            [
+              "HR_PENDING$0"
+            ]
+          ],
+          "verification":[
+            [
+              "VS_CONTESTED$0"
+            ]
+          ],
+          "gateB":[
+            [
+              "GB_PENDING$0"
+            ]
+          ]
+        },
+        "Candidate$5":{
+          "epistemic":[
+            [
+              "ES_CONTESTED$0"
+            ]
+          ],
+          "integrity":[
+            [
+              "IL_CONTESTED$0"
+            ]
+          ],
+          "evidence":[
+            
+          ],
+          "processing":[
+            [
+              "PS_ENGINE_REJECTED$0"
+            ]
+          ],
+          "human":[
+            [
+              "HR_PENDING$0"
+            ]
+          ],
+          "verification":[
+            [
+              "VS_CONTESTED$0"
+            ]
+          ],
+          "gateB":[
+            [
+              "GB_PENDING$0"
+            ]
+          ]
+        },
+        "Candidate$6":{
+          "epistemic":[
+            [
+              "ES_CONTESTED$0"
+            ]
+          ],
+          "integrity":[
+            [
+              "IL_CONTESTED$0"
+            ]
+          ],
+          "evidence":[
+            
+          ],
+          "processing":[
+            [
+              "PS_ENGINE_REJECTED$0"
+            ]
+          ],
+          "human":[
+            [
+              "HR_PENDING$0"
+            ]
+          ],
+          "verification":[
+            [
+              "VS_CONTESTED$0"
+            ]
+          ],
+          "gateB":[
+            [
+              "GB_PENDING$0"
+            ]
+          ]
+        },
+        "Candidate$7":{
+          "epistemic":[
+            [
+              "ES_HYPOTHESIZED$0"
+            ]
+          ],
+          "integrity":[
+            [
+              "IL_LEGACY$0"
+            ]
+          ],
+          "evidence":[
+            
+          ],
+          "processing":[
+            [
+              "PS_ENGINE_REJECTED$0"
+            ]
+          ],
+          "human":[
+            [
+              "HR_PENDING$0"
+            ]
+          ],
+          "verification":[
+            [
+              "VS_CONTESTED$0"
+            ]
+          ],
+          "gateB":[
+            [
+              "GB_MUTATION_APPROVED$0"
+            ]
+          ]
+        },
+        "Candidate$8":{
+          "epistemic":[
+            [
+              "ES_HYPOTHESIZED$0"
+            ]
+          ],
+          "integrity":[
+            [
+              "IL_CONTESTED$0"
+            ]
+          ],
+          "evidence":[
+            
+          ],
+          "processing":[
+            [
+              "PS_ENGINE_REJECTED$0"
+            ]
+          ],
+          "human":[
+            [
+              "HR_PENDING$0"
+            ]
+          ],
+          "verification":[
+            [
+              "VS_CONTESTED$0"
+            ]
+          ],
+          "gateB":[
+            [
+              "GB_PENDING$0"
+            ]
+          ]
+        },
+        "Candidate$9":{
+          "epistemic":[
+            [
+              "ES_HYPOTHESIZED$0"
+            ]
+          ],
+          "integrity":[
+            [
+              "IL_CONTESTED$0"
+            ]
+          ],
+          "evidence":[
+            [
+              "EvidenceItem$1"
+            ],
+            [
+              "EvidenceItem$5"
+            ]
+          ],
+          "processing":[
+            [
+              "PS_ENGINE_REJECTED$0"
+            ]
+          ],
+          "human":[
+            [
+              "HR_PENDING$0"
+            ]
+          ],
+          "verification":[
+            [
+              "VS_CONTESTED$0"
+            ]
+          ],
+          "gateB":[
+            [
+              "GB_PENDING$0"
+            ]
+          ]
+        },
+        "EMPIRICAL$0":{
+          
+        },
+        "ES_CONTESTED$0":{
+          
+        },
+        "ES_CORROBORATED$0":{
+          
+        },
+        "ES_HYPOTHESIZED$0":{
+          
+        },
+        "ES_INTERPRETED$0":{
+          
+        },
+        "ES_OBSERVED$0":{
+          
+        },
+        "ES_REPORTED$0":{
+          
+        },
+        "ES_REVISED$0":{
+          
+        },
+        "EvidenceItem$4":{
+          "source":[
+            [
+              "Source$1"
+            ]
+          ]
+        },
+        "EvidenceItem$5":{
+          "source":[
+            [
+              "Source$0"
+            ]
+          ]
+        },
+        "EvidenceItem$6":{
+          "source":[
+            
+          ]
+        },
+        "EvidenceItem$7":{
+          "source":[
+            
+          ]
+        },
+        "EvidenceItem$8":{
+          "source":[
+            
+          ]
+        },
+        "EvidenceItem$9":{
+          "source":[
+            
+          ]
+        },
+        "GB_MUTATION_APPROVED$0":{
+          
+        },
+        "GB_NO_CHANGE$0":{
+          
+        },
+        "GB_PENDING$0":{
+          
+        },
+        "GateBDecision$9":{
+          "actor":[
+            
+          ],
+          "candidate":[
+            
+          ],
+          "outcome":[
+            
+          ]
+        },
+        "HR_ACCEPTED$0":{
+          
+        },
+        "HR_CONTESTED$0":{
+          
+        },
+        "HR_NEEDS_EVIDENCE$0":{
+          
+        },
+        "HR_PENDING$0":{
+          
+        },
+        "HR_REJECTED$0":{
+          
+        },
+        "HR_REVISE$0":{
+          
+        },
+        "HumanDecision$2":{
+          "actor":[
+            [
+              "Actor$0"
+            ]
+          ],
+          "candidate":[
+            [
+              "Candidate$3"
+            ]
+          ],
+          "basis":[
+            
+          ],
+          "outcome":[
+            [
+              "HR_PENDING$0"
+            ]
+          ]
+        },
+        "HumanDecision$3":{
+          "actor":[
+            [
+              "Actor$0"
+            ]
+          ],
+          "candidate":[
+            [
+              "Candidate$0"
+            ]
+          ],
+          "basis":[
+            [
+              "EvidenceItem$4"
+            ]
+          ],
+          "outcome":[
+            [
+              "HR_PENDING$0"
+            ]
+          ]
+        },
+        "HumanDecision$4":{
+          "actor":[
+            [
+              "Actor$0"
+            ]
+          ],
+          "candidate":[
+            [
+              "Candidate$0"
+            ]
+          ],
+          "basis":[
+            [
+              "EvidenceItem$3"
+            ]
+          ],
+          "outcome":[
+            [
+              "HR_PENDING$0"
+            ]
+          ]
+        },
+        "HumanDecision$5":{
+          "actor":[
+            [
+              "Actor$0"
+            ]
+          ],
+          "candidate":[
+            [
+              "Candidate$0"
+            ]
+          ],
+          "basis":[
+            [
+              "EvidenceItem$2"
+            ],
+            [
+              "EvidenceItem$4"
+            ]
+          ],
+          "outcome":[
+            [
+              "HR_PENDING$0"
+            ]
+          ]
+        },
+        "HumanDecision$6":{
+          "actor":[
+            [
+              "Actor$0"
+            ]
+          ],
+          "candidate":[
+            [
+              "Candidate$0"
+            ]
+          ],
+          "basis":[
+            [
+              "EvidenceItem$1"
+            ],
+            [
+              "EvidenceItem$3"
+            ],
+            [
+              "EvidenceItem$4"
+            ]
+          ],
+          "outcome":[
+            [
+              "HR_PENDING$0"
+            ]
+          ]
+        },
+        "HumanDecision$7":{
+          "actor":[
+            [
+              "Actor$0"
+            ]
+          ],
+          "candidate":[
+            [
+              "Candidate$1"
+            ]
+          ],
+          "basis":[
+            [
+              "EvidenceItem$0"
+            ],
+            [
+              "EvidenceItem$2"
+            ]
+          ],
+          "outcome":[
+            [
+              "HR_PENDING$0"
+            ]
+          ]
+        },
+        "HumanDecision$8":{
+          "actor":[
+            
+          ],
+          "candidate":[
+            
+          ],
+          "basis":[
+            
+          ],
+          "outcome":[
+            
+          ]
+        },
+        "HumanDecision$9":{
+          "actor":[
+            
+          ],
+          "candidate":[
+            
+          ],
+          "basis":[
+            
+          ],
+          "outcome":[
+            
+          ]
+        },
+        "IL_CONTESTED$0":{
+          
+        },
+        "IL_LEGACY$0":{
+          
+        },
+        "IL_STRUCTURED$0":{
+          
+        },
+        "IL_VERIFIED$0":{
+          
+        },
+        "Incident$6":{
+          
+        },
+        "Incident$7":{
+          
+        },
+        "Incident$8":{
+          
+        },
+        "Incident$9":{
+          
+        },
+        "NO$0":{
+          
+        },
+        "PS_CANDIDATE$0":{
+          
+        },
+        "PS_ENGINE_DEGRADED$0":{
+          
+        },
+        "PS_ENGINE_PASSED$0":{
+          
+        },
+        "PS_ENGINE_REJECTED$0":{
+          
+        },
+        "PS_RAW$0":{
+          
+        },
+        "SYNTHETIC$0":{
+          
+        },
+        "Source$8":{
+          "parent":[
+            
+          ],
+          "incident":[
+            
+          ],
+          "traceable":[
+            
+          ],
+          "empiricality":[
+            
+          ]
+        },
+        "Source$9":{
+          "parent":[
+            
+          ],
+          "incident":[
+            
+          ],
+          "traceable":[
+            
+          ],
+          "empiricality":[
+            
+          ]
+        },
+        "VS_CONTESTED$0":{
+          
+        },
+        "VS_CORROBORATED$0":{
+          
+        },
+        "VS_PARTIALLY_SUPPORTED$0":{
+          
+        },
+        "VS_SOURCE_LINKED$0":{
+          
+        },
+        "VS_UNVERIFIED$0":{
+          
+        },
+        "YES$0":{
+          
+        }
+      }
+    }
+  ],
+  "localtime":"2026-10-04T09:16:55.637390018",
+  "loopstate":-1,
+  "sigs":{
+    
+  },
+  "timezone":"Europe/Rome",
+  "utctime":1791098215637
+}

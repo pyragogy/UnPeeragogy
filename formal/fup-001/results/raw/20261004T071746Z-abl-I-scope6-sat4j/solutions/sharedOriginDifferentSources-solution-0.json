@@ -1,0 +1,349 @@
+{
+  "duration":176,
+  "incremental":true,
+  "instances":[
+    {
+      "messages":[
+        
+      ],
+      "skolems":{
+        "$sharedOriginDifferentSources_s1":{
+          "arity":1,
+          "data":[
+            [
+              "Source$2"
+            ]
+          ]
+        },
+        "$sharedOriginDifferentSources_s2":{
+          "arity":1,
+          "data":[
+            [
+              "Source$1"
+            ]
+          ]
+        }
+      },
+      "state":0,
+      "values":{
+        "0":{
+          
+        },
+        "1":{
+          
+        },
+        "2":{
+          
+        },
+        "3":{
+          
+        },
+        "4":{
+          
+        },
+        "5":{
+          
+        },
+        "6":{
+          
+        },
+        "AK_AUTOMATION$0":{
+          
+        },
+        "AK_HUMAN$0":{
+          
+        },
+        "Actor$9":{
+          "actorKind":[
+            
+          ]
+        },
+        "Candidate$5":{
+          "epistemic":[
+            
+          ],
+          "integrity":[
+            
+          ],
+          "evidence":[
+            
+          ],
+          "processing":[
+            
+          ],
+          "human":[
+            
+          ],
+          "verification":[
+            
+          ],
+          "gateB":[
+            
+          ]
+        },
+        "Candidate$6":{
+          "epistemic":[
+            
+          ],
+          "integrity":[
+            
+          ],
+          "evidence":[
+            
+          ],
+          "processing":[
+            
+          ],
+          "human":[
+            
+          ],
+          "verification":[
+            
+          ],
+          "gateB":[
+            
+          ]
+        },
+        "Candidate$7":{
+          "epistemic":[
+            
+          ],
+          "integrity":[
+            
+          ],
+          "evidence":[
+            
+          ],
+          "processing":[
+            
+          ],
+          "human":[
+            
+          ],
+          "verification":[
+            
+          ],
+          "gateB":[
+            
+          ]
+        },
+        "Candidate$8":{
+          "epistemic":[
+            
+          ],
+          "integrity":[
+            
+          ],
+          "evidence":[
+            
+          ],
+          "processing":[
+            
+          ],
+          "human":[
+            
+          ],
+          "verification":[
+            
+          ],
+          "gateB":[
+            
+          ]
+        },
+        "Candidate$9":{
+          "epistemic":[
+            
+          ],
+          "integrity":[
+            
+          ],
+          "evidence":[
+            
+          ],
+          "processing":[
+            
+          ],
+          "human":[
+            
+          ],
+          "verification":[
+            
+          ],
+          "gateB":[
+            
+          ]
+        },
+        "EMPIRICAL$0":{
+          
+        },
+        "ES_CONTESTED$0":{
+          
+        },
+        "ES_CORROBORATED$0":{
+          
+        },
+        "ES_HYPOTHESIZED$0":{
+          
+        },
+        "ES_INTERPRETED$0":{
+          
+        },
+        "ES_OBSERVED$0":{
+          
+        },
+        "ES_REPORTED$0":{
+          
+        },
+        "ES_REVISED$0":{
+          
+        },
+        "EvidenceItem$9":{
+          "source":[
+            
+          ]
+        },
+        "GB_MUTATION_APPROVED$0":{
+          
+        },
+        "GB_NO_CHANGE$0":{
+          
+        },
+        "GB_PENDING$0":{
+          
+        },
+        "GateBDecision$9":{
+          "actor":[
+            
+          ],
+          "candidate":[
+            
+          ],
+          "outcome":[
+            
+          ]
+        },
+        "HR_ACCEPTED$0":{
+          
+        },
+        "HR_CONTESTED$0":{
+          
+        },
+        "HR_NEEDS_EVIDENCE$0":{
+          
+        },
+        "HR_PENDING$0":{
+          
+        },
+        "HR_REJECTED$0":{
+          
+        },
+        "HR_REVISE$0":{
+          
+        },
+        "IL_CONTESTED$0":{
+          
+        },
+        "IL_LEGACY$0":{
+          
+        },
+        "IL_STRUCTURED$0":{
+          
+        },
+        "IL_VERIFIED$0":{
+          
+        },
+        "Incident$9":{
+          
+        },
+        "NO$0":{
+          
+        },
+        "PS_CANDIDATE$0":{
+          
+        },
+        "PS_ENGINE_DEGRADED$0":{
+          
+        },
+        "PS_ENGINE_PASSED$0":{
+          
+        },
+        "PS_ENGINE_REJECTED$0":{
+          
+        },
+        "PS_RAW$0":{
+          
+        },
+        "SYNTHETIC$0":{
+          
+        },
+        "Source$7":{
+          "parent":[
+            
+          ],
+          "incident":[
+            
+          ],
+          "traceable":[
+            
+          ],
+          "empiricality":[
+            
+          ]
+        },
+        "Source$8":{
+          "parent":[
+            
+          ],
+          "incident":[
+            
+          ],
+          "traceable":[
+            
+          ],
+          "empiricality":[
+            
+          ]
+        },
+        "Source$9":{
+          "parent":[
+            
+          ],
+          "incident":[
+            
+          ],
+          "traceable":[
+            
+          ],
+          "empiricality":[
+            
+          ]
+        },
+        "VS_CONTESTED$0":{
+          
+        },
+        "VS_CORROBORATED$0":{
+          
+        },
+        "VS_PARTIALLY_SUPPORTED$0":{
+          
+        },
+        "VS_SOURCE_LINKED$0":{
+          
+        },
+        "VS_UNVERIFIED$0":{
+          
+        },
+        "YES$0":{
+          
+        }
+      }
+    }
+  ],
+  "localtime":"2026-10-04T09:17:53.938524992",
+  "loopstate":-1,
+  "sigs":{
+    
+  },
+  "timezone":"Europe/Rome",
+  "utctime":1791098273938
+}

@@ -1,0 +1,13 @@
+run_id=20261004T071821Z-abl-L-scope6-glucose
+captured_at_utc=2026-10-04T07:18:21Z
+commit=fbd451dca4365be44308be698f2724a821edcf5d
+branch=fup-001/formal-kernel
+variant=L
+scope=6
+solver=glucose
+model=formal/fup-001/model/unpeeragogy-abl-L.als
+model_sha256=9cac380f3b18038c7ce365ef3465ff064cf8b58faf23c677c7ac10621af781a2
+alloy_jar_sha256=6b8c1cb5bc93bedfc7c61435c4e1ab6e688a242dc702a394628d9a9801edb78d
+output_type=json
+parent_run=20261004T065836Z-primary
+parent_model_commit=8939f8c047de8cacffe1a68d8204ff69d6f46ff0

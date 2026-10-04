@@ -1,0 +1,75 @@
+OS Platform       linux/amd64
+Java platform     Linux/amd64/
+┌──────────────────┬────────────────────────────────────────────────────────────┬───────────┬───────────┬──────────┐
+│id                │description                                                 │type       │attributes │diagnostic│
+├──────────────────┼────────────────────────────────────────────────────────────┼───────────┼───────────┼──────────┤
+│CNF               │CNF stands for Conjunctive Normal Form. It is specified by  │transformer│           │          │
+│                  │DIMACS. This is a standardized way of representing Boolean  │           │           │          │
+│                  │algebra expressions for processing by SAT solvers.          │           │           │          │
+├──────────────────┼────────────────────────────────────────────────────────────┼───────────┼───────────┼──────────┤
+│KK                │KK is the KodKod debug output format                        │transformer│           │          │
+├──────────────────┼────────────────────────────────────────────────────────────┼───────────┼───────────┼──────────┤
+│electrod.elo      │outputs the elo file generated for electrod                 │transformer│           │          │
+├──────────────────┼────────────────────────────────────────────────────────────┼───────────┼───────────┼──────────┤
+│glucose           │Glucose is an efficient and open-source SAT solver based on │jni        │incr       │          │
+│                  │the MiniSat solver. It was developed by Gilles Audemard and │           │           │          │
+│                  │Laurent Simon.                                              │           │           │          │
+│                  │The name "Glucose" comes from adding some "glue clauses" to │           │           │          │
+│                  │the MiniSat, which refers to a specific kind of learned     │           │           │          │
+│                  │clause (the ones that are considered important and are kept │           │           │          │
+│                  │during the clause database reduction process). The use of   │           │           │          │
+│                  │glue clauses has shown to be particularly effective for hard│           │           │          │
+│                  │industrial SAT instances.                                   │           │           │          │
+│                  │Glucose incorporates an approach called "Literal Block      │           │           │          │
+│                  │Distance" (LBD) to measure the 'activity' of learned        │           │           │          │
+│                  │clauses. The LBD measure helps in making decisions about    │           │           │          │
+│                  │which clauses to keep when the memory becomes full. This    │           │           │          │
+│                  │mechanism makes Glucose more efficient in dealing with large│           │           │          │
+│                  │and complex problems.                                       │           │           │          │
+├──────────────────┼────────────────────────────────────────────────────────────┼───────────┼───────────┼──────────┤
+│lingeling.parallel│Plingeling is a parallel SAT solver that's part of the      │external   │           │          │
+│                  │Lingeling family of SAT solvers developed by Armin Biere at │           │           │          │
+│                  │Johannes Kepler University. SAT, or Boolean satisfiability, │           │           │          │
+│                  │is the problem of determining if there exists an            │           │           │          │
+│                  │interpretation that satisfies a given Boolean formula.      │           │           │          │
+│                  │Plingeling is designed to make efficient use of multiple    │           │           │          │
+│                  │processors or cores to solve SAT problems faster than a     │           │           │          │
+│                  │single-threaded solver would be able to. It does this by    │           │           │          │
+│                  │running several instances of the Lingeling solver in        │           │           │          │
+│                  │parallel, each working on the same problem but with         │           │           │          │
+│                  │different heuristics or random seed values.                 │           │           │          │
+│                  │Plingeling also incorporates techniques to share learned    │           │           │          │
+│                  │clauses between the different solver instances, which can   │           │           │          │
+│                  │help to avoid duplicate work and accelerate the overall     │           │           │          │
+│                  │solving process.                                            │           │           │          │
+├──────────────────┼────────────────────────────────────────────────────────────┼───────────┼───────────┼──────────┤
+│minisat           │MiniSat is a minimalistic, open-source SAT solver that is   │jni        │incr       │          │
+│                  │designed to be simple and efficient. It's written in C++ and│           │           │          │
+│                  │is widely used in both academia and industry for research   │           │           │          │
+│                  │purposes and as a basis for derivative SAT solvers.         │           │           │          │
+├──────────────────┼────────────────────────────────────────────────────────────┼───────────┼───────────┼──────────┤
+│minisat.prover    │                                                            │jni        │incr,prover│          │
+├──────────────────┼────────────────────────────────────────────────────────────┼───────────┼───────────┼──────────┤
+│sat4j             │SAT4J is a Java library used for solving Boolean            │java       │incr       │          │
+│                  │Satisfiability (SAT) problems and more generally            │           │           │          │
+│                  │Pseudo-Boolean (PB) problems. It is an open-source project  │           │           │          │
+│                  │under the GNU LGPL license, providing various SAT and MaxSAT│           │           │          │
+│                  │solvers in Java. It is very reliable and works on all       │           │           │          │
+│                  │platforms                                                   │           │           │          │
+├──────────────────┼────────────────────────────────────────────────────────────┼───────────┼───────────┼──────────┤
+│sat4j.light       │SAT4J is a Java library used for solving Boolean            │java       │incr       │          │
+│                  │Satisfiability (SAT) problems and more generally            │           │           │          │
+│                  │Pseudo-Boolean (PB) problems. It is an open-source project  │           │           │          │
+│                  │under the GNU LGPL license, providing various SAT and MaxSAT│           │           │          │
+│                  │solvers in Java. It is very reliable and works on all       │           │           │          │
+│                  │platforms                                                   │           │           │          │
+├──────────────────┼────────────────────────────────────────────────────────────┼───────────┼───────────┼──────────┤
+│sat4j.pmax        │SAT4J is a Java library used for solving Boolean            │java       │incr,max   │          │
+│                  │Satisfiability (SAT) problems and more generally            │           │           │          │
+│                  │Pseudo-Boolean (PB) problems. It is an open-source project  │           │           │          │
+│                  │under the GNU LGPL license, providing various SAT and MaxSAT│           │           │          │
+│                  │solvers in Java. It is very reliable and works on all       │           │           │          │
+│                  │platforms                                                   │           │           │          │
+└──────────────────┴────────────────────────────────────────────────────────────┴───────────┴───────────┴──────────┘
+
+c last restart ## conflicts  :  0 0 

@@ -1,0 +1,54 @@
+00. check AutomationCannotAccept     0       UNSAT
+01. check CorroboratedCannotBeSyntheticOnly     0       UNSAT
+02. check VerifiedCannotUseOnlyUntraceableEvidence     0       UNSAT
+03. check RevisedHasHistory        0       UNSAT
+04. check Naive_DistinctSourcesAreIndependent     0    1/1     SAT
+05. check Naive_AcceptedImpliesGateBMutation     0    1/1     SAT
+06. check Naive_AcceptedImpliesCorroborated     0    1/1     SAT
+07. check Naive_EnginePassedImpliesAccepted     0    1/1     SAT
+08. check Naive_VerificationContestedImpliesHumanContested     0    1/1     SAT
+09. run   acceptedWithGateBNoChange     0    1/1     SAT
+10. run   gateAAcceptedBeforeGateBDecision     0    1/1     SAT
+11. run   sharedOriginDifferentSources     0    1/1     SAT
+12. run   acceptedButNotCorroborated     0    1/1     SAT
+13. run   witnessSubstantiveHumanDecision     0    1/1     SAT
+14. run   witnessCorroboratedCandidate     0    1/1     SAT
+15. run   witnessVerifiedCandidate     0    1/1     SAT
+16. run   witnessRevisedInterpretation     0    1/1     SAT
+17. run   can001Shape              0    1/1     SAT
+18. check AutomationCannotAccept     0       UNSAT
+19. check CorroboratedCannotBeSyntheticOnly     0       UNSAT
+20. check VerifiedCannotUseOnlyUntraceableEvidence     0       UNSAT
+21. check RevisedHasHistory        0       UNSAT
+22. check Naive_DistinctSourcesAreIndependent     0    1/1     SAT
+23. check Naive_AcceptedImpliesGateBMutation     0    1/1     SAT
+24. check Naive_AcceptedImpliesCorroborated     0    1/1     SAT
+25. check Naive_EnginePassedImpliesAccepted     0    1/1     SAT
+26. check Naive_VerificationContestedImpliesHumanContested     0    1/1     SAT
+27. run   acceptedWithGateBNoChange     0    1/1     SAT
+28. run   gateAAcceptedBeforeGateBDecision     0    1/1     SAT
+29. run   sharedOriginDifferentSources     0    1/1     SAT
+30. run   acceptedButNotCorroborated     0    1/1     SAT
+31. run   witnessSubstantiveHumanDecision     0    1/1     SAT
+32. run   witnessCorroboratedCandidate     0    1/1     SAT
+33. run   witnessVerifiedCandidate     0    1/1     SAT
+34. run   witnessRevisedInterpretation     0    1/1     SAT
+35. run   can001Shape              0    1/1     SAT
+36. check AutomationCannotAccept     0       UNSAT
+37. check CorroboratedCannotBeSyntheticOnly     0       UNSAT
+38. check VerifiedCannotUseOnlyUntraceableEvidence     0       UNSAT
+39. check RevisedHasHistory        0       UNSAT
+40. check Naive_DistinctSourcesAreIndependent     0    1/1     SAT
+41. check Naive_AcceptedImpliesGateBMutation     0    1/1     SAT
+42. check Naive_AcceptedImpliesCorroborated     0    1/1     SAT
+43. check Naive_EnginePassedImpliesAccepted     0    1/1     SAT
+44. check Naive_VerificationContestedImpliesHumanContested     0    1/1     SAT
+45. run   acceptedWithGateBNoChange     0    1/1     SAT
+46. run   gateAAcceptedBeforeGateBDecision     0    1/1     SAT
+47. run   sharedOriginDifferentSources     0    1/1     SAT
+48. run   acceptedButNotCorroborated     0    1/1     SAT
+49. run   witnessSubstantiveHumanDecision     0    1/1     SAT
+50. run   witnessCorroboratedCandidate     0    1/1     SAT
+51. run   witnessVerifiedCandidate     0    1/1     SAT
+52. run   witnessRevisedInterpretation     0    1/1     SAT
+53. run   can001Shape              0    1/1     SAT
