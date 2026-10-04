@@ -1,0 +1,10 @@
+0 . Check SourceCorroborationImpliesLineageCorroboration for 10
+1 . Check ReporterCorroborationImpliesIncidentCorroboration for 10
+2 . Check IncidentCorroborationImpliesReporterCorroboration for 10
+3 . Check ReporterCorroborationImpliesLineageCorroboration for 10
+4 . Run FP_SourceVsLineage for 10
+5 . Run DIV_ReporterVsIncident for 10
+6 . Run DIV_IncidentVsReporter for 10
+7 . Run DIV_ReporterVsLineage for 10
+8 . Run DIV_IncidentVsLineage for 10
+9 . Run AGREE_Strong for 10

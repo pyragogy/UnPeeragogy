@@ -1,0 +1,219 @@
+{
+  "duration":32,
+  "incremental":true,
+  "instances":[
+    {
+      "messages":[
+        
+      ],
+      "skolems":{
+        "$IncidentCorroborationImpliesReporterCorroboration_c":{
+          "arity":1,
+          "data":[
+            [
+              "Claim$5"
+            ]
+          ]
+        },
+        "$corroboratedIncident_e1":{
+          "arity":1,
+          "data":[
+            [
+              "Evidence$5"
+            ]
+          ]
+        },
+        "$corroboratedIncident_e2":{
+          "arity":1,
+          "data":[
+            [
+              "Evidence$4"
+            ]
+          ]
+        }
+      },
+      "state":0,
+      "values":{
+        "0":{
+          
+        },
+        "1":{
+          
+        },
+        "2":{
+          
+        },
+        "3":{
+          
+        },
+        "4":{
+          
+        },
+        "5":{
+          
+        },
+        "Claim$0":{
+          "evidence":[
+            [
+              "Evidence$4"
+            ]
+          ]
+        },
+        "Claim$1":{
+          "evidence":[
+            [
+              "Evidence$4"
+            ]
+          ]
+        },
+        "Claim$2":{
+          "evidence":[
+            [
+              "Evidence$4"
+            ]
+          ]
+        },
+        "Claim$3":{
+          "evidence":[
+            [
+              "Evidence$4"
+            ]
+          ]
+        },
+        "Claim$4":{
+          "evidence":[
+            [
+              "Evidence$4"
+            ]
+          ]
+        },
+        "Claim$5":{
+          "evidence":[
+            [
+              "Evidence$4"
+            ],
+            [
+              "Evidence$5"
+            ]
+          ]
+        },
+        "EMPIRICAL$0":{
+          
+        },
+        "Evidence$0":{
+          "reporter":[
+            
+          ],
+          "source":[
+            [
+              "Source$0"
+            ]
+          ],
+          "incident":[
+            
+          ]
+        },
+        "Evidence$1":{
+          "reporter":[
+            
+          ],
+          "source":[
+            [
+              "Source$0"
+            ]
+          ],
+          "incident":[
+            
+          ]
+        },
+        "Evidence$2":{
+          "reporter":[
+            
+          ],
+          "source":[
+            [
+              "Source$0"
+            ]
+          ],
+          "incident":[
+            [
+              "Incident$1"
+            ]
+          ]
+        },
+        "Evidence$3":{
+          "reporter":[
+            
+          ],
+          "source":[
+            [
+              "Source$0"
+            ]
+          ],
+          "incident":[
+            [
+              "Incident$0"
+            ]
+          ]
+        },
+        "Evidence$4":{
+          "reporter":[
+            
+          ],
+          "source":[
+            [
+              "Source$0"
+            ]
+          ],
+          "incident":[
+            [
+              "Incident$1"
+            ]
+          ]
+        },
+        "Evidence$5":{
+          "reporter":[
+            
+          ],
+          "source":[
+            [
+              "Source$0"
+            ]
+          ],
+          "incident":[
+            [
+              "Incident$0"
+            ]
+          ]
+        },
+        "Incident$4":{
+          
+        },
+        "Incident$5":{
+          
+        },
+        "Reporter$5":{
+          
+        },
+        "SYNTHETIC$0":{
+          
+        },
+        "Source$5":{
+          "parent":[
+            
+          ],
+          "empiricality":[
+            
+          ]
+        }
+      }
+    }
+  ],
+  "localtime":"2026-10-04T10:18:15.141175545",
+  "loopstate":-1,
+  "sigs":{
+    
+  },
+  "timezone":"Europe/Rome",
+  "utctime":1791101895141
+}

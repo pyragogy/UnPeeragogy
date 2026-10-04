@@ -1,0 +1,11 @@
+command,scope6 SAT4J primary,scope8 SAT4J,scope10 SAT4J,scope6 Glucose
+SourceCorroborationImpliesLineageCorroboration,SAT,SAT,SAT,SAT
+ReporterCorroborationImpliesIncidentCorroboration,SAT,SAT,SAT,SAT
+IncidentCorroborationImpliesReporterCorroboration,SAT,SAT,SAT,SAT
+ReporterCorroborationImpliesLineageCorroboration,SAT,SAT,SAT,SAT
+FP_SourceVsLineage,SAT,SAT,SAT,SAT
+DIV_ReporterVsIncident,SAT,SAT,SAT,SAT
+DIV_IncidentVsReporter,SAT,SAT,SAT,SAT
+DIV_ReporterVsLineage,SAT,SAT,SAT,SAT
+DIV_IncidentVsLineage,SAT,SAT,SAT,SAT
+AGREE_Strong,SAT,SAT,SAT,SAT

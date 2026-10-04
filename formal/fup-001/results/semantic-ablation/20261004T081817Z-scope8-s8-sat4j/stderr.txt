@@ -1,0 +1,10 @@
+00. check SourceCorroborationImpliesLineageCorroboration     0    1/1     SAT
+01. check ReporterCorroborationImpliesIncidentCorroboration     0    1/1     SAT
+02. check IncidentCorroborationImpliesReporterCorroboration     0    1/1     SAT
+03. check ReporterCorroborationImpliesLineageCorroboration     0    1/1     SAT
+04. run   FP_SourceVsLineage       0    1/1     SAT
+05. run   DIV_ReporterVsIncident     0    1/1     SAT
+06. run   DIV_IncidentVsReporter     0    1/1     SAT
+07. run   DIV_ReporterVsLineage     0    1/1     SAT
+08. run   DIV_IncidentVsLineage     0    1/1     SAT
+09. run   AGREE_Strong             0    1/1     SAT

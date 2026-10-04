@@ -1,0 +1,236 @@
+{
+  "duration":61,
+  "incremental":true,
+  "instances":[
+    {
+      "messages":[
+        
+      ],
+      "skolems":{
+        "$DIV_IncidentVsLineage_c":{
+          "arity":1,
+          "data":[
+            [
+              "Claim$0"
+            ]
+          ]
+        },
+        "$corroboratedIncident_e1":{
+          "arity":1,
+          "data":[
+            [
+              "Evidence$9"
+            ]
+          ]
+        },
+        "$corroboratedIncident_e2":{
+          "arity":1,
+          "data":[
+            [
+              "Evidence$8"
+            ]
+          ]
+        }
+      },
+      "state":0,
+      "values":{
+        "0":{
+          
+        },
+        "1":{
+          
+        },
+        "2":{
+          
+        },
+        "3":{
+          
+        },
+        "4":{
+          
+        },
+        "5":{
+          
+        },
+        "6":{
+          
+        },
+        "Claim$9":{
+          "evidence":[
+            
+          ]
+        },
+        "EMPIRICAL$0":{
+          
+        },
+        "Evidence$0":{
+          "reporter":[
+            
+          ],
+          "source":[
+            [
+              "Source$0"
+            ]
+          ],
+          "incident":[
+            
+          ]
+        },
+        "Evidence$1":{
+          "reporter":[
+            
+          ],
+          "source":[
+            [
+              "Source$0"
+            ]
+          ],
+          "incident":[
+            
+          ]
+        },
+        "Evidence$2":{
+          "reporter":[
+            
+          ],
+          "source":[
+            [
+              "Source$0"
+            ]
+          ],
+          "incident":[
+            
+          ]
+        },
+        "Evidence$3":{
+          "reporter":[
+            
+          ],
+          "source":[
+            [
+              "Source$0"
+            ]
+          ],
+          "incident":[
+            
+          ]
+        },
+        "Evidence$4":{
+          "reporter":[
+            
+          ],
+          "source":[
+            [
+              "Source$0"
+            ]
+          ],
+          "incident":[
+            [
+              "Incident$1"
+            ]
+          ]
+        },
+        "Evidence$5":{
+          "reporter":[
+            
+          ],
+          "source":[
+            [
+              "Source$0"
+            ]
+          ],
+          "incident":[
+            [
+              "Incident$0"
+            ]
+          ]
+        },
+        "Evidence$6":{
+          "reporter":[
+            
+          ],
+          "source":[
+            [
+              "Source$0"
+            ]
+          ],
+          "incident":[
+            [
+              "Incident$0"
+            ]
+          ]
+        },
+        "Evidence$7":{
+          "reporter":[
+            
+          ],
+          "source":[
+            [
+              "Source$0"
+            ]
+          ],
+          "incident":[
+            
+          ]
+        },
+        "Evidence$8":{
+          "reporter":[
+            
+          ],
+          "source":[
+            [
+              "Source$0"
+            ]
+          ],
+          "incident":[
+            [
+              "Incident$0"
+            ]
+          ]
+        },
+        "Evidence$9":{
+          "reporter":[
+            
+          ],
+          "source":[
+            [
+              "Source$0"
+            ]
+          ],
+          "incident":[
+            [
+              "Incident$1"
+            ]
+          ]
+        },
+        "Incident$8":{
+          
+        },
+        "Incident$9":{
+          
+        },
+        "Reporter$9":{
+          
+        },
+        "SYNTHETIC$0":{
+          
+        },
+        "Source$9":{
+          "parent":[
+            
+          ],
+          "empiricality":[
+            
+          ]
+        }
+      }
+    }
+  ],
+  "localtime":"2026-10-04T10:18:23.184365548",
+  "loopstate":-1,
+  "sigs":{
+    
+  },
+  "timezone":"Europe/Rome",
+  "utctime":1791101903184
+}

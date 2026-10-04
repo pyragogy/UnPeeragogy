@@ -1,0 +1,10 @@
+0 . Check SourceCorroborationImpliesLineageCorroboration for 8
+1 . Check ReporterCorroborationImpliesIncidentCorroboration for 8
+2 . Check IncidentCorroborationImpliesReporterCorroboration for 8
+3 . Check ReporterCorroborationImpliesLineageCorroboration for 8
+4 . Run FP_SourceVsLineage for 8
+5 . Run DIV_ReporterVsIncident for 8
+6 . Run DIV_IncidentVsReporter for 8
+7 . Run DIV_ReporterVsLineage for 8
+8 . Run DIV_IncidentVsLineage for 8
+9 . Run AGREE_Strong for 8
