@@ -2,7 +2,7 @@
 
 **Working title:** Formalising Evidence-Governed Epistemic Transitions in Human–AI Knowledge Systems
 
-**Status:** architecture only. Do not turn into a manuscript until Gate C passes.
+**Status:** FROZEN — pre-paper adversarial audit supersedes the earlier Gate-C drafting condition. Do not turn this outline into manuscript prose unless `research/fup-001/AUDIT_MASTER_STATUS.md` is later revised to authorize drafting.
 
 ## 1. Introduction
 
