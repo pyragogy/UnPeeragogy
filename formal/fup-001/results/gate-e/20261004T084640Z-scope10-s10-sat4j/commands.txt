@@ -1,0 +1,4 @@
+0 . Run CAN002_PendingShape for 10
+1 . Run CAN003_SharedProvenanceShape for 10
+2 . Check CAN003_MultipleSourcesImplyIndependentOrigins for 10
+3 . Run IndependentDocumentaryPairReachable for 10

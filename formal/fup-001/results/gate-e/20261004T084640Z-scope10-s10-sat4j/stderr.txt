@@ -1,0 +1,4 @@
+00. run   CAN002_PendingShape      0    1/1     SAT
+01. run   CAN003_SharedProvenanceShape     0    1/1     SAT
+02. check CAN003_MultipleSourcesImplyIndependentOrigins     0    1/1     SAT
+03. run   IndependentDocumentaryPairReachable     0    1/1     SAT

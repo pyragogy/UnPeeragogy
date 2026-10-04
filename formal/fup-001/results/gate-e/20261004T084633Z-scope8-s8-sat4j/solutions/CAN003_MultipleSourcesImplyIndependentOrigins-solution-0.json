@@ -1,0 +1,108 @@
+{
+  "duration":56,
+  "incremental":true,
+  "instances":[
+    {
+      "messages":[
+        
+      ],
+      "skolems":{
+        "$CAN003_MultipleSourcesImplyIndependentOrigins_c":{
+          "arity":1,
+          "data":[
+            [
+              "Candidate$0"
+            ]
+          ]
+        },
+        "$CAN003_MultipleSourcesImplyIndependentOrigins_e1":{
+          "arity":1,
+          "data":[
+            [
+              "Evidence$1"
+            ]
+          ]
+        },
+        "$CAN003_MultipleSourcesImplyIndependentOrigins_e2":{
+          "arity":1,
+          "data":[
+            [
+              "Evidence$0"
+            ]
+          ]
+        }
+      },
+      "state":0,
+      "values":{
+        "0":{
+          
+        },
+        "1":{
+          
+        },
+        "2":{
+          
+        },
+        "3":{
+          
+        },
+        "4":{
+          
+        },
+        "5":{
+          
+        },
+        "6":{
+          
+        },
+        "ACCEPTED$0":{
+          
+        },
+        "CANDIDATE$0":{
+          
+        },
+        "Candidate$7":{
+          "evidence":[
+            
+          ],
+          "processing":[
+            
+          ],
+          "human":[
+            
+          ]
+        },
+        "Evidence$6":{
+          "source":[
+            
+          ]
+        },
+        "Evidence$7":{
+          "source":[
+            
+          ]
+        },
+        "PENDING$0":{
+          
+        },
+        "Source$6":{
+          "parent":[
+            
+          ]
+        },
+        "Source$7":{
+          "parent":[
+            
+          ]
+        }
+      }
+    }
+  ],
+  "localtime":"2026-10-04T10:46:35.012570946",
+  "loopstate":-1,
+  "sigs":{
+    
+  },
+  "timezone":"Europe/Rome",
+  "utctime":1791103595012
+}

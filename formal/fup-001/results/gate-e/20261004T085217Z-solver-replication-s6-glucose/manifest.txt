@@ -1,0 +1,6 @@
+experiment=E5-historical-replay
+commit=d9d08ccb1043fd01d78054d201b091e2f82ac3af
+scope=6
+solver=glucose
+model_sha256=da31edf290cbafa154de42c559db75516c6dc63767fa05771cc87eda0f57420f
+alloy_jar_sha256=6b8c1cb5bc93bedfc7c61435c4e1ab6e688a242dc702a394628d9a9801edb78d

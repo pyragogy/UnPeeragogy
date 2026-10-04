@@ -1,0 +1,8 @@
+c last restart ## conflicts  :  13 517 
+c last restart ## conflicts  :  1 596 
+c last restart ## conflicts  :  10 229 
+c last restart ## conflicts  :  2 224 
+c last restart ## conflicts  :  31 298 
+c last restart ## conflicts  :  2 305 
+c last restart ## conflicts  :  38 351 
+c last restart ## conflicts  :  1 419 

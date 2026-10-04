@@ -1,0 +1,5 @@
+command,primary-s6-sat4j,scope8-s8-sat4j,scope10-s10-sat4j,solver-replication-s6-glucose
+CAN002_PendingShape,SAT,SAT,SAT,SAT
+CAN003_SharedProvenanceShape,SAT,SAT,SAT,SAT
+CAN003_MultipleSourcesImplyIndependentOrigins,SAT,SAT,SAT,SAT
+IndependentDocumentaryPairReachable,SAT,SAT,SAT,SAT

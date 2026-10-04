@@ -1,0 +1,6 @@
+experiment=E5-historical-replay
+commit=d9d08ccb1043fd01d78054d201b091e2f82ac3af
+scope=8
+solver=sat4j
+model_sha256=31973453a95ad71c84d6670217c05a80dda138fa9c263eb64de7322caac1c1c0
+alloy_jar_sha256=6b8c1cb5bc93bedfc7c61435c4e1ab6e688a242dc702a394628d9a9801edb78d
