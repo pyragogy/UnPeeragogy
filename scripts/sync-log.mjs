@@ -21,6 +21,7 @@ import { execSync } from "node:child_process";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const CONTENT_LOG = path.resolve(__dirname, "..", "src", "content", "log");
 const GRAPH_JSON = path.resolve(__dirname, "..", "dist", "api", "graph.json");
+const MONTHLY_AUDITS = path.resolve(__dirname, "..", "research", "monthly-audits");
 
 // ─── Helpers ──────────────────────────────────────────────────
 
@@ -129,6 +130,12 @@ function getTotalWords() {
   return total;
 }
 
+function getMonthlyAudit(month) {
+  const auditPath = path.join(MONTHLY_AUDITS, `${month}.md`);
+  if (!fs.existsSync(auditPath)) return "";
+  return fs.readFileSync(auditPath, "utf-8").trim();
+}
+
 // ─── 4. Generate markdown entry ────────────────────────────
 
 function parseLedgerYamlSimple(content) {
@@ -162,7 +169,7 @@ function getPendingReviews() {
   return entries.filter((e) => e.human_status === "PENDING");
 }
 
-function generateMarkdown({ month, discussions, changes, metrics, assessments }) {
+function generateMarkdown({ month, discussions, changes, metrics, assessments, monthlyAudit }) {
   const discussionCount = discussions.length;
   const sortedDiscussions = discussions.sort(
     (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
@@ -248,6 +255,17 @@ buildTimestamp: "${new Date().toISOString()}"
   body += `| Total Words | ${metrics.totalWords || 0} |\n`;
   body += `| Active Discussions | ${discussionCount} |\n\n`;
 
+  body += `### 🤖 Agent Scientific Audit status\n\n`;
+  if (monthlyAudit) {
+    body += `A curated scientific audit is attached below. It is distinct from the automatic repository metrics above.\n\n`;
+  } else {
+    body += `No curated agent audit has been committed for this month yet. Automatic metrics remain available above.\n\n`;
+  }
+
+  if (monthlyAudit) {
+    body += `---\n\n${monthlyAudit}\n\n`;
+  }
+
   body += `---\n\n*Log generated on ${new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}.*\n`;
 
   return `${yaml}\n\n${body}`;
@@ -332,6 +350,9 @@ async function main() {
     });
   }
 
+  const monthlyAudit = getMonthlyAudit(month);
+  console.log(`  🤖 ${monthlyAudit ? "monthly scientific audit found" : "no monthly scientific audit found"}`);
+
   // Generate and write
   const markdown = generateMarkdown({
     month,
@@ -339,6 +360,7 @@ async function main() {
     changes: { ...changes, items: changeItems },
     metrics,
     assessments,
+    monthlyAudit,
   });
 
   fs.mkdirSync(CONTENT_LOG, { recursive: true });
