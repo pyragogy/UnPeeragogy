@@ -287,3 +287,40 @@ the replay uses a conservative shared-origin abstraction. It does not establish 
 Freeze exploratory FUP-001 E1–E5 before manuscript drafting.
 
 Next phase: full epistemic audit, independent re-verification, adversarial model review, claim/evidence traceability, and systematic related-work search.
+
+
+## Checkpoint — CK-007
+
+Date: 2026-10-04
+
+### Pre-paper adversarial audit
+
+FUP-001 manuscript work is frozen.
+
+New audit artifacts:
+- `A0_INVENTORY_AUDIT.md`
+- `A1_FORMAL_AUDIT.md`
+- `A2_HISTORICAL_AUDIT.md`
+- `A3_EPISTEMOLOGICAL_AUDIT.md`
+- `NOVELTY_AUDIT_v0.1.md`
+- `CLAIM_AUDIT_MATRIX_v0.1.md`
+- `SCIENTIFIC_STATUS_2026-10-04.md`
+- `AUDIT_MASTER_STATUS.md`
+- `E6_DESIGN_GATE.md`
+
+Current scientific verdict:
+
+**OUTCOME B — INTERESTING BUT INCOMPLETE**
+
+Key corrections:
+- source multiplicity != independence is prior art, not headline novelty;
+- multi-agent multiplicity != evidence multiplicity is directly addressed by 2026 prior work;
+- E3/E4 remain valid bounded model results but are definition-sensitive;
+- E5 is representability/history alignment, not proof of unique lineage semantics;
+- CAN-002 also exhibits documentary/provenance duplication because project page, DOI and open PDF belong to the same underlying study/publication;
+- CAN-003 external sources support project-to-paper continuity and shared investigators/data context;
+- residual possible contribution is methodological: executable multi-axis epistemic governance + invalid bridge-rule counterexamples + historical replay/co-refinement.
+
+No production redesign should be performed merely to strengthen the research claim.
+
+E6 remains design-only until deeper related-work review justifies execution.
