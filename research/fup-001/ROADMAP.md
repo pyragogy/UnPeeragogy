@@ -38,7 +38,13 @@ After CAN-001, reconstruct:
 Decide whether `publication_review` should become part of a canonical TypeScript interface or remain a separate Gate B record. Do not change production schemas until the formal analysis justifies it.
 
 ### C — Non-trivial verification gate
-Gate C passes only if the formal model detects a governance failure mode that ordinary schema/type validation does not already detect.
+Gate C — Non-Trivial Verification: **PASS (2026-10-04)**
+
+E3 same-structure independence semantics produced reproducible classification divergences across SAT4J scopes 6/8/10 and Glucose scope 6.
+
+Primary result: source-node multiplicity can satisfy corroboration while provenance-lineage independence rejects the same evidence structure.
+
+Next: Gate D adversarial validation, with metadata-complete and stricter-provenance variants.
 
 ## Publication trigger
 
