@@ -2,7 +2,9 @@
 
 ## Status
 
-**OPEN**
+**PASS — E5 historical reconstruction**
+
+Adjudicated: 2026-10-04
 
 Gate D passed. The formal result must now be tested against real UnPeeragogy history.
 
@@ -121,3 +123,84 @@ If no real case engages the independence result, Gate E may still pass as histor
 - formal semantic result;
 - historical governance validation;
 - absence of real-world provenance validation for the independence result.
+
+
+## E5 adjudication
+
+Historical replay executed with:
+
+- SAT4J scopes 6, 8, 10;
+- Glucose scope 6;
+- 4 commands × 4 executions;
+- 16/16 SAT;
+- zero scope disagreement;
+- zero solver disagreement.
+
+### HE-01 — CAN-001
+
+Already reconstructable and historically decisive for:
+- Gate A ≠ Gate B;
+- ACCEPTED ≠ ENGINE_PASSED;
+- ACCEPTED ≠ automatic vault mutation;
+- Gate B requires its own decision semantics.
+
+### HE-02 — CAN-002
+
+`CAN002_PendingShape` is SAT across all tested scopes/solvers.
+
+Historical significance:
+- documentary candidate can exist as `CANDIDATE + PENDING`;
+- no substantive human decision is required merely for acquisition/processing;
+- no epistemic promotion should be inferred from presence in the pipeline.
+
+### HE-04 — CAN-003
+
+`CAN003_SharedProvenanceShape` is SAT across all tested scopes/solvers.
+
+The historical record explicitly notes shared authors/datasets among research pages and paper and warns that these do not constitute independent corroboration.
+
+The replay conservatively represents this as:
+- distinct documentary source nodes;
+- shared provenance origin sufficient to block lineage independence.
+
+`CAN003_MultipleSourcesImplyIndependentOrigins` is falsified at every tested scope/solver.
+
+Positive control `IndependentDocumentaryPairReachable` is also SAT.
+
+### Historical/formal bridge
+
+Supported:
+
+> A practical provenance concern recorded in UnPeeragogy before the formal replay corresponds structurally to the distinction found in E3/E4: multiplicity of documentary nodes need not imply independent evidential origin.
+
+Not supported:
+
+- that the exact real-world Wikimedia provenance graph is fully reconstructed;
+- that shared authorship alone always implies evidential dependence;
+- that the Alloy lineage relation is the uniquely correct formalisation of provenance independence;
+- that historical replay proves the formal model universally valid.
+
+## Missing historical coverage
+
+HE-03 — CONTESTED / REVISE: **not found**.
+
+HE-05 — AI-assisted acquisition: **not found**.
+
+These remain explicit empirical coverage gaps.
+
+## Gate E verdict
+
+**PASS WITH DOCUMENTED COVERAGE GAPS**
+
+Gate E satisfies its predeclared pass rule:
+1. CAN-001 remains reconstructable;
+2. CAN-002 and CAN-003 add two real cases;
+3. PENDING introduces a state absent from CAN-001;
+4. CAN-003 engages the provenance-independence distinction on a real historical record;
+5. unresolved gaps and schema drift remain preserved rather than normalized away.
+
+## Next phase
+
+Do **not** begin manuscript drafting yet.
+
+Freeze the exploratory result set E1–E5 and begin a full pre-paper epistemic audit.
