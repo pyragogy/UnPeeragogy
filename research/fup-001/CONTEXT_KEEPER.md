@@ -142,3 +142,57 @@ The v0.2 ablation compares:
 - incident independence.
 
 Gate C remains OPEN until classification divergence is mechanically reproduced across scopes and, where possible, solvers.
+
+
+## Checkpoint — CK-004
+
+Date: 2026-10-04
+
+### E2 adjudication
+
+Commit `7d32a73` is retained as a valid robustness experiment.
+
+It substituted lineage/reporter/incident definitions into separate baseline kernels and found no classification change in the baseline governance suite. It does not test same-structure semantic sensitivity.
+
+### E3 result
+
+Same-structure semantic ablation completed.
+
+Result matrix:
+
+- 10 commands;
+- SAT4J scopes 6, 8, 10;
+- Glucose scope 6;
+- 40/40 classifications SAT;
+- no solver/scope disagreement.
+
+Primary counterexample:
+
+- two empirical evidence items;
+- distinct immediate source nodes;
+- shared provenance root;
+- source-node corroboration = true;
+- lineage corroboration = false.
+
+### Gate C
+
+**PASS**
+
+Reason: the primary E3 counterexample is a non-trivial relational classification divergence, reproduced across scopes and solvers, and not reducible to static schema/type validation.
+
+### Qualification
+
+Reporter/incident minimal witnesses sometimes rely on missing metadata. Do not elevate those examples to the primary claim before metadata-complete adversarial tests.
+
+### Next gate
+
+Gate D — Adversarial Validation.
+
+Primary attack targets:
+
+1. force complete reporter + incident metadata;
+2. require exactly two evidence items where possible;
+3. test duplicated derivation through multi-parent source lineage;
+4. test whether stronger conjunctions accidentally overconstrain corroboration;
+5. test symmetry/renaming artifacts;
+6. test source-lineage counterexample under stricter empirical/traceability assumptions.
