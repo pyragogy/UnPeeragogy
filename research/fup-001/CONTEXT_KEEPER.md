@@ -324,3 +324,22 @@ Key corrections:
 No production redesign should be performed merely to strengthen the research claim.
 
 E6 remains design-only until deeper related-work review justifies execution.
+
+
+## Checkpoint — CK-008 — FINAL
+
+Date: 2026-10-05
+
+FUP-001 is concluded.
+
+Final verdict: **OUTCOME B — INTERESTING BUT INCOMPLETE**.
+
+The branch is preserved as an isolated formal research laboratory and will not be merged wholesale.
+
+Authoritative closure document:
+
+`research/fup-001/FINAL_CONCLUSION.md`
+
+Production continuity has moved to UnPeeragogy's Monthly Scientific Audit on `main`.
+
+Any future formal experiment derived from FUP-001 must open a new explicit research track rather than silently extending this one.
