@@ -1,0 +1,76 @@
+name: Final Maintenance Pass
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/final-maintenance.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  maintain:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install and repair site dependencies
+        run: |
+          npm ci
+          npm audit fix || true
+          npm audit --json > .maintenance-root-audit.json || true
+
+      - name: Install and repair MCP dependencies
+        working-directory: packages/mcp-server
+        run: |
+          npm ci
+          npm audit fix || true
+          npm audit --json > ../../.maintenance-mcp-audit.json || true
+
+      - name: Migrate historical corpus
+        run: node scripts/migrate-legacy-corpus.mjs
+
+      - name: Render maintenance report
+        run: node scripts/render-maintenance-report.mjs
+
+      - name: Validate site and epistemic integrity
+        run: npm run build
+        env:
+          NODE_ENV: production
+
+      - name: Validate MCP
+        working-directory: packages/mcp-server
+        run: npm run build
+
+      - name: Enforce dependency security gate
+        run: |
+          npm audit --audit-level=high
+          (cd packages/mcp-server && npm audit --audit-level=high)
+
+      - name: Remove transient audit JSON
+        run: rm -f .maintenance-root-audit.json .maintenance-mcp-audit.json
+
+      - name: Commit maintenance result
+        run: |
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No maintenance changes to commit."
+            exit 0
+          fi
+          git config user.name "unpeeragogy-bot"
+          git config user.email "bot@unpeeragogy.pyragogy.org"
+          git commit -m "chore: complete repository maintenance and corpus migration"
+          git pull --rebase origin main
+          git push
