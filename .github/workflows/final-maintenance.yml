@@ -29,7 +29,10 @@ jobs:
       - name: Install and repair site dependencies
         run: |
           npm ci
-          npm audit fix || true
+          # Security advisories in the current Astro/esbuild/sharp chain require
+          # a semver-major remediation. The workflow commits only after the
+          # upgraded tree passes the full build and security gates below.
+          npm audit fix --force || true
           npm audit --json > .maintenance-root-audit.json || true
 
       - name: Install and repair MCP dependencies
