@@ -20,7 +20,7 @@ const sorted = logEntries.sort((a, b) => b.data.month.localeCompare(a.data.month
 
       {sorted.map((entry) => (
         <a
-          href={`/log/${entry.slug}/`}
+          href={`/log/${entry.id}/`}
           class="block p-6 border border-stone-200 d-border rounded-lg hover:bg-stone-50 d-hover transition-colors"
         >
           <div class="flex items-start justify-between gap-4">

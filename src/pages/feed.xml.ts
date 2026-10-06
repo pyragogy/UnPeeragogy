@@ -10,8 +10,8 @@ export async function GET() {
     .slice(0, 50);
 
   const items = sorted.map((pe) => {
-    const ue = unpeeragogyEntries.find((e) => e.slug === pe.slug);
-    const slug = `/${pe.slug}/`;
+    const ue = unpeeragogyEntries.find((e) => e.id === pe.id);
+    const slug = `/${pe.id}/`;
     const url = `https://unpeeragogy.pyragogy.org${slug}`;
 
     const isDual = ue ? " ⿻" : "";

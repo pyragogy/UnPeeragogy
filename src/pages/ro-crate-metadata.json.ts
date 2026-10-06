@@ -5,7 +5,7 @@ export async function GET() {
 
   const parts = unpeeragogy
     .map((entry) => ({
-      "@id": `https://unpeeragogy.pyragogy.org/${entry.slug}/`,
+      "@id": `https://unpeeragogy.pyragogy.org/${entry.id}/`,
       "@type": "CreativeWork",
       name: entry.data.title,
       description: entry.data.description ?? undefined,

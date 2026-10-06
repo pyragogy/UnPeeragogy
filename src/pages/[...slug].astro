@@ -1,5 +1,5 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import TableOfContents from "../components/TableOfContents.astro";
 import SectionDiscussion from "../components/SectionDiscussion.astro";
@@ -8,12 +8,12 @@ export async function getStaticPaths() {
   const peeragogyEntries = await getCollection("peeragogy");
   const unpeeragogyEntries = await getCollection("unpeeragogy");
   const allSlugs = new Set([
-    ...peeragogyEntries.map((e) => e.slug),
-    ...unpeeragogyEntries.map((e) => e.slug),
+    ...peeragogyEntries.map((e) => e.id),
+    ...unpeeragogyEntries.map((e) => e.id),
   ]);
   return Array.from(allSlugs).map((slug) => {
-    const pEntry = peeragogyEntries.find((e) => e.slug === slug);
-    const uEntry = unpeeragogyEntries.find((e) => e.slug === slug);
+    const pEntry = peeragogyEntries.find((e) => e.id === slug);
+    const uEntry = unpeeragogyEntries.find((e) => e.id === slug);
     return {
       params: { slug },
       props: { peeragogyEntry: pEntry || null, unpeeragogyEntry: uEntry || null },
@@ -26,19 +26,19 @@ const title = peeragogyEntry?.data?.title || unpeeragogyEntry?.data?.title || "U
 
 let PeeragogyContent = null;
 if (peeragogyEntry) {
-  const { Content } = await peeragogyEntry.render();
+  const { Content } = await render(peeragogyEntry);
   PeeragogyContent = Content;
 }
 
 let UnpeeragogyContent = null;
 if (unpeeragogyEntry) {
-  const { Content } = await unpeeragogyEntry.render();
+  const { Content } = await render(unpeeragogyEntry);
   UnpeeragogyContent = Content;
 }
 
 const allPeeragogy = await getCollection("peeragogy");
 const sorted = allPeeragogy.sort((a, b) => (a.data.order || 99) - (b.data.order || 99));
-const currentIndex = sorted.findIndex((e) => e.slug === peeragogyEntry?.slug);
+const currentIndex = sorted.findIndex((e) => e.id === peeragogyEntry?.id);
 const prev = currentIndex > 0 ? sorted[currentIndex - 1] : null;
 const next = currentIndex < sorted.length - 1 ? sorted[currentIndex + 1] : null;
 
@@ -60,7 +60,7 @@ const articleLd = JSON.stringify({
   <!-- Article schema for content pages -->
   <Fragment slot="head" set:html={`<script type="application/ld+json">${articleLd}</script>`} />
   <!-- View Toggle (hidden for single-column Foreword) -->
-  {peeragogyEntry?.slug !== 'foreword' ? (
+  {peeragogyEntry?.id !== 'foreword' ? (
   <div class="flex items-center justify-center gap-1.5 sm:gap-2 mb-6 p-1.5 sm:p-2 bg-stone-100 d-surface rounded-lg mx-auto max-w-full overflow-x-auto">
     <button
       @click="view = 'dual'"
@@ -87,7 +87,7 @@ const articleLd = JSON.stringify({
   ) : null}
 
   <!-- Epistemic framing bar (on dual-capable pages) -->
-  {peeragogyEntry?.slug !== 'foreword' ? (
+  {peeragogyEntry?.id !== 'foreword' ? (
     <div class="mb-6 flex flex-wrap items-center gap-2 text-[10px] sm:text-xs d-text-dim border-b border-stone-200 d-border pb-3">
       <span class="font-medium text-(--color-accent)">📖 Source</span>
       <span class="opacity-50">→</span>
@@ -102,7 +102,7 @@ const articleLd = JSON.stringify({
   ) : null}
 
   <!-- Foreword: single column, full width, no Unpeeragogy -->
-  {peeragogyEntry?.slug === 'foreword' ? (
+  {peeragogyEntry?.id === 'foreword' ? (
     <div class="max-w-3xl mx-auto" data-pagefind-body>
       <div class="scroll-sync peeragogy-col">
         {PeeragogyContent ? (
@@ -134,7 +134,7 @@ const articleLd = JSON.stringify({
       <!-- Sidebar TOC -->
       <aside class="hidden lg:block w-64 shrink-0">
         <div class="sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto">
-          <TableOfContents slug={peeragogyEntry?.slug || unpeeragogyEntry?.slug} section={peeragogyEntry?.data?.section || unpeeragogyEntry?.data?.section} />
+          <TableOfContents slug={peeragogyEntry?.id || unpeeragogyEntry?.id} section={peeragogyEntry?.data?.section || unpeeragogyEntry?.data?.section} />
         </div>
       </aside>
 
@@ -216,7 +216,7 @@ const articleLd = JSON.stringify({
               <div class="prose max-w-none prose-sm prose-amber">
                 <UnpeeragogyContent />
               </div>
-              <SectionDiscussion slug={unpeeragogyEntry.slug} title={unpeeragogyEntry.data.title} />
+              <SectionDiscussion slug={unpeeragogyEntry.id} title={unpeeragogyEntry.data.title} />
             </article>
           ) : (
             <div class="flex items-center justify-center h-64 d-text-dim italic">
@@ -232,7 +232,7 @@ const articleLd = JSON.stringify({
   <nav class="mt-8 flex items-center justify-between border-t border-stone-200 d-border pt-6 gap-4">
     <div class="min-w-0 flex-1">
       {prev && (
-        <a href={`/${prev.slug}/`} class="group flex flex-col">
+        <a href={`/${prev.id}/`} class="group flex flex-col">
           <span class="text-xs sm:text-sm d-text-dim">← Previous</span>
           <span class="text-sm sm:text-base font-medium truncate group-hover:text-(--color-accent) transition-colors">{prev.data.title}</span>
         </a>
@@ -240,7 +240,7 @@ const articleLd = JSON.stringify({
     </div>
     <div class="min-w-0 flex-1 text-right">
       {next && (
-        <a href={`/${next.slug}/`} class="group flex flex-col">
+        <a href={`/${next.id}/`} class="group flex flex-col">
           <span class="text-xs sm:text-sm d-text-dim">Next →</span>
           <span class="text-sm sm:text-base font-medium truncate group-hover:text-(--color-accent) transition-colors">{next.data.title}</span>
         </a>

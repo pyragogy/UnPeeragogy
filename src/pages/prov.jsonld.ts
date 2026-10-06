@@ -26,20 +26,20 @@ export async function GET() {
   });
 
   for (const entry of entries) {
-    const entityId = `${BASE}${entry.slug}/#research-record`;
+    const entityId = `${BASE}${entry.id}/#research-record`;
     const method = entry.data.method_version ?? null;
     const methodId = method ? `${BASE}prov/activity/${encodeURIComponent(method)}` : null;
 
     const provenance = entry.data.provenance ?? [];
     const derived = provenance
       .filter((p) => p.kind !== "synthetic-scenario")
-      .map((p, i) => ({ "@id": sourceId(entry.slug, i, p.id) }));
+      .map((p, i) => ({ "@id": sourceId(entry.id, i, p.id) }));
 
     graph.push({
       "@id": entityId,
       "@type": "prov:Entity",
       "schema:name": entry.data.title,
-      "schema:url": `${BASE}${entry.slug}/`,
+      "schema:url": `${BASE}${entry.id}/`,
       "up:origin": entry.data.origin ?? "seed",
       "up:integrityLevel": entry.data.integrity_level ?? "legacy",
       "up:epistemicStatus": entry.data.epistemic_status ?? null,
@@ -63,11 +63,11 @@ export async function GET() {
     }
 
     provenance.forEach((p, i) => {
-      const sid = sourceId(entry.slug, i, p.id);
+      const sid = sourceId(entry.id, i, p.id);
       graph.push({
         "@id": sid,
         "@type": p.kind === "synthetic-scenario" ? "up:IllustrativeScenario" : "prov:Entity",
-        "schema:name": p.id ?? `${entry.slug} provenance ${i + 1}`,
+        "schema:name": p.id ?? `${entry.id} provenance ${i + 1}`,
         ...(p.uri ? { "schema:url": p.uri } : {}),
         ...(p.author ? { "schema:author": p.author } : {}),
         ...(p.date ? { "schema:dateCreated": p.date } : {}),

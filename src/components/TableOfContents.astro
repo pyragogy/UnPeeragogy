@@ -48,9 +48,9 @@ sectionSet.forEach((s) => { if (!SECTION_ORDER.includes(s)) sections.push(s); })
               {entries.map((e) => (
                 <li>
                   <a
-                    href={`/${e.slug}/`}
+                    href={`/${e.id}/`}
                     class={`block rounded-md px-3 py-1.5 text-sm transition-colors ${
-                      e.slug === Astro.props.slug
+                      e.id === Astro.props.id
                         ? "toc-link-active border-l-2 border-(--color-accent) -ml-[14px] pl-[10px]"
                         : "d-text-sec hover:text-(--color-text) hover:bg-stone-100 d-hover"
                     }`}

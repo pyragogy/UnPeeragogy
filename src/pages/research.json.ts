@@ -4,15 +4,15 @@ export async function GET() {
   const peeragogy = await getCollection("peeragogy");
   const unpeeragogy = await getCollection("unpeeragogy");
 
-  const theoryBySlug = new Map(peeragogy.map((entry) => [entry.slug, entry]));
+  const theoryBySlug = new Map(peeragogy.map((entry) => [entry.id, entry]));
 
   const records = unpeeragogy
     .map((entry) => {
-      const theory = theoryBySlug.get(entry.slug);
+      const theory = theoryBySlug.get(entry.id);
       return {
-        id: `unpeeragogy:${entry.slug}`,
-        slug: entry.slug,
-        url: `https://unpeeragogy.pyragogy.org/${entry.slug}/`,
+        id: `unpeeragogy:${entry.id}`,
+        slug: entry.id,
+        url: `https://unpeeragogy.pyragogy.org/${entry.id}/`,
         title: entry.data.title,
         section: entry.data.section ?? theory?.data.section ?? null,
         description: entry.data.description ?? null,
@@ -32,14 +32,14 @@ export async function GET() {
         provenance: entry.data.provenance ?? [],
         paired_theory: theory
           ? {
-              id: `peeragogy:${entry.slug}`,
-              url: `https://unpeeragogy.pyragogy.org/${entry.slug}/`,
+              id: `peeragogy:${entry.id}`,
+              url: `https://unpeeragogy.pyragogy.org/${entry.id}/`,
               title: theory.data.title,
             }
           : null,
       };
     })
-    .sort((a, b) => a.slug.localeCompare(b.slug));
+    .sort((a, b) => a.id.localeCompare(b.id));
 
   const counts = records.reduce(
     (acc, record) => {

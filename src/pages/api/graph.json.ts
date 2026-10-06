@@ -87,11 +87,11 @@ export const GET: APIRoute = async () => {
   const nodeMap = new Map<string, GraphNode>();
 
   for (const pe of peeragogyEntries) {
-    const ue = unpeeragogyEntries.find((e) => e.slug === pe.slug);
+    const ue = unpeeragogyEntries.find((e) => e.id === pe.id);
     const sec = pe.data.section || "Altri";
     const node: GraphNode = {
-      id: pe.slug,
-      name: pe.data.title || pe.slug,
+      id: pe.id,
+      name: pe.data.title || pe.id,
       group: ue ? "unpeeragogy" : "peeragogy",
       val: ue ? 2 : 1,
       tension: ue?.data?.tension_index ?? null,
@@ -99,16 +99,16 @@ export const GET: APIRoute = async () => {
       sectionColor: SECTION_COLORS[sec] || "#a1a1aa",
       readingTime: pe.data.readingTime ?? 0,
     };
-    nodeMap.set(pe.slug, node);
+    nodeMap.set(pe.id, node);
     nodes.push(node);
   }
 
   for (const ue of unpeeragogyEntries) {
-    if (!peeragogyEntries.find((e) => e.slug === ue.slug)) {
+    if (!peeragogyEntries.find((e) => e.id === ue.id)) {
       const sec = ue.data.section || "Altri";
       const node: GraphNode = {
-        id: ue.slug,
-        name: ue.data.title || ue.slug,
+        id: ue.id,
+        name: ue.data.title || ue.id,
         group: "unpeeragogy-only",
         val: 2,
         tension: ue.data.tension_index ?? null,
@@ -116,7 +116,7 @@ export const GET: APIRoute = async () => {
         sectionColor: SECTION_COLORS[sec] || "#a1a1aa",
         readingTime: ue.data.readingTime ?? 0,
       };
-      nodeMap.set(ue.slug, node);
+      nodeMap.set(ue.id, node);
       nodes.push(node);
     }
   }
@@ -126,7 +126,7 @@ export const GET: APIRoute = async () => {
 
   for (const [, entries] of sections) {
     for (let i = 0; i < entries.length - 1; i++) {
-      links.push({ source: entries[i].slug, target: entries[i + 1].slug, type: "chain" });
+      links.push({ source: entries[i].id, target: entries[i + 1].id, type: "chain" });
     }
   }
 
@@ -134,7 +134,7 @@ export const GET: APIRoute = async () => {
     const cur = sections.get(sectionOrder[i]);
     const next = sections.get(sectionOrder[i + 1]);
     if (cur?.length && next?.length) {
-      links.push({ source: cur[cur.length - 1].slug, target: next[0].slug, type: "bridge" });
+      links.push({ source: cur[cur.length - 1].id, target: next[0].id, type: "bridge" });
     }
   }
 
@@ -143,7 +143,7 @@ export const GET: APIRoute = async () => {
     if (pe.data.tags) {
       for (const tag of pe.data.tags) {
         if (!tagGroups.has(tag)) tagGroups.set(tag, []);
-        tagGroups.get(tag)!.push(pe.slug);
+        tagGroups.get(tag)!.push(pe.id);
       }
     }
   }
@@ -160,13 +160,13 @@ export const GET: APIRoute = async () => {
   for (const pe of peeragogyEntries) {
     const tags = new Set<string>();
     if (pe.data.tags) pe.data.tags.forEach(t => tags.add(t));
-    const ue = unpeeragogyEntries.find(e => e.slug === pe.slug);
+    const ue = unpeeragogyEntries.find(e => e.id === pe.id);
     if (ue?.data.tags) ue.data.tags.forEach(t => tags.add(t));
-    if (tags.size > 0) nodeTags[pe.slug] = Array.from(tags);
+    if (tags.size > 0) nodeTags[pe.id] = Array.from(tags);
   }
   for (const ue of unpeeragogyEntries) {
-    if (!peeragogyEntries.find(e => e.slug === ue.slug) && ue.data.tags) {
-      nodeTags[ue.slug] = ue.data.tags;
+    if (!peeragogyEntries.find(e => e.id === ue.id) && ue.data.tags) {
+      nodeTags[ue.id] = ue.data.tags;
     }
   }
 
@@ -202,9 +202,9 @@ export const GET: APIRoute = async () => {
       order: i,
       peerCount: entries.length,
       unpeerCount: unpeeragogyEntries.filter((e) =>
-        entries.some((pe) => pe.slug === e.slug)
+        entries.some((pe) => pe.id === e.id)
       ).length,
-      entries: entries.map((e) => ({ slug: e.slug, title: e.data.title || e.slug })),
+      entries: entries.map((e) => ({ slug: e.id, title: e.data.title || e.id })),
     };
   }
 
@@ -219,7 +219,7 @@ export const GET: APIRoute = async () => {
     : 0;
   const peerCount = nodes.length - unpeerCount;
   const unpeerPairedCount = unpeeragogyEntries.filter((ue) =>
-    peeragogyEntries.some((pe) => pe.slug === ue.slug)
+    peeragogyEntries.some((pe) => pe.id === ue.id)
   ).length;
   const totalPeerEntries = peeragogyEntries.length;
 
