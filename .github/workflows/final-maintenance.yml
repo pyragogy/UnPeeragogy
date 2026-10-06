@@ -34,7 +34,7 @@ jobs:
           # Astro >=6.1.10 fixes GHSA-xr5h-phrj-8vxv; transitive overrides
           # remove the 2026 esbuild/sharp advisories without adopting Astro 7's
           # stricter compiler semantics during this maintenance pass.
-          node -e 'const fs=require("fs"); const p=JSON.parse(fs.readFileSync("package.json","utf8")); p.dependencies.astro="^6.1.10"; p.dependencies["@astrojs/mdx"]="^6.0.3"; p.devDependencies["@tailwindcss/typography"]="^0.5.20"; p.overrides={...(p.overrides||{}),esbuild:"0.28.2",sharp:"0.35.4"}; fs.writeFileSync("package.json",JSON.stringify(p,null,2)+"\\n")'
+          node -e 'const fs=require("fs"); const p=JSON.parse(fs.readFileSync("package.json","utf8")); p.dependencies.astro="^6.1.10"; p.dependencies["@astrojs/mdx"]="^6.0.3"; p.devDependencies["@tailwindcss/typography"]="^0.5.20"; p.overrides={...(p.overrides||{}),esbuild:"0.28.2",sharp:"0.35.4"}; fs.writeFileSync("package.json",JSON.stringify(p,null,2)+String.fromCharCode(10))'
           npm install
           npm audit fix || true
           npm audit --json > .maintenance-root-audit.json || true
