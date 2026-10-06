@@ -59,6 +59,13 @@ jobs:
         working-directory: packages/mcp-server
         run: npm run build
 
+      - name: Show residual dependency audit
+        run: |
+          echo "=== Site/root residual audit ==="
+          npm audit || true
+          echo "=== MCP residual audit ==="
+          (cd packages/mcp-server && npm audit || true)
+
       - name: Enforce dependency security gate
         run: |
           npm audit --audit-level=high
@@ -72,10 +79,15 @@ jobs:
           git add -A
           if git diff --cached --quiet; then
             echo "No maintenance changes to commit."
-            exit 0
+          else
+            git config user.name "unpeeragogy-bot"
+            git config user.email "bot@unpeeragogy.pyragogy.org"
+            git commit -m "chore: complete repository maintenance and corpus migration"
+            git pull --rebase origin main
+            git push
           fi
-          git config user.name "unpeeragogy-bot"
-          git config user.email "bot@unpeeragogy.pyragogy.org"
-          git commit -m "chore: complete repository maintenance and corpus migration"
-          git pull --rebase origin main
-          git push
+
+      - name: Deploy hibernation candidate
+        run: |
+          curl --fail-with-body --show-error --silent -X POST             "https://console.pyragogy.org/api/v1/deploy?uuid=${{ secrets.COOLIFY_WEB_UUID }}"             -H "Authorization: Bearer ${{ secrets.COOLIFY_API_TOKEN }}"             -H "Content-Type: application/json"
+          curl --fail-with-body --show-error --silent -X POST             "https://console.pyragogy.org/api/v1/deploy?uuid=${{ secrets.COOLIFY_MCP_UUID }}"             -H "Authorization: Bearer ${{ secrets.COOLIFY_API_TOKEN }}"             -H "Content-Type: application/json"
