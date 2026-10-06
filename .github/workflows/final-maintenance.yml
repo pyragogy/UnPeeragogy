@@ -30,10 +30,13 @@ jobs:
       - name: Install and repair site dependencies
         run: |
           npm ci
-          # Security advisories in the current Astro/esbuild/sharp chain require
-          # a semver-major remediation. The workflow commits only after the
-          # upgraded tree passes the full build and security gates below.
-          npm audit fix --force || true
+          # Stay on the patched Astro 6 line for hibernation stability.
+          # Astro >=6.1.10 fixes GHSA-xr5h-phrj-8vxv; transitive overrides
+          # remove the 2026 esbuild/sharp advisories without adopting Astro 7's
+          # stricter compiler semantics during this maintenance pass.
+          node -e 'const fs=require("fs"); const p=JSON.parse(fs.readFileSync("package.json","utf8")); p.dependencies.astro="^6.1.10"; p.dependencies["@astrojs/mdx"]="^6.0.3"; p.devDependencies["@tailwindcss/typography"]="^0.5.20"; p.overrides={...(p.overrides||{}),esbuild:"0.28.2",sharp:"0.35.4"}; fs.writeFileSync("package.json",JSON.stringify(p,null,2)+"\\n")'
+          npm install
+          npm audit fix || true
           npm audit --json > .maintenance-root-audit.json || true
 
       - name: Install and repair MCP dependencies
