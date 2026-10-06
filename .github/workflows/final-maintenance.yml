@@ -30,9 +30,9 @@ jobs:
       - name: Install and repair site dependencies
         run: |
           npm ci
-          # Hibernation target: current patched Astro line plus Tailwind through
-          # PostCSS (avoids @tailwindcss/vite/Rolldown resolver incompatibility).
-          node -e 'const fs=require("fs"); const p=JSON.parse(fs.readFileSync("package.json","utf8")); p.dependencies.astro="^7.3.5"; p.dependencies["@astrojs/mdx"]="^8.0.2"; delete p.dependencies["@tailwindcss/vite"]; p.devDependencies["@tailwindcss/postcss"]="^4.3.3"; p.devDependencies["@tailwindcss/typography"]="^0.5.20"; p.devDependencies.postcss="^8.5.6"; p.overrides={...(p.overrides||{}),esbuild:"0.28.2",sharp:"0.35.4"}; fs.writeFileSync("package.json",JSON.stringify(p,null,2)+String.fromCharCode(10))'
+          # Hibernation target: current patched Astro 7 + official Tailwind 4
+          # Vite integration, with secure transitive pins for 2026 advisories.
+          node -e 'const fs=require("fs"); const p=JSON.parse(fs.readFileSync("package.json","utf8")); p.dependencies.astro="^7.3.5"; p.dependencies["@astrojs/mdx"]="^8.0.2"; p.dependencies["@tailwindcss/vite"]="^4.3.3"; delete p.devDependencies["@tailwindcss/postcss"]; delete p.devDependencies.postcss; p.devDependencies["@tailwindcss/typography"]="^0.5.20"; p.overrides={...(p.overrides||{}),esbuild:"0.28.2",sharp:"0.35.4"}; fs.writeFileSync("package.json",JSON.stringify(p,null,2)+String.fromCharCode(10))'
           npm install
           npm audit fix || true
           npm audit --json > .maintenance-root-audit.json || true
