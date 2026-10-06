@@ -67,6 +67,10 @@ jobs:
           git config user.name "unpeeragogy-bot"
           git config user.email "bot@unpeeragogy.pyragogy.org"
           git commit -m "log: sync mensile $(date '+%Y-%m')"
+          # main may have advanced while this long-running build was executing.
+          # Rebase the generated log commit onto the current remote tip to avoid
+          # non-fast-forward failures caused by unrelated concurrent pushes.
+          git pull --rebase origin main
           git push
 
       # Commits created with GITHUB_TOKEN do not reliably trigger a second
