@@ -180,9 +180,9 @@ function generateMarkdown({ month, discussions, changes, metrics, assessments, m
   );
 
   const yaml = `---
-title: "Month ${month}"
+title: "Scientific Audit — ${month}"
 month: "${month}"
-description: "Monthly review — ${discussionCount} active discussions, ${changes.entries.length} entries modified, ${changes.commits} commits."
+description: "Monthly scientific audit — ${discussionCount} active discussions, ${changes.entries.length} entries modified, ${changes.commits} commits."
 metrics:
   nodeCount: ${metrics.nodeCount}
   linkCount: ${metrics.linkCount}
@@ -207,7 +207,7 @@ assessments:${(assessments || []).length === 0 ? " []" : "\n" + (assessments || 
 buildTimestamp: "${new Date().toISOString()}"
 ---`;
 
-  let body = `## Monthly Summary\n\n`;
+  let body = `## Automatic Project Telemetry\n\n`;
   body += `**${changes.commits} commits** on **${changes.entries.length} entries** modified.\n`;
   body += `**${discussionCount} active discussions** on GitHub.\n\n`;
 
