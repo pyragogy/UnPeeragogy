@@ -1,4 +1,6 @@
-import { defineCollection, z } from "astro:content";
+import { defineCollection } from "astro:content";
+import { glob } from "astro/loaders";
+import { z } from "astro/zod";
 
 const epistemicStatus = z.enum([
   "observed",
@@ -50,6 +52,7 @@ const provenanceItem = z.object({
 });
 
 const peeragogy = defineCollection({
+  loader: glob({ base: "./src/content/peeragogy", pattern: "**/*.{md,mdx}" }),
   schema: z.object({
     title: z.string(),
     section: z.string().optional(),
@@ -62,6 +65,7 @@ const peeragogy = defineCollection({
 });
 
 const unpeeragogy = defineCollection({
+  loader: glob({ base: "./src/content/unpeeragogy", pattern: "**/*.{md,mdx}" }),
   schema: z.object({
     title: z.string(),
     section: z.string().optional(),
@@ -111,6 +115,7 @@ const unpeeragogy = defineCollection({
 });
 
 const logCollection = defineCollection({
+  loader: glob({ base: "./src/content/log", pattern: "**/*.{md,mdx}" }),
   schema: z.object({
     title: z.string(),
     month: z.string(),
