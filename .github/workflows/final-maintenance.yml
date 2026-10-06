@@ -11,6 +11,7 @@ permissions:
   contents: write
 
 jobs:
+  # Astro 7 Content Layer migration completed before this pass.
   maintain:
     runs-on: ubuntu-latest
     timeout-minutes: 20
