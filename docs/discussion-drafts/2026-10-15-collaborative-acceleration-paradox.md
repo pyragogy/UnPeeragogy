@@ -47,11 +47,11 @@ Io volevo capire come realizzare e finanziare **il progetto da cui la conversazi
 
 A un certo punto mi sono accorto che avrei potuto passare giorni a sviluppare un'iniziativa alla quale, in realtà, non avevo deciso di dedicarmi.
 
-Ho dovuto fermarmi e chiarire: *io non sto cercando di avviare un'attività di formazione. Ho altre priorità, e quel progetto specifico è la ragione per cui avevo avviato il confronto.*
+Prima ancora di rispondere all'altra persona, **ho interrotto la conversazione con l'assistente AI** e ho chiarito lì, dal mio punto di vista: *io non sto cercando di avviare un'attività di formazione. Ho altre priorità, e quel progetto specifico è la ragione per cui avevo avviato il confronto.*
 
 L'aspetto più istruttivo è che anche l'AI, che mi aveva aiutato a creare la repository, aveva letto l'entusiasmo e la produzione reciproca come segnali di una collaborazione promettente e complementare. Ho dovuto correggere **anche quella lettura**.
 
-Non c'è stato uno scontro, né una rottura documentata. La collaborazione è ancora negoziabile. È emersa una divergenza che fino a quel momento **non avevamo affrontato in modo esplicito**.
+Non c'è stato uno scontro, né una rottura documentata. **Non risulta ancora un confronto diretto fra i due partecipanti su questa differenza di scopi.** La collaborazione è ancora negoziabile. È emersa, nella riflessione del primo partecipante con l'AI, una divergenza che **non era stata verificata esplicitamente come accordo o disaccordo comune**.
 
 ### What surprised you? — Il momento in cui ci siamo fermati
 
